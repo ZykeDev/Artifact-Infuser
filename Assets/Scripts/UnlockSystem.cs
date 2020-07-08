@@ -8,12 +8,18 @@ public class UnlockSystem : MonoBehaviour {
 	private bool isFirstPlaythrough = true;
 
 	public List<Blueprint> blueprints;
+    public bool[] activeBlueprints; // index = blueprint ID
     
     // Start is called before the first frame update
     void Start() {
         gameController = this.GetComponent<GameController>();
+        
+        activeBlueprints = new bool[blueprints.Count];
+        activeBlueprints[0] = true;
+        activeBlueprints[1] = true;
+        activeBlueprints[2] = false;
+        activeBlueprints[3] = false;
     }
-
 
 
     // Notifies the Crafter that its data has been updated (i.e. new blueprint unlock)

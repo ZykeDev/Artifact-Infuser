@@ -1,0 +1,753 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"btn",
+				"blueprintBtnHeight"
+			],
+			[
+				"Upa",
+				"UpdateViewportHeight"
+			],
+			[
+				"bluep",
+				"blueprintBtnHeight"
+			],
+			[
+				"l",
+				"List"
+			],
+			[
+				"bluepi",
+				"blueprintSelectorContent"
+			],
+			[
+				"blueprintBt",
+				"blueprintBtnPref"
+			],
+			[
+				"amoun",
+				"amountToAdd"
+			],
+			[
+				"cr",
+				"CRYSTALS"
+			],
+			[
+				"meta",
+				"METAL"
+			],
+			[
+				"Wood",
+				"WOOD"
+			],
+			[
+				"Re",
+				"ResourceType"
+			],
+			[
+				"am",
+				"amountToAdd"
+			],
+			[
+				"coll",
+				"collisionLODMesh"
+			],
+			[
+				"vertex",
+				"vertexIndexA"
+			],
+			[
+				"Vec",
+				"Vector3"
+			],
+			[
+				"meshS",
+				"meshSemplificationIncrement"
+			],
+			[
+				"bo",
+				"borderVertexIndex"
+			],
+			[
+				"vertexIn",
+				"vertexIndicesMap"
+			],
+			[
+				"sq",
+				"squareViewerMoveThreshForChunkUpdate"
+			],
+			[
+				"mapDataRecieved",
+				"isMapDataReceived"
+			],
+			[
+				"Len",
+				"Length-1"
+			],
+			[
+				"LodMes",
+				"LODMesh"
+			],
+			[
+				"LODm",
+				"LODMesh"
+			],
+			[
+				"mes",
+				"meshDataThreadInfoQueue"
+			],
+			[
+				"mapDataTh",
+				"mapDataThreadInfoQueue"
+			],
+			[
+				"terrainC",
+				"terrainChunkVisibleLastUpdate"
+			],
+			[
+				"Vecto",
+				"Vector2"
+			],
+			[
+				"chu",
+				"chunksVisibleInViewDist"
+			],
+			[
+				"wid",
+				"width-1"
+			],
+			[
+				"off",
+				"offsetX"
+			],
+			[
+				"samp",
+				"sampleY"
+			],
+			[
+				"sample",
+				"sampleX"
+			],
+			[
+				"v",
+				"Vector3"
+			],
+			[
+				"h",
+				"h"
+			],
+			[
+				"levl",
+				"levelData"
+			],
+			[
+				"Wa",
+				"WallCoordsX"
+			],
+			[
+				"int",
+				"intensity"
+			],
+			[
+				"Wi",
+				"WaitForEndOfFrame"
+			],
+			[
+				"boar",
+				"boardController"
+			],
+			[
+				"ca",
+				"cameraController"
+			],
+			[
+				"anim",
+				"animationHandler"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"new",
+				"newZ"
+			],
+			[
+				"plaeyr",
+				"playerZ"
+			],
+			[
+				"payer",
+				"playerX"
+			],
+			[
+				"palyer",
+				"playerZ"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Assets/Scripts/GameController.cs",
+			"settings":
+			{
+				"buffer_size": 2487,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/UnlockSystem.cs",
+			"settings":
+			{
+				"buffer_size": 587,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Blueprint.cs",
+			"settings":
+			{
+				"buffer_size": 777,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/ResourcesTabUI.cs",
+			"settings":
+			{
+				"buffer_size": 1244,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Crafter.cs",
+			"settings":
+			{
+				"buffer_size": 2517,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/ButtonHandler.cs",
+			"settings":
+			{
+				"buffer_size": 454,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pack rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"material theme ac",
+				"Material Theme: Activate theme"
+			],
+			[
+				"isntall",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/UnityProject/Artifact",
+		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/Crafter.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Enums.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Resource.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Inventory.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/PromptHandler.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/TabHandler.cs",
+		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/GameController.cs",
+		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/ResourcesTabUI.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/BoardController.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ProgressBar.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/CameraController.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/GameManager.cs",
+		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/Inventory.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/Enums.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/GameController.cs",
+		"/C/UnityProject/Artifact Infuser/Infuser/Assets/GameController.cs",
+		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/GameManager.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/FalloffGenerator.cs",
+		"/C/UnityProject/Landmass/Assets/Standard Assets/Characters/FirstPersonCharacter/Scripts/RigidbodyFirstPersonController.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/EndlessTerrain.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/MeshGenerator.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/TextureGenerator.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/MapDisplay.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/Noise.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/MapGenerator.cs",
+		"/C/UnityProject/Landmass/Assets/Standard Assets/Characters/FirstPersonCharacter/Scripts/MouseLook.cs",
+		"/C/UnityProject/Landmass/Assets/Standard",
+		"/C/UnityProject/Landmass/Assets/Characters/FirstPersonCharacter/Scripts/MouseLook.cs",
+		"/C/UnityProject/Landmass/Assets/Characters/FirstPersonCharacter/Scripts/RigidbodyFirstPersonController.cs",
+		"/C/UnityProject/Landmass/Assets/Scripts/HideOnPlay.cs",
+		"/C/UnityProject/Landmass/Assets/Editor/MapGeneratorEditor.cs",
+		"/C/Users/Maaarco/AppData/Roaming/Sublime Text 3/Packages/User/if-c.sublime-snippet",
+		"/C/Users/Maaarco/AppData/Roaming/Sublime Text 3/Packages/User/fory.sublime-snippet",
+		"/C/UnityProject/Flip/Assets/Scripts/MovementController.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/EnvController.cs",
+		"/C/Users/Maaarco/AppData/Roaming/Ryujinx/Config.json",
+		"/C/Users/Maaarco/AppData/Roaming/Sublime Text 3/Packages/OmniSharp/OmniSharpSublime.sublime-settings",
+		"/C/Users/Maaarco/Desktop/A+.py",
+		"/C/UnityProject/Flip/Assets/EnvController.cs",
+		"/D/Games/steamapps/common/Colony Survival/gamedata/types.json",
+		"/C/UnityProject/Flip/Assets/Data/level_1.json",
+		"/C/UnityProject/Flip/Assets/Scripts/Level.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/Controls.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/MainMenu.cs",
+		"/C/Program",
+		"/C/UnityProject/Flip/Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs",
+		"/C/UnityProject/Flip/Files/Unity/Hub/Editor/2019.3.8f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/MultipleDisplayUtilities.cs",
+		"/C/Users/Maaarco/AppData/Local/Temp/0a9c530d68e7b0a4e97d21854db2d738/Assets/Scripts/RubyController.cs",
+		"/C/UnityProject/Clock/Clock/Assets/Scripts/Clock.cs",
+		"/C/Users/Maaarco/Desktop/prod.keys",
+		"/D/Downloads/prod (1).keys",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/UnityProject/Flip/Assets/Scripts/LevelHandler.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/AnimationHandler.cs",
+		"/D/Games/steamapps/common/Tabletop Simulator/Tabletop Simulator_Data/Mods/Workshop/670105168.json",
+		"/D/Games/steamapps/common/Tabletop Simulator/Tabletop Simulator_Data/Mods/Workshop/843079413.json",
+		"/C/Users/Maaarco/Desktop/FunKiiU-2.2/FunKiiU.py",
+		"/C/Users/Maaarco/Desktop/FunKiiU-2.2/config.json",
+		"/C/Users/Maaarco/Desktop/USBHL/conf.json",
+		"/C/UnityProject/Flip/Assets/Data/level_2.json",
+		"/C/UnityProject/Flip/Assets/Scripts/CreateLevel.cs",
+		"/C/UnityProject/Flip/Assets/Data/Levels.json",
+		"/C/UnityProject/Flip/Assets/Scripts/JsonHelper.cs",
+		"/F/publish/Config.json",
+		"/C/Users/Maaarco/AppData/Roaming/Ryujinx/system/prod.keys",
+		"/C/UnityProject/Flip/Assets/Plugins/SimpleJSON.cs",
+		"/C/UnityProject/Flip/Assets/Scripts/Data/Levels.json",
+		"/C/UnityProject/Flip/Assets/Scripts/Data/levels.json",
+		"/C/UnityProject/Flip/Assets/Scripts/Levels.cs",
+		"/C/Users/Maaarco/Desktop/Personal Language/encode.py",
+		"/C/Users/Maaarco/Desktop/Personal Language/decode.py",
+		"/C/Users/Maaarco/Desktop/Pyttern/Pyttern/Pyttern.py",
+		"/C/UnityProject/Flip/Library/PackageCache/com.unity.inputsystem@1.0.0-preview.3/InputSystem/Actions/InputActionState.cs"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			";\n",
+			"textC",
+			"uvs",
+			"Update",
+			"Cross",
+			">();\n",
+			"borde",
+			"height",
+			"width",
+			"terrainChunkVisibleLastUpdate",
+			"MapGenerator",
+			"detaiLevels",
+			"detail",
+			"detailLevel",
+			"MapData",
+			"Mesh",
+			"maxViewDst",
+			"mapH",
+			"mapW",
+			"\n        ",
+			"//",
+			"stone\" :",
+			"stone\"",
+			"dirt",
+			"playerPrefab",
+			"player",
+			"TODO",
+			"Random",
+			"Tag(\"B",
+			"void",
+			"bool",
+			"EndLevel",
+			"AnimatePlayer",
+			"Animate",
+			"Levitate",
+			"UpdatePlayerBoardPositon",
+			"boardTypes",
+			"animation",
+			"public void PlayGame() {\n    \tSceneManager.LoadScene(\"Game\");\n\n    }",
+			"deadz",
+			"site",
+			"goalBoardPos",
+			"levels",
+			"Rotate",
+			"RotateAround",
+			"AnimatePl",
+			"Move",
+			"cameraCon",
+			"obj",
+			"camerAc",
+			"UpdatePlayerBoardPositon",
+			"print",
+			"checkOut",
+			"boardController",
+			"UpdateBoard"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			";\n",
+			"borde",
+			"borderedSize",
+			"detailLevels",
+			"editorPreviewLOD",
+			"mapChunkSize",
+			"#",
+			"this.boardController",
+			"UpdatePlayerBoardPositon"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Assets/Scripts/GameController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2487,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Scripts/UnlockSystem.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 587,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								587,
+								587
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/Scripts/Blueprint.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/ResourcesTabUI.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1244,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								423,
+								423
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/Crafter.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2517,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2368,
+								2368
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 823.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/ButtonHandler.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 454,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								448,
+								448
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 68.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 144.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.variable_get":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Artifact-Infuser.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 179.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

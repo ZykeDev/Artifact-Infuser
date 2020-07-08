@@ -7,12 +7,12 @@ public class Crafter : MonoBehaviour {
     private GameController gameController;
     private UnlockSystem unlockSystem;
 
-
     public GameObject blueprintSelectorContent;
     public GameObject blueprintBtnPref;
 
     private List<GameObject> blueprintBtns;
-    private List<int> availableBlueprints;
+    private List<Blueprint> blueprints;
+    private bool[] activeBlueprints;
 
     private float blueprintBtnWidth = 0;
     private float blueprintBtnHeight = 0;
@@ -24,10 +24,12 @@ public class Crafter : MonoBehaviour {
 		unlockSystem = GameObject.Find("GameManager").GetComponent<UnlockSystem>();
 
 		blueprintBtns = new List<GameObject>();
-		availableBlueprints = new List<int>();
+
+		blueprints = unlockSystem.blueprints;
+		activeBlueprints = unlockSystem.activeBlueprints;
 
         // Instantiate all btns
-		InstantiateBlueprints(unlockSystem.blueprints);
+		InstantiateBlueprints();
        
         // Udapte the viewer h = #active * btn.h
 		UpdateViewportHeight();
@@ -48,14 +50,23 @@ public class Crafter : MonoBehaviour {
 
 
     // Instantiates ALL game blueprints, activating only the available ones
-    private void InstantiateBlueprints(List<Blueprint> bps) {
+    private void InstantiateBlueprints() {
     	int i = 0;
     	float gap = 10f;
     	
-    	foreach (Blueprint bp in bps) {
+    	foreach (Blueprint bp in this.blueprints) {
+    		// Don't show blueprints that are not active
+    		if (activeBlueprints[bp.ID] == false) {
+    			continue;
+    		}
+
     		// For some reason Instantiate doesn't accept a 5th param "false" for isWorldMapSpace, so localPos is set later
 	    	GameObject newBlueprint = Instantiate(blueprintBtnPref, new Vector2(0, 0), Quaternion.identity, blueprintSelectorContent.transform) as GameObject;
-	    	newBlueprint.name = "BPbtn_" + i;
+	    	newBlueprint.name = "BPbtn_" + bp.ID;
+
+	    	BlueprintBtnData bpbtndata = newBlueprint.AddComponent<BlueprintBtnData>();
+	    	bpbtndata.SetID(bp.ID);
+	    	
 
 	    	float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
 	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
@@ -73,15 +84,29 @@ public class Crafter : MonoBehaviour {
     }
 
 
+
 	private void UpdateViewportHeight() {
+		RectTransform bpSelectorContentTransform = blueprintSelectorContent.GetComponent<RectTransform>();
+		float blueprintSelectorContentWidth = bpSelectorContentTransform.sizeDelta.x;
 		// 4 is how many btns can fit at a time
-		if (availableBlueprints.Count < 4) {
-			blueprintSelectorContent.GetComponent<RectTransform>().sizeDelta.y = 560f;
+		if (GetNumberOfActiveBlueprints() < 4) {
+			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, 560f);
 
 		} else {
-			//blueprintSelectorContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, blueprintBtnHeight * (availableBlueprints.Count + 1));
-
+			print("here");
+			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
 		}
+	}
+
+
+	// Returns the number of active blueprints
+	private int GetNumberOfActiveBlueprints() {
+		int n = 0;
+		for (int i = 0; i < activeBlueprints.Length; i++) {
+			if (activeBlueprints[i]) n++;
+		}
+
+		return n;
 	}
 
 

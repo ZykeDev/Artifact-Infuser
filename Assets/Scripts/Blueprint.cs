@@ -3,6 +3,7 @@
 [CreateAssetMenu(fileName = "New Blueprint", menuName = "Blueprint")]
 public class Blueprint : ScriptableObject {
 	
+	public int ID;
 	public string name;
 	public Sprite sprite;
 	public float craftingTime;
