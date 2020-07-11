@@ -19,6 +19,10 @@ public class ButtonHandler : MonoBehaviour
     	gameController.TryGathering();
     }
 
+    public void OnSelectBlueprintClick(int blueprintID) {
+        print(blueprintID);
+    }
+
 	
 
 }

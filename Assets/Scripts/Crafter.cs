@@ -6,6 +6,7 @@ public class Crafter : MonoBehaviour {
 
     private GameController gameController;
     private UnlockSystem unlockSystem;
+    private ButtonHandler buttonHandler;
 
     public GameObject blueprintSelectorContent;
     public GameObject blueprintBtnPref;
@@ -22,6 +23,7 @@ public class Crafter : MonoBehaviour {
 	void Start() {
 		gameController = GameObject.Find("GameManager").GetComponent<GameController>();
 		unlockSystem = GameObject.Find("GameManager").GetComponent<UnlockSystem>();
+		buttonHandler = GameObject.Find("MainCanvas").GetComponent<ButtonHandler>();
 
 		blueprintBtns = new List<GameObject>();
 
@@ -51,7 +53,7 @@ public class Crafter : MonoBehaviour {
 
     // Instantiates ALL game blueprints, activating only the available ones
     private void InstantiateBlueprints() {
-    	int i = 0;
+       	int i = 0;
     	float gap = 10f;
     	
     	foreach (Blueprint bp in this.blueprints) {
@@ -64,8 +66,12 @@ public class Crafter : MonoBehaviour {
 	    	GameObject newBlueprint = Instantiate(blueprintBtnPref, new Vector2(0, 0), Quaternion.identity, blueprintSelectorContent.transform) as GameObject;
 	    	newBlueprint.name = "BPbtn_" + bp.ID;
 
+	    	// Not being used for now. Shouse it be added to the "newBlueprint" gameobj?
 	    	BlueprintBtnData bpbtndata = newBlueprint.AddComponent<BlueprintBtnData>();
 	    	bpbtndata.SetID(bp.ID);
+
+	    	print(newBlueprint.GetComponent<Button>());
+	    	//newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(1); });
 	    	
 
 	    	float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
@@ -93,7 +99,8 @@ public class Crafter : MonoBehaviour {
 			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, 560f);
 
 		} else {
-			print("here");
+			print(blueprintSelectorContentWidth);
+			print(blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
 			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
 		}
 	}

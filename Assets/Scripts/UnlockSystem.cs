@@ -17,8 +17,8 @@ public class UnlockSystem : MonoBehaviour {
         activeBlueprints = new bool[blueprints.Count];
         activeBlueprints[0] = true;
         activeBlueprints[1] = true;
-        activeBlueprints[2] = false;
-        activeBlueprints[3] = false;
+        activeBlueprints[2] = true;
+        activeBlueprints[3] = true;
     }
 
 

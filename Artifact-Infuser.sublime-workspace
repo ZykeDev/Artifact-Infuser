@@ -211,7 +211,16 @@
 			"file": "Assets/Scripts/Crafter.cs",
 			"settings":
 			{
-				"buffer_size": 3249,
+				"buffer_size": 3716,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/ButtonHandler.cs",
+			"settings":
+			{
+				"buffer_size": 547,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -220,7 +229,7 @@
 			"file": "Assets/Scripts/UnlockSystem.cs",
 			"settings":
 			{
-				"buffer_size": 856,
+				"buffer_size": 854,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -492,15 +501,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3249,
+						"buffer_size": 3716,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1134,
-								1134
+								2319,
+								2319
 							]
 						],
 						"settings":
@@ -508,7 +517,7 @@
 							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 486.0,
+						"translation.y": 810.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -516,19 +525,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/Scripts/UnlockSystem.cs",
+					"file": "Assets/Scripts/ButtonHandler.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 856,
+						"buffer_size": 547,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								615,
-								615
+								115,
+								128
 							]
 						],
 						"settings":
@@ -542,6 +551,36 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/Scripts/UnlockSystem.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								762,
+								775
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
