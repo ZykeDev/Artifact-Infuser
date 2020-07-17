@@ -40,6 +40,9 @@ ExportedObj/
 # Unity3D generated file on crash reports
 sysinfo.txt
 
+# Package JSON file
+packages-lock.json
+
 # Builds
 *.apk
 *.unitypackage
