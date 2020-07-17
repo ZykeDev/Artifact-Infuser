@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Crafter : MonoBehaviour {
 
@@ -18,6 +19,9 @@ public class Crafter : MonoBehaviour {
     private float blueprintBtnWidth = 0;
     private float blueprintBtnHeight = 0;
 
+    // Currently selected blueprint
+    private int selectedBlueprintID;
+
 
 	// Start is called before the first frame update
 	void Start() {
@@ -30,13 +34,11 @@ public class Crafter : MonoBehaviour {
 		blueprints = unlockSystem.blueprints;
 		activeBlueprints = unlockSystem.activeBlueprints;
 
-        // Instantiate all btns
+        // Instantiate the active blueprint btns
 		InstantiateBlueprints();
        
         // Udapte the viewer h = #active * btn.h
 		UpdateViewportHeight();
-
-        // Get active BPs from the UnlockSystem
 
     }
 
@@ -50,10 +52,25 @@ public class Crafter : MonoBehaviour {
 
     }
 
+    // Destroys all blueprint btns and re-instantiates them, checking for new active ones
+    public void UpdateActiveBlueprints() {
+    	foreach (GameObject bp in blueprintBtns) {
+    		Destroy(bp);
+    	}
 
-    // Instantiates ALL game blueprints, activating only the available ones
+    	//blueprintBtns = new List<GameObject>();
+    	blueprintBtns.Clear();
+
+    	InstantiateBlueprints();
+    	print(blueprintBtns.Count);
+    }
+
+
+
+
+    // Instantiates all active blueprints
     private void InstantiateBlueprints() {
-       	int i = 0;
+       	
     	float gap = 10f;
     	
     	foreach (Blueprint bp in this.blueprints) {
@@ -70,10 +87,9 @@ public class Crafter : MonoBehaviour {
 	    	BlueprintBtnData bpbtndata = newBlueprint.AddComponent<BlueprintBtnData>();
 	    	bpbtndata.SetID(bp.ID);
 
-	    	print(newBlueprint.GetComponent<Button>());
-	    	//newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(1); });
+	    	// Add a listener to the new Button
+	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(bp.ID); });
 	    	
-
 	    	float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
 	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
 
@@ -81,13 +97,14 @@ public class Crafter : MonoBehaviour {
 	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
 	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnHeight = width;
 	    	
-	    	newBlueprint.transform.localPosition = new Vector2(width/2 + 8f, -height/2 - height*i - gap);
+	    	// Correctly position the new button. Use it's ID as a vertical index
+	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + 8f, -height/2 - (height * bp.ID) - gap);
 
 	    	blueprintBtns.Add(newBlueprint);
-
-	    	i++;
     	}
     }
+
+
 
 
 
@@ -99,8 +116,6 @@ public class Crafter : MonoBehaviour {
 			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, 560f);
 
 		} else {
-			print(blueprintSelectorContentWidth);
-			print(blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
 			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
 		}
 	}

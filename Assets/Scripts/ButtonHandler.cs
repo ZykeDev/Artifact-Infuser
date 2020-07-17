@@ -21,6 +21,7 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnSelectBlueprintClick(int blueprintID) {
         print(blueprintID);
+        
     }
 
 	
