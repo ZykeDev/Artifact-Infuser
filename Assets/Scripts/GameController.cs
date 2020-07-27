@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour {
     }
 
 
-
+    // TODO change this into 2 different buttons
     public void GatherResources() {
     	Slider progressbar = GameObject.Find("GatherProgressbar").GetComponent<Slider>();
 
