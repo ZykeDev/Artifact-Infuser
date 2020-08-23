@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   name: Simple Bow
-  sprite: {fileID: 21300000, guid: 56ccab11bd6f0dd4e9b364d8b2019786, type: 3}
+  sprite: {fileID: 21300000, guid: 58d390b247a1f974ab2878a1c16b00d0, type: 3}
   craftingTime: 10
   wood: 20
   metal: 2

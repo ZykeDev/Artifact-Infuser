@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour {
 
 	private int tier;
 
-
 	private float gatheringDuration = 2f;
 	private bool isGatherning = false; // TODO make this into a state?
 	private Text gatherBtnText; // I dont like it being here, but its convenient

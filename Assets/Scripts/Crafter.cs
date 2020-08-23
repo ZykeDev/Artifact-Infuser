@@ -105,11 +105,29 @@ public class Crafter : MonoBehaviour {
 
 	    	// Store the btn size locally
 	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
-	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnHeight = width;
+	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnWidth = width;
 	    	
 	    	// Correctly position the new button. Use it's ID as a vertical index
 	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + 8f, -height/2 - (height * bp.ID) - gap);
 
+	    	// Fix the collider to match the button size 
+	    	newBlueprint.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+
+
+	    	// Add the text and the sprite to the button
+	    	foreach (Transform child in newBlueprint.transform) {
+	    		if (child.name == "BlueprintName") {
+	    			child.GetComponent<Text>().text = bp.name;
+	    			continue;
+	    		}
+	    		if (child.name == "BlueprintSprite") {
+	    			child.GetComponent<SpriteRenderer>().sprite = bp.sprite;
+	    			continue;
+	    		}
+
+	    	}
+
+	    	// Add the finished button to the list of instantiated buttons
 	    	blueprintBtns.Add(newBlueprint);
     	}
     }
@@ -147,7 +165,11 @@ public class Crafter : MonoBehaviour {
         // Set the blueprint as "selected"
         this.selectedBlueprintID = blueprintID;
 
+        // Activate the Craft button
+        buttonHandler.ActivateCraftBtn();
+
 		// Render the artifact silhouette in the ArtifactViewer
+
 
 	}
 
@@ -216,7 +238,7 @@ public class Crafter : MonoBehaviour {
 
 	// TODO
 	private void RefoundResources() {
-		print("refounding...");
+		print("TODO Refounding...");
 	}
 
 
