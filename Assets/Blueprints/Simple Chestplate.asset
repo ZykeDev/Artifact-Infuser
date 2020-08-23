@@ -20,3 +20,4 @@ MonoBehaviour:
   metal: 40
   glass: 0
   crystals: 0
+  price: 30

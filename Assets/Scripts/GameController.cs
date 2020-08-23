@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public Inventory inventory;
+    public Armory armory;
 
 	private int tier;
 
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour {
 
     	// Init Inventory
     	this.inventory = new Inventory();
+        this.armory = new Armory();
     	
     }
 
@@ -98,8 +100,10 @@ public class GameController : MonoBehaviour {
     }
 
 
-
-
+    // Adds the newly crafted Artifact to the Armory
+    public void AddNewArtifact(Artifact artifact) {
+        this.armory.AddArtifact(artifact);        
+    }
 
 
 

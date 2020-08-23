@@ -168,8 +168,8 @@ public class Crafter : MonoBehaviour {
         // Activate the Craft button
         buttonHandler.ActivateCraftBtn();
 
-		// Render the artifact silhouette in the ArtifactViewer
-
+		// Render the artifact's silhouette in the ArtifactViewer
+        // TODO
 
 	}
 
@@ -232,7 +232,19 @@ public class Crafter : MonoBehaviour {
 
 		// Show confirmation window (if this is the first artifact of its kind)
 
+
+		// Check for invalid IDs
+		if (this.selectedBlueprintID < 0) {
+            print("ERROR: Invalid artifact ID");
+            return;
+        }
+
+        // Creat the artifact from the BP data
+        Blueprint bp = GetBlueprintWithID(this.selectedBlueprintID);
+        Artifact newArtifact = new Artifact(bp.ID, bp.name, bp.sprite, bp.rarity, bp.price);
+		
 		// Add the Artifact to the Armory
+		gameController.AddNewArtifact(newArtifact);
 
 	}
 
@@ -261,6 +273,17 @@ public class Crafter : MonoBehaviour {
     	}
     }
 
+
+    // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
+    private Blueprint GetBlueprintWithID(int ID) {
+    	foreach(Blueprint bp in this.blueprints) {
+    		if (bp.ID == ID) {
+    			return bp;
+    		}
+    	}
+
+    	return null;
+    }
 
 
 

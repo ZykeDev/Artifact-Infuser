@@ -12,6 +12,9 @@ public class Blueprint : ScriptableObject {
 	public double glass;
 	public double crystals;
 
+	public int rarity;
+	public int price;
+
 	public RequiredResources GetRequiredResources() {
 		RequiredResources rr = new RequiredResources(this.wood, this.metal, this.glass, this.crystals);
 		return rr;

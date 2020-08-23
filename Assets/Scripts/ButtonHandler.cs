@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonHandler : MonoBehaviour
-{
+public class ButtonHandler : MonoBehaviour {
     // Instantiated buttons
     public GameObject CraftBtn;
     public GameObject StopCraftBtn;
