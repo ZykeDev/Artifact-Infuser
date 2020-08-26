@@ -479,8 +479,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838352fef38d25146b0af1b10ae3dd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellPreafab: {fileID: 8545057180637328305, guid: c706e4454e7ca244b9a404bfb2c550ed,
+  CellPrefab: {fileID: 8545057180637328305, guid: c706e4454e7ca244b9a404bfb2c550ed,
     type: 3}
+  ArmoryContentWeapons: {fileID: 1597927224}
+  ArmoryContentArmor: {fileID: 1375410418}
+  ArmoryContentAccessories: {fileID: 1753229981}
+  ArmoryContentAbyss: {fileID: 2130082578}
 --- !u!1 &76265657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207d23eac574b32438871a2f95d779d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Crafter: {fileID: 674574882}
+  Infuser: {fileID: 6247726}
+  Armory: {fileID: 73572184}
+  Upgrades: {fileID: 76265657}
 --- !u!4 &271865952
 Transform:
   m_ObjectHideFlags: 0
