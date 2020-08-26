@@ -18,4 +18,9 @@ public enum Tab {
 
 
 
-
+public enum ArtifactType {
+	WEAPON,
+	ARMOR,
+	ACCESSORY,
+	ABYSS
+}

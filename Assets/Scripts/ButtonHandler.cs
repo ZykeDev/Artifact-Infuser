@@ -8,16 +8,21 @@ public class ButtonHandler : MonoBehaviour {
     public GameObject CraftBtn;
     public GameObject StopCraftBtn;
 
-
+    // References
     public GameObject GameManager;
-    private GameController gameController;
-    private Crafter crafter;
+    public GameObject Crafter;
+    public GameObject Infuser;
+    public GameObject Armory;
+    public GameObject Upgrades;
 
+    private GameController gameController;
+    private Crafter crafterComp; // Calling it crafterComp to not confuse it with the Crafter GO
+    
 
 
     void Start() {
     	gameController = GameManager.GetComponent<GameController>();
-        crafter = GameObject.Find("Crafter").GetComponent<Crafter>();
+        crafterComp = Crafter.GetComponent<Crafter>();
     }
 
     // Starts the Resource Gathering expedition
@@ -27,16 +32,16 @@ public class ButtonHandler : MonoBehaviour {
 
     // Starts crafting the selected blueprint into an item
     public void OnCraftClick() {
-        crafter.Craft();
+        crafterComp.Craft();
     }
 
     public void OnStopCraftClick() {
-        crafter.StopCraft();
+        crafterComp.StopCraft();
     }
 
     
     public void OnSelectBlueprintClick(int blueprintID) {
-        crafter.SelectBlueprint(blueprintID);    
+        crafterComp.SelectBlueprint(blueprintID);    
         
     }
 

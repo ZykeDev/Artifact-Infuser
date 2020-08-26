@@ -4,6 +4,7 @@
 public class Blueprint : ScriptableObject {
 	
 	public int ID;
+	public ArtifactType type;
 	public string name;
 	public Sprite sprite;
 	public float craftingTime;

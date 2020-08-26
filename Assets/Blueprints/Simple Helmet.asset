@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Simple Helmet
   m_EditorClassIdentifier: 
   ID: 2
+  type: 1
   name: Simple Helmet
   sprite: {fileID: 21300000, guid: 9312d2c80bde0da4489a2da8b971381e, type: 3}
   craftingTime: 5
@@ -20,4 +21,5 @@ MonoBehaviour:
   metal: 12
   glass: 0
   crystals: 0
+  rarity: 0
   price: 8

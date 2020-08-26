@@ -6,6 +6,16 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+    public GameObject Crafter;
+    public GameObject Infuser;
+    public GameObject Armory;
+    public GameObject Upgrades;
+
+    private Crafter crafter;
+    //private Infuser infuser;
+    private ArmoryHandler armoryHandler;
+    //private Upgrades upgrades;
+
 	public Inventory inventory;
     public Armory armory;
 
@@ -18,17 +28,22 @@ public class GameController : MonoBehaviour {
 
 
 	void Awake() {
+        crafter = Crafter.GetComponent<Crafter>();
+        //infuser = Infuser.GetComponent<Infuser>();
+        armoryHandler = Armory.GetComponent<ArmoryHandler>();
+        //upgrades = Upgrades.GetComponent<Upgrades>();
+
+
 		gatherBtnText = GameObject.Find("GatherBtnText").GetComponent<Text>();
-	
+        this.tier = 0;
+
+        // Init Inventory
+        this.inventory = new Inventory();
+        this.armory = new Armory();
 	}
 
     // Start is called before the first frame update
     void Start() {
-    	this.tier = 0;
-
-    	// Init Inventory
-    	this.inventory = new Inventory();
-        this.armory = new Armory();
     	
     }
 
@@ -38,6 +53,8 @@ public class GameController : MonoBehaviour {
     }
 
 
+
+    // Stops gathering resources and adds them to the inventory
     private void FinishGathering() {
     	StopGatherResources();
     	Inventory booty = new Inventory();
@@ -73,6 +90,7 @@ public class GameController : MonoBehaviour {
     	gatherBtnText.text = "Gather Resources";
     }
 
+    // Gathering coroutine. Handles the progressbar.
     private IEnumerator Gathering(Slider progressbar, float time, Action callback) {
     	float increment = 0.01f;
 
@@ -89,7 +107,7 @@ public class GameController : MonoBehaviour {
     	}
     }
 
-    // Upon clicking, gather or stop gathering depending on the state
+    // Gather or stop gathering upon clicking, depending on the state
     public void TryGathering() {
     	if (isGatherning) {
     		StopGatherResources();
@@ -100,9 +118,10 @@ public class GameController : MonoBehaviour {
     }
 
 
-    // Adds the newly crafted Artifact to the Armory
+    // Adds the newly crafted Artifact to the Armory and Updates it
     public void AddNewArtifact(Artifact artifact) {
-        this.armory.AddArtifact(artifact);        
+        this.armory.AddArtifact(artifact);
+        armoryHandler.GetComponent<ArmoryHandler>().UpdateContents();
     }
 
 

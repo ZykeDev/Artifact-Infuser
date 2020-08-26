@@ -52,8 +52,6 @@ public class Crafter : MonoBehaviour {
         // Udapte the viewer h = #active * btn.h
 		UpdateViewportHeight();
 
-
-
     }
 
     // Update is called once per frame
@@ -219,7 +217,6 @@ public class Crafter : MonoBehaviour {
 
 	// Upon compleation, show the new Artifact and add it to the armory
 	private void FinishCrafting() {
-		print("Finished Crafting...");
 		isCrafting = false;
 
 		// Stop the timer
@@ -241,8 +238,9 @@ public class Crafter : MonoBehaviour {
 
         // Creat the artifact from the BP data
         Blueprint bp = GetBlueprintWithID(this.selectedBlueprintID);
-        Artifact newArtifact = new Artifact(bp.ID, bp.name, bp.sprite, bp.rarity, bp.price);
-		
+        //Artifact newArtifact = new Artifact(bp.ID, bp.type, bp.name, bp.sprite, bp.rarity, bp.price);
+        Artifact newArtifact = new Artifact(bp);
+
 		// Add the Artifact to the Armory
 		gameController.AddNewArtifact(newArtifact);
 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Simple Chestplate
   m_EditorClassIdentifier: 
   ID: 0
+  type: 1
   name: Simple Chestplate
   sprite: {fileID: 21300000, guid: 58d390b247a1f974ab2878a1c16b00d0, type: 3}
   craftingTime: 20
@@ -20,4 +21,5 @@ MonoBehaviour:
   metal: 40
   glass: 0
   crystals: 0
+  rarity: 0
   price: 30

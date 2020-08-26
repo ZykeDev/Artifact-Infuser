@@ -28,6 +28,20 @@ public class Armory {
 	}
 
 
+	// Returns all Artifacts in the Armory that fit the given type
+	public List<Artifact> FilterByType(ArtifactType type) {
+		List<Artifact> filteredArtifacts = new List<Artifact>();
+
+		foreach(Artifact a in this.artifacts) {
+			if (a.GetType() == type) {
+				filteredArtifacts.Add(a);
+			}
+		}
+
+		return filteredArtifacts;
+	}
+
+
     
 }
 
