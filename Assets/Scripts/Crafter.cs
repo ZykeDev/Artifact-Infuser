@@ -105,7 +105,7 @@ public class Crafter : MonoBehaviour {
 	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
 	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnWidth = width;
 	    	
-	    	// Correctly position the new button. Use it's ID as a vertical index
+	    	// Correctly position the new button. Use its ID as a vertical index
 	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + 8f, -height/2 - (height * bp.ID) - gap);
 
 	    	// Fix the collider to match the button size 
@@ -254,7 +254,7 @@ public class Crafter : MonoBehaviour {
 
 
 
-
+	// TODO MAKE THIS WORK EVEN IF THE TAB IS INACTIVE
 	private IEnumerator Crafting(Slider progressbar, float time, Action callback) {
     	float increment = 0.01f;
 

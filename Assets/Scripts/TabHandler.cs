@@ -22,13 +22,14 @@ public class TabHandler : MonoBehaviour {
 	private Button armoryBtn;
 	private Button upgradesBtn;
 
+    void Awake() {
+        crafterBtn = crafterTabBtn.GetComponent<Button>();
+        infuserBtn = infuserTabBtn.GetComponent<Button>();
+        armoryBtn = armoryTabBtn.GetComponent<Button>();
+        upgradesBtn = upgradesTabBtn.GetComponent<Button>();        
+    }
 
 	void Start() {		
-		crafterBtn = crafterTabBtn.GetComponent<Button>();
-		infuserBtn = infuserTabBtn.GetComponent<Button>();
-		armoryBtn = armoryTabBtn.GetComponent<Button>();
-		upgradesBtn = upgradesTabBtn.GetComponent<Button>();
-
 		SetAllTabsInteractable();
     	CloseAllTabs();
 

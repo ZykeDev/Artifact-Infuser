@@ -14,15 +14,35 @@ public class ArmoryHandler : MonoBehaviour {
 	private GameController gameController;
 	private int cellsPerRow;
 
+	[SerializeField]
+	private ArmoryTab currentTab;
+
+	
+	// Pool of all cell groups
+	struct Cells {
+		public List<GameObject> weaponCellsList;
+		public List<GameObject> armorCellsList;
+		public List<GameObject> accessoryCellsList;
+		public List<GameObject> abyssCellsList;
+	}
+
+	private Cells instantiatedCells;
 
 	void Awake() {
 		gameController = GameObject.Find("GameManager").GetComponent<GameController>();
 		cellsPerRow = 13;
 
+		instantiatedCells = new Cells();
+		instantiatedCells.weaponCellsList = new List<GameObject>();
+		instantiatedCells.armorCellsList = new List<GameObject>();
+		instantiatedCells.accessoryCellsList = new List<GameObject>();
+		instantiatedCells.abyssCellsList = new List<GameObject>();
+
 	}
 
     // Start is called before the first frame update
     void Start() {
+    	currentTab = ArmoryTab.WEAPONS; // Default is Weapons
     	PopulateGrids();
     }
 
@@ -40,6 +60,9 @@ public class ArmoryHandler : MonoBehaviour {
 
     // Populate the grids with the Artifacts in the Armory
     private void PopulateGrids() {
+    	// First, clear the list of currently instantiated cells
+    	DestroyAllCells();
+
     	// Display the Artifacts in different tabs depending on their type
     	foreach(ArtifactType type in System.Enum.GetValues(typeof(ArtifactType))) {
     		List<Artifact> filteredArtifacts = gameController.armory.FilterByType(type); 
@@ -48,8 +71,11 @@ public class ArmoryHandler : MonoBehaviour {
     		foreach(Artifact a in filteredArtifacts) {
     			GameObject targetParent = GetParentFromType(type);
     			GameObject cell = CreateGridCell(targetParent, i);
-    			i++;
+    			
+    			// Add it to the corresponding pool
+    			GetCellGroupFromType(this.instantiatedCells, type).Add(cell);
 
+    			i++;
     		}	
     	}
     }
@@ -57,12 +83,18 @@ public class ArmoryHandler : MonoBehaviour {
 
     // Creates a new cell and instantiates it
     private GameObject CreateGridCell(GameObject targetParent, int index) {
-    	float offset = 4f;
+    	float offset = 14f;
     	float x = ((float)index * 72f) + offset;
     	float y = offset; // TODO
+    	//print(index + " coords " + x + y);
 
-    	GameObject newCell = Instantiate(CellPrefab, new Vector2(x, y), Quaternion.identity, targetParent.transform) as GameObject;
-	    //newCell.name = "cell_" + "0";
+    	GameObject newCell = Instantiate(CellPrefab, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
+	    newCell.name = "cell_" + index;
+	    
+	    x = 50f + 72f * index + offset * index;
+	    //float y = 50f + h*(i mod 13) + offset*i;  TODO here
+	    newCell.transform.localPosition = new Vector2(x, -50f);
+
 
 
     	return newCell;
@@ -87,6 +119,46 @@ public class ArmoryHandler : MonoBehaviour {
     		default:
     			return ArmoryContentWeapons;    		
     	}
+    }
+
+    // Returns the cell group depending on the Artifact type
+    private List<GameObject> GetCellGroupFromType(Cells cells, ArtifactType type) {
+    	switch(type) {
+    		case ArtifactType.WEAPON:
+    			return cells.weaponCellsList;
+
+    		case ArtifactType.ARMOR:
+    			return cells.armorCellsList;
+
+    		case ArtifactType.ACCESSORY:
+    			return cells.accessoryCellsList;
+
+    		case ArtifactType.ABYSS:
+    			return cells.abyssCellsList;
+
+    		default:
+    			return cells.weaponCellsList;    		
+    	}
+    }
+
+
+
+
+
+    // Destroys every gameobject in instantiatedCells and Clears the list
+    private void DestroyAllCells() {
+    	DestroyCells(instantiatedCells.weaponCellsList);
+    	DestroyCells(instantiatedCells.armorCellsList);
+    	DestroyCells(instantiatedCells.accessoryCellsList);
+    	DestroyCells(instantiatedCells.abyssCellsList);    	
+    }
+
+    private void DestroyCells(List<GameObject> group) {
+    	foreach(GameObject a in group) {
+    		Destroy(a);
+    	}
+
+		group.Clear();
     }
 
 }

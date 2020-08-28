@@ -440,6 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73572185}
   - component: {fileID: 73572186}
+  - component: {fileID: 73572187}
   m_Layer: 5
   m_Name: Armory
   m_TagString: Untagged
@@ -485,6 +486,23 @@ MonoBehaviour:
   ArmoryContentArmor: {fileID: 1375410418}
   ArmoryContentAccessories: {fileID: 1753229981}
   ArmoryContentAbyss: {fileID: 2130082578}
+  currentTab: 0
+--- !u!114 &73572187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73572184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57828bb6b328eca46b56247eefe74fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentWeapons: {fileID: 1597927224}
+  contentArmor: {fileID: 1375410418}
+  contentAccessories: {fileID: 1753229981}
+  contentAbyss: {fileID: 2130082578}
 --- !u!1 &76265657
 GameObject:
   m_ObjectHideFlags: 0
@@ -5398,7 +5416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1375410419
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6614,7 +6632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1753229982
 RectTransform:
   m_ObjectHideFlags: 0

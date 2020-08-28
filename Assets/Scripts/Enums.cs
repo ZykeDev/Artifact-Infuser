@@ -24,3 +24,10 @@ public enum ArtifactType {
 	ACCESSORY,
 	ABYSS
 }
+
+public enum ArmoryTab {
+	WEAPONS,
+	ARMOR,
+	ACCESSORIES,
+	ABYSS
+}
