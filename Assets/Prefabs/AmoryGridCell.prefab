@@ -96,6 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902921491535036544}
   - component: {fileID: 8437314730202365027}
+  - component: {fileID: 1072527736396121312}
   m_Layer: 5
   m_Name: AmoryGridCell
   m_TagString: Untagged
@@ -173,3 +174,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1072527736396121312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545057180637328305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af5f3cc8964899e43bfa37d79fee316b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSprite: {fileID: 4480628451657264607}

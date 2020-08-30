@@ -30,7 +30,7 @@ public class ArmoryHandler : MonoBehaviour {
 
 	void Awake() {
 		gameController = GameObject.Find("GameManager").GetComponent<GameController>();
-		cellsPerRow = 13;
+		cellsPerRow = 7;
 
 		instantiatedCells = new Cells();
 		instantiatedCells.weaponCellsList = new List<GameObject>();
@@ -68,9 +68,9 @@ public class ArmoryHandler : MonoBehaviour {
     		List<Artifact> filteredArtifacts = gameController.armory.FilterByType(type); 
 
     		int i = 0;
-    		foreach(Artifact a in filteredArtifacts) {
+    		foreach(Artifact artifact in filteredArtifacts) {
     			GameObject targetParent = GetParentFromType(type);
-    			GameObject cell = CreateGridCell(targetParent, i);
+    			GameObject cell = CreateGridCell(artifact, targetParent, i);
     			
     			// Add it to the corresponding pool
     			GetCellGroupFromType(this.instantiatedCells, type).Add(cell);
@@ -82,19 +82,28 @@ public class ArmoryHandler : MonoBehaviour {
 
 
     // Creates a new cell and instantiates it
-    private GameObject CreateGridCell(GameObject targetParent, int index) {
+    private GameObject CreateGridCell(Artifact artifact, GameObject targetParent, int index) {
     	float offset = 14f;
-    	float x = ((float)index * 72f) + offset;
-    	float y = offset; // TODO
-    	//print(index + " coords " + x + y);
+    	float cellSize = 72f;
 
     	GameObject newCell = Instantiate(CellPrefab, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
 	    newCell.name = "cell_" + index;
+	    // Apply the corresponding sprite
+	    newCell.GetComponent<ArmoryGridCell>().cellSprite.GetComponent<SpriteRenderer>().sprite = artifact.GetSprite();
 	    
-	    x = 50f + 72f * index + offset * index;
-	    //float y = 50f + h*(i mod 13) + offset*i;  TODO here
-	    newCell.transform.localPosition = new Vector2(x, -50f);
+	    // PLace the cells in a grid, changing row when needed
+		float rowIndex = 0;
+		float colIndex = 0;
 
+		if (index != 0) {
+			rowIndex = (float)index % cellsPerRow;
+			colIndex = (float)Mathf.Floor(index / cellsPerRow);
+		}
+
+    	float x = 50f + (cellSize + offset) * rowIndex;
+    	float y = -50f - (cellSize + offset) * colIndex;
+    	
+	    newCell.transform.localPosition = new Vector2(x, y);
 
 
     	return newCell;

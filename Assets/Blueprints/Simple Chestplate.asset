@@ -15,8 +15,9 @@ MonoBehaviour:
   ID: 0
   type: 1
   name: Simple Chestplate
-  sprite: {fileID: 21300000, guid: 58d390b247a1f974ab2878a1c16b00d0, type: 3}
-  craftingTime: 20
+  blueprintSprite: {fileID: 21300000, guid: 58d390b247a1f974ab2878a1c16b00d0, type: 3}
+  artifactSprite: {fileID: 21300000, guid: afefff95ef0e7af45875722c2417e62f, type: 3}
+  craftingTime: 1
   wood: 7
   metal: 40
   glass: 0

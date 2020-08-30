@@ -7,6 +7,9 @@ public class ArmoryTabHandler : MonoBehaviour {
 	
 	private ArmoryTab currentTab;
 
+	public GameObject artifactGrid;
+	private ScrollRect artifactGridScrollRect;
+
 	public GameObject contentWeapons;
 	public GameObject contentArmor;
 	public GameObject contentAccessories;
@@ -28,6 +31,8 @@ public class ArmoryTabHandler : MonoBehaviour {
 
 
 	void Awake() {
+		artifactGridScrollRect = artifactGrid.GetComponent<ScrollRect>(); 
+
 		weaponBtn = weaponsTabBtn.GetComponent<Button>();
 		armorBtn = armorTabBtn.GetComponent<Button>();
 		accessoriesBtn = accessoriesTabBtn.GetComponent<Button>();
@@ -39,11 +44,14 @@ public class ArmoryTabHandler : MonoBehaviour {
         SetAllTabBtnsInteractable();
     	CloseAllTabs();
 		
+		// Set defaults
 		currentTab = ArmoryTab.WEAPONS;
 		currentTab = defaultTab; // TODO change this to save-state's last Tab
 
     	weaponBtn.interactable = false; // TODO make this change depending on the default loaded tab    	
     	contentWeapons.SetActive(true);
+
+    	artifactGridScrollRect.content = contentWeapons.GetComponent<RectTransform>();
 
     	abyssTabBtn.SetActive(false); // TODO make this tied to the unlockSystem	
 
@@ -72,7 +80,10 @@ public class ArmoryTabHandler : MonoBehaviour {
     	SwitchTab(ArmoryTab.ABYSS);
     }
 
-
+    // Switches the active Tab by
+    // - Setting the toggle button's interatable to false
+    // - Setting the content to true
+    // - Changing the scrollview content
     private void SwitchTab(ArmoryTab tab) {
     	if (currentTab == tab) {
     		return;
@@ -86,21 +97,25 @@ public class ArmoryTabHandler : MonoBehaviour {
     		case ArmoryTab.WEAPONS:
     			weaponBtn.interactable = false;
     			contentWeapons.SetActive(true);
+    			artifactGridScrollRect.content = contentWeapons.GetComponent<RectTransform>();
     			break;
 
     		case ArmoryTab.ARMOR:
     			armorBtn.interactable = false;
     			contentArmor.SetActive(true);
+    			artifactGridScrollRect.content = contentArmor.GetComponent<RectTransform>();
     			break;
 
     		case ArmoryTab.ACCESSORIES:
     			accessoriesBtn.interactable = false;
     			contentAccessories.SetActive(true);
+    			artifactGridScrollRect.content = contentAccessories.GetComponent<RectTransform>();
     			break;
 
     		case ArmoryTab.ABYSS:
     			abyssBtn.interactable = false;
     			contentAbyss.SetActive(true);
+    			artifactGridScrollRect.content = contentAbyss.GetComponent<RectTransform>();
     			break;
 
     		default:

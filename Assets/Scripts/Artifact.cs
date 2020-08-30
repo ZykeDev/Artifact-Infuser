@@ -18,16 +18,16 @@ public class Artifact {
 
 
 
-	public Artifact(int artifactTypeID, ArtifactType type, string name, Sprite sprite, int rarity, int price) {
+	public Artifact(int artifactTypeID, ArtifactType type, string name, Sprite artifactSprite, int rarity, int price) {
 		this.artifactTypeID = artifactTypeID;
 		this.type = type;
 		this.name = name;
-		this.sprite = sprite;
+		this.sprite = artifactSprite;
 		this.rarity = rarity;
 		this.price = price;
 	}
 
-	public Artifact(Blueprint bp) : this(bp.ID, bp.type, bp.name, bp.sprite, bp.rarity, bp.price) {
+	public Artifact(Blueprint bp) : this(bp.ID, bp.type, bp.name, bp.artifactSprite, bp.rarity, bp.price) {
 		// Constructor overalod using only a BP
 	}
 

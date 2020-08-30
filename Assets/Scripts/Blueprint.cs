@@ -6,7 +6,8 @@ public class Blueprint : ScriptableObject {
 	public int ID;
 	public ArtifactType type;
 	public string name;
-	public Sprite sprite;
+	public Sprite blueprintSprite;
+	public Sprite artifactSprite;
 	public float craftingTime;
 	public double wood;
 	public double metal;

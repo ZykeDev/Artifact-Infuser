@@ -119,7 +119,7 @@ public class Crafter : MonoBehaviour {
 	    			continue;
 	    		}
 	    		if (child.name == "BlueprintSprite") {
-	    			child.GetComponent<SpriteRenderer>().sprite = bp.sprite;
+	    			child.GetComponent<SpriteRenderer>().sprite = bp.blueprintSprite;
 	    			continue;
 	    		}
 
@@ -187,7 +187,7 @@ public class Crafter : MonoBehaviour {
 
 		// Start the crafting timer coroutine
 		isCrafting = true;
-		float craftingDuration = 2f;
+		float craftingDuration = 0.1f; // TODO get from bp
 		progressbar.value = 0;
 		craftingCoroutine = StartCoroutine(Crafting(progressbar, craftingDuration, FinishCrafting));
 
@@ -238,7 +238,6 @@ public class Crafter : MonoBehaviour {
 
         // Creat the artifact from the BP data
         Blueprint bp = GetBlueprintWithID(this.selectedBlueprintID);
-        //Artifact newArtifact = new Artifact(bp.ID, bp.type, bp.name, bp.sprite, bp.rarity, bp.price);
         Artifact newArtifact = new Artifact(bp);
 
 		// Add the Artifact to the Armory
