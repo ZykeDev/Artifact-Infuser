@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Crafter : MonoBehaviour {
 
+	// TODO get references to GameManager etc
+
     private GameController gameController;
     private UnlockSystem unlockSystem;
     private ButtonHandler buttonHandler;
@@ -26,7 +28,6 @@ public class Crafter : MonoBehaviour {
     // Currently selected blueprint
     private int selectedBlueprintID = -1;
 
-    private bool isCrafting = false;
 	private Coroutine craftingCoroutine = null;
 	private Inventory refoundedResources = new Inventory();
 
@@ -183,29 +184,33 @@ public class Crafter : MonoBehaviour {
 		// Check if there are enough resources
 
 		// Check if there is enough space (unimplemented)
-		// ---
-
-		// Start the crafting timer coroutine
-		isCrafting = true;
-		float craftingDuration = 0.1f; // TODO get from bp
-		progressbar.value = 0;
-		craftingCoroutine = StartCoroutine(Crafting(progressbar, craftingDuration, FinishCrafting));
-
-		// Compute the "refounded resources" if stopped and store them
-		
-		// Spend the resources
 
 		// Change the Craft btn to the "Stop Crafting" btn
 		buttonHandler.SawpCraftWithStop();
+
+		// Start the crafting timer coroutine
+		float craftingDuration = 5f; // TODO get from bp
+		progressbar.value = 0;
+
+		gameController.Craft(this.selectedBlueprintID, craftingDuration);
+
+		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the craft?)
+		
+		// Spend the resources
+
+	}
+
+	public void UpdateCraftingProgress(float progress) {
+		progressbar.value = progress;
 	}
 
 
 	public void StopCraft() {
-		isCrafting = false;
-
 		// Stop the timer
-    	StopCoroutine(craftingCoroutine);
-    	progressbar.value = 0;
+    	gameController.StopCraft();
+
+    	// Reset the progress bar
+    	UpdateCraftingProgress(0);
 
     	// Change the Craft btn to the "Craft" btn
 		buttonHandler.SawpStopWithCraft();
@@ -216,33 +221,14 @@ public class Crafter : MonoBehaviour {
 
 
 	// Upon compleation, show the new Artifact and add it to the armory
-	private void FinishCrafting() {
-		isCrafting = false;
-
-		// Stop the timer
-    	StopCoroutine(craftingCoroutine);
-    	progressbar.value = 0;
+	public void FinishCrafting() {
+    	UpdateCraftingProgress(0); // Needed?
 
     	// Change the Craft btn to the "Craft" btn
 		buttonHandler.SawpStopWithCraft();
 
-
-		// Show confirmation window (if this is the first artifact of its kind)
-
-
-		// Check for invalid IDs
-		if (this.selectedBlueprintID < 0) {
-            print("ERROR: Invalid artifact ID");
-            return;
-        }
-
-        // Creat the artifact from the BP data
-        Blueprint bp = GetBlueprintWithID(this.selectedBlueprintID);
-        Artifact newArtifact = new Artifact(bp);
-
-		// Add the Artifact to the Armory
-		gameController.AddNewArtifact(newArtifact);
-
+		// Show confirmation window (if this is the first artifact of its kind) TODO
+		// -- 
 	}
 
 	// TODO
@@ -250,29 +236,8 @@ public class Crafter : MonoBehaviour {
 		print("TODO Refounding...");
 	}
 
-
-
-
-	// TODO MAKE THIS WORK EVEN IF THE TAB IS INACTIVE
-	private IEnumerator Crafting(Slider progressbar, float time, Action callback) {
-    	float increment = 0.01f;
-
-    	for (float i = 0f; i < time; i += increment) {
-    		progressbar.value = i/time;
-    		yield return new WaitForSeconds(increment);
-
-    		// Callback when done
-    		if (i >= time - increment) {
-    			progressbar.value = 0;
-    			if (callback != null) callback();
-    		}
-    			
-    	}
-    }
-
-
     // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
-    private Blueprint GetBlueprintWithID(int ID) {
+    public Blueprint GetBlueprintWithID(int ID) {
     	foreach(Blueprint bp in this.blueprints) {
     		if (bp.ID == ID) {
     			return bp;

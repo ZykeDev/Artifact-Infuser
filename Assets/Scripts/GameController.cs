@@ -6,15 +6,18 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+    public GameObject backgroundManagerObj;
+    private BackgroundManager backgroundManager;
+
     public GameObject Crafter;
     public GameObject Infuser;
     public GameObject Armory;
     public GameObject Upgrades;
 
     private Crafter crafter;
-    //private Infuser infuser;
+    //private Infuser infuser; TODO
     private ArmoryHandler armoryHandler;
-    //private Upgrades upgrades;
+    //private Upgrades upgrades; TODO
 
 	public Inventory inventory;
     public Armory armory;
@@ -28,6 +31,8 @@ public class GameController : MonoBehaviour {
 
 
 	void Awake() {
+        backgroundManager = backgroundManagerObj.GetComponent<BackgroundManager>();
+
         crafter = Crafter.GetComponent<Crafter>();
         //infuser = Infuser.GetComponent<Infuser>();
         armoryHandler = Armory.GetComponent<ArmoryHandler>();
@@ -51,6 +56,26 @@ public class GameController : MonoBehaviour {
     void Update() {
         
     }
+
+    // Forward Coroutine requests to BackgroundManager/Crafter
+    public void Craft(int blueprintID, float duration) { backgroundManager.Craft(blueprintID, duration); }
+    public void StopCraft() { backgroundManager.StopCraft(); }
+    public void UpdateCraftingProgress(float progress) {
+        // Update only if the crafter is active
+        if (Crafter.activeSelf) crafter.UpdateCraftingProgress(progress); 
+    }
+    public void FinishCrafting(int selectedBlueprintID) {
+        // Creat the artifact from the BP data
+        Blueprint bp = crafter.GetBlueprintWithID(selectedBlueprintID);
+        Artifact newArtifact = new Artifact(bp);
+
+        // Add the Artifact to the Armory
+        AddNewArtifact(newArtifact);
+
+        crafter.FinishCrafting();
+    }
+
+
 
 
 
