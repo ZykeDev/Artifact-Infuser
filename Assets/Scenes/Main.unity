@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838352fef38d25146b0af1b10ae3dd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellPrefab: {fileID: 8545057180637328305, guid: c706e4454e7ca244b9a404bfb2c550ed,
+  CellPrefab: {fileID: 6013559006602696974, guid: a9400af6b36ab2142b3b02edb7c35e5e,
     type: 3}
   ArmoryContentWeapons: {fileID: 1597927224}
   ArmoryContentArmor: {fileID: 1375410418}
@@ -6215,7 +6215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -339, y: 265.9401}
+  m_AnchoredPosition: {x: -339, y: 265.93988}
   m_SizeDelta: {x: 678, y: 990.3457}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1598548830
@@ -6534,8 +6534,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.53706145
+  m_Value: 1.0000008
+  m_Size: 0.5370655
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

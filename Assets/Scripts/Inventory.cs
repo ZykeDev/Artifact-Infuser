@@ -43,19 +43,15 @@ public class Inventory {
 		switch (type) {
 			case ResourceType.WOOD:
 				return this.wood.amount;
-				break;
 
 			case ResourceType.METAL:
 				return this.metal.amount;
-				break;
 
 			case ResourceType.GLASS:
 				return this.glass.amount;
-				break;
 
 			case ResourceType.CRYSTALS:
 				return this.crystals.amount;
-				break;
 	
 			default:
 				return 0;

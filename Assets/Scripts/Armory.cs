@@ -33,7 +33,7 @@ public class Armory {
 		List<Artifact> filteredArtifacts = new List<Artifact>();
 
 		foreach(Artifact a in this.artifacts) {
-			if (a.GetType() == type) {
+			if (a.GetArtifactType() == type) {
 				filteredArtifacts.Add(a);
 			}
 		}

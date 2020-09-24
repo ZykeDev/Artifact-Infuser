@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArmoryHandler : MonoBehaviour {
 
@@ -89,7 +90,7 @@ public class ArmoryHandler : MonoBehaviour {
     	GameObject newCell = Instantiate(CellPrefab, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
 	    newCell.name = "cell_" + index;
 	    // Apply the corresponding sprite
-	    newCell.GetComponent<ArmoryGridCell>().cellSprite.GetComponent<SpriteRenderer>().sprite = artifact.GetSprite();
+	    newCell.GetComponent<ArmoryGridCell>().cellIcon.GetComponent<Image>().sprite = artifact.GetSprite();
 	    
 	    // PLace the cells in a grid, changing row when needed
 		float rowIndex = 0;

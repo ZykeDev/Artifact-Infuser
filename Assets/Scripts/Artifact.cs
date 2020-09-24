@@ -33,7 +33,7 @@ public class Artifact {
 
 
 
-	public ArtifactType GetType() {
+	public ArtifactType GetArtifactType() {
 		return this.type;
 	}
 

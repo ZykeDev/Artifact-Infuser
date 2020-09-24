@@ -15,7 +15,6 @@ public class Resource {
 		// Throw an exception if the amount would overflow
 		if (this.amount >= double.MaxValue - amountToAdd) {
 			throw new System.InvalidOperationException("Amount of " + this.type + " has reached MaxDouble");
-			return;
 		}
 
 		if (amountToAdd <= 0) {
