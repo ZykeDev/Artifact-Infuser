@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
     public GameObject Upgrades;
 
     private Crafter crafter;
-    //private Infuser infuser; TODO
+    private Infuser infuser;
     private ArmoryHandler armoryHandler;
     //private Upgrades upgrades; TODO
 
@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
         backgroundManager = backgroundManagerObj.GetComponent<BackgroundManager>();
 
         crafter = Crafter.GetComponent<Crafter>();
-        //infuser = Infuser.GetComponent<Infuser>();
+        infuser = Infuser.GetComponent<Infuser>();
         armoryHandler = Armory.GetComponent<ArmoryHandler>();
         //upgrades = Upgrades.GetComponent<Upgrades>();
 
@@ -57,8 +57,10 @@ public class GameController : MonoBehaviour {
         
     }
 
-    // Forward Coroutine requests to BackgroundManager/Crafter
-    public void Craft(int blueprintID, float duration) { backgroundManager.Craft(blueprintID, duration); }
+
+    // ----------- Forward Coroutine requests to BackgroundManager/Crafter ----------- //
+
+    public void Craft(int blueprintID, float time) { backgroundManager.Craft(blueprintID, time); }
     public void StopCraft() { backgroundManager.StopCraft(); }
     public void UpdateCraftingProgress(float progress) {
         // Update only if the crafter is active
@@ -75,8 +77,28 @@ public class GameController : MonoBehaviour {
         crafter.FinishCrafting();
     }
 
+    // ----------- Forward Coroutine requests to BackgroundManager/Infuser ----------- //   
+
+    public void Infuse(int cypherID, float time) { backgroundManager.Infuse(cypherID, time); }
+    public void StopInfusion() { backgroundManager.StopInfusion(); }
+    public void UpdateInfusionProgress(float progress) {
+        // Update only if the infuser is active
+        if (Infuser.activeSelf) infuser.UpdateInfusionProgress(progress); 
+    }
+    public void FinishInfusing(int selectedCypherID) {
+        // Creat the artifact from the BP data
+        Cypher c = infuser.GetCypherWithID(selectedCypherID);
+        //Artifact newArtifact = new Artifact(c);
+        // TODO
+
+        // Add the Artifact to the Armory
+        //AddNewArtifact(newArtifact);
+
+        infuser.FinishInfusing();
+    }
 
 
+    // ----------- //
 
 
     // Stops gathering resources and adds them to the inventory

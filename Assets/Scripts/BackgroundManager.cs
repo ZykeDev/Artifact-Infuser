@@ -9,7 +9,9 @@ public class BackgroundManager : MonoBehaviour {
 	private GameController gameController;
 
 	private Coroutine craftingCoroutine = null;
+	private Coroutine infusionCoroutine = null;
 	private int selectedBlueprintID = -1;
+	private int selectedCypherID = -1;
 
 
 	void Awake() {
@@ -17,9 +19,9 @@ public class BackgroundManager : MonoBehaviour {
 	}
 
 
-    public void Craft(int blueprintID, float duration) {
+    public void Craft(int blueprintID, float time) {
     	this.selectedBlueprintID = blueprintID;
-    	craftingCoroutine = StartCoroutine(Crafting(duration, FinishCrafting));
+    	craftingCoroutine = StartCoroutine(Crafting(time, FinishCrafting));
     }
 
     public void StopCraft() {
@@ -39,7 +41,7 @@ public class BackgroundManager : MonoBehaviour {
     }
 
 
-
+    // Crafting coroutine
     private IEnumerator Crafting(float time, Action callback) {
     	float increment = 0.01f;
 
@@ -56,6 +58,50 @@ public class BackgroundManager : MonoBehaviour {
     			
     	}
     }
+
+
+    // ------------- //
+   
+    public void Infuse(int cypherID, float time) {
+    	this.selectedCypherID = cypherID;
+    	infusionCoroutine = StartCoroutine(Infusing(time, FinishInfusing));
+    }
+
+    public void StopInfusion() {
+    	StopCoroutine(infusionCoroutine);
+    }
+
+    public void FinishInfusing() {
+    	StopCoroutine(infusionCoroutine);
+
+    	// Check for invalid IDs
+		if (this.selectedCypherID < 0) {
+            print("ERROR: Invalid cypher ID");
+            return;
+        }
+
+        gameController.FinishCrafting(this.selectedCypherID);
+    }
+
+
+    // Crafting coroutine
+    private IEnumerator Infusing(float time, Action callback) {
+    	float increment = 0.01f;
+
+    	for (float i = 0f; i < time; i += increment) {
+    		gameController.UpdateInfusionProgress(i/time);
+
+    		yield return new WaitForSeconds(increment);
+
+    		// Callback when done
+    		if (i >= time - increment) {
+    			gameController.UpdateInfusionProgress(0);
+    			if (callback != null) callback();
+    		}
+    			
+    	}
+    }
+
 
 
 }

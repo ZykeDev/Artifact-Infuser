@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class Crafter : MonoBehaviour {
 
-	// TODO get references to GameManager etc
+	public GameObject GameManager;
+	public GameObject MainCanvas;
 
     private GameController gameController;
     private UnlockSystem unlockSystem;
@@ -28,16 +29,15 @@ public class Crafter : MonoBehaviour {
     // Currently selected blueprint
     private int selectedBlueprintID = -1;
 
-	private Coroutine craftingCoroutine = null;
 	private Inventory refoundedResources = new Inventory();
 
 
 
 	// Start is called before the first frame update
 	void Start() {
-		gameController = GameObject.Find("GameManager").GetComponent<GameController>();
-		unlockSystem = GameObject.Find("GameManager").GetComponent<UnlockSystem>();
-		buttonHandler = GameObject.Find("MainCanvas").GetComponent<ButtonHandler>();
+		gameController = GameManager.GetComponent<GameController>();
+		unlockSystem = GameManager.GetComponent<UnlockSystem>();
+		buttonHandler = MainCanvas.GetComponent<ButtonHandler>();
 
 		// Reference the crafting progressbar
 		progressbar = GameObject.Find("CraftProgressbar").GetComponent<Slider>();
@@ -55,15 +55,6 @@ public class Crafter : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
-    // TODO remove
-    public void Notify() {
-
-    }
 
     // Destroys all blueprint btns and re-instantiates them, checking for new active ones
     public void UpdateActiveBlueprints() {
@@ -120,7 +111,7 @@ public class Crafter : MonoBehaviour {
 	    			continue;
 	    		}
 	    		if (child.name == "BlueprintSprite") {
-	    			child.GetComponent<SpriteRenderer>().sprite = bp.blueprintSprite;
+	    			child.GetComponent<Image>().sprite = bp.blueprintSprite;
 	    			continue;
 	    		}
 
@@ -189,10 +180,10 @@ public class Crafter : MonoBehaviour {
 		buttonHandler.SawpCraftWithStop();
 
 		// Start the crafting timer coroutine
-		float craftingDuration = 5f; // TODO get from bp
+		float craftingTime = GetBlueprintWithID(this.selectedBlueprintID).craftingTime;
 		progressbar.value = 0;
 
-		gameController.Craft(this.selectedBlueprintID, craftingDuration);
+		gameController.Craft(this.selectedBlueprintID, craftingTime);
 
 		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the craft?)
 		
