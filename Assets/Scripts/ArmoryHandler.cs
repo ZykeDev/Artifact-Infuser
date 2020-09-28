@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ArmoryHandler : MonoBehaviour {
 
+	public GameObject GameManager;
+	private GameController gameController;
+
 	public GameObject CellPrefab;
 
 	public GameObject ArmoryContentWeapons;
@@ -12,7 +15,6 @@ public class ArmoryHandler : MonoBehaviour {
 	public GameObject ArmoryContentAccessories;
 	public GameObject ArmoryContentAbyss;
 
-	private GameController gameController;
 	private int cellsPerRow;
 
 	[SerializeField]
@@ -30,7 +32,7 @@ public class ArmoryHandler : MonoBehaviour {
 	private Cells instantiatedCells;
 
 	void Awake() {
-		gameController = GameObject.Find("GameManager").GetComponent<GameController>();
+		gameController = GameManager.GetComponent<GameController>();
 		cellsPerRow = 7;
 
 		instantiatedCells = new Cells();
@@ -38,7 +40,6 @@ public class ArmoryHandler : MonoBehaviour {
 		instantiatedCells.armorCellsList = new List<GameObject>();
 		instantiatedCells.accessoryCellsList = new List<GameObject>();
 		instantiatedCells.abyssCellsList = new List<GameObject>();
-
 	}
 
     // Start is called before the first frame update
@@ -53,9 +54,9 @@ public class ArmoryHandler : MonoBehaviour {
     }
 
 
-    // Changes the current tab
-    public void ChangeTab() {
-
+    // Updates the tab contents when it is focused on
+    public void OnFocus() {
+        PopulateGrids();
     }
 
 
@@ -164,6 +165,11 @@ public class ArmoryHandler : MonoBehaviour {
     }
 
     private void DestroyCells(List<GameObject> group) {
+    	if (group == null) {
+    		group = new List<GameObject>();
+    		return;
+    	}
+
     	foreach(GameObject a in group) {
     		Destroy(a);
     	}

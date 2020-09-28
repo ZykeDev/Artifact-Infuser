@@ -79,6 +79,7 @@ public class TabHandler : MonoBehaviour {
     		case Tab.ARMORY:
     			armoryBtn.interactable = false;
     			armoryTab.SetActive(true);
+                armoryTab.GetComponent<ArmoryHandler>().OnFocus();
     			break;
 
     		case Tab.UPGRADES:

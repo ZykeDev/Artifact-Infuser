@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour {
 
     private Crafter crafter;
     private Infuser infuser;
-    private ArmoryHandler armoryHandler;
+    private ArmoryHandler armoryHandler; //Called armoryHandler to not confuse it with the armory struct
     //private Upgrades upgrades; TODO
 
 	public Inventory inventory;
@@ -168,7 +168,10 @@ public class GameController : MonoBehaviour {
     // Adds the newly crafted Artifact to the Armory and Updates it
     public void AddNewArtifact(Artifact artifact) {
         this.armory.AddArtifact(artifact);
-        armoryHandler.GetComponent<ArmoryHandler>().UpdateContents();
+
+        if (Armory.activeSelf) {
+            armoryHandler.GetComponent<ArmoryHandler>().UpdateContents();
+        }
     }
 
 
