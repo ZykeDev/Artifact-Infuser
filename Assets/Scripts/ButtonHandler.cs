@@ -20,12 +20,14 @@ public class ButtonHandler : MonoBehaviour {
 
     private GameController gameController;
     private Crafter crafterComp; // Calling it crafterComp to not confuse it with the Crafter GO
+    private Infuser infuserComp;
     
 
 
     void Start() {
     	gameController = GameManager.GetComponent<GameController>();
         crafterComp = Crafter.GetComponent<Crafter>();
+        infuserComp = Infuser.GetComponent<Infuser>();
     }
 
     // Starts the Resource Gathering expedition
@@ -70,8 +72,18 @@ public class ButtonHandler : MonoBehaviour {
 
     // ------------------------ //
 
-    public void OnSelectCypherClick(int blueprintID) {
-        crafterComp.SelectBlueprint(blueprintID);    
+
+    // Starts crafting the selected blueprint into an item
+    public void OnInfuseClick() {
+        infuserComp.Infuse();
+    }
+
+    public void OnStopInfusionClick() {
+        infuserComp.StopInfusion();
+    }
+
+    public void OnSelectCypherClick(int cypherID) {
+        infuserComp.SelectCypher(cypherID);    
         
     }
 

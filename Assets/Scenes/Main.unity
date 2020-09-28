@@ -334,14 +334,14 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 15390560}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1115166227}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnCraftClick
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: OnInfuseClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1140,7 +1140,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 120291270}
   m_OnClick:
     m_PersistentCalls:
@@ -2062,14 +2062,14 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 399275583}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1115166227}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnStopCraftClick
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
+        m_MethodName: OnStopInfusionClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2923,7 +2923,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 579184932}
   m_OnClick:
     m_PersistentCalls:
@@ -4561,8 +4561,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CraftBtn: {fileID: 579184929}
   StopCraftBtn: {fileID: 120291267}
-  InfuseBtn: {fileID: 0}
-  StopInfuseBtn: {fileID: 0}
+  InfuseBtn: {fileID: 15390557}
+  StopInfuseBtn: {fileID: 399275580}
   GameManager: {fileID: 271865950}
   Crafter: {fileID: 674574882}
   Infuser: {fileID: 6247726}

@@ -29,13 +29,17 @@ public class BackgroundManager : MonoBehaviour {
     }
 
     public void FinishCrafting() {
-    	StopCoroutine(craftingCoroutine);
+    	if (craftingCoroutine == null) {
+            return;
+        }
 
     	// Check for invalid IDs
 		if (this.selectedBlueprintID < 0) {
             print("ERROR: Invalid artifact ID");
             return;
         }
+
+        StopCoroutine(craftingCoroutine);
 
         gameController.FinishCrafting(this.selectedBlueprintID);
     }
@@ -72,13 +76,17 @@ public class BackgroundManager : MonoBehaviour {
     }
 
     public void FinishInfusing() {
-    	StopCoroutine(infusionCoroutine);
+        if (infusionCoroutine == null) {
+            return;
+        }
 
     	// Check for invalid IDs
 		if (this.selectedCypherID < 0) {
             print("ERROR: Invalid cypher ID");
             return;
         }
+
+        StopCoroutine(infusionCoroutine);
 
         gameController.FinishCrafting(this.selectedCypherID);
     }

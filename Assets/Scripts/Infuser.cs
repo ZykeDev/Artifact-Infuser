@@ -13,11 +13,10 @@ public class Infuser : MonoBehaviour {
     private UnlockSystem unlockSystem;
     private ButtonHandler buttonHandler;
 
-    private Slider progressbar;
+    private Slider progressbar; 
 
     public GameObject cypherSelectorContent;
     public GameObject cypherBtnPref;
-
 
     private List<GameObject> cypherBtns;
     private List<Cypher> cyphers;
