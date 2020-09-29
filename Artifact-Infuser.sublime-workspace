@@ -5,7 +5,11 @@
 		[
 			[
 				"selecte",
-				"selectedDistrict"
+				"selectedCypherID"
+			],
+			[
+				"armory",
+				"armoryHandler"
 			],
 			[
 				"Dist",
@@ -240,37 +244,37 @@
 	"buffers":
 	[
 		{
-			"file": "/C/Users/Marco/Documents/project-wolves/Assets/Scripts/DistrictSelectionHandler.cs",
+			"file": "Assets/Scripts/GameController.cs",
 			"settings":
 			{
-				"buffer_size": 3107,
+				"buffer_size": 5343,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/Marco/Documents/project-wolves/Assets/Scripts/CameraController.cs",
+			"file": "Assets/Scripts/ButtonHandler.cs",
 			"settings":
 			{
-				"buffer_size": 1065,
+				"buffer_size": 2656,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/Marco/Documents/project-wolves/Assets/QuickOutline/Scripts/Outline.cs",
+			"file": "Assets/Scripts/BackgroundManager.cs",
 			"settings":
 			{
-				"buffer_size": 8573,
+				"buffer_size": 2657,
 				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/Marco/Documents/project-wolves/Assets/Scripts/District.cs",
+			"file": "Assets/Scripts/Infuser.cs",
 			"settings":
 			{
-				"buffer_size": 393,
+				"buffer_size": 6504,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -344,13 +348,18 @@
 	},
 	"expanded_folders":
 	[
+		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts"
 	],
 	"file_history":
 	[
-		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/ZoomCamera.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/QuickOutline/Scripts/Outline.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/DistrictSelectionHandler.cs",
+		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/ArmoryHandler.cs",
+		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/TabHandler.cs",
 		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/DistrictSelectionHandler.cs",
+		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/District.cs",
+		"/C/Users/Marco/Documents/project-wolves/Assets/QuickOutline/Scripts/Outline.cs",
+		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/CameraController.cs",
+		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/ZoomCamera.cs",
+		"/C/Users/Marco/Documents/project-wolves/Assets/DistrictSelectionHandler.cs",
 		"/C/Users/Marco/Documents/GitHub/Map Hover Test/Assets/District.cs",
 		"/C/Users/Marco/Documents/GitHub/Map Hover Test/Assets/DistrictSelect.cs",
 		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/UnlockSystem.cs",
@@ -368,7 +377,6 @@
 		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Infuser.cs",
 		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Cypher.cs",
 		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Blueprint.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/ArmoryHandler.cs",
 		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Resource.cs",
 		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Armory.cs",
 		"/C/Users/Marco/Documents/GitHub/canvasTests/Assets/TabGroup.cs",
@@ -482,6 +490,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Craft(",
+			"Craft()",
+			"destroy",
 			"tOut",
 			"target",
 			"selectedDistrict",
@@ -591,60 +602,64 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Marco/Documents/project-wolves/Assets/Scripts/DistrictSelectionHandler.cs",
+					"file": "Assets/Scripts/GameController.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3107,
+						"buffer_size": 5343,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3028,
-								3028
+								2538,
+								2532
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.sublime-syntax"
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1428.8,
+						"translation.y": 1182.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/Users/Marco/Documents/project-wolves/Assets/Scripts/CameraController.cs",
+					"file": "Assets/Scripts/ButtonHandler.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1065,
+						"buffer_size": 2656,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								489,
-								489
+								1819,
+								1819
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C#/C#.sublime-syntax"
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 171.0,
+						"translation.y": 1025.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -652,49 +667,49 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/Marco/Documents/project-wolves/Assets/QuickOutline/Scripts/Outline.cs",
+					"file": "Assets/Scripts/BackgroundManager.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8573,
+						"buffer_size": 2657,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1868,
-								1868
+								783,
+								783
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1466.4,
+						"translation.y": 512.8,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/C/Users/Marco/Documents/project-wolves/Assets/Scripts/District.cs",
+					"file": "Assets/Scripts/Infuser.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 393,
+						"buffer_size": 6504,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								356,
-								356
+								4911,
+								4917
 							]
 						],
 						"settings":
@@ -702,10 +717,10 @@
 							"syntax": "Packages/C#/C#.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 3020.8,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -758,7 +773,7 @@
 	"project": "Artifact-Infuser.sublime-project",
 	"replace":
 	{
-		"height": 114.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":
