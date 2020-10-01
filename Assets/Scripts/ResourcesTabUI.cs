@@ -11,10 +11,10 @@ public class ResourcesTabUI : MonoBehaviour {
 	public GameObject gold;
 	public GameObject wood;
 	public GameObject metal;
-	public GameObject glass;
+	public GameObject leather;
 	public GameObject crystals;
 
-	private Text goldText, woodText, metalText, glassText, crystalsText;
+	private Text goldText, woodText, metalText, leatherText, crystalsText;
 
 	void Awake() {
 		gameController = gameManager.GetComponent<GameController>();
@@ -24,7 +24,7 @@ public class ResourcesTabUI : MonoBehaviour {
 		goldText = gold.GetComponent<Text>();
 		woodText = wood.GetComponent<Text>();
 		metalText = metal.GetComponent<Text>();
-		glassText = glass.GetComponent<Text>();
+		leatherText = leather.GetComponent<Text>();
 		crystalsText = crystals.GetComponent<Text>();
 	}
 
@@ -37,7 +37,7 @@ public class ResourcesTabUI : MonoBehaviour {
 
 		woodText.text = inventory.GetResourceAmount(ResourceType.WOOD).ToString();
 		metalText.text = inventory.GetResourceAmount(ResourceType.METAL).ToString();
-		glassText.text = inventory.GetResourceAmount(ResourceType.GLASS).ToString();
+		leatherText.text = inventory.GetResourceAmount(ResourceType.LEATHER).ToString();
 		crystalsText.text = inventory.GetResourceAmount(ResourceType.CRYSTALS).ToString();
 
 	}

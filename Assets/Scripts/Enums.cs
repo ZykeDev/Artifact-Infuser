@@ -2,7 +2,7 @@
 public enum ResourceType {
 	WOOD,
 	METAL,
-	GLASS,
+	LEATHER,
 	CRYSTALS
 
 

@@ -15,11 +15,11 @@ public class Blueprint : ScriptableObject {
 
 	public double wood;
 	public double metal;
-	public double glass;
+	public double leather;
 	public double crystals;	
 
 	public RequiredResources GetRequiredResources() {
-		RequiredResources rr = new RequiredResources(this.wood, this.metal, this.glass, this.crystals);
+		RequiredResources rr = new RequiredResources(this.wood, this.metal, this.leather, this.crystals);
 		return rr;
 	}
 
@@ -29,13 +29,13 @@ public class Blueprint : ScriptableObject {
 public struct RequiredResources {
 	public double wood;
 	public double metal;
-	public double glass;
+	public double leather;
 	public double crystals;
 
-	public RequiredResources(double wood, double metal, double glass, double crystals) {
+	public RequiredResources(double wood, double metal, double leather, double crystals) {
 		this.wood = wood;
 		this.metal = metal;
-		this.glass = glass;
+		this.leather = leather;
 		this.crystals = crystals;
 	}
 }
