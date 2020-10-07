@@ -98,7 +98,7 @@ public class Crafter : MonoBehaviour {
 	    	bpbtndata.SetID(bp.ID);
 
 	    	// Add a listener to the new Button
-	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(bp.ID); });
+	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(newBlueprint, bp.ID); });
 	    	
 	    	float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
 	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
@@ -161,12 +161,19 @@ public class Crafter : MonoBehaviour {
 
 
 	// TODO also be able to deselect and leave the crafting area empty
-	public void SelectBlueprint(int blueprintID) {
+	public void SelectBlueprint(int blueprintID, GameObject caller) {
         // Set the blueprint as "selected"
         this.selectedBlueprintID = blueprintID;
 
-        // Activate the Craft button
-        buttonHandler.ActivateCraftBtn();
+		// Deselect all other buttons & select the new one
+		foreach (GameObject blueprintBtn in blueprintBtns)
+        {
+			blueprintBtn.GetComponent<ButtonGraphic>().Deselect();
+		}
+		caller.GetComponent<ButtonGraphic>().Select();
+
+		// Activate the Craft button
+		buttonHandler.ActivateCraftBtn();
 
 		// Make sure the silhouette's image is enabled
 		if (!artifactSilhouetteImage.enabled) artifactSilhouetteImage.enabled = true;

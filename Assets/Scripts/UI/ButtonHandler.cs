@@ -48,8 +48,9 @@ public class ButtonHandler : MonoBehaviour {
     }
 
     
-    public void OnSelectBlueprintClick(int blueprintID) {
-        crafterComp.SelectBlueprint(blueprintID);    
+    public void OnSelectBlueprintClick(GameObject caller, int blueprintID) {
+        // Forward the caller to remember which button was clicked
+        crafterComp.SelectBlueprint(blueprintID, caller);
     }
 
     // Swap Craft -> Stop Crafting
@@ -66,7 +67,8 @@ public class ButtonHandler : MonoBehaviour {
 
     // Makes the Craft Button clickable
     public void ActivateCraftBtn() {
-        CraftBtn.GetComponent<Button>().interactable = true;
+        Button craftButton = CraftBtn.GetComponent<Button>();
+        if (!craftButton.interactable) craftButton.interactable = true;
     }
 
 
