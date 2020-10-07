@@ -47,17 +47,6 @@ public class GameController : MonoBehaviour {
         this.armory = new Armory();
 	}
 
-    // Start is called before the first frame update
-    void Start() {
-    	
-    }
-
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
-
     // ----------- Forward Coroutine requests to BackgroundManager/Crafter ----------- //
 
     public void Craft(int blueprintID, float time) { backgroundManager.Craft(blueprintID, time); }

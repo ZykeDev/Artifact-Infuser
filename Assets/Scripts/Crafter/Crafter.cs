@@ -6,14 +6,19 @@ using UnityEngine.UI;
 
 public class Crafter : MonoBehaviour {
 
-	public GameObject GameManager;
-	public GameObject MainCanvas;
+	[SerializeField]
+	private GameObject GameManager;
+	[SerializeField]
+	private GameObject MainCanvas;
+	[SerializeField]
+	private GameObject ArtifactSilhouette;
 
     private GameController gameController;
     private UnlockSystem unlockSystem;
     private ButtonHandler buttonHandler;
 
-    private Slider progressbar;
+	private Image artifactSilhouetteImage;
+	private Slider progressbar;
 
     public GameObject blueprintSelectorContent;
     public GameObject blueprintBtnPref;
@@ -39,15 +44,20 @@ public class Crafter : MonoBehaviour {
 		unlockSystem = GameManager.GetComponent<UnlockSystem>();
 		buttonHandler = MainCanvas.GetComponent<ButtonHandler>();
 
+		// Reference the silhouette image component
+		artifactSilhouetteImage = ArtifactSilhouette.GetComponent<Image>();
+		artifactSilhouetteImage.enabled = false;
+
 		// Reference the crafting progressbar
 		progressbar = GameObject.Find("CraftProgressbar").GetComponent<Slider>();
 
 		blueprintBtns = new List<GameObject>();
 
-		blueprints = unlockSystem.blueprints;
+		// Boolean list of which blueprints are active (index = ID)
 		activeBlueprints = unlockSystem.activeBlueprints;
+		blueprints = unlockSystem.blueprints;
 
-        // Instantiate the active blueprint btns
+		// Instantiate the active blueprint btns
 		InstantiateBlueprints();
        
         // Udapte the viewer h = #active * btn.h
@@ -158,9 +168,11 @@ public class Crafter : MonoBehaviour {
         // Activate the Craft button
         buttonHandler.ActivateCraftBtn();
 
+		// Make sure the silhouette's image is enabled
+		if (!artifactSilhouetteImage.enabled) artifactSilhouetteImage.enabled = true;
 		// Render the artifact's silhouette in the ArtifactViewer
-        // TODO
-
+		Sprite artifactSprite = GetBlueprintWithID(this.selectedBlueprintID).artifactSprite;
+		artifactSilhouetteImage.sprite = artifactSprite;
 	}
 
 
@@ -187,7 +199,7 @@ public class Crafter : MonoBehaviour {
 
 		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the craft?)
 		
-		// Spend the resources
+		// Actually spend the resources
 
 	}
 
@@ -220,6 +232,10 @@ public class Crafter : MonoBehaviour {
 
 		// Show confirmation window (if this is the first artifact of its kind) TODO
 		// -- 
+
+		// AFTER the confirmation window is closed (if it ever gets opened)
+		// artifactSilhouetteImage.sprite = null;
+
 	}
 
 	// TODO
