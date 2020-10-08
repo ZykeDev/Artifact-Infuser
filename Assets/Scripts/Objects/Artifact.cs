@@ -27,7 +27,7 @@ public class Artifact {
 		this.price = price;
 	}
 
-	public Artifact(Blueprint bp) : this(bp.ID, bp.type, bp.name, bp.artifactSprite, bp.rarity, bp.price) {
+	public Artifact(Blueprint bp) : this(bp.GetID(), bp.type, bp.name, bp.artifactSprite, bp.rarity, bp.price) {
 		// Constructor overalod using only a BP
 	}
 

@@ -80,42 +80,49 @@ public class Crafter : MonoBehaviour {
 
     // Instantiates all active blueprints
     private void InstantiateBlueprints() {
-       	
+
+		float leftOffest = 8f;
     	float gap = 10f;
     	
     	foreach (Blueprint bp in this.blueprints) {
+			int currentID = bp.GetID();
+
     		// Don't show blueprints that are not active
-    		if (activeBlueprints[bp.ID] == false) {
+    		if (activeBlueprints[currentID] == false) {
     			continue;
     		}
 
     		// For some reason Instantiate doesn't accept a 5th param "false" for isWorldMapSpace, so localPos is set later
-	    	GameObject newBlueprint = Instantiate(blueprintBtnPref, new Vector2(0, 0), Quaternion.identity, blueprintSelectorContent.transform) as GameObject;
-	    	newBlueprint.name = "BPbtn_" + bp.ID;
+	    	GameObject newBlueprint = Instantiate(blueprintBtnPref,
+				new Vector2(0, 0),
+				Quaternion.identity,
+				blueprintSelectorContent.transform) as GameObject;
 
-	    	// Not being used for now. Shouse it be added to the "newBlueprint" gameobj?
-	    	BlueprintBtnData bpbtndata = newBlueprint.AddComponent<BlueprintBtnData>();
-	    	bpbtndata.SetID(bp.ID);
+	    	newBlueprint.name = "BPbtn_" + currentID;
 
-	    	// Add a listener to the new Button
-	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(newBlueprint, bp.ID); });
-	    	
-	    	float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
+	    	// Add a click listener to the new Button
+	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(newBlueprint, currentID); });
+			newBlueprint.GetComponent<ButtonHover>().SetTooltipData(bp.GetTooltipData());
+
+
+			float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
 	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
 
 	    	// Store the btn size locally
 	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
 	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnWidth = width;
 	    	
+			// TODO parametrize this
 	    	// Correctly position the new button. Use its ID as a vertical index
-	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + 8f, -height/2 - (height * bp.ID) - gap);
+	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + leftOffest, -height/2 - (height * currentID) - gap);
 
 	    	// Fix the collider to match the button size 
-	    	newBlueprint.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+			// TODO check, is this even needed?
+	    	//newBlueprint.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
 
 
-	    	// Add the text and the sprite to the button
-	    	foreach (Transform child in newBlueprint.transform) {
+			// Add the text and the sprite to the button TODO change this into set parameters inside the prefab
+			foreach (Transform child in newBlueprint.transform) {
 	    		if (child.name == "BlueprintName") {
 	    			child.GetComponent<Text>().text = bp.name;
 	    			continue;
@@ -253,7 +260,7 @@ public class Crafter : MonoBehaviour {
     // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
     public Blueprint GetBlueprintWithID(int ID) {
     	foreach(Blueprint bp in this.blueprints) {
-    		if (bp.ID == ID) {
+    		if (bp.GetID() == ID) {
     			return bp;
     		}
     	}

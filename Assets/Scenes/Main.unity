@@ -447,7 +447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -83, y: 428.17987}
+  m_AnchoredPosition: {x: -83, y: 436.57544}
   m_SizeDelta: {x: 166, y: 562.13196}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &61900685
@@ -4569,6 +4569,8 @@ MonoBehaviour:
   Infuser: {fileID: 6247726}
   Armory: {fileID: 73572184}
   Upgrades: {fileID: 76265657}
+  tooltipPrefab: {fileID: 8341275275355475248, guid: 1d68b968e71aed6469ee56ff936595c2,
+    type: 3}
 --- !u!114 &1115166228
 MonoBehaviour:
   m_ObjectHideFlags: 0

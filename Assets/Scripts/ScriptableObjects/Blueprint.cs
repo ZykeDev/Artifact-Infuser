@@ -3,34 +3,64 @@
 [CreateAssetMenu(fileName = "New Blueprint", menuName = "Blueprint")]
 public class Blueprint : ScriptableObject {
 	
-	public int ID;
-	public string name;
+	[SerializeField]
+	private int ID;
+	public string artifactName;
 	public ArtifactType type;
-	public Sprite blueprintSprite;
-	public Sprite artifactSprite;
+	public Sprite blueprintSprite, artifactSprite;
 
 	public float craftingTime;
 	public int rarity;
 	public int price;
 
-	public double wood;
-	public double metal;
-	public double leather;
-	public double crystals;	
+	public double wood, metal, leather, crystals;
 
-	public RequiredResources GetRequiredResources() {
+	[SerializeField]
+	private string tooltipDex;
+
+	private TooltipData tooltipData;
+
+
+	// Groups the tooltip data fields into one struct
+	public void InitTooltipData()
+    {
+		tooltipData = new TooltipData(artifactName, tooltipDex);
+    }
+
+	public int GetID()
+    {
+		return this.ID;
+    }
+
+	public RequiredResources GetRequiredResources()
+	{
 		RequiredResources rr = new RequiredResources(this.wood, this.metal, this.leather, this.crystals);
 		return rr;
 	}
+	
+	public TooltipData GetTooltipData()
+    {
+		return this.tooltipData;
+    }
 
 }
 
+public struct TooltipData
+{
+	string title;
+	string dex;
 
-public struct RequiredResources {
-	public double wood;
-	public double metal;
-	public double leather;
-	public double crystals;
+	public TooltipData(string title, string dex)
+    {
+		this.title = title;
+		this.dex = dex;
+    }
+}
+
+
+public struct RequiredResources
+{
+	public double wood, metal, leather, crystals;
 
 	public RequiredResources(double wood, double metal, double leather, double crystals) {
 		this.wood = wood;

@@ -5,24 +5,21 @@ using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour {
     // Instantiated buttons
-    public GameObject CraftBtn;
-    public GameObject StopCraftBtn;
-
-    public GameObject InfuseBtn;
-    public GameObject StopInfuseBtn;
+    [SerializeField]
+    private GameObject CraftBtn, StopCraftBtn, InfuseBtn, StopInfuseBtn;
 
     // References
-    public GameObject GameManager;
-    public GameObject Crafter;
-    public GameObject Infuser;
-    public GameObject Armory;
-    public GameObject Upgrades;
+    [SerializeField]
+    private GameObject GameManager, Crafter, Infuser, Armory, Upgrades;
+
+    [SerializeField]
+    private GameObject tooltipPrefab;
 
     private GameController gameController;
     private Crafter crafterComp; // Calling it crafterComp to not confuse it with the Crafter GO
     private Infuser infuserComp;
-    
 
+    private GameObject CurrentlyOpenedTooltip;
 
     void Start() {
     	gameController = GameManager.GetComponent<GameController>();
@@ -30,13 +27,43 @@ public class ButtonHandler : MonoBehaviour {
         infuserComp = Infuser.GetComponent<Infuser>();
     }
 
+
+    // --------- Blueprint Buttons --------- //
+
+    public void ShowTooltip(Vector2 position, float width, float height, TooltipData tooltipData)
+    {
+        // TODO this could be optimized by pooling all tooltips on Start
+        // instad of instantiating one every time
+        CurrentlyOpenedTooltip = Instantiate(
+            tooltipPrefab,
+            new Vector2(position.x, position.y),
+            Quaternion.identity,
+            this.transform) as GameObject;
+
+        // Sets the correct size for the tooltip
+        RectTransform tooltipRT = CurrentlyOpenedTooltip.GetComponent<RectTransform>();
+        tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+
+        
+    }
+
+    public void HideTooltip()
+    {
+        Destroy(CurrentlyOpenedTooltip);
+        CurrentlyOpenedTooltip = null;
+    }
+
+
+    // ----------- Gather Button ----------- //
+
     // Starts the Resource Gathering expedition
     public void OnGatherClick() {
     	gameController.TryGathering();
-    } 
+    }
 
 
-    // ---------------------- //
+    // ----------- Craft Button ----------- //
 
     // Starts crafting the selected blueprint into an item
     public void OnCraftClick() {
@@ -72,8 +99,7 @@ public class ButtonHandler : MonoBehaviour {
     }
 
 
-    // ------------------------ //
-
+    // ----------- Infuse Button ----------- //
 
     // Starts crafting the selected blueprint into an item
     public void OnInfuseClick() {
@@ -106,6 +132,7 @@ public class ButtonHandler : MonoBehaviour {
         InfuseBtn.GetComponent<Button>().interactable = true;
     }
 
-	
+    
+
 
 }
