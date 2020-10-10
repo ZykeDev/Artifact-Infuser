@@ -87,8 +87,11 @@ public class Crafter : MonoBehaviour {
     	foreach (Blueprint bp in this.blueprints) {
 			int currentID = bp.GetID();
 
-    		// Don't show blueprints that are not active
-    		if (activeBlueprints[currentID] == false) {
+			// Init the tooltip texts within the blueprint
+			bp.InitTooltipData();
+
+			// Don't show blueprints that are not active
+			if (activeBlueprints[currentID] == false) {
     			continue;
     		}
 

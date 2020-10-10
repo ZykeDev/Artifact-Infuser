@@ -9,22 +9,35 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private ButtonHandler buttonHandler;
     private TooltipData tooltipData;
 
+    private Vector2 bestPosition;
+    private float bestWidth, bestHeight;
 
 
     void Awake()
     {
         // TODO can Find be averted?
         buttonHandler = GameObject.Find("MainCanvas").GetComponent<ButtonHandler>();
+        bestPosition = Vector2.zero;
     }
 
     public void SetTooltipData(TooltipData tooltipData)
     {
         this.tooltipData = tooltipData;
+        bestPosition = GetBestPosition();
+        bestWidth = GetBestWidth();
+        bestHeight = GetBestHeight();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        buttonHandler?.ShowTooltip(GetBestPosition(), GetBestWidth(), GetBestHeight(), tooltipData);
+        if (bestPosition == Vector2.zero)
+        {
+            bestPosition = GetBestPosition();
+            bestWidth = GetBestWidth();
+            bestHeight = GetBestHeight();
+        }
+
+        buttonHandler?.ShowTooltip(bestPosition, bestWidth, bestHeight, tooltipData);
     }
 
 
@@ -45,14 +58,14 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         return new Vector2(x, y);
     }
-    // TODO maybe make these computed inside SetTooltipData and saved locally
+
     private float GetBestHeight()
     {
-        return 100f;
+        return 150f;
     }
 
     private float GetBestWidth()
     {
-        return 200f;
+        return 300f;
     }
 }

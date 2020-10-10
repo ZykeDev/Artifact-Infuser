@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Blueprint", menuName = "Blueprint")]
 public class Blueprint : ScriptableObject {
@@ -21,8 +22,8 @@ public class Blueprint : ScriptableObject {
 	private TooltipData tooltipData;
 
 
-	// Groups the tooltip data fields into one struct
-	public void InitTooltipData()
+    // Groups the tooltip data fields into one struct
+    public void InitTooltipData()
     {
 		tooltipData = new TooltipData(artifactName, tooltipDex);
     }
@@ -47,8 +48,7 @@ public class Blueprint : ScriptableObject {
 
 public struct TooltipData
 {
-	string title;
-	string dex;
+	public string title, dex;
 
 	public TooltipData(string title, string dex)
     {

@@ -32,13 +32,15 @@ public class ButtonHandler : MonoBehaviour {
 
     public void ShowTooltip(Vector2 position, float width, float height, TooltipData tooltipData)
     {
-        // TODO this could be optimized by pooling all tooltips on Start
+        // TODO this could be optimized by pooling all tooltips on Start (or on first instance)
         // instad of instantiating one every time
         CurrentlyOpenedTooltip = Instantiate(
             tooltipPrefab,
             new Vector2(position.x, position.y),
             Quaternion.identity,
             this.transform) as GameObject;
+
+        CurrentlyOpenedTooltip.GetComponent<Tooltip>().SetTexts(tooltipData);
 
         // Sets the correct size for the tooltip
         RectTransform tooltipRT = CurrentlyOpenedTooltip.GetComponent<RectTransform>();
