@@ -20,7 +20,12 @@ public class ButtonHandler : MonoBehaviour {
     private Infuser infuserComp;
 
     private GameObject CurrentlyOpenedTooltip;
+    private float screenHeight;
 
+    private void Awake()
+    {
+        screenHeight = Screen.height;
+    }
     void Start() {
     	gameController = GameManager.GetComponent<GameController>();
         crafterComp = Crafter.GetComponent<Crafter>();
@@ -30,28 +35,33 @@ public class ButtonHandler : MonoBehaviour {
 
     // --------- Blueprint Buttons --------- //
 
-    public void ShowTooltip(Vector2 position, float width, float height, TooltipData tooltipData)
+    public void ShowTooltip(float width, float height, TooltipData tooltipData)
     {
         // TODO this could be optimized by pooling all tooltips on Start (or on first instance)
         // instad of instantiating one every time
         CurrentlyOpenedTooltip = Instantiate(
             tooltipPrefab,
-            new Vector2(position.x, position.y),
+            Vector2.zero, 
             Quaternion.identity,
             this.transform) as GameObject;
 
-        CurrentlyOpenedTooltip.GetComponent<Tooltip>().SetTexts(tooltipData);
-
-        // Sets the correct size for the tooltip
+        Tooltip tooltip = CurrentlyOpenedTooltip.GetComponent<Tooltip>();
         RectTransform tooltipRT = CurrentlyOpenedTooltip.GetComponent<RectTransform>();
+        
+        // Set the correct position
+        tooltipRT.anchoredPosition = new Vector2(Input.mousePosition.x + 1f, Input.mousePosition.y - screenHeight + 1f);
+        
+        // Sets the correct size for the tooltip
         tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
-
         
+        tooltip.SetTexts(tooltipData);
+        tooltip.FollowCursor();
     }
 
     public void HideTooltip()
     {
+        // TODO does StopFollowingCursor need to be called?
         Destroy(CurrentlyOpenedTooltip);
         CurrentlyOpenedTooltip = null;
     }

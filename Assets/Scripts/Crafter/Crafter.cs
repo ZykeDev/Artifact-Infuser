@@ -101,28 +101,21 @@ public class Crafter : MonoBehaviour {
 				Quaternion.identity,
 				blueprintSelectorContent.transform) as GameObject;
 
-	    	newBlueprint.name = "BPbtn_" + currentID;
+			// Store the btn size locally
+			float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
+	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
+	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
+	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnWidth = width;
+	    	
+	    	// Correctly position the new button. Use its ID as a vertical index
+	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + leftOffest, -height/2 - (height * currentID) - gap);
+
+			newBlueprint.name = "BPbtn_" + currentID;
 
 	    	// Add a click listener to the new Button
 	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(newBlueprint, currentID); });
 			newBlueprint.GetComponent<ButtonHover>().SetTooltipData(bp.GetTooltipData());
-
-
-			float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
-	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
-
-	    	// Store the btn size locally
-	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
-	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnWidth = width;
-	    	
-			// TODO parametrize this
-	    	// Correctly position the new button. Use its ID as a vertical index
-	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + leftOffest, -height/2 - (height * currentID) - gap);
-
-	    	// Fix the collider to match the button size 
-			// TODO check, is this even needed?
-	    	//newBlueprint.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
-
+			
 
 			// Add the text and the sprite to the button TODO change this into set parameters inside the prefab
 			foreach (Transform child in newBlueprint.transform) {

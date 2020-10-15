@@ -7,37 +7,34 @@ using UnityEngine.EventSystems;
 public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private ButtonHandler buttonHandler;
-    private TooltipData tooltipData;
+    private TooltipData m_tooltipData;
 
-    private Vector2 bestPosition;
-    private float bestWidth, bestHeight;
+    private float m_bestWidth, m_bestHeight;
 
 
     void Awake()
     {
         // TODO can Find be averted?
         buttonHandler = GameObject.Find("MainCanvas").GetComponent<ButtonHandler>();
-        bestPosition = Vector2.zero;
+        m_bestWidth = 0f;
     }
 
     public void SetTooltipData(TooltipData tooltipData)
     {
-        this.tooltipData = tooltipData;
-        bestPosition = GetBestPosition();
-        bestWidth = GetBestWidth();
-        bestHeight = GetBestHeight();
+        m_tooltipData = tooltipData;
+        m_bestWidth = GetBestWidth();
+        m_bestHeight = GetBestHeight();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (bestPosition == Vector2.zero)
+        if (m_bestWidth == 0f)
         {
-            bestPosition = GetBestPosition();
-            bestWidth = GetBestWidth();
-            bestHeight = GetBestHeight();
+            m_bestWidth = GetBestWidth();
+            m_bestHeight = GetBestHeight();
         }
 
-        buttonHandler?.ShowTooltip(bestPosition, bestWidth, bestHeight, tooltipData);
+        buttonHandler?.ShowTooltip(m_bestWidth, m_bestHeight, m_tooltipData);
     }
 
 
@@ -46,26 +43,22 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         buttonHandler?.HideTooltip();
     }
 
-    // Returns the best position coordinates where to display the
-    // tooltip with respects to the origin position
-    private Vector2 GetBestPosition()
-    {
-        float Xoffset = 40f;
-        float Yoffset = 0f;
 
-        float x = this.transform.position.x + Xoffset;
-        float y = this.transform.position.y + Yoffset;
-
-        return new Vector2(x, y);
-    }
-
+    /// <summary>
+    /// Get the best Height according to the contents
+    /// </summary>
+    /// <returns></returns>
     private float GetBestHeight()
     {
         return 150f;
     }
 
+    /// <summary>
+    /// Get the best Width according to the contents
+    /// </summary>
+    /// <returns></returns>
     private float GetBestWidth()
     {
-        return 300f;
+        return 280f;
     }
 }
