@@ -50,6 +50,7 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     /// <returns></returns>
     private float GetBestHeight()
     {
+        // TODO make the hight actually change depending on the content
         return 150f;
     }
 
