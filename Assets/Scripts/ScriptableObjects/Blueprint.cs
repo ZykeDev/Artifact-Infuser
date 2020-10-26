@@ -30,7 +30,7 @@ public class Blueprint : ScriptableObject {
 
 	public int GetID()
     {
-		return this.ID;
+		return ID;
     }
 
 	public RequiredResources GetRequiredResources()

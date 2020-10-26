@@ -178,12 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ceca130a7be674fbc71ce644a5831b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 271865950}
-  MainCanvas: {fileID: 1115166222}
-  cypherSelectorContent: {fileID: 1240645831}
-  cypherBtnPref: {fileID: 7645731078256115510, guid: b36a305378034be45b36a1d60f8d2693,
+  m_gameController: {fileID: 271865951}
+  m_unlockSystem: {fileID: 271865953}
+  m_buttonHandler: {fileID: 1115166227}
+  m_progressbar: {fileID: 1371788665}
+  m_cypherSelectorContent: {fileID: 1240645831}
+  m_cypherBtnPref: {fileID: 7645731078256115510, guid: b36a305378034be45b36a1d60f8d2693,
     type: 3}
-  activeCyphers: 
 --- !u!114 &6247729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,7 +560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &73572185
 RectTransform:
   m_ObjectHideFlags: 0
@@ -592,14 +593,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838352fef38d25146b0af1b10ae3dd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 271865950}
-  CellPrefab: {fileID: 6013559006602696974, guid: a9400af6b36ab2142b3b02edb7c35e5e,
+  m_gameManager: {fileID: 271865950}
+  m_prefabCell: {fileID: 6013559006602696974, guid: a9400af6b36ab2142b3b02edb7c35e5e,
     type: 3}
-  ArmoryContentWeapons: {fileID: 1597927224}
-  ArmoryContentArmor: {fileID: 1375410418}
-  ArmoryContentAccessories: {fileID: 1753229981}
-  ArmoryContentAbyss: {fileID: 2130082578}
-  currentTab: 0
+  m_armoryContentWeapons: {fileID: 1597927224}
+  m_armoryContentArmor: {fileID: 1375410418}
+  m_armoryContentAccessories: {fileID: 1753229981}
+  m_armoryContentAbyss: {fileID: 2130082578}
 --- !u!114 &73572187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,16 +612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57828bb6b328eca46b56247eefe74fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  artifactGrid: {fileID: 215160703}
-  contentWeapons: {fileID: 1597927224}
-  contentArmor: {fileID: 1375410418}
-  contentAccessories: {fileID: 1753229981}
-  contentAbyss: {fileID: 2130082578}
-  weaponsTabBtn: {fileID: 1080615195}
-  armorTabBtn: {fileID: 2072840856}
-  accessoriesTabBtn: {fileID: 1210348080}
-  abyssTabBtn: {fileID: 1502213477}
-  defaultTab: 0
+  m_defaultTab: 0
+  m_artifactGrid: {fileID: 215160703}
+  m_weaponsTabBtn: {fileID: 1080615195}
+  m_armorTabBtn: {fileID: 2072840856}
+  m_accessoriesTabBtn: {fileID: 1210348080}
+  m_abyssTabBtn: {fileID: 1502213477}
 --- !u!114 &73572188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2452,7 +2448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &674574883
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2489,13 +2485,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e170e94b514e449bae43ef595784fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 271865950}
-  MainCanvas: {fileID: 1115166222}
-  ArtifactSilhouette: {fileID: 1627924772}
-  blueprintSelectorContent: {fileID: 51550540}
-  blueprintBtnPref: {fileID: 8164704813601823611, guid: 96bf2cb47f3591747b45b8d0f71d530c,
+  m_gameController: {fileID: 271865951}
+  m_unlockSystem: {fileID: 271865953}
+  m_buttonHandler: {fileID: 1115166227}
+  m_progressbar: {fileID: 2140870380}
+  m_artifactSilhouette: {fileID: 1627924774}
+  m_blueprintSelectorContent: {fileID: 51550540}
+  m_blueprintBtnPref: {fileID: 8164704813601823611, guid: 96bf2cb47f3591747b45b8d0f71d530c,
     type: 3}
-  activeBlueprints: 
 --- !u!114 &674574885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3145,8 +3142,8 @@ RectTransform:
   m_Father: {fileID: 1915766483}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.46302438}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4904,9 +4901,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -7, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1254915699
 MonoBehaviour:
@@ -5367,8 +5364,8 @@ RectTransform:
   m_Father: {fileID: 577614272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.19270843}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -2.1, y: 2.7000122}
   m_SizeDelta: {x: 14.278108, y: 19.647095}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5853,7 +5850,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -339, y: 265.94028}
+  m_AnchoredPosition: {x: -339, y: 265.93988}
   m_SizeDelta: {x: 678, y: 990.3457}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1602375275 stripped
@@ -6143,8 +6140,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5369756
+  m_Value: 1.0000008
+  m_Size: 0.5370655
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7521,7 +7518,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -4.5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

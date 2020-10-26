@@ -17,7 +17,7 @@ MonoBehaviour:
   allowedTypes: 0000000002000000
   cypherSprite: {fileID: 0}
   artifactSprite: {fileID: 0}
-  infusionTime: 10
+  infusionTime: 2
   rarity: 0
   price: 10
   alphaRune: 0

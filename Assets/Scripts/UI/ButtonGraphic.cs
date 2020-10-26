@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonGraphic : MonoBehaviour
@@ -9,6 +7,9 @@ public class ButtonGraphic : MonoBehaviour
     private ColorBlock buttonColors;
     // Store an initial copy of the colors
     private ColorBlock defaultColors;
+
+    [SerializeField] private Text m_name;
+    [SerializeField] private Image m_image;
 
     private void Awake()
     {
@@ -24,13 +25,29 @@ public class ButtonGraphic : MonoBehaviour
     public void Select()
     {
         buttonColors.normalColor = defaultColors.selectedColor;
-        this.GetComponent<Button>().colors = buttonColors;
+        buttonComponent.colors = buttonColors;
     }
 
     // Reverts the normal color to the original one
     public void Deselect()
     {
         buttonColors.normalColor = defaultColors.normalColor;
-        this.GetComponent<Button>().colors = buttonColors;
+        buttonComponent.colors = buttonColors;
+    }
+
+    public void SetName(string name)
+    {
+        m_name.text = name;
+    }
+
+    public void SetImage(Sprite sprite)
+    {
+        m_image.sprite = sprite;
+    }
+
+    public void SetData(string name, Sprite sprite)
+    {
+        SetName(name);
+        SetImage(sprite);
     }
 }

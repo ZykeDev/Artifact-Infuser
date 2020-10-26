@@ -47,7 +47,9 @@ public class ButtonHandler : MonoBehaviour {
 
         Tooltip tooltip = CurrentlyOpenedTooltip.GetComponent<Tooltip>();
         RectTransform tooltipRT = CurrentlyOpenedTooltip.GetComponent<RectTransform>();
-        
+
+        CurrentlyOpenedTooltip.name = "Tooltip";
+
         // Set the correct position
         tooltipRT.anchoredPosition = new Vector2(Input.mousePosition.x + 1f, Input.mousePosition.y - screenHeight + 1f);
         

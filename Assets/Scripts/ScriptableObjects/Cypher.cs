@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Cypher", menuName = "Cypher")]
 public class Cypher : ScriptableObject {
 	
-	public int ID;
+	[SerializeField]
+	private int ID;
 	public string name;
 	public List<ArtifactType> allowedTypes;
 	public Sprite cypherSprite;
@@ -21,6 +22,12 @@ public class Cypher : ScriptableObject {
 	public RequiredRunes GetRequiredResources() {
 		RequiredRunes rr = new RequiredRunes(this.alphaRune, this.novaRune, this.gradientRune);
 		return rr;
+	}
+
+
+	public int GetID()
+	{
+		return ID;
 	}
 
 }

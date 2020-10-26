@@ -1,121 +1,127 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ArmoryTabHandler : MonoBehaviour {
 	
-	private ArmoryTab currentTab;
+    [SerializeField]
+	private ArmoryTab m_defaultTab;
+	private ArmoryTab m_currentTab;
 
-	public GameObject artifactGrid;
-	private ScrollRect artifactGridScrollRect;
+    [SerializeField]
+	private GameObject m_artifactGrid;
 
-	public GameObject contentWeapons;
-	public GameObject contentArmor;
-	public GameObject contentAccessories;
-	public GameObject contentAbyss;
+	private ScrollRect m_artifactGridScrollRect;
+    private GameObject m_contentWeapons,
+        m_contentArmor, 
+        m_contentAccessories, 
+        m_contentAbyss;
 
-	public GameObject weaponsTabBtn;
-	public GameObject armorTabBtn;
-	public GameObject accessoriesTabBtn;
-	public GameObject abyssTabBtn;
+    [SerializeField]
+	private GameObject m_weaponsTabBtn,
+        m_armorTabBtn,
+        m_accessoriesTabBtn,
+        m_abyssTabBtn;
 
-	private Button weaponBtn;
-	private Button armorBtn;
-	private Button accessoriesBtn;
-	private Button abyssBtn;
-
-	[SerializeField]
-	private ArmoryTab defaultTab;
-
+	private Button m_weaponBtn, 
+        m_armorBtn, 
+        m_accessoriesBtn,
+        m_abyssBtn;
 
 
-	void Awake() {
-		artifactGridScrollRect = artifactGrid.GetComponent<ScrollRect>(); 
+	void Awake()
+    {
+        // Grab the Content-GameObjects from the ArmoryHandler component
+        ArmoryHandler m_armoryHandler = GetComponent<ArmoryHandler>();
 
-		weaponBtn = weaponsTabBtn.GetComponent<Button>();
-		armorBtn = armorTabBtn.GetComponent<Button>();
-		accessoriesBtn = accessoriesTabBtn.GetComponent<Button>();
-		abyssBtn = abyssTabBtn.GetComponent<Button>();
+        m_contentWeapons = m_armoryHandler.GetContent(ArtifactType.WEAPON);
+        m_contentArmor = m_armoryHandler.GetContent(ArtifactType.ARMOR);
+        m_contentAccessories = m_armoryHandler.GetContent(ArtifactType.ACCESSORY);
+        m_contentAbyss = m_armoryHandler.GetContent(ArtifactType.ABYSS);
+
+
+        m_artifactGridScrollRect = m_artifactGrid.GetComponent<ScrollRect>(); 
+
+		m_weaponBtn = m_weaponsTabBtn.GetComponent<Button>();
+		m_armorBtn = m_armorTabBtn.GetComponent<Button>();
+		m_accessoriesBtn = m_accessoriesTabBtn.GetComponent<Button>();
+		m_abyssBtn = m_abyssTabBtn.GetComponent<Button>();
 	}
 
-    // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         SetAllTabBtnsInteractable();
     	CloseAllTabs();
 		
 		// Set defaults
-		currentTab = ArmoryTab.WEAPONS;
-		currentTab = defaultTab; // TODO change this to save-state's last Tab
+		m_currentTab = m_defaultTab; // TODO change this to save-state's last Tab
 
-    	weaponBtn.interactable = false; // TODO make this change depending on the default loaded tab    	
-    	contentWeapons.SetActive(true);
+    	m_weaponBtn.interactable = false; // TODO make this change depending on the default loaded tab    	
+    	m_contentWeapons.SetActive(true);
 
-    	artifactGridScrollRect.content = contentWeapons.GetComponent<RectTransform>();
+    	m_artifactGridScrollRect.content = m_contentWeapons.GetComponent<RectTransform>();
 
-    	abyssTabBtn.SetActive(false); // TODO make this tied to the unlockSystem	
-
+    	m_abyssTabBtn.SetActive(false); // TODO make this tied to the unlockSystem	
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void SwitchTabToWeapons()
+    { 
+        SwitchTab(ArmoryTab.WEAPONS);
+    }
+
+    public void SwitchTabToArmor()
     {
-        
-    }
-
-
-    public void SwitchTabToWeapons() {
-    	SwitchTab(ArmoryTab.WEAPONS);
-    }
-
-    public void SwitchTabToArmor() {
     	SwitchTab(ArmoryTab.ARMOR);
     }
 
-    public void SwitchTabToAccessories() {
+    public void SwitchTabToAccessories()
+    {
     	SwitchTab(ArmoryTab.ACCESSORIES);
     }
 
-    public void SwitchTabToAbyss() { // TODO update this if "upgrades" changes
+    public void SwitchTabToAbyss()
+    { 
     	SwitchTab(ArmoryTab.ABYSS);
     }
 
-    // Switches the active Tab by
-    // - Setting the toggle button's interatable to false
-    // - Setting the content to true
-    // - Changing the scrollview content
-    private void SwitchTab(ArmoryTab tab) {
-    	if (currentTab == tab) {
+    /// <summary>
+    /// Switches the active Tab by changing the scrollview content.
+    /// </summary>
+    /// <param name="tab"></param>
+    private void SwitchTab(ArmoryTab tab)
+    {
+    	if (m_currentTab == tab) {
     		return;
     	}
 
-    	currentTab = tab;
+        m_currentTab = tab;
+
     	SetAllTabBtnsInteractable();
     	CloseAllTabs();
 
     	switch (tab) {
     		case ArmoryTab.WEAPONS:
-    			weaponBtn.interactable = false;
-    			contentWeapons.SetActive(true);
-    			artifactGridScrollRect.content = contentWeapons.GetComponent<RectTransform>();
+    			m_weaponBtn.interactable = false;
+    			m_contentWeapons.SetActive(true);
+    			m_artifactGridScrollRect.content = m_contentWeapons.GetComponent<RectTransform>();
     			break;
 
     		case ArmoryTab.ARMOR:
-    			armorBtn.interactable = false;
-    			contentArmor.SetActive(true);
-    			artifactGridScrollRect.content = contentArmor.GetComponent<RectTransform>();
+    			m_armorBtn.interactable = false;
+                m_contentArmor.SetActive(true);
+    			m_artifactGridScrollRect.content = m_contentArmor.GetComponent<RectTransform>();
     			break;
 
     		case ArmoryTab.ACCESSORIES:
-    			accessoriesBtn.interactable = false;
-    			contentAccessories.SetActive(true);
-    			artifactGridScrollRect.content = contentAccessories.GetComponent<RectTransform>();
+    			m_accessoriesBtn.interactable = false;
+                m_contentAccessories.SetActive(true);
+    			m_artifactGridScrollRect.content = m_contentAccessories.GetComponent<RectTransform>();
     			break;
 
     		case ArmoryTab.ABYSS:
-    			abyssBtn.interactable = false;
-    			contentAbyss.SetActive(true);
-    			artifactGridScrollRect.content = contentAbyss.GetComponent<RectTransform>();
+    			m_abyssBtn.interactable = false;
+                m_contentAbyss.SetActive(true);
+    			m_artifactGridScrollRect.content = m_contentAbyss.GetComponent<RectTransform>();
     			break;
 
     		default:
@@ -124,17 +130,17 @@ public class ArmoryTabHandler : MonoBehaviour {
     }
 
     private void CloseAllTabs() {
-    	contentWeapons.SetActive(false);
-    	contentArmor.SetActive(false);
-    	contentAccessories.SetActive(false);
-    	contentAbyss.SetActive(false);
+    	m_contentWeapons.SetActive(false);
+        m_contentArmor.SetActive(false);
+        m_contentAccessories.SetActive(false);
+        m_contentAbyss.SetActive(false);
     }
 
     private void SetAllTabBtnsInteractable() {
-	    weaponBtn.interactable = true;
-		armorBtn.interactable = true;
-		accessoriesBtn.interactable = true;
-		abyssBtn.interactable = true;
+	    m_weaponBtn.interactable = true;
+		m_armorBtn.interactable = true;
+		m_accessoriesBtn.interactable = true;
+		m_abyssBtn.interactable = true;
     }
 
 

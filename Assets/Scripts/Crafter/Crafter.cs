@@ -1,160 +1,139 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Crafter : MonoBehaviour {
 
+	[SerializeField] private GameController m_gameController;
+	[SerializeField] private UnlockSystem m_unlockSystem;
+	[SerializeField] private ButtonHandler m_buttonHandler;
+	[SerializeField] private Slider m_progressbar;
+	[SerializeField] private Image m_artifactSilhouette;
+
 	[SerializeField]
-	private GameObject GameManager;
-	[SerializeField]
-	private GameObject MainCanvas;
-	[SerializeField]
-	private GameObject ArtifactSilhouette;
+    private GameObject m_blueprintSelectorContent, m_blueprintBtnPref;
 
-    private GameController gameController;
-    private UnlockSystem unlockSystem;
-    private ButtonHandler buttonHandler;
+    private List<GameObject> m_blueprintBtns;
+    private List<Blueprint> m_blueprints;
+    private float m_blueprintBtnHeight = 0f;
+	private int m_blueprintBtnsPerScreen = 4;
+    private int m_selectedBlueprintID = -1;
+	private bool[] m_activeBlueprints;
 
-	private Image artifactSilhouetteImage;
-	private Slider progressbar;
-
-    public GameObject blueprintSelectorContent;
-    public GameObject blueprintBtnPref;
+	private Inventory m_refundedResources = new Inventory();
 
 
-    private List<GameObject> blueprintBtns;
-    private List<Blueprint> blueprints;
-    public bool[] activeBlueprints;
+	void Start()
+	{
+		// Make sure the silhouette is disabled at the start
+		m_artifactSilhouette.enabled = false;
 
-    private float blueprintBtnWidth = 0;
-    private float blueprintBtnHeight = 0;
+		m_blueprintBtns = new List<GameObject>();
 
-    // Currently selected blueprint
-    private int selectedBlueprintID = -1;
-
-	private Inventory refoundedResources = new Inventory();
-
-
-
-	// Start is called before the first frame update
-	void Start() {
-		gameController = GameManager.GetComponent<GameController>();
-		unlockSystem = GameManager.GetComponent<UnlockSystem>();
-		buttonHandler = MainCanvas.GetComponent<ButtonHandler>();
-
-		// Reference the silhouette image component
-		artifactSilhouetteImage = ArtifactSilhouette.GetComponent<Image>();
-		artifactSilhouetteImage.enabled = false;
-
-		// Reference the crafting progressbar
-		progressbar = GameObject.Find("CraftProgressbar").GetComponent<Slider>();
-
-		blueprintBtns = new List<GameObject>();
-
-		// Boolean list of which blueprints are active (index = ID)
-		activeBlueprints = unlockSystem.activeBlueprints;
-		blueprints = unlockSystem.blueprints;
+		// Boolean list of which blueprints are active (where index = ID)
+		m_blueprints = m_unlockSystem.blueprints;
+		m_activeBlueprints = m_unlockSystem.activeBlueprints;
 
 		// Instantiate the active blueprint btns
 		InstantiateBlueprints();
-       
-        // Udapte the viewer h = #active * btn.h
-		UpdateViewportHeight();
 
+		// Udapte the viewer h = #active * btn.h
+		UpdateViewportHeight();
     }
 
 
-    // Destroys all blueprint btns and re-instantiates them, checking for new active ones
-    public void UpdateActiveBlueprints() {
-    	foreach (GameObject bp in blueprintBtns) {
+	/// <summary>
+	/// Destroys all blueprint btns and re-instantiates them, checking for new active ones.
+	/// </summary>
+	public void UpdateActiveBlueprints()
+	{
+    	foreach (GameObject bp in m_blueprintBtns)
+		{
     		Destroy(bp);
     	}
 
-    	blueprintBtns.Clear();
+    	m_blueprintBtns.Clear();
 
     	InstantiateBlueprints();
     }
 
 
-    // Instantiates all active blueprints
-    private void InstantiateBlueprints() {
-
-		float leftOffest = 8f;
-    	float gap = 10f;
+	/// <summary>
+	/// Instantiates all active blueprints as buttons.
+	/// </summary>
+	private void InstantiateBlueprints()
+	{
+		// Button's offset position from the sides
+		float offset = 15f;
     	
-    	foreach (Blueprint bp in this.blueprints) {
+    	foreach (Blueprint bp in m_blueprints)
+		{
 			int currentID = bp.GetID();
 
 			// Init the tooltip texts within the blueprint
 			bp.InitTooltipData();
 
 			// Don't show blueprints that are not active
-			if (activeBlueprints[currentID] == false) {
+			if (!m_activeBlueprints[currentID])
+			{
     			continue;
     		}
 
-    		// For some reason Instantiate doesn't accept a 5th param "false" for isWorldMapSpace, so localPos is set later
-	    	GameObject newBlueprint = Instantiate(blueprintBtnPref,
+	    	GameObject newBlueprint = Instantiate(m_blueprintBtnPref,
 				new Vector2(0, 0),
 				Quaternion.identity,
-				blueprintSelectorContent.transform) as GameObject;
+				m_blueprintSelectorContent.transform) as GameObject;
 
-			// Store the btn size locally
-			float width = newBlueprint.GetComponent<RectTransform>().sizeDelta.x;
+			// Store the btn height locally
 	    	float height = newBlueprint.GetComponent<RectTransform>().sizeDelta.y;
-	    	if (this.blueprintBtnHeight == 0) this.blueprintBtnHeight = height;
-	    	if (this.blueprintBtnWidth  == 0) this.blueprintBtnWidth = width;
+	    	if (m_blueprintBtnHeight == 0) m_blueprintBtnHeight = height;
 	    	
-	    	// Correctly position the new button. Use its ID as a vertical index
-	    	newBlueprint.transform.localPosition = new Vector2(width / 2 + leftOffest, -height/2 - (height * currentID) - gap);
-
+	    	// Position the new button. Use its ID as a vertical index
+			newBlueprint.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
 			newBlueprint.name = "BPbtn_" + currentID;
 
 	    	// Add a click listener to the new Button
-	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectBlueprintClick(newBlueprint, currentID); });
-			newBlueprint.GetComponent<ButtonHover>().SetTooltipData(bp.GetTooltipData());
+	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {m_buttonHandler.OnSelectBlueprintClick(newBlueprint, currentID); });
 			
+			// Send the tooptip data to the ButtonHover component
+			newBlueprint.GetComponent<ButtonHover>().SetTooltipData(bp.GetTooltipData());
 
-			// Add the text and the sprite to the button TODO change this into set parameters inside the prefab
-			foreach (Transform child in newBlueprint.transform) {
-	    		if (child.name == "BlueprintName") {
-	    			child.GetComponent<Text>().text = bp.name;
-	    			continue;
-	    		}
-	    		if (child.name == "BlueprintSprite") {
-	    			child.GetComponent<Image>().sprite = bp.blueprintSprite;
-	    			continue;
-	    		}
-
-	    	}
+			// Add the text and the sprite to the button
+			newBlueprint.GetComponent<ButtonGraphic>().SetData(bp.name, bp.blueprintSprite);
 
 	    	// Add the finished button to the list of instantiated buttons
-	    	blueprintBtns.Add(newBlueprint);
+	    	m_blueprintBtns.Add(newBlueprint);
     	}
     }
 
 
-    // Updates the height of the blueprints viewport to accomodate more buttons
-	private void UpdateViewportHeight() {
-		RectTransform bpSelectorContentTransform = blueprintSelectorContent.GetComponent<RectTransform>();
-		float blueprintSelectorContentWidth = bpSelectorContentTransform.sizeDelta.x;
-		// 4 is how many btns can fit at a time
-		if (GetNumberOfActiveBlueprints() < 4) {
-			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, 560f);
+	/// <summary>
+	/// Updates the height of the blueprints viewport to accomodate more buttons.
+	/// </summary>
+	private void UpdateViewportHeight()
+	{
+		RectTransform bpSelectorContentTransform = m_blueprintSelectorContent.GetComponent<RectTransform>();
+		float contentWidth = bpSelectorContentTransform.sizeDelta.x;
+		
+		if (GetNumberOfActiveBlueprints() < m_blueprintBtnsPerScreen) {
+			bpSelectorContentTransform.sizeDelta = new Vector2(contentWidth, 560f);
 
 		} else {
-			bpSelectorContentTransform.sizeDelta = new Vector2(blueprintSelectorContentWidth, blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
+			bpSelectorContentTransform.sizeDelta = new Vector2(contentWidth, m_blueprintBtnHeight * (GetNumberOfActiveBlueprints() + 1));
 		}
 	}
 
 
-	// Returns the number of active blueprints
-	private int GetNumberOfActiveBlueprints() {
+	/// <summary>
+	/// Returns the number of active blueprints
+	/// </summary>
+	/// <returns></returns>
+	private int GetNumberOfActiveBlueprints()
+	{
 		int n = 0;
-		for (int i = 0; i < activeBlueprints.Length; i++) {
-			if (activeBlueprints[i]) n++;
+
+		for (int i = 0; i < m_activeBlueprints.Length; i++) {
+			if (m_activeBlueprints[i]) n++;
 		}
 
 		return n;
@@ -162,71 +141,83 @@ public class Crafter : MonoBehaviour {
 
 
 
-
 	// TODO also be able to deselect and leave the crafting area empty
-	public void SelectBlueprint(int blueprintID, GameObject caller) {
-        // Set the blueprint as "selected"
-        this.selectedBlueprintID = blueprintID;
+	/// <summary>
+	/// Sets the clicked blueprint as selected and activates the Crafting functionality
+	/// </summary>
+	/// <param name="blueprintID"></param>
+	/// <param name="caller"></param>
+	public void SelectBlueprint(int blueprintID, GameObject caller)
+	{
+        // Set the blueprint as selected
+        m_selectedBlueprintID = blueprintID;
 
 		// Deselect all other buttons & select the new one
-		foreach (GameObject blueprintBtn in blueprintBtns)
+		foreach (GameObject blueprintBtn in m_blueprintBtns)
         {
 			blueprintBtn.GetComponent<ButtonGraphic>().Deselect();
 		}
 		caller.GetComponent<ButtonGraphic>().Select();
 
 		// Activate the Craft button
-		buttonHandler.ActivateCraftBtn();
+		m_buttonHandler.ActivateCraftBtn();
 
 		// Make sure the silhouette's image is enabled
-		if (!artifactSilhouetteImage.enabled) artifactSilhouetteImage.enabled = true;
+		if (!m_artifactSilhouette.enabled) m_artifactSilhouette.enabled = true;
+
 		// Render the artifact's silhouette in the ArtifactViewer
-		Sprite artifactSprite = GetBlueprintWithID(this.selectedBlueprintID).artifactSprite;
-		artifactSilhouetteImage.sprite = artifactSprite;
+		Sprite artifactSprite = GetBlueprintWithID(m_selectedBlueprintID).artifactSprite;
+		m_artifactSilhouette.sprite = artifactSprite;
 	}
 
 
-	// Tries to start crafting an Artifact
-	public void Craft() {
+	/// <summary>
+	/// Starts the crafting process (if there are enough resources)
+	/// </summary>
+	public void Craft()
+	{
 		// Check if there is a blueprint selected
-		if (selectedBlueprintID < 0) {
-			print("No blueprint selected");
+		if (m_selectedBlueprintID < 0)
+		{
 			return;
 		}
 
 		// Check if there are enough resources
 
-		// Check if there is enough space (unimplemented)
-
 		// Change the Craft btn to the "Stop Crafting" btn
-		buttonHandler.SawpCraftWithStop();
+		m_buttonHandler.SawpCraftWithStop();
 
 		// Start the crafting timer coroutine
-		float craftingTime = GetBlueprintWithID(this.selectedBlueprintID).craftingTime;
-		progressbar.value = 0;
-
-		gameController.Craft(this.selectedBlueprintID, craftingTime);
+		float craftingTime = GetBlueprintWithID(m_selectedBlueprintID).craftingTime;
+		m_progressbar.value = 0;
+		m_gameController.Craft(m_selectedBlueprintID, craftingTime);
 
 		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the craft?)
 		
 		// Actually spend the resources
 
 	}
-
-	public void UpdateCraftingProgress(float progress) {
-		progressbar.value = progress;
+	
+	/// <summary>
+	/// Updates the progress bar value
+	/// </summary>
+	/// <param name="progress"></param>
+	public void UpdateCraftingProgress(float progress)
+	{
+		m_progressbar.value = progress;
 	}
 
 
-	public void StopCraft() {
+	public void StopCraft()
+	{
 		// Stop the timer
-    	gameController.StopCraft();
+    	m_gameController.StopCraft();
 
     	// Reset the progress bar
     	UpdateCraftingProgress(0);
 
     	// Change the Craft btn to the "Craft" btn
-		buttonHandler.SawpStopWithCraft();
+		m_buttonHandler.SawpStopWithCraft();
 
 		// Return the "refounded resources"
 		RefoundResources();
@@ -234,11 +225,12 @@ public class Crafter : MonoBehaviour {
 
 
 	// Upon compleation, show the new Artifact and add it to the armory
-	public void FinishCrafting() {
+	public void FinishCrafting()
+	{
     	UpdateCraftingProgress(0); // Needed?
 
     	// Change the Craft btn to the "Craft" btn
-		buttonHandler.SawpStopWithCraft();
+		m_buttonHandler.SawpStopWithCraft();
 
 		// Show confirmation window (if this is the first artifact of its kind) TODO
 		// -- 
@@ -249,16 +241,17 @@ public class Crafter : MonoBehaviour {
 	}
 
 	// TODO
-	private void RefoundResources() {
-		print("TODO Refounding...");
+	private void RefoundResources()
+	{
+		
 	}
 
     // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
-    public Blueprint GetBlueprintWithID(int ID) {
-    	foreach(Blueprint bp in this.blueprints) {
-    		if (bp.GetID() == ID) {
-    			return bp;
-    		}
+    public Blueprint GetBlueprintWithID(int ID)
+	{
+    	foreach(Blueprint bp in m_blueprints)
+		{
+    		if (bp.GetID() == ID) return bp;
     	}
 
     	return null;

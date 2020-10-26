@@ -5,23 +5,22 @@ using UnityEngine.UI;
 
 public class ArmoryHandler : MonoBehaviour {
 
-	public GameObject GameManager;
-	private GameController gameController;
+    [SerializeField]
+	private GameObject m_gameManager, m_prefabCell;
+	private GameController m_gameController;
 
-	public GameObject CellPrefab;
+    [SerializeField]
+    private GameObject m_armoryContentWeapons, 
+        m_armoryContentArmor, 
+        m_armoryContentAccessories, 
+        m_armoryContentAbyss;
+    
+	private int m_cellsPerRow;
 
-	public GameObject ArmoryContentWeapons;
-	public GameObject ArmoryContentArmor;
-	public GameObject ArmoryContentAccessories;
-	public GameObject ArmoryContentAbyss;
 
-	private int cellsPerRow;
-
-	[SerializeField]
-	private ArmoryTab currentTab;
-
-	
-	// Pool of all cell groups
+	/// <summary>
+    /// Struct containing a pool of armory cells
+    /// </summary>
 	struct Cells {
 		public List<GameObject> weaponCellsList;
 		public List<GameObject> armorCellsList;
@@ -31,46 +30,60 @@ public class ArmoryHandler : MonoBehaviour {
 
 	private Cells instantiatedCells;
 
-	void Awake() {
-		gameController = GameManager.GetComponent<GameController>();
-		cellsPerRow = 7;
+	void Awake()
+    {
+		m_gameController = m_gameManager.GetComponent<GameController>();
+		m_cellsPerRow = 7;
 
-		instantiatedCells = new Cells();
-		instantiatedCells.weaponCellsList = new List<GameObject>();
-		instantiatedCells.armorCellsList = new List<GameObject>();
-		instantiatedCells.accessoryCellsList = new List<GameObject>();
-		instantiatedCells.abyssCellsList = new List<GameObject>();
-	}
+        // Store the instantiated cells as lists inside a Cells struct
+        instantiatedCells = new Cells
+        {
+            weaponCellsList = new List<GameObject>(),
+            armorCellsList = new List<GameObject>(),
+            accessoryCellsList = new List<GameObject>(),
+            abyssCellsList = new List<GameObject>()
+        };
+    }
 
-    // Start is called before the first frame update
-    void Start() {
-    	currentTab = ArmoryTab.WEAPONS; // Default is Weapons
+    void Start()
+    {
     	PopulateGrids();
     }
 
-
-    public void UpdateContents() {
+    /// <summary>
+    /// Updates the contents of every tab in the Armory.
+    /// </summary>
+    public void UpdateContents()
+    {
 		PopulateGrids();
     }
 
 
-    // Updates the tab contents when it is focused on
-    public void OnFocus() {
+    /// <summary>
+    /// Updates the tab contents when it is focused on.
+    /// </summary>
+    public void OnFocus()
+    {
         PopulateGrids();
     }
 
 
-    // Populate the grids with the Artifacts in the Armory
-    private void PopulateGrids() {
+    /// <summary>
+    /// Populates the grids with the Artifacts in the Armory.
+    /// </summary>
+    private void PopulateGrids()
+    {
     	// First, clear the list of currently instantiated cells
     	DestroyAllCells();
 
     	// Display the Artifacts in different tabs depending on their type
-    	foreach(ArtifactType type in System.Enum.GetValues(typeof(ArtifactType))) {
-    		List<Artifact> filteredArtifacts = gameController.armory.FilterByType(type); 
+    	foreach(ArtifactType type in System.Enum.GetValues(typeof(ArtifactType)))
+        {
+    		List<Artifact> filteredArtifacts = m_gameController.armory.FilterByType(type); 
 
     		int i = 0;
-    		foreach(Artifact artifact in filteredArtifacts) {
+    		foreach(Artifact artifact in filteredArtifacts)
+            {
     			GameObject targetParent = GetParentFromType(type);
     			GameObject cell = CreateGridCell(artifact, targetParent, i);
     			
@@ -83,27 +96,36 @@ public class ArmoryHandler : MonoBehaviour {
     }
 
 
-    // Creates a new cell and instantiates it
-    private GameObject CreateGridCell(Artifact artifact, GameObject targetParent, int index) {
+    /// <summary>
+    /// Creates a new cell and instantiates it.
+    /// </summary>
+    /// <param name="artifact"></param>
+    /// <param name="targetParent"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    private GameObject CreateGridCell(Artifact artifact, GameObject targetParent, int index)
+    {
+        float gap = 50f;
     	float offset = 14f;
     	float cellSize = 72f;
 
-    	GameObject newCell = Instantiate(CellPrefab, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
-	    newCell.name = "cell_" + index;
-	    // Apply the corresponding sprite
+    	GameObject newCell = Instantiate(m_prefabCell, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
+	    newCell.name = "Cell_" + index;
+
+	    // Assign the corresponding sprite
 	    newCell.GetComponent<ArmoryGridCell>().cellIcon.GetComponent<Image>().sprite = artifact.GetSprite();
 	    
-	    // PLace the cells in a grid, changing row when needed
+	    // Place the cells in a grid, changing row when needed
 		float rowIndex = 0;
 		float colIndex = 0;
 
 		if (index != 0) {
-			rowIndex = (float)index % cellsPerRow;
-			colIndex = (float)Mathf.Floor(index / cellsPerRow);
+			rowIndex = (float)index % m_cellsPerRow;
+			colIndex = (float)Mathf.Floor(index / m_cellsPerRow);
 		}
 
-    	float x = 50f + (cellSize + offset) * rowIndex;
-    	float y = -50f - (cellSize + offset) * colIndex;
+    	float x = gap + (cellSize + offset) * rowIndex;
+    	float y = -gap - (cellSize + offset) * colIndex;
     	
 	    newCell.transform.localPosition = new Vector2(x, y);
 
@@ -112,28 +134,39 @@ public class ArmoryHandler : MonoBehaviour {
     }
 
 
-    // Returns the tab parent GO depending on the Artifact type
-    private GameObject GetParentFromType(ArtifactType type) {
+    /// <summary>
+    /// Returns the tab parent GameObject depending on the Artifact type.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private GameObject GetParentFromType(ArtifactType type)
+    {
     	switch(type) {
     		case ArtifactType.WEAPON:
-    			return ArmoryContentWeapons;
+    			return m_armoryContentWeapons;
 
     		case ArtifactType.ARMOR:
-    			return ArmoryContentArmor;
+    			return m_armoryContentArmor;
 
     		case ArtifactType.ACCESSORY:
-    			return ArmoryContentAccessories;
+    			return m_armoryContentAccessories;
 
     		case ArtifactType.ABYSS:
-    			return ArmoryContentAbyss;
+    			return m_armoryContentAbyss;
 
     		default:
-    			return ArmoryContentWeapons;    		
+    			return m_armoryContentWeapons;    		
     	}
     }
 
-    // Returns the cell group depending on the Artifact type
-    private List<GameObject> GetCellGroupFromType(Cells cells, ArtifactType type) {
+    /// <summary>
+    /// Returns the cell group depending on the Artifact type.
+    /// </summary>
+    /// <param name="cells"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private List<GameObject> GetCellGroupFromType(Cells cells, ArtifactType type)
+    {
     	switch(type) {
     		case ArtifactType.WEAPON:
     			return cells.weaponCellsList;
@@ -156,7 +189,9 @@ public class ArmoryHandler : MonoBehaviour {
 
 
 
-    // Destroys every gameobject in instantiatedCells and Clears the list
+    /// <summary>
+    /// Destroys every GameObject in instantiatedCells and Clears the list.
+    /// </summary>
     private void DestroyAllCells() {
     	DestroyCells(instantiatedCells.weaponCellsList);
     	DestroyCells(instantiatedCells.armorCellsList);
@@ -166,7 +201,6 @@ public class ArmoryHandler : MonoBehaviour {
 
     private void DestroyCells(List<GameObject> group) {
     	if (group == null) {
-    		group = new List<GameObject>();
     		return;
     	}
 
@@ -177,4 +211,26 @@ public class ArmoryHandler : MonoBehaviour {
 		group.Clear();
     }
 
+
+    /// <summary>
+    /// Returns the Content-GameObject that holds the artifacts of the given type.
+    /// </summary>
+    /// <param name="artifactType"></param>
+    /// <returns></returns>
+    public GameObject GetContent(ArtifactType artifactType)
+    {
+        switch (artifactType)
+        {
+            case ArtifactType.WEAPON:
+                return m_armoryContentWeapons;
+            case ArtifactType.ARMOR:
+                return m_armoryContentArmor;
+            case ArtifactType.ACCESSORY:
+                return m_armoryContentAccessories;
+            case ArtifactType.ABYSS:
+                return m_armoryContentAbyss;
+            default:
+                return null;
+        }
+    }
 }

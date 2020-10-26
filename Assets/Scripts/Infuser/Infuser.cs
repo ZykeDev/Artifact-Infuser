@@ -6,42 +6,30 @@ using UnityEngine.UI;
 
 public class Infuser : MonoBehaviour {
 
-	public GameObject GameManager;
-	public GameObject MainCanvas;
+    [SerializeField] private GameController m_gameController;
+    [SerializeField] private UnlockSystem m_unlockSystem;
+	[SerializeField] private ButtonHandler m_buttonHandler;
+	[SerializeField] private Slider m_progressbar;
 
-    private GameController gameController;
-    private UnlockSystem unlockSystem;
-    private ButtonHandler buttonHandler;
+	[SerializeField]
+	private GameObject m_cypherSelectorContent, m_cypherBtnPref;
 
-    private Slider progressbar; 
-
-    public GameObject cypherSelectorContent;
-    public GameObject cypherBtnPref;
-
-    private List<GameObject> cypherBtns;
-    private List<Cypher> cyphers;
-    public bool[] activeCyphers;
-
-    private float cypherBtnWidth = 0;
-    private float cypherBtnHeight = 0;
-
-    // Currently selected cypher
-    private int selectedCypherID = -1;
+    private List<GameObject> m_cypherBtns;
+    private List<Cypher> m_cyphers;
+    private float m_cypherBtnWidth = 0;
+	private float m_cypherBtnHeight = 0;
+	private int m_cyphersBtnsPerScreen = 4;
+	private int m_selectedCypherID = -1;
+	
+	private bool[] m_activeCyphers;
 
 
-	// Start is called before the first frame update
-	void Start() {
-		gameController = GameManager.GetComponent<GameController>();
-		unlockSystem = GameManager.GetComponent<UnlockSystem>();
-		buttonHandler = MainCanvas.GetComponent<ButtonHandler>();
+	void Start()
+	{
+		m_cypherBtns = new List<GameObject>();
 
-		// Reference the infusing progressbar
-		progressbar = GameObject.Find("InfusionProgressbar").GetComponent<Slider>();
-
-		cypherBtns = new List<GameObject>();
-
-		cyphers = unlockSystem.cyphers;
-		activeCyphers = unlockSystem.activeCyphers;
+		m_cyphers = m_unlockSystem.cyphers;
+		m_activeCyphers = m_unlockSystem.activeCyphers;
 
         // Instantiate the active cypher btns
 		InstantiateCyphers();
@@ -52,52 +40,58 @@ public class Infuser : MonoBehaviour {
     }
 
 
-    // Destroys all cypher btns and re-instantiates them, checking for new active ones
-    public void UpdateActiveCyphers() {
-    	foreach (GameObject c in cypherBtns) {
+	/// <summary>
+	/// Destroys all cypher btns and re-instantiates them, checking for new active ones.
+	/// </summary>
+	public void UpdateActiveCyphers()
+	{
+    	foreach (GameObject c in m_cypherBtns) {
     		Destroy(c);
     	}
 
-    	cypherBtns.Clear();
+    	m_cypherBtns.Clear();
 
     	InstantiateCyphers();
     }
 
 
-    // Instantiates all active cyphers
-    private void InstantiateCyphers() {
-
-    	float gap = 10f;
+	/// <summary>
+	/// Instantiates all active cyphers.
+	/// </summary>
+	private void InstantiateCyphers()
+	{
+		// Button's offset position from the sides
+		float offset = 15f;
     	
-    	foreach (Cypher c in this.cyphers) {
+    	foreach (Cypher c in m_cyphers) {
+
+			int currentID = c.GetID();
+
     		// Don't show cyphers that are not active
-    		if (activeCyphers[c.ID] == false) {
+    		if (m_activeCyphers[currentID] == false) {
     			continue;
     		}
 
-    		// For some reason Instantiate doesn't accept a 5th param "false" for isWorldMapSpace, so localPos is set later
-	    	GameObject newCypher = Instantiate(cypherBtnPref, new Vector2(0, 0), Quaternion.identity, cypherSelectorContent.transform) as GameObject;
-	    	newCypher.name = "Cbtn_" + c.ID;
+	    	GameObject newCypher = Instantiate(m_cypherBtnPref,
+				new Vector2(0, 0),
+				Quaternion.identity,
+				m_cypherSelectorContent.transform) as GameObject;
+
+	    	newCypher.name = "Cbtn_" + currentID;
 
 	    	// Not being used for now. Shouse it be added to the "newCypher" gameobj?
 	    	CypherBtnData cdata = newCypher.AddComponent<CypherBtnData>();
-	    	cdata.SetID(c.ID);
+	    	cdata.SetID(currentID);
 
 	    	// Add a listener to the new Button
-	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate {buttonHandler.OnSelectCypherClick(c.ID); });
+	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate {m_buttonHandler.OnSelectCypherClick(currentID); });
 	    	
-	    	float width = newCypher.GetComponent<RectTransform>().sizeDelta.x;
+			// Store the btn size locally
 	    	float height = newCypher.GetComponent<RectTransform>().sizeDelta.y;
+	    	if (m_cypherBtnHeight == 0) m_cypherBtnHeight = height;
 
-	    	// Store the btn size locally
-	    	if (this.cypherBtnHeight == 0) this.cypherBtnHeight = height;
-	    	if (this.cypherBtnWidth  == 0) this.cypherBtnWidth = width;
-	    	
-	    	// Correctly position the new button. Use its ID as a vertical index
-	    	newCypher.transform.localPosition = new Vector2(width / 2 + 8f, -height/2 - (height * c.ID) - gap);
-
-	    	// Fix the collider to match the button size 
-	    	newCypher.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+			// Correctly position the new button. Use its ID as a vertical index
+			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
 
 
 	    	// Add the text and the sprite to the button TODO move this to the cypher's script
@@ -114,21 +108,21 @@ public class Infuser : MonoBehaviour {
 	    	}
 
 	    	// Add the finished button to the list of instantiated buttons
-	    	cypherBtns.Add(newCypher);
+	    	m_cypherBtns.Add(newCypher);
     	}
     }
 
 
     // Updates the height of the cyphers viewport to accomodate more buttons
 	private void UpdateViewportHeight() {
-		RectTransform cSelectorContentTransform = cypherSelectorContent.GetComponent<RectTransform>();
+		RectTransform cSelectorContentTransform = m_cypherSelectorContent.GetComponent<RectTransform>();
 		float cypherSelectorContentWidth = cSelectorContentTransform.sizeDelta.x;
 		// 4 is how many btns can fit at a time
-		if (GetNumberOfActiveCyphers() < 4) {
+		if (GetNumberOfActiveCyphers() < m_cyphersBtnsPerScreen) {
 			cSelectorContentTransform.sizeDelta = new Vector2(cypherSelectorContentWidth, 560f);
 
 		} else {
-			cSelectorContentTransform.sizeDelta = new Vector2(cypherSelectorContentWidth, cypherBtnHeight * (GetNumberOfActiveCyphers() + 1));
+			cSelectorContentTransform.sizeDelta = new Vector2(cypherSelectorContentWidth, m_cypherBtnHeight * (GetNumberOfActiveCyphers() + 1));
 		}
 	}
 
@@ -136,8 +130,8 @@ public class Infuser : MonoBehaviour {
 	// Returns the number of active cyphers
 	private int GetNumberOfActiveCyphers() {
 		int n = 0;
-		for (int i = 0; i < activeCyphers.Length; i++) {
-			if (activeCyphers[i]) n++;
+		for (int i = 0; i < m_activeCyphers.Length; i++) {
+			if (m_activeCyphers[i]) n++;
 		}
 
 		return n;
@@ -149,10 +143,10 @@ public class Infuser : MonoBehaviour {
 	// TODO also be able to deselect and leave the crafting area empty
 	public void SelectCypher(int cypherID) {
         // Set the cypher as "selected"
-        this.selectedCypherID = cypherID;
+        m_selectedCypherID = cypherID;
 
         // Activate the Craft button
-        buttonHandler.ActivateInfuseBtn();
+        m_buttonHandler.ActivateInfuseBtn();
 
 		// Render the artifact's on the rune table
         // TODO
@@ -163,7 +157,7 @@ public class Infuser : MonoBehaviour {
 	// Tries to start infusing an Artifact
 	public void Infuse() {
 		// Check if there is a cypher selected
-		if (selectedCypherID < 0) {
+		if (m_selectedCypherID < 0) {
 			print("No cypher selected");
 			return;
 		}
@@ -173,13 +167,13 @@ public class Infuser : MonoBehaviour {
 		// Check if there is enough space (unimplemented)
 
 		// Change the Infuse btn to the "Stop Infusing" btn
-		buttonHandler.SawpInfuseWithStop();
+		m_buttonHandler.SawpInfuseWithStop();
 
 		// Start the infusing timer coroutine
-		float infusionTime = GetCypherWithID(this.selectedCypherID).infusionTime;
-		progressbar.value = 0;
+		float infusionTime = GetCypherWithID(m_selectedCypherID).infusionTime;
+		m_progressbar.value = 0;
 
-		gameController.Infuse(this.selectedCypherID, infusionTime);
+		m_gameController.Infuse(m_selectedCypherID, infusionTime);
 
 		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the infusion?)
 		
@@ -188,19 +182,19 @@ public class Infuser : MonoBehaviour {
 	}
 
 	public void UpdateInfusionProgress(float progress) {
-		progressbar.value = progress;
+		m_progressbar.value = progress;
 	}
 
 
 	public void StopInfusion() {
 		// Stop the timer
-    	gameController.StopInfusion();
+    	m_gameController.StopInfusion();
 
     	// Reset the progress bar
     	UpdateInfusionProgress(0);
 
     	// Change the Infuse btn to the "Infuse" btn
-		buttonHandler.SawpStopWithInfuse();
+		m_buttonHandler.SawpStopWithInfuse();
 	}
 
 
@@ -209,7 +203,7 @@ public class Infuser : MonoBehaviour {
     	UpdateInfusionProgress(0); // Needed?
 
     	// Change the Infuse btn to the "Infuse" btn
-		buttonHandler.SawpStopWithInfuse();
+		m_buttonHandler.SawpStopWithInfuse();
 
 		// Show confirmation window (if this is the first artifact of its kind) TODO
 		// -- 
@@ -217,8 +211,8 @@ public class Infuser : MonoBehaviour {
 
     // Returns the cypher with the corresponding ID from the cyphers list. Else returns Null.
     public Cypher GetCypherWithID(int ID) {
-    	foreach(Cypher c in this.cyphers) {
-    		if (c.ID == ID) {
+    	foreach(Cypher c in m_cyphers) {
+    		if (c.GetID() == ID) {
     			return c;
     		}
     	}
