@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222f8b39394effb47a18c608ddb0c71f, type: 3}
   m_Name: Higher Power
   m_EditorClassIdentifier: 
-  ID: 0
-  name: Higher Power
-  allowedTypes: 0000000002000000
-  cypherSprite: {fileID: 0}
-  artifactSprite: {fileID: 0}
-  infusionTime: 2
-  rarity: 0
-  price: 10
-  alphaRune: 0
-  novaRune: 0
-  gradientRune: 0
+  m_ID: 1
+  m_cypherName: Higher Power
+  m_allowedTypes: 0000000002000000
+  m_cypherSprite: {fileID: 0}
+  m_artifactSprite: {fileID: 0}
+  m_infusionTime: 0
+  m_rarity: 0
+  m_price: 0
+  m_alphaRune: 0
+  m_novaRune: 0
+  m_gradientRune: 0
+  m_tooltipDex: Increase the offensive capabilities of a weapon

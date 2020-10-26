@@ -99,7 +99,7 @@ public class Crafter : MonoBehaviour {
 			newBlueprint.GetComponent<ButtonHover>().SetTooltipData(bp.GetTooltipData());
 
 			// Add the text and the sprite to the button
-			newBlueprint.GetComponent<ButtonGraphic>().SetData(bp.name, bp.blueprintSprite);
+			newBlueprint.GetComponent<ButtonGraphic>().SetData(bp.GetName(), bp.GetBlueprintSprite());
 
 	    	// Add the finished button to the list of instantiated buttons
 	    	m_blueprintBtns.Add(newBlueprint);
@@ -166,7 +166,7 @@ public class Crafter : MonoBehaviour {
 		if (!m_artifactSilhouette.enabled) m_artifactSilhouette.enabled = true;
 
 		// Render the artifact's silhouette in the ArtifactViewer
-		Sprite artifactSprite = GetBlueprintWithID(m_selectedBlueprintID).artifactSprite;
+		Sprite artifactSprite = GetBlueprintWithID(m_selectedBlueprintID).GetArtifactSprite();
 		m_artifactSilhouette.sprite = artifactSprite;
 	}
 
@@ -188,7 +188,7 @@ public class Crafter : MonoBehaviour {
 		m_buttonHandler.SawpCraftWithStop();
 
 		// Start the crafting timer coroutine
-		float craftingTime = GetBlueprintWithID(m_selectedBlueprintID).craftingTime;
+		float craftingTime = GetBlueprintWithID(m_selectedBlueprintID).GetCraftingTime();
 		m_progressbar.value = 0;
 		m_gameController.Craft(m_selectedBlueprintID, craftingTime);
 

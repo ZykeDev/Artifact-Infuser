@@ -63,12 +63,16 @@ public class Infuser : MonoBehaviour {
 		// Button's offset position from the sides
 		float offset = 15f;
     	
-    	foreach (Cypher c in m_cyphers) {
-
+    	foreach (Cypher c in m_cyphers)
+		{
 			int currentID = c.GetID();
 
-    		// Don't show cyphers that are not active
-    		if (m_activeCyphers[currentID] == false) {
+			// Init the tooltip texts within the cypher
+			c.InitTooltipData();
+
+			// Don't show cyphers that are not active
+			if (!m_activeCyphers[currentID])
+			{
     			continue;
     		}
 
@@ -77,22 +81,22 @@ public class Infuser : MonoBehaviour {
 				Quaternion.identity,
 				m_cypherSelectorContent.transform) as GameObject;
 
-	    	newCypher.name = "Cbtn_" + currentID;
-
-	    	// Not being used for now. Shouse it be added to the "newCypher" gameobj?
-	    	CypherBtnData cdata = newCypher.AddComponent<CypherBtnData>();
-	    	cdata.SetID(currentID);
-
-	    	// Add a listener to the new Button
-	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate {m_buttonHandler.OnSelectCypherClick(currentID); });
-	    	
-			// Store the btn size locally
+	    	// Store the btn size locally
 	    	float height = newCypher.GetComponent<RectTransform>().sizeDelta.y;
 	    	if (m_cypherBtnHeight == 0) m_cypherBtnHeight = height;
 
 			// Correctly position the new button. Use its ID as a vertical index
 			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
+			newCypher.name = "Cbtn_" + currentID;
 
+			// Add a listener to the new Button
+	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate {m_buttonHandler.OnSelectCypherClick(currentID); });
+
+			// Send the tooptip data to the ButtonHover component
+			newCypher.GetComponent<ButtonHover>().SetTooltipData(c.GetTooltipData());
+			
+			// Add the text and the sprite to the button
+			newCypher.GetComponent<ButtonGraphic>().SetData(c.GetName(), c.GetCypherSprite());
 
 	    	// Add the text and the sprite to the button TODO move this to the cypher's script
 	    	foreach (Transform child in newCypher.transform) {
@@ -101,7 +105,7 @@ public class Infuser : MonoBehaviour {
 	    			continue;
 	    		}
 	    		if (child.name == "CypherSprite") {
-	    			child.GetComponent<Image>().sprite = c.cypherSprite;
+	    			child.GetComponent<Image>().sprite = c.GetCypherSprite();
 	    			continue;
 	    		}
 
@@ -158,7 +162,6 @@ public class Infuser : MonoBehaviour {
 	public void Infuse() {
 		// Check if there is a cypher selected
 		if (m_selectedCypherID < 0) {
-			print("No cypher selected");
 			return;
 		}
 
@@ -170,7 +173,7 @@ public class Infuser : MonoBehaviour {
 		m_buttonHandler.SawpInfuseWithStop();
 
 		// Start the infusing timer coroutine
-		float infusionTime = GetCypherWithID(m_selectedCypherID).infusionTime;
+		float infusionTime = GetCypherWithID(m_selectedCypherID).GetInfusionTime();
 		m_progressbar.value = 0;
 
 		m_gameController.Infuse(m_selectedCypherID, infusionTime);

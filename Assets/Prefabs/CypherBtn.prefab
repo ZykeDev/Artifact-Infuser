@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7645731077657210550}
   - component: {fileID: 7645731077657210505}
   m_Layer: 5
-  m_Name: CypherSprite
+  m_Name: Cypher Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,8 @@ GameObject:
   - component: {fileID: 7645731078256115507}
   - component: {fileID: 7645731078256115506}
   - component: {fileID: 7645731078256115509}
-  - component: {fileID: 7645731078256115508}
+  - component: {fileID: 2539221940356453509}
+  - component: {fileID: 3793696121805935687}
   m_Layer: 5
   m_Name: CypherBtn
   m_TagString: Untagged
@@ -224,7 +225,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7645731078256115508
+--- !u!114 &2539221940356453509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,9 +234,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7645731078256115510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0333d1949cb7b4e859ae019d2df086, type: 3}
+  m_Script: {fileID: 11500000, guid: a50ace7b269b16f4cbf23d9a2009380d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3793696121805935687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7645731078256115510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f624dafc08a32479d7d78e571d673b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_name: {fileID: 7645731078977793988}
+  m_image: {fileID: 7645731077657210505}
 --- !u!1 &7645731078977793990
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +263,7 @@ GameObject:
   - component: {fileID: 7645731078977793989}
   - component: {fileID: 7645731078977793988}
   m_Layer: 5
-  m_Name: CypherName
+  m_Name: Cypher Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

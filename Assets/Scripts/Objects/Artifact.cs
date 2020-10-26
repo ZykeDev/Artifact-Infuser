@@ -1,63 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Artifact {
 
-	private int artifactTypeID;
-	private ArtifactType type;
-	private string name;
-	private Sprite sprite;
-	private int rarity;
+	private int m_artifactTypeID;
+	private ArtifactType m_type;
+	private string m_name;
+	private Sprite m_sprite;
+	private int m_rarity;
 
-	private int price;
+	private int m_price;
 
 	// TODO how do I encode abilities and properties? a list of IDs?
-	private int[] abilities;
-	private int[] properties;
+	private int[] m_abilities;
+	private int[] m_properties;
 
 
 
 	public Artifact(int artifactTypeID, ArtifactType type, string name, Sprite artifactSprite, int rarity, int price) {
-		this.artifactTypeID = artifactTypeID;
-		this.type = type;
-		this.name = name;
-		this.sprite = artifactSprite;
-		this.rarity = rarity;
-		this.price = price;
+		m_artifactTypeID = artifactTypeID;
+		m_type = type;
+		m_name = name;
+		m_sprite = artifactSprite;
+		m_rarity = rarity;
+		m_price = price;
 	}
 
-	public Artifact(Blueprint bp) : this(bp.GetID(), bp.type, bp.name, bp.artifactSprite, bp.rarity, bp.price) {
+	public Artifact(Blueprint bp) : this(bp.GetID(), bp.GetArtifactType(), bp.GetName(), bp.GetArtifactSprite(), bp.GetRarity(), bp.GetPrice()) {
 		// Constructor overalod using only a BP
 	}
 
 
 
-	public ArtifactType GetArtifactType() {
-		return this.type;
-	}
-
-	public string GetName() {
-		return this.name;
-	}
-
-	public Sprite GetSprite() {
-		return this.sprite;
-	}
-
-	public int GetRarity() {
-		return this.rarity;
-	}
-
-	public int GetPrice() {
-		return this.price;
-	}
-
-
-
-	
-
-
+	public ArtifactType GetArtifactType() => m_type;
+	public string GetName() => m_name;
+	public Sprite GetSprite() => m_sprite;
+	public int GetRarity() => m_rarity;
+	public int GetPrice() => m_price;
 
     
 }

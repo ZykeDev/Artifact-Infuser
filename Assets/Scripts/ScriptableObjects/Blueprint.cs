@@ -1,48 +1,47 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Blueprint", menuName = "Blueprint")]
 public class Blueprint : ScriptableObject {
-	
-	[SerializeField]
-	private int ID;
-	public string artifactName;
-	public ArtifactType type;
-	public Sprite blueprintSprite, artifactSprite;
 
-	public float craftingTime;
-	public int rarity;
-	public int price;
+	[SerializeField] private int m_ID;
+	[SerializeField] private string m_artifactName;
+	[SerializeField] private ArtifactType m_type;
+	[SerializeField] private Sprite m_blueprintSprite, m_artifactSprite;
 
-	public double wood, metal, leather, crystals;
+	[SerializeField] private float m_craftingTime;
+	[SerializeField] private int m_rarity, m_price;
 
-	[SerializeField]
-	private string tooltipDex;
+	[SerializeField] private double m_wood, m_metal, m_leather, m_crystals;
 
-	private TooltipData tooltipData;
+	[SerializeField] private string m_tooltipDex;
+	private TooltipData m_tooltipData;
 
 
-    // Groups the tooltip data fields into one struct
-    public void InitTooltipData()
-    {
-		tooltipData = new TooltipData(artifactName, tooltipDex);
-    }
-
-	public int GetID()
-    {
-		return ID;
-    }
+	// Groups the tooltip data fields into one struct
+	public void InitTooltipData()
+	{
+		m_tooltipData = new TooltipData(m_artifactName, m_tooltipDex);
+	}
 
 	public RequiredResources GetRequiredResources()
 	{
-		RequiredResources rr = new RequiredResources(this.wood, this.metal, this.leather, this.crystals);
+		RequiredResources rr = new RequiredResources(m_wood, m_metal, m_leather, m_crystals);
 		return rr;
 	}
-	
+
 	public TooltipData GetTooltipData()
-    {
-		return this.tooltipData;
-    }
+	{
+		return m_tooltipData;
+	}
+
+	public int GetID() => m_ID;
+	public string GetName() => m_artifactName;
+	public ArtifactType GetArtifactType() => m_type;
+	public Sprite GetBlueprintSprite() => m_blueprintSprite;
+	public Sprite GetArtifactSprite() => m_artifactSprite;
+	public float GetCraftingTime() => m_craftingTime;
+	public int GetRarity() => m_rarity;
+	public int GetPrice() => m_price;
 
 }
 
