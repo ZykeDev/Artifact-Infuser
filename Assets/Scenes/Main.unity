@@ -1360,6 +1360,7 @@ MonoBehaviour:
   m_infuser: {fileID: 6247726}
   m_armory: {fileID: 73572184}
   m_upgrades: {fileID: 76265657}
+  m_gatheringDuration: 2
 --- !u!4 &271865952
 Transform:
   m_ObjectHideFlags: 0
@@ -5914,7 +5915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -339, y: 265.94022}
+  m_AnchoredPosition: {x: -339, y: 129.09213}
   m_SizeDelta: {x: 678, y: 990.3457}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1602375277 stripped
@@ -6210,8 +6211,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.53706545
+  m_Value: 1.2984918
+  m_Size: 0.26853257
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
