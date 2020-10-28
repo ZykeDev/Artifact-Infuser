@@ -16,7 +16,6 @@ public class Infuser : MonoBehaviour {
 
     private List<GameObject> m_cypherBtns;
     private List<Cypher> m_cyphers;
-    private float m_cypherBtnWidth = 0;
 	private float m_cypherBtnHeight = 0;
 	private int m_cyphersBtnsPerScreen = 4;
 	private int m_selectedCypherID = -1;
@@ -98,18 +97,6 @@ public class Infuser : MonoBehaviour {
 			// Add the text and the sprite to the button
 			newCypher.GetComponent<ButtonGraphic>().SetData(c.GetName(), c.GetCypherSprite());
 
-	    	// Add the text and the sprite to the button TODO move this to the cypher's script
-	    	foreach (Transform child in newCypher.transform) {
-	    		if (child.name == "CypherName") {
-	    			child.GetComponent<Text>().text = c.name;
-	    			continue;
-	    		}
-	    		if (child.name == "CypherSprite") {
-	    			child.GetComponent<Image>().sprite = c.GetCypherSprite();
-	    			continue;
-	    		}
-
-	    	}
 
 	    	// Add the finished button to the list of instantiated buttons
 	    	m_cypherBtns.Add(newCypher);
@@ -118,7 +105,8 @@ public class Infuser : MonoBehaviour {
 
 
     // Updates the height of the cyphers viewport to accomodate more buttons
-	private void UpdateViewportHeight() {
+	private void UpdateViewportHeight()
+	{
 		RectTransform cSelectorContentTransform = m_cypherSelectorContent.GetComponent<RectTransform>();
 		float cypherSelectorContentWidth = cSelectorContentTransform.sizeDelta.x;
 		// 4 is how many btns can fit at a time
@@ -134,6 +122,7 @@ public class Infuser : MonoBehaviour {
 	// Returns the number of active cyphers
 	private int GetNumberOfActiveCyphers() {
 		int n = 0;
+
 		for (int i = 0; i < m_activeCyphers.Length; i++) {
 			if (m_activeCyphers[i]) n++;
 		}

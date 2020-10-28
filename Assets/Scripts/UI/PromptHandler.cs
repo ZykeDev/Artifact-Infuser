@@ -1,24 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PromptHandler : MonoBehaviour {
 
-	public GameObject windowPref;
+	public GameObject m_windowPref;
 
-
-	void Start() { 
-		//NewWindow(); 
-		
-	}
-
-
+	// TODO
 	public void NewWindow() {
 		// Default position is the center of the Canvas
-		Vector2 pos = new Vector2(this.transform.position.x, this.transform.position.y);
-		GameObject newWindow = Instantiate(windowPref, pos, Quaternion.identity, this.transform) as GameObject;
-
-		
+		Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+		GameObject newWindow = Instantiate(m_windowPref, pos, Quaternion.identity, transform);
 
 	}
     

@@ -1,47 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ResourcesTabUI : MonoBehaviour {
 
-	public GameObject gameManager;
-	private GameController gameController;
+	[SerializeField] private GameController m_gameController;
 
-	public GameObject gold;
-	public GameObject wood;
-	public GameObject metal;
-	public GameObject leather;
-	public GameObject crystals;
+	[SerializeField] private Text m_goldText, 
+								  m_woodText, 
+								  m_metalText, 
+								  m_leatherText, 
+								  m_crystalsText;
 
-	private Text goldText, woodText, metalText, leatherText, crystalsText;
-
-	void Awake() {
-		gameController = gameManager.GetComponent<GameController>();
-	}
-
-	void Start() {
-		goldText = gold.GetComponent<Text>();
-		woodText = wood.GetComponent<Text>();
-		metalText = metal.GetComponent<Text>();
-		leatherText = leather.GetComponent<Text>();
-		crystalsText = crystals.GetComponent<Text>();
-	}
-
-
+	// TODO should this be moved to something like FixedUpdate or manual update?
 	void Update() {
 		// Retrieve the current inventory from the GameController
-		Inventory inventory = gameController.inventory;
+		Inventory inventory = m_gameController.inventory;
 
-		goldText.text = inventory.gold.ToString();
+		m_goldText.text = inventory.GetGold().ToString();
 
-		woodText.text = inventory.GetResourceAmount(ResourceType.WOOD).ToString();
-		metalText.text = inventory.GetResourceAmount(ResourceType.METAL).ToString();
-		leatherText.text = inventory.GetResourceAmount(ResourceType.LEATHER).ToString();
-		crystalsText.text = inventory.GetResourceAmount(ResourceType.CRYSTALS).ToString();
-
+		m_woodText.text = inventory.GetResourceAmount(ResourceType.WOOD).ToString();
+		m_metalText.text = inventory.GetResourceAmount(ResourceType.METAL).ToString();
+		m_leatherText.text = inventory.GetResourceAmount(ResourceType.LEATHER).ToString();
+		m_crystalsText.text = inventory.GetResourceAmount(ResourceType.CRYSTALS).ToString();
 	}
-
-
 
 }

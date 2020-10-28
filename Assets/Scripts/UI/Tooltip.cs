@@ -4,45 +4,62 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     [SerializeField]
-    private Text titleText, dexText;
+    private Text m_titleText, m_dexText;
 
-    private RectTransform rectTransform;
-    private float screenHeight;
-    private bool isFollowingCursor;
+    [SerializeField]
+    private float m_offset = 1f;
+
+    private RectTransform m_rectTransform;
+    private float m_screenHeight;
+    private bool m_isFollowingCursor;
+    private Vector3 m_lastMousePosition = new Vector3();
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        screenHeight = Screen.height;
-        isFollowingCursor = false;
+        m_rectTransform = GetComponent<RectTransform>();
+        m_screenHeight = Screen.height;
+        m_isFollowingCursor = false;
     }
 
     private void Update()
     {
-        if (isFollowingCursor)
+        if (m_isFollowingCursor)
         {
-            if (rectTransform == null)
+            if (m_rectTransform == null)
             {
                 Debug.LogError("No RectTransform component found on the Tooltip.");
             }
+
+            // Only update the position if the cursor has moved
+            if (m_lastMousePosition != Input.mousePosition)
+            {
+                m_lastMousePosition = Input.mousePosition;
+                m_rectTransform.anchoredPosition = new Vector2(m_lastMousePosition.x + m_offset, 
+                                                               m_lastMousePosition.y - m_screenHeight + m_offset);
+            }
             
-            rectTransform.anchoredPosition = new Vector2(Input.mousePosition.x + 1f, Input.mousePosition.y - screenHeight + 1f);
         }
     }
 
+
     public void SetTexts(TooltipData tooltipData)
     {
-        titleText.text = tooltipData.title;
-        dexText.text = tooltipData.dex;
+        m_titleText.text = tooltipData.title;
+        m_dexText.text = tooltipData.dex;
+    }
+
+    public void FollowCursor(bool follow)
+    {
+        m_isFollowingCursor = follow;
     }
 
     public void FollowCursor()
     {
-        isFollowingCursor = true;
+        FollowCursor(true);
     }
 
     public void StopFollowingCursor()
     {
-        isFollowingCursor = false;
+        FollowCursor(false);
     }
 }

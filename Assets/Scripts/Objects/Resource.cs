@@ -12,30 +12,24 @@ public class Resource {
 
 
 	public void Add(double amountToAdd) {
-		// Throw an exception if the amount would overflow
-		if (this.amount >= double.MaxValue - amountToAdd) {
-			throw new System.InvalidOperationException("Amount of " + this.type + " has reached MaxDouble");
-		}
+		if (amountToAdd <= 0) return;
 
-		if (amountToAdd <= 0) {
-			return;
+		// Throw an exception if the amount would overflow
+		if (amount >= double.MaxValue - amountToAdd) {
+#if UNITY_EDITOR
+			Debug.LogError("Amount of " + type + " has reached MaxDouble");
+#endif
 		}
 
 		// Cast the result to int, then back to double to maintain it
-		this.amount = (double)Mathf.Round((float)(this.amount + amountToAdd));
+		amount = (double)Mathf.Round((float)(amount + amountToAdd));
 	}
 
 
 
-	public string ToString() {
-		return this.amount.ToString();
-	}
+    public override string ToString() => amount.ToString();
 
-
-
-	public void Print() {
-		MonoBehaviour.print(this.amount);
-	}
+    public void Print() => MonoBehaviour.print(amount);
 
 
 }

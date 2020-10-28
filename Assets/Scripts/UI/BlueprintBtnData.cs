@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class BlueprintBtnData : MonoBehaviour {
     
-    private int ID;
+    private int m_ID;
 
-    public void SetID(int ID) {
-    	this.ID = ID;
-    }
-
-    public int GetID() {
-    	return this.ID;
-    }
+    public void SetID(int ID) => m_ID = ID;
+    public int GetID() => m_ID;
 
 
 }

@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private ButtonHandler buttonHandler;
+    private ButtonHandler m_buttonHandler;
     private TooltipData m_tooltipData;
 
     private float m_bestWidth, m_bestHeight;
@@ -12,7 +12,7 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     void Awake()
     {
         // TODO can Find be averted?
-        buttonHandler = GameObject.Find("MainCanvas").GetComponent<ButtonHandler>();
+        m_buttonHandler = GameObject.Find("MainCanvas").GetComponent<ButtonHandler>();
         m_bestWidth = 0f;
     }
 
@@ -31,13 +31,13 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             m_bestHeight = GetBestHeight();
         }
 
-        buttonHandler?.ShowTooltip(m_bestWidth, m_bestHeight, m_tooltipData);
+        m_buttonHandler?.ShowTooltip(m_bestWidth, m_bestHeight, m_tooltipData);
     }
 
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        buttonHandler?.HideTooltip();
+        m_buttonHandler?.HideTooltip();
     }
 
 

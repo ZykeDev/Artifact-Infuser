@@ -7,56 +7,39 @@ public class TabHandler : MonoBehaviour {
     
 	private Tab currentTab; 
 	
-	public GameObject crafterTab;
-	public GameObject infuserTab;
-	public GameObject armoryTab;
-	public GameObject upgradesTab;
+    [SerializeField]
+	private GameObject m_crafterTab, 
+                      m_infuserTab, 
+                      m_armoryTab, 
+                      m_upgradesTab;
 
-	public GameObject crafterTabBtn;
-	public GameObject infuserTabBtn;
-	public GameObject armoryTabBtn;
-	public GameObject upgradesTabBtn;
+	[SerializeField]
+    private Button m_crafterBtn,
+                   m_infuserBtn,
+                   m_armoryBtn,
+                   m_upgradesBtn;
 
-	private Button crafterBtn;
-	private Button infuserBtn;
-	private Button armoryBtn;
-	private Button upgradesBtn;
 
-    void Awake() {
-        crafterBtn = crafterTabBtn.GetComponent<Button>();
-        infuserBtn = infuserTabBtn.GetComponent<Button>();
-        armoryBtn = armoryTabBtn.GetComponent<Button>();
-        upgradesBtn = upgradesTabBtn.GetComponent<Button>();        
-    }
-
-	void Start() {		
+	void Start()
+    {		
 		SetAllTabsInteractable();
     	CloseAllTabs();
 
     	currentTab = Tab.CRAFTER; // TODO change this to save-state's last Tab
-    	crafterBtn.interactable = false; // TODO make this change depending on the default loaded tab
-    	crafterTab.SetActive(true);
+    	m_crafterBtn.interactable = false; // TODO make this change depending on the default loaded tab
+    	m_crafterTab.SetActive(true);
 	}
 
 
-    public void SwitchTabToCrafter() {
-    	SwitchTab(Tab.CRAFTER);
-    }
+    public void SwitchTabToCrafter() => SwitchTab(Tab.CRAFTER);
+    public void SwitchTabToInfuser() => SwitchTab(Tab.INFUSER);
+    public void SwitchTabToArmory() => SwitchTab(Tab.ARMORY);
+    // TODO update this if "upgrades" changes, to signal new available upgrades?
+    public void SwitchTabToUpgrades() => SwitchTab(Tab.UPGRADES);
+  
 
-    public void SwitchTabToInfuser() {
-    	SwitchTab(Tab.INFUSER);
-    }
-
-    public void SwitchTabToArmory() {
-    	SwitchTab(Tab.ARMORY);
-    }
-
-    public void SwitchTabToUpgrades() { // TODO update this if "upgrades" changes
-    	SwitchTab(Tab.UPGRADES);
-    }
-
-
-    private void SwitchTab(Tab tab) {
+    private void SwitchTab(Tab tab)
+    {
     	if (currentTab == tab) {
     		return;
     	}
@@ -67,24 +50,24 @@ public class TabHandler : MonoBehaviour {
 
     	switch (tab) {
     		case Tab.CRAFTER:
-    			crafterBtn.interactable = false;
-    			crafterTab.SetActive(true);
+    			m_crafterBtn.interactable = false;
+    			m_crafterTab.SetActive(true);
     			break;
 
     		case Tab.INFUSER:
-    			infuserBtn.interactable = false;
-    			infuserTab.SetActive(true);
+    			m_infuserBtn.interactable = false;
+    			m_infuserTab.SetActive(true);
     			break;
 
     		case Tab.ARMORY:
-    			armoryBtn.interactable = false;
-    			armoryTab.SetActive(true);
-                armoryTab.GetComponent<ArmoryHandler>().OnFocus();
+    			m_armoryBtn.interactable = false;
+    			m_armoryTab.SetActive(true);
+                m_armoryTab.GetComponent<ArmoryHandler>().OnFocus();
     			break;
 
     		case Tab.UPGRADES:
-    			upgradesBtn.interactable = false;
-    			upgradesTab.SetActive(true);
+    			m_upgradesBtn.interactable = false;
+    			m_upgradesTab.SetActive(true);
     			break;
 
     		default:
@@ -92,17 +75,19 @@ public class TabHandler : MonoBehaviour {
     	}    		
     }
 
-    private void CloseAllTabs() {
-    	crafterTab.SetActive(false);
-    	infuserTab.SetActive(false);
-    	armoryTab.SetActive(false);
-    	upgradesTab.SetActive(false);
+    private void CloseAllTabs()
+    {
+    	m_crafterTab.SetActive(false);
+    	m_infuserTab.SetActive(false);
+    	m_armoryTab.SetActive(false);
+    	m_upgradesTab.SetActive(false);
     }
 
-    private void SetAllTabsInteractable() {
-	    crafterBtn.interactable = true;
-		infuserBtn.interactable = true;
-		armoryBtn.interactable = true;
-		upgradesBtn.interactable = true;
+    private void SetAllTabsInteractable()
+    {
+	    m_crafterBtn.interactable = true;
+		m_infuserBtn.interactable = true;
+		m_armoryBtn.interactable = true;
+		m_upgradesBtn.interactable = true;
     }
 }

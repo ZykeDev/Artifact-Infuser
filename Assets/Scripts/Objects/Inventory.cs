@@ -16,60 +16,70 @@ public class Inventory {
 
 
 	public Inventory() {
-		this.gold = 0;
+		gold = 0;
 
-		this.wood = new Resource(ResourceType.WOOD, 0);
-		this.metal = new Resource(ResourceType.METAL, 0);
-		this.leather = new Resource(ResourceType.LEATHER, 0);
-		this.crystals = new Resource(ResourceType.CRYSTALS, 0);
+		wood = new Resource(ResourceType.WOOD, 0);
+		metal = new Resource(ResourceType.METAL, 0);
+		leather = new Resource(ResourceType.LEATHER, 0);
+		crystals = new Resource(ResourceType.CRYSTALS, 0);
 
-		this.blueprints = new List<Blueprint>();
+		blueprints = new List<Blueprint>();
 	}
 
 
-	// Gains the resources from another inventory object
+	public int GetGold() => gold;
+
+
+	/// <summary>
+	/// Adds the resources from another inventory object
+	/// </summary>
+	/// <param name="newInv"></param>
 	public void CombineWith(Inventory newInv) {
-		this.gold += newInv.gold;
+		gold += newInv.gold;
 
-		this.wood.Add(newInv.wood.amount);
-		this.metal.Add(newInv.metal.amount);
-		this.leather.Add(newInv.leather.amount);
-		this.crystals.Add(newInv.crystals.amount);
+		wood.Add(newInv.wood.amount);
+		metal.Add(newInv.metal.amount);
+		leather.Add(newInv.leather.amount);
+		crystals.Add(newInv.crystals.amount);
 	}
 
 
-
+	/// <summary>
+	/// Retruns the current amount of a given resource type
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns></returns>
 	public double GetResourceAmount(ResourceType type) {
 		switch (type) {
 			case ResourceType.WOOD:
-				return this.wood.amount;
+				return wood.amount;
 
 			case ResourceType.METAL:
-				return this.metal.amount;
+				return metal.amount;
 
 			case ResourceType.LEATHER:
-				return this.leather.amount;
+				return leather.amount;
 
 			case ResourceType.CRYSTALS:
-				return this.crystals.amount;
+				return crystals.amount;
 	
 			default:
 				return 0;
 		}
 	}
 
-
-	// Adds random resources to the inventory
+	/// <summary>
+	/// Adds random resources to the inventory, based on the given tier
+	/// </summary>
+	/// <param name="tier"></param>
 	public void SetRandomResources(int tier) {
 		double multiplier = tierMultiplier[tier];
 
-		this.wood.Add(multiplier * Random.Range(5f, 12f));
-		this.metal.Add(multiplier * Random.Range(6f, 9f));
-		this.leather.Add((multiplier-1) * Random.Range(4f, 7f));
-		this.crystals.Add((multiplier-4) * Random.Range(1f, 2f));
+		wood.Add(multiplier * Random.Range(5f, 12f));
+		metal.Add(multiplier * Random.Range(6f, 9f));
+		leather.Add((multiplier-1) * Random.Range(4f, 7f));
+		crystals.Add((multiplier-4) * Random.Range(1f, 2f));
 	}
-
-
 
     
 }

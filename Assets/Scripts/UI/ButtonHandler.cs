@@ -1,57 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonHandler : MonoBehaviour {
+public class ButtonHandler : MonoBehaviour
+{
+    [SerializeField] private GameController m_gameController;
+    [SerializeField] private Crafter m_crafter;
+    [SerializeField] private Infuser m_infuser;
+
     // Instantiated buttons
     [SerializeField]
-    private GameObject CraftBtn, StopCraftBtn, InfuseBtn, StopInfuseBtn;
-
-    // References
-    [SerializeField]
-    private GameObject GameManager, Crafter, Infuser, Armory, Upgrades;
+    private GameObject m_craftBtn, m_stopCraftBtn,
+                       m_infuseBtn, m_stopInfuseBtn;
 
     [SerializeField]
-    private GameObject tooltipPrefab;
+    private GameObject m_tooltipPrefab;
 
-    private GameController gameController;
-    private Crafter crafterComp; // Calling it crafterComp to not confuse it with the Crafter GO
-    private Infuser infuserComp;
-
-    private GameObject CurrentlyOpenedTooltip;
-    private float screenHeight;
+    private GameObject m_currentlyOpenedTooltip;
+    private float m_screenHeight;
 
     private void Awake()
     {
-        screenHeight = Screen.height;
-    }
-    void Start() {
-    	gameController = GameManager.GetComponent<GameController>();
-        crafterComp = Crafter.GetComponent<Crafter>();
-        infuserComp = Infuser.GetComponent<Infuser>();
+        m_screenHeight = Screen.height;
     }
 
 
     // --------- Blueprint Buttons --------- //
 
+    /// <summary>
+    /// Instantiates a tooltip and displays it at the cursor's position
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <param name="tooltipData"></param>
     public void ShowTooltip(float width, float height, TooltipData tooltipData)
     {
         // TODO this could be optimized by pooling all tooltips on Start (or on first instance)
         // instad of instantiating one every time
-        CurrentlyOpenedTooltip = Instantiate(
-            tooltipPrefab,
+        m_currentlyOpenedTooltip = Instantiate(
+            m_tooltipPrefab,
             Vector2.zero, 
             Quaternion.identity,
-            this.transform) as GameObject;
+            transform);
 
-        Tooltip tooltip = CurrentlyOpenedTooltip.GetComponent<Tooltip>();
-        RectTransform tooltipRT = CurrentlyOpenedTooltip.GetComponent<RectTransform>();
+        Tooltip tooltip = m_currentlyOpenedTooltip.GetComponent<Tooltip>();
+        RectTransform tooltipRT = m_currentlyOpenedTooltip.GetComponent<RectTransform>();
 
-        CurrentlyOpenedTooltip.name = "Tooltip";
+        m_currentlyOpenedTooltip.name = "Tooltip";
 
         // Set the correct position
-        tooltipRT.anchoredPosition = new Vector2(Input.mousePosition.x + 1f, Input.mousePosition.y - screenHeight + 1f);
+        Vector2 cursorPos = Input.mousePosition;
+        float offset = 1f;
+        tooltipRT.anchoredPosition = new Vector2(cursorPos.x + offset, cursorPos.y - m_screenHeight + offset);
         
         // Sets the correct size for the tooltip
         tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
@@ -61,92 +60,115 @@ public class ButtonHandler : MonoBehaviour {
         tooltip.FollowCursor();
     }
 
+    /// <summary>
+    /// Hides the tooltip by destroying it
+    /// </summary>
     public void HideTooltip()
     {
-        // TODO does StopFollowingCursor need to be called?
-        Destroy(CurrentlyOpenedTooltip);
-        CurrentlyOpenedTooltip = null;
+        m_currentlyOpenedTooltip.GetComponent<Tooltip>().StopFollowingCursor();
+        Destroy(m_currentlyOpenedTooltip);
+        m_currentlyOpenedTooltip = null;
     }
 
 
     // ----------- Gather Button ----------- //
 
-    // Starts the Resource Gathering expedition
-    public void OnGatherClick() {
-    	gameController.TryGathering();
+    /// <summary>
+    /// Starts the Resource Gathering expedition
+    /// </summary>
+    public void OnGatherClick()
+    {
+        m_gameController.TryGathering();
     }
 
 
     // ----------- Craft Button ----------- //
 
-    // Starts crafting the selected blueprint into an item
-    public void OnCraftClick() {
-        crafterComp.Craft();
+    /// <summary>
+    /// Starts crafting the selected blueprint into an item
+    /// </summary>
+    public void OnCraftClick()
+    {
+        m_crafter.Craft();
     }
 
-    public void OnStopCraftClick() {
-        crafterComp.StopCraft();
+    public void OnStopCraftClick()
+    {
+        m_crafter.StopCraft();
     }
 
     
-    public void OnSelectBlueprintClick(GameObject caller, int blueprintID) {
+    public void OnSelectBlueprintClick(GameObject caller, int blueprintID)
+    {
         // Forward the caller to remember which button was clicked
-        crafterComp.SelectBlueprint(blueprintID, caller);
+        m_crafter.SelectBlueprint(blueprintID, caller);
     }
 
     // Swap Craft -> Stop Crafting
-    public void SawpCraftWithStop() {
-        CraftBtn.SetActive(false);
-        StopCraftBtn.SetActive(true);
+    public void SawpCraftWithStop()
+    {
+        m_craftBtn.SetActive(false);
+        m_stopCraftBtn.SetActive(true);
     } 
     
     // Swap Stop Crafting -> Craft
-    public void SawpStopWithCraft() {
-        StopCraftBtn.SetActive(false);
-        CraftBtn.SetActive(true);
+    public void SawpStopWithCraft()
+    {
+        m_stopCraftBtn.SetActive(false);
+        m_craftBtn.SetActive(true);
     }
 
     // Makes the Craft Button clickable
-    public void ActivateCraftBtn() {
-        Button craftButton = CraftBtn.GetComponent<Button>();
+    public void ActivateCraftBtn()
+    {
+        Button craftButton = m_craftBtn.GetComponent<Button>();
         if (!craftButton.interactable) craftButton.interactable = true;
     }
 
 
     // ----------- Infuse Button ----------- //
 
-    // Starts crafting the selected blueprint into an item
-    public void OnInfuseClick() {
-        infuserComp.Infuse();
+    /// <summary>
+    /// Starts infusing the selected cypher into an item
+    /// </summary>
+    public void OnInfuseClick()
+    {
+        m_infuser.Infuse();
     }
 
-    public void OnStopInfusionClick() {
-        infuserComp.StopInfusion();
+    public void OnStopInfusionClick()
+    {
+        m_infuser.StopInfusion();
     }
 
-    public void OnSelectCypherClick(int cypherID) {
-        infuserComp.SelectCypher(cypherID);    
+    /// <summary>
+    /// Sets the clicked cypher as "Selected"
+    /// </summary>
+    /// <param name="cypherID"></param>
+    public void OnSelectCypherClick(int cypherID)
+    {
+        m_infuser.SelectCypher(cypherID);    
         
     }
 
     // Swap Craft -> Stop Crafting
-    public void SawpInfuseWithStop() {
-        InfuseBtn.SetActive(false);
-        StopInfuseBtn.SetActive(true);
+    public void SawpInfuseWithStop() 
+    {
+        m_infuseBtn.SetActive(false);
+        m_stopInfuseBtn.SetActive(true);
     } 
     
     // Swap Stop Crafting -> Craft
-    public void SawpStopWithInfuse() {
-        StopInfuseBtn.SetActive(false);
-        InfuseBtn.SetActive(true);
+    public void SawpStopWithInfuse()
+    {
+        m_stopInfuseBtn.SetActive(false);
+        m_infuseBtn.SetActive(true);
     }
 
     // Makes the Craft Button clickable
-    public void ActivateInfuseBtn() {
-        InfuseBtn.GetComponent<Button>().interactable = true;
+    public void ActivateInfuseBtn()
+    {
+        m_infuseBtn.GetComponent<Button>().interactable = true;
     }
-
-    
-
 
 }

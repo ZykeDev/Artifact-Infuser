@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UnlockSystem : MonoBehaviour {
 	
-	private GameController gameController;
-	private bool isFirstPlaythrough = true;
+    private GameController m_gameController;
+	private bool m_isFirstPlaythrough = true;
 
 	public List<Blueprint> blueprints;
     public List<Cypher> cyphers;
@@ -14,7 +14,7 @@ public class UnlockSystem : MonoBehaviour {
     
     // Start is called before the first frame update
     void Awake() {
-        gameController = this.GetComponent<GameController>();
+        m_gameController = GetComponent<GameController>();
         
         activeBlueprints = new bool[blueprints.Count];
         activeBlueprints[0] = true;
