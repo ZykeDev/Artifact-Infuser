@@ -57,7 +57,8 @@ public class TabHandler : MonoBehaviour {
     		case Tab.INFUSER:
     			m_infuserBtn.interactable = false;
     			m_infuserTab.SetActive(true);
-    			break;
+                m_infuserTab.GetComponent<Infuser>().OnFocus();
+                break;
 
     		case Tab.ARMORY:
     			m_armoryBtn.interactable = false;

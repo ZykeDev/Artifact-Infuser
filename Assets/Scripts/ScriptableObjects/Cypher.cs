@@ -11,8 +11,7 @@ public class Cypher : ScriptableObject {
 	[SerializeField] private Sprite m_cypherSprite, m_artifactSprite;
 
 	[SerializeField] private float m_infusionTime;
-	[SerializeField] private int m_rarity;
-	[SerializeField] private int m_price;
+	[SerializeField] private int m_rarity, m_price;
 
 	[SerializeField] private double m_alphaRune, m_novaRune, m_gradientRune;
 

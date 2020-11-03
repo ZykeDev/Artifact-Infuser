@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour
@@ -10,7 +11,8 @@ public class ButtonHandler : MonoBehaviour
     // Instantiated buttons
     [SerializeField]
     private GameObject m_craftBtn, m_stopCraftBtn,
-                       m_infuseBtn, m_stopInfuseBtn;
+                       m_infuseBtn, m_stopInfuseBtn,
+                       m_gatherBtn;
 
     [SerializeField]
     private GameObject m_tooltipPrefab;
@@ -60,6 +62,7 @@ public class ButtonHandler : MonoBehaviour
         tooltip.FollowCursor();
     }
 
+
     /// <summary>
     /// Hides the tooltip by destroying it
     /// </summary>
@@ -78,7 +81,8 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void OnGatherClick()
     {
-        m_gameController.TryGathering();
+        Button gatherBtn = m_gatherBtn.GetComponent<Button>();
+        m_gameController.TryGathering(gatherBtn);
     }
 
 
@@ -121,8 +125,7 @@ public class ButtonHandler : MonoBehaviour
     // Makes the Craft Button clickable
     public void ActivateCraftBtn()
     {
-        Button craftButton = m_craftBtn.GetComponent<Button>();
-        if (!craftButton.interactable) craftButton.interactable = true;
+        m_craftBtn.GetComponent<Button>().interactable = true;
     }
 
 

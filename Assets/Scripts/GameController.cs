@@ -98,22 +98,29 @@ public class GameController : MonoBehaviour {
     {
     	StopGatherResources();
     	Inventory booty = new Inventory();
-    	booty.SetRandomResources(this.m_tier);
+    	booty.SetRandomResources(m_tier);
 
-    	this.inventory.CombineWith(booty);
+    	inventory.CombineWith(booty);
     }
 
 
     // TODO change this into 2 different buttons
-    public void GatherResources() 
+    public void GatherResources(Button caller) 
     {
-    	Slider progressbar = GameObject.Find("GatherProgressbar").GetComponent<Slider>();
+        caller.interactable = false;
+        Slider progressbar = GameObject.Find("GatherProgressbar").GetComponent<Slider>();
 
     	// Start a timer coroutine
     	// Show the progress bar
     	m_isGatherning = true;
-    	m_gatherBtnText.text = "Stop Gathering";
-    	m_gatheringCoroutine = StartCoroutine(Gathering(progressbar, m_gatheringDuration, FinishGathering));
+    	m_gatherBtnText.text = "Gathering...";
+    	m_gatheringCoroutine = StartCoroutine(Gathering(progressbar,  m_gatheringDuration, 
+            delegate 
+            { 
+                caller.interactable = true; 
+                FinishGathering(); 
+            }
+        ));
 
     	// Show remaining time
 
@@ -151,13 +158,13 @@ public class GameController : MonoBehaviour {
     }
 
     // Gather or stop gathering upon clicking, depending on the state
-    public void TryGathering()
+    public void TryGathering(Button caller)
     {
     	if (m_isGatherning) {
     		StopGatherResources();
 
     	} else {
-    		GatherResources();
+    		GatherResources(caller);
     	}
     }
 

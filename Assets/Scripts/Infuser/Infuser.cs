@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,20 +13,34 @@ public class Infuser : MonoBehaviour {
 	[SerializeField] private Slider m_progressbar;
 
 	[SerializeField]
-	private GameObject m_cypherSelectorContent, m_cypherBtnPref;
+	private GameObject m_cypherSelectorContent, m_artifactSelectorContent, 
+		m_cypherBtnPref, m_artifactBtnPrefab;
 
-    private List<GameObject> m_cypherBtns;
+    private List<GameObject> m_cypherBtns, m_artifactBtns;
     private List<Cypher> m_cyphers;
-	private float m_cypherBtnHeight = 0;
+	private float m_btnHeight = 0;
 	private int m_cyphersBtnsPerScreen = 4;
 	private int m_selectedCypherID = -1;
 	
 	private bool[] m_activeCyphers;
 
 
+	private InfuserState m_infuserState;
+
+	private enum InfuserState 
+	{ 
+		SELECTING_ARTIFACT, 
+		SELECTING_CYPHER, 
+		INFUSING
+	}
+
+
 	void Start()
 	{
+		m_infuserState = InfuserState.SELECTING_ARTIFACT;
+
 		m_cypherBtns = new List<GameObject>();
+		m_artifactBtns = new List<GameObject>();
 
 		m_cyphers = m_unlockSystem.cyphers;
 		m_activeCyphers = m_unlockSystem.activeCyphers;
@@ -37,6 +52,111 @@ public class Infuser : MonoBehaviour {
 		UpdateViewportHeight();
 
     }
+
+	internal void OnFocus()
+	{
+		UpdateActiveCyphers();
+		UpdateActiveArtifacts();
+
+		UpdateViewportHeight();
+		//UpdateArtifactViewportHeight();
+	}
+
+	private void ChangeState(InfuserState nextState)
+    {
+        switch (m_infuserState)
+        {
+            case InfuserState.SELECTING_ARTIFACT:
+				if (nextState == InfuserState.SELECTING_CYPHER)
+                {
+					m_artifactSelectorContent.SetActive(false);
+
+					UpdateActiveCyphers();
+
+					m_cypherSelectorContent.SetActive(true);
+
+					m_infuserState = nextState;
+                }
+                break;
+            case InfuserState.SELECTING_CYPHER:
+				if (nextState == InfuserState.SELECTING_ARTIFACT)
+				{
+					m_cypherSelectorContent.SetActive(false);
+
+					UpdateActiveArtifacts();
+
+					m_artifactSelectorContent.SetActive(true);
+					
+					m_infuserState = nextState;
+				}
+				break;
+            case InfuserState.INFUSING:
+                break;
+            default:
+                break;
+        }
+    }
+
+
+	/// <summary>
+	/// Instantiate all availabe artifacts as buttons
+	/// </summary>
+	private void InstantiateArtifacts()
+    {
+		// Button's offset position from the sides
+		float offset = 15f;
+		int listIndex = 0;
+
+		foreach (Artifact art in m_gameController.armory.GetArtifacts())
+		{
+			GameObject newArtifactBtn = Instantiate(m_artifactBtnPrefab,
+				new Vector2(0, 0),
+				Quaternion.identity,
+				m_artifactSelectorContent.transform);
+
+			// Store the btn size locally
+			float height = newArtifactBtn.GetComponent<RectTransform>().sizeDelta.y;
+			if (m_btnHeight == 0) m_btnHeight = height;
+
+			// Correctly position the new button. Use its ID as a vertical index
+			newArtifactBtn.transform.localPosition = new Vector2(offset, -height - offset - (height * listIndex));
+			newArtifactBtn.name = "Artifact Btn " + listIndex;
+
+			// Add a listener to the new Button
+			newArtifactBtn.GetComponent<Button>().onClick.AddListener(delegate
+			{
+				m_buttonHandler.HideTooltip();
+				ChangeState(InfuserState.SELECTING_CYPHER);
+			});
+
+			newArtifactBtn.GetComponent<ButtonHover>().SetTooltipData(art.GetTooltipData());
+
+			// Add the text and the sprite to the button
+			newArtifactBtn.GetComponent<ButtonGraphic>().SetData(art.GetName(), art.GetSprite());
+
+			// Add the finished button to the list of instantiated buttons
+			m_artifactBtns.Add(newArtifactBtn);
+			
+			listIndex++;
+		}
+	}
+
+
+
+    /// <summary>
+    /// Destroys all artifact btns and re-instantiates them, checking for new ones.
+    /// </summary>
+    public void UpdateActiveArtifacts()
+	{
+		foreach (GameObject a in m_artifactBtns)
+		{
+			Destroy(a);
+		}
+
+		m_artifactBtns.Clear();
+
+		InstantiateArtifacts();
+	}
 
 
 	/// <summary>
@@ -78,18 +198,22 @@ public class Infuser : MonoBehaviour {
 	    	GameObject newCypher = Instantiate(m_cypherBtnPref,
 				new Vector2(0, 0),
 				Quaternion.identity,
-				m_cypherSelectorContent.transform) as GameObject;
+				m_cypherSelectorContent.transform);
 
 	    	// Store the btn size locally
 	    	float height = newCypher.GetComponent<RectTransform>().sizeDelta.y;
-	    	if (m_cypherBtnHeight == 0) m_cypherBtnHeight = height;
+	    	if (m_btnHeight == 0) m_btnHeight = height;
 
 			// Correctly position the new button. Use its ID as a vertical index
 			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
-			newCypher.name = "Cbtn_" + currentID;
+			newCypher.name = "Cypher Btn " + currentID;
 
 			// Add a listener to the new Button
-	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate {m_buttonHandler.OnSelectCypherClick(currentID); });
+	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate 
+			{
+				m_buttonHandler.HideTooltip();
+				m_buttonHandler.OnSelectCypherClick(currentID);
+			});
 
 			// Send the tooptip data to the ButtonHover component
 			newCypher.GetComponent<ButtonHover>().SetTooltipData(c.GetTooltipData());
@@ -114,7 +238,7 @@ public class Infuser : MonoBehaviour {
 			cSelectorContentTransform.sizeDelta = new Vector2(cypherSelectorContentWidth, 560f);
 
 		} else {
-			cSelectorContentTransform.sizeDelta = new Vector2(cypherSelectorContentWidth, m_cypherBtnHeight * (GetNumberOfActiveCyphers() + 1));
+			cSelectorContentTransform.sizeDelta = new Vector2(cypherSelectorContentWidth, m_btnHeight * (GetNumberOfActiveCyphers() + 1));
 		}
 	}
 
