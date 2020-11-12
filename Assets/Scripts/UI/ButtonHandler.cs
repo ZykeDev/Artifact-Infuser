@@ -103,7 +103,6 @@ public class ButtonHandler : MonoBehaviour
     public void OnSelectCypherClick(int cypherID)
     {
         m_infuser.SelectCypher(cypherID);    
-        
     }
 
     // Swap Craft -> Stop Crafting

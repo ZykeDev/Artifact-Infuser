@@ -122,16 +122,21 @@ public class Infuser : MonoBehaviour {
 			newArtifactBtn.transform.localPosition = new Vector2(offset, -height - offset - (height * listIndex));
 			newArtifactBtn.name = "Artifact Btn " + listIndex;
 
+			Button buttonComp = newArtifactBtn.GetComponent<Button>();
+			TooltipTrigger tooltipComp = newArtifactBtn.GetComponent<TooltipTrigger>();
+			ButtonGraphic graphicComp = newArtifactBtn.GetComponent<ButtonGraphic>();
+
 			// Add a listener to the new Button
-			newArtifactBtn.GetComponent<Button>().onClick.AddListener(delegate
+			buttonComp.onClick.AddListener(delegate
 			{
+				tooltipComp.HideTooltip();
 				ChangeState(InfuserState.SELECTING_CYPHER);
 			});
 
-			newArtifactBtn.GetComponent<TooltipTrigger>().SetTooltipData(art.GetTooltipData());
+			tooltipComp.SetTooltipData(art.GetTooltipData());
 
 			// Add the text and the sprite to the button
-			newArtifactBtn.GetComponent<ButtonGraphic>().SetData(art.GetName(), art.GetSprite());
+			graphicComp.SetData(art.GetName(), art.GetSprite());
 
 			// Add the finished button to the list of instantiated buttons
 			m_artifactBtns.Add(newArtifactBtn);
@@ -214,7 +219,7 @@ public class Infuser : MonoBehaviour {
 			// Add a listener to the new Button
 			buttonComp.onClick.AddListener(delegate 
 			{
-				//print("clicked");
+				tooltipComp.HideTooltip();
 				m_buttonHandler.OnSelectCypherClick(currentID);
 			});
 
