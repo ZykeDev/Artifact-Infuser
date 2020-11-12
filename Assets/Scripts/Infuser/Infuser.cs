@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Infuser : MonoBehaviour {
 
+	[Header("Script References")]
     [SerializeField] private GameController m_gameController;
     [SerializeField] private UnlockSystem m_unlockSystem;
 	[SerializeField] private ButtonHandler m_buttonHandler;
+
+	[Header("UI Components")]
+	[SerializeField] private GameObject m_artifactSelector;
+	[SerializeField] private GameObject m_cypherSelector;
+
 	[SerializeField] private Slider m_progressbar;
 
 	[SerializeField]
-	private GameObject m_cypherSelectorContent, m_artifactSelectorContent, 
-		m_cypherBtnPref, m_artifactBtnPrefab;
+	private GameObject m_cypherSelectorContent, m_artifactSelectorContent;
+
+	[Header("Prefabs")]
+	[SerializeField] private GameObject m_cypherBtnPref, m_artifactBtnPrefab;
 
     private List<GameObject> m_cypherBtns, m_artifactBtns;
     private List<Cypher> m_cyphers;
@@ -69,11 +74,11 @@ public class Infuser : MonoBehaviour {
             case InfuserState.SELECTING_ARTIFACT:
 				if (nextState == InfuserState.SELECTING_CYPHER)
                 {
-					m_artifactSelectorContent.SetActive(false);
+					m_artifactSelector.SetActive(false);
 
 					UpdateActiveCyphers();
 
-					m_cypherSelectorContent.SetActive(true);
+					m_cypherSelector.SetActive(true);
 
 					m_infuserState = nextState;
                 }
