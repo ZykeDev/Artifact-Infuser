@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1841877616230662703}
   - component: {fileID: 999527077051946070}
   - component: {fileID: 6283888189719615152}
-  - component: {fileID: 3020998478003924243}
+  - component: {fileID: 2773286024814335341}
   m_Layer: 5
   m_Name: ArtifactBtn
   m_TagString: Untagged
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: {fileID: 4546309780729836850}
   m_image: {fileID: 1369281568740093214}
---- !u!114 &3020998478003924243
+--- !u!114 &2773286024814335341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7916797708932793468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a50ace7b269b16f4cbf23d9a2009380d, type: 3}
+  m_Script: {fileID: 11500000, guid: 839c8eef2e2c0c74497372ff352c2011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9094156019399060849

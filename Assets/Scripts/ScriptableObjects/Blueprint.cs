@@ -54,6 +54,11 @@ public struct TooltipData
 		this.title = title;
 		this.dex = dex;
     }
+
+	public bool IsEmpty()
+    {
+		return (title == null && dex == null);
+    }
 }
 
 

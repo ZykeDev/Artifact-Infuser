@@ -96,7 +96,7 @@ public class Crafter : MonoBehaviour {
 	    	newBlueprint.GetComponent<Button>().onClick.AddListener(delegate {m_buttonHandler.OnSelectBlueprintClick(newBlueprint, currentID); });
 			
 			// Send the tooptip data to the ButtonHover component
-			newBlueprint.GetComponent<ButtonHover>().SetTooltipData(bp.GetTooltipData());
+			newBlueprint.GetComponent<TooltipTrigger>().SetTooltipData(bp.GetTooltipData());
 
 			// Add the text and the sprite to the button
 			newBlueprint.GetComponent<ButtonGraphic>().SetData(bp.GetName(), bp.GetBlueprintSprite());

@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 8164704813601823589}
   - component: {fileID: -4358587087365478362}
   - component: {fileID: 8475394862390752022}
-  - component: {fileID: 450747417953479787}
+  - component: {fileID: 1546836756112633260}
   m_Layer: 5
   m_Name: BlueprintBtn
   m_TagString: Untagged
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: {fileID: 3573876849468940953}
   m_image: {fileID: 8163256225104232764}
---- !u!114 &450747417953479787
+--- !u!114 &1546836756112633260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,6 +327,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8164704813601823611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a50ace7b269b16f4cbf23d9a2009380d, type: 3}
+  m_Script: {fileID: 11500000, guid: 839c8eef2e2c0c74497372ff352c2011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

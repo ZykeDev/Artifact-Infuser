@@ -125,11 +125,10 @@ public class Infuser : MonoBehaviour {
 			// Add a listener to the new Button
 			newArtifactBtn.GetComponent<Button>().onClick.AddListener(delegate
 			{
-				m_buttonHandler.HideTooltip();
 				ChangeState(InfuserState.SELECTING_CYPHER);
 			});
 
-			newArtifactBtn.GetComponent<ButtonHover>().SetTooltipData(art.GetTooltipData());
+			newArtifactBtn.GetComponent<TooltipTrigger>().SetTooltipData(art.GetTooltipData());
 
 			// Add the text and the sprite to the button
 			newArtifactBtn.GetComponent<ButtonGraphic>().SetData(art.GetName(), art.GetSprite());
@@ -208,18 +207,22 @@ public class Infuser : MonoBehaviour {
 			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
 			newCypher.name = "Cypher Btn " + currentID;
 
+			Button buttonComp = newCypher.GetComponent<Button>();
+			TooltipTrigger tooltipComp = newCypher.GetComponent<TooltipTrigger>();
+			ButtonGraphic graphicComp = newCypher.GetComponent<ButtonGraphic>();
+
 			// Add a listener to the new Button
-	    	newCypher.GetComponent<Button>().onClick.AddListener(delegate 
+			buttonComp.onClick.AddListener(delegate 
 			{
-				m_buttonHandler.HideTooltip();
+				//print("clicked");
 				m_buttonHandler.OnSelectCypherClick(currentID);
 			});
 
 			// Send the tooptip data to the ButtonHover component
-			newCypher.GetComponent<ButtonHover>().SetTooltipData(c.GetTooltipData());
-			
+			tooltipComp.SetTooltipData(c.GetTooltipData());
+
 			// Add the text and the sprite to the button
-			newCypher.GetComponent<ButtonGraphic>().SetData(c.GetName(), c.GetCypherSprite());
+			graphicComp.SetData(c.GetName(), c.GetCypherSprite());
 
 
 	    	// Add the finished button to the list of instantiated buttons

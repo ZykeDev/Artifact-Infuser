@@ -26,54 +26,6 @@ public class ButtonHandler : MonoBehaviour
     }
 
 
-    // --------- Blueprint Buttons --------- //
-
-    /// <summary>
-    /// Instantiates a tooltip and displays it at the cursor's position
-    /// </summary>
-    /// <param name="width"></param>
-    /// <param name="height"></param>
-    /// <param name="tooltipData"></param>
-    public void ShowTooltip(float width, float height, TooltipData tooltipData)
-    {
-        // TODO this could be optimized by pooling all tooltips on Start (or on first instance)
-        // instad of instantiating one every time
-        m_currentlyOpenedTooltip = Instantiate(
-            m_tooltipPrefab,
-            Vector2.zero, 
-            Quaternion.identity,
-            transform);
-
-        Tooltip tooltip = m_currentlyOpenedTooltip.GetComponent<Tooltip>();
-        RectTransform tooltipRT = m_currentlyOpenedTooltip.GetComponent<RectTransform>();
-
-        m_currentlyOpenedTooltip.name = "Tooltip";
-
-        // Set the correct position
-        Vector2 cursorPos = Input.mousePosition;
-        float offset = 1f;
-        tooltipRT.anchoredPosition = new Vector2(cursorPos.x + offset, cursorPos.y - m_screenHeight + offset);
-        
-        // Sets the correct size for the tooltip
-        tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        tooltipRT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
-        
-        tooltip.SetTexts(tooltipData);
-        tooltip.FollowCursor();
-    }
-
-
-    /// <summary>
-    /// Hides the tooltip by destroying it
-    /// </summary>
-    public void HideTooltip()
-    {
-        m_currentlyOpenedTooltip.GetComponent<Tooltip>().StopFollowingCursor();
-        Destroy(m_currentlyOpenedTooltip);
-        m_currentlyOpenedTooltip = null;
-    }
-
-
     // ----------- Gather Button ----------- //
 
     /// <summary>
