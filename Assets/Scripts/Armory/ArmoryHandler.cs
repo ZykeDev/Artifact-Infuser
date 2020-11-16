@@ -88,7 +88,7 @@ public class ArmoryHandler : MonoBehaviour {
     			GameObject cell = CreateGridCell(artifact, targetParent, i);
     			
     			// Add it to the corresponding pool
-    			GetCellGroupFromType(this.instantiatedCells, type).Add(cell);
+    			GetCellGroupFromType(instantiatedCells, type).Add(cell);
 
     			i++;
     		}	
@@ -114,7 +114,9 @@ public class ArmoryHandler : MonoBehaviour {
 
 	    // Assign the corresponding sprite
 	    newCell.GetComponent<ArmoryGridCell>().cellIcon.GetComponent<Image>().sprite = artifact.GetSprite();
-	    
+
+        newCell.GetComponent<TooltipTrigger>().SetTooltipData(artifact.GetName());
+
 	    // Place the cells in a grid, changing row when needed
 		float rowIndex = 0;
 		float colIndex = 0;

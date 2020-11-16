@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Cypher", menuName = "Cypher")]
 public class Cypher : ScriptableObject {
 	
-	[SerializeField] private int m_ID;
-	[SerializeField] private string m_cypherName;
+	[SerializeField] private int m_ID = 0;
+	[SerializeField] private string m_cypherName = "Cypher Name";
 	[SerializeField] private List<ArtifactType> m_allowedTypes;
 	// TODO Make the artifact sprite procedural (hue/sprite overlays depending on resulting item)
 	[SerializeField] private Sprite m_cypherSprite, m_artifactSprite;
@@ -18,7 +18,7 @@ public class Cypher : ScriptableObject {
 	[SerializeField] private string m_tooltipDex;
 	private TooltipData m_tooltipData;
 
-	public RequiredRunes GetRequiredResources() {
+	public RequiredRunes GetRequiredRunes() {
 		RequiredRunes rr = new RequiredRunes(m_alphaRune, m_novaRune, m_gradientRune);
 		return rr;
 	}

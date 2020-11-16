@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class ResourcesTabUI : MonoBehaviour {
 
-	[SerializeField] private GameController m_gameController;
+	[SerializeField] protected GameController m_gameController;
 
-	[SerializeField] private Text m_goldText, 
+	[SerializeField] protected Text m_goldText, 
 								  m_woodText, 
 								  m_metalText, 
 								  m_leatherText, 

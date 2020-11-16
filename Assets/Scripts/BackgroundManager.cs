@@ -75,11 +75,14 @@ public class BackgroundManager : MonoBehaviour
 
 
     // ------------- //
-   
-    public void Infuse(int cypherID, float time)
+
+    public void Infuse(int cypherID, Artifact baseArtifact, float time)
     {
-    	m_selectedCypherID = cypherID;
-    	m_infusionCoroutine = StartCoroutine(Infusing(time, FinishInfusing));
+        m_selectedCypherID = cypherID;
+        m_infusionCoroutine = StartCoroutine(Infusing(time, delegate
+        {
+            FinishInfusing(baseArtifact);
+        }));
     }
 
     public void StopInfusion()
@@ -87,9 +90,10 @@ public class BackgroundManager : MonoBehaviour
     	StopCoroutine(m_infusionCoroutine);
     }
 
-    public void FinishInfusing()
+    public void FinishInfusing(Artifact baseArtifact)
     {
         if (m_infusionCoroutine == null) return;
+        if (baseArtifact == null) return;
 
     	// Check for invalid IDs
 		if (m_selectedCypherID < 0)
@@ -102,7 +106,7 @@ public class BackgroundManager : MonoBehaviour
 
         StopCoroutine(m_infusionCoroutine);
 
-        m_gameController.FinishInfusing(m_selectedCypherID);
+        m_gameController.FinishInfusing(m_selectedCypherID, baseArtifact);
     }
 
 

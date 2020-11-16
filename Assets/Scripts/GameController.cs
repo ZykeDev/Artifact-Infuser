@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
     [SerializeField]
-    private BackgroundManager m_backgroundManager;
+    protected BackgroundManager m_backgroundManager;
 
     public GameObject m_crafter, m_infuser, m_armory, m_upgrades;
 
@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
         armory = new Armory();
 	}
 
-    // ----------- Forward Coroutine requests to BackgroundManager/Crafter ----------- //
+    #region Crafting
 
     public void Craft(int blueprintID, float time) => m_backgroundManager.Craft(blueprintID, time);
     public void StopCraft() => m_backgroundManager.StopCraft();
@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour {
         // Update only if the crafter is active
         if (m_crafter.activeSelf) m_crafterComp.UpdateCraftingProgress(progress); 
     }
+    
     public void FinishCrafting(int selectedBlueprintID)
     {
         // Creat the artifact from the BP data
@@ -64,9 +65,12 @@ public class GameController : MonoBehaviour {
         m_crafterComp.FinishCrafting();
     }
 
-    // ----------- Forward Coroutine requests to BackgroundManager/Infuser ----------- //   
+#endregion
 
-    public void Infuse(int cypherID, float time) => m_backgroundManager.Infuse(cypherID, time);
+    #region Infusion   
+
+    public void Infuse(int cypherID, float time) => Infuse(cypherID, null, time);
+    public void Infuse(int cypherID, Artifact baseArtifact, float time) => m_backgroundManager.Infuse(cypherID, baseArtifact, time);
     public void StopInfusion() => m_backgroundManager.StopInfusion();
     
     public void UpdateInfusionProgress(float progress)
@@ -74,22 +78,23 @@ public class GameController : MonoBehaviour {
         // Update only if the infuser is active
         if (m_infuser.activeSelf) m_infuserComp.UpdateInfusionProgress(progress); 
     }
-    public void FinishInfusing(int selectedCypherID)
+
+    public void FinishInfusing(int selectedCypherID, Artifact baseArtifact)
     {
         // Creat the artifact from the BP data
-        Cypher c = m_infuserComp.GetCypherWithID(selectedCypherID);
-        //Artifact newArtifact = new Artifact(c);
-        // TODO
+        Cypher cypher = m_infuserComp.GetCypherWithID(selectedCypherID);
+        
+        Artifact newArtifact = new Artifact(baseArtifact, cypher);
 
         // Add the Artifact to the Armory
-        //AddNewArtifact(newArtifact);
+        AddNewArtifact(newArtifact);
 
         m_infuserComp.FinishInfusing();
     }
 
+    #endregion
 
-    // ----------- //
-
+    #region Gathering
 
     /// <summary>
     /// Stops gathering resources and adds them to the inventory
@@ -168,6 +173,9 @@ public class GameController : MonoBehaviour {
     	}
     }
 
+    #endregion
+
+
 
     // Adds the newly crafted Artifact to the Armory and Updates it
     public void AddNewArtifact(Artifact artifact)
@@ -179,8 +187,4 @@ public class GameController : MonoBehaviour {
         }
     }
 
-
-
-
-   
 }

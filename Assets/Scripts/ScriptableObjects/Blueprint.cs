@@ -50,14 +50,29 @@ public struct TooltipData
 	public string title, dex;
 
 	public TooltipData(string title, string dex)
-    {
-		this.title = title;
-		this.dex = dex;
-    }
+	{
+		if (title == null)
+		{
+			this.title = "";
+		}
+		else
+		{
+			this.title = title;
+		}
+
+		if (dex == null)
+		{
+			this.dex = "";
+		}
+		else
+		{
+			this.dex = dex;
+		}
+	}
 
 	public bool IsEmpty()
     {
-		return (title == null && dex == null);
+		return (title == null && dex == null) || (title == "" && dex == "");
     }
 }
 

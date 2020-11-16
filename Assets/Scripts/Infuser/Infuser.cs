@@ -25,8 +25,11 @@ public class Infuser : MonoBehaviour {
     private List<Cypher> m_cyphers;
 	private float m_btnHeight = 0;
 	private int m_cyphersBtnsPerScreen = 4;
+
+	private Artifact m_selectedBaseArtifact = null;
 	private int m_selectedCypherID = -1;
 	
+
 	private bool[] m_activeCyphers;
 
 
@@ -138,6 +141,7 @@ public class Infuser : MonoBehaviour {
 			buttonComp.onClick.AddListener(delegate
 			{
 				tooltipComp.HideTooltip();
+				m_selectedBaseArtifact = art;
 				ChangeState(InfuserState.SELECTING_CYPHER);
 			});
 
@@ -303,11 +307,16 @@ public class Infuser : MonoBehaviour {
 	// Tries to start infusing an Artifact
 	public void Infuse() {
 		// Check if there is a cypher selected
-		if (m_selectedCypherID < 0) {
-			return;
-		}
+		if (m_selectedCypherID < 0) return;
+
+
+		Cypher cypher = GetCypherWithID(m_selectedCypherID);
 
 		// Check if there are enough resources
+		RequiredRunes requiredRunes = cypher.GetRequiredRunes();
+
+
+
 
 		// Check if there is enough space (unimplemented)
 
@@ -315,14 +324,14 @@ public class Infuser : MonoBehaviour {
 		m_buttonHandler.SawpInfuseWithStop();
 
 		// Start the infusing timer coroutine
-		float infusionTime = GetCypherWithID(m_selectedCypherID).GetInfusionTime();
+		float infusionTime = cypher.GetInfusionTime();
 		m_progressbar.value = 0;
 
-		m_gameController.Infuse(m_selectedCypherID, infusionTime);
+		m_gameController.Infuse(m_selectedCypherID, m_selectedBaseArtifact, infusionTime);
 
-		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the infusion?)
-		
+
 		// Spend the resources
+		//m_gameController.inventory.SpendRunes()
 
 	}
 

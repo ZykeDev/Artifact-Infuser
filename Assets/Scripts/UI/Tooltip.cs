@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI m_titleText, m_dexText;
+    protected TextMeshProUGUI m_titleText, m_dexText;
 
     [SerializeField]
-    private LayoutElement m_layoutElement;
+    protected LayoutElement m_layoutElement;
 
     [SerializeField]
     private int m_charWrapLimit = 80;
