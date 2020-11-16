@@ -39,30 +39,33 @@ public class Infuser : MonoBehaviour {
 		INFUSING
 	}
 
-
-	void Start()
-	{
-		m_infuserState = InfuserState.SELECTING_ARTIFACT;
-
+	void Awake()
+    {
 		m_cypherBtns = new List<GameObject>();
 		m_artifactBtns = new List<GameObject>();
+
+		m_infuserState = InfuserState.SELECTING_ARTIFACT;
 
 		m_cyphers = m_unlockSystem.cyphers;
 		m_activeCyphers = m_unlockSystem.activeCyphers;
 
-        // Instantiate the active cypher btns
+		// Instantiate the active artifact and cypher btns
+		InstantiateArtifacts();
 		InstantiateCyphers();
-       
-        // Udapte the viewer h = #active * btn.h
-		UpdateViewportHeight();
 
+		UpdateViewportHeight();
+	}
+
+	void Start()
+	{
+		
     }
 
 	internal void OnFocus()
 	{
-		UpdateActiveCyphers();
 		UpdateActiveArtifacts();
-
+		UpdateActiveCyphers();
+		
 		UpdateViewportHeight();
 		//UpdateArtifactViewportHeight();
 	}
@@ -157,12 +160,17 @@ public class Infuser : MonoBehaviour {
     /// </summary>
     public void UpdateActiveArtifacts()
 	{
-		foreach (GameObject a in m_artifactBtns)
-		{
-			Destroy(a);
-		}
+		if (m_artifactBtns == null) return;
 
-		m_artifactBtns.Clear();
+		if (m_artifactBtns.Count != 0)
+        {
+			foreach (GameObject art in m_artifactBtns)
+			{
+				Destroy(art);
+			}
+
+			m_artifactBtns.Clear();
+        }
 
 		InstantiateArtifacts();
 	}
@@ -173,11 +181,17 @@ public class Infuser : MonoBehaviour {
 	/// </summary>
 	public void UpdateActiveCyphers()
 	{
-    	foreach (GameObject c in m_cypherBtns) {
-    		Destroy(c);
-    	}
+		if (m_cypherBtns == null) return;
 
-    	m_cypherBtns.Clear();
+        if (m_cypherBtns.Count == 0)
+        {
+			foreach (GameObject cypher in m_cypherBtns)
+			{
+				Destroy(cypher);
+			}
+
+			m_cypherBtns.Clear();
+		}
 
     	InstantiateCyphers();
     }
@@ -188,9 +202,11 @@ public class Infuser : MonoBehaviour {
 	/// </summary>
 	private void InstantiateCyphers()
 	{
+		if (m_cyphers == null) return;
+
 		// Button's offset position from the sides
 		float offset = 15f;
-    	
+
     	foreach (Cypher c in m_cyphers)
 		{
 			int currentID = c.GetID();

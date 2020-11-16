@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField]
     [Range(1f, 60f)] private float m_gatheringDuration = 2f;
 	private bool m_isGatherning = false; // TODO make this into a state?
-	private Text m_gatherBtnText; // I dont like it being here, but its convenient
+    [SerializeField] private Text m_gatherBtnText;
 	private Coroutine m_gatheringCoroutine = null;
 
 
@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
         //m_upgradesHandler = m_upgrades.GetComponent<Upgrades>();
 
 
-        m_gatherBtnText = GameObject.Find("GatherBtnText").GetComponent<Text>();
+        //m_gatherBtnText = GameObject.Find("GatherBtnText").GetComponent<Text>();
         m_tier = 0;
 
         // Init Inventory

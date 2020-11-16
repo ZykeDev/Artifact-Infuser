@@ -1,23 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TabHandler : MonoBehaviour {
     
-	private Tab currentTab; 
-	
-    [SerializeField]
-	private GameObject m_crafterTab, 
-                      m_infuserTab, 
-                      m_armoryTab, 
-                      m_upgradesTab;
+	private Tab currentTab;
 
-	[SerializeField]
-    private Button m_crafterBtn,
-                   m_infuserBtn,
-                   m_armoryBtn,
-                   m_upgradesBtn;
+    [Header("Tabs")]
+    [SerializeField] private GameObject m_gatheringTab;
+    [SerializeField] private GameObject m_crafterTab;
+    [SerializeField] private GameObject m_infuserTab;
+    [SerializeField] private GameObject m_armoryTab;
+    [SerializeField] private GameObject m_upgradesTab;
+
+
+    [Header("Buttons")]
+    [SerializeField] private Button m_gatheringBtn;
+    [SerializeField] private Button m_crafterBtn;
+    [SerializeField] private Button m_infuserBtn;
+    [SerializeField] private Button m_armoryBtn;
+    [SerializeField] private Button m_upgradesBtn;
 
 
 	void Start()
@@ -25,12 +26,13 @@ public class TabHandler : MonoBehaviour {
 		SetAllTabsInteractable();
     	CloseAllTabs();
 
-    	currentTab = Tab.CRAFTER; // TODO change this to save-state's last Tab
-    	m_crafterBtn.interactable = false; // TODO make this change depending on the default loaded tab
-    	m_crafterTab.SetActive(true);
-	}
+    	currentTab = Tab.GATHERING; // TODO change this to save-state's last Tab
+        m_gatheringBtn.interactable = false;
+        m_gatheringTab.SetActive(true);
+    }
 
 
+    public void SwitchTabToGathering() => SwitchTab(Tab.GATHERING);
     public void SwitchTabToCrafter() => SwitchTab(Tab.CRAFTER);
     public void SwitchTabToInfuser() => SwitchTab(Tab.INFUSER);
     public void SwitchTabToArmory() => SwitchTab(Tab.ARMORY);
@@ -40,16 +42,19 @@ public class TabHandler : MonoBehaviour {
 
     private void SwitchTab(Tab tab)
     {
-    	if (currentTab == tab) {
-    		return;
-    	}
+    	if (currentTab == tab) return;
 
     	currentTab = tab;
     	SetAllTabsInteractable();
     	CloseAllTabs();
 
     	switch (tab) {
-    		case Tab.CRAFTER:
+            case Tab.GATHERING:
+                m_gatheringBtn.interactable = false;
+                m_gatheringTab.SetActive(true);
+                break;
+
+            case Tab.CRAFTER:
     			m_crafterBtn.interactable = false;
     			m_crafterTab.SetActive(true);
     			break;
@@ -78,7 +83,8 @@ public class TabHandler : MonoBehaviour {
 
     private void CloseAllTabs()
     {
-    	m_crafterTab.SetActive(false);
+        m_gatheringTab.SetActive(false);
+        m_crafterTab.SetActive(false);
     	m_infuserTab.SetActive(false);
     	m_armoryTab.SetActive(false);
     	m_upgradesTab.SetActive(false);
@@ -86,7 +92,8 @@ public class TabHandler : MonoBehaviour {
 
     private void SetAllTabsInteractable()
     {
-	    m_crafterBtn.interactable = true;
+        m_gatheringBtn.interactable = true;
+        m_crafterBtn.interactable = true;
 		m_infuserBtn.interactable = true;
 		m_armoryBtn.interactable = true;
 		m_upgradesBtn.interactable = true;

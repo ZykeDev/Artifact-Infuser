@@ -10,6 +10,7 @@ public enum ResourceType {
 
 
 public enum Tab {
+	GATHERING,
 	CRAFTER,
 	INFUSER,
 	ARMORY, 
