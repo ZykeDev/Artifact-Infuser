@@ -68,6 +68,9 @@ public class Inventory {
 		}
 	}
 
+
+
+
 	/// <summary>
 	/// Adds random resources to the inventory, based on the given tier
 	/// </summary>
@@ -81,6 +84,69 @@ public class Inventory {
 		crystals.Add((multiplier-4) * Random.Range(1f, 2f));
 	}
 
+
+	/// <summary>
+	/// Returns true if there are enough resources in the inventory
+	/// </summary>
+	/// <param name="requiredResources"></param>
+	/// <returns></returns>
+	public bool HasEnoughResources(RequiredResources requiredResources)
+    {
+		if (requiredResources.wood > 0 && wood.amount < requiredResources.wood)
+		{
+			Debug.Log("Not enough wood. Need " + (requiredResources.wood - wood.amount) + " more.");
+			return false;
+		}
+		if (requiredResources.metal > 0 && metal.amount < requiredResources.metal)
+		{
+			Debug.Log("Not enough metal.");
+			return false;
+		}
+		if (requiredResources.leather > 0 && leather.amount < requiredResources.leather)
+		{
+			Debug.Log("Not enough leather.");
+			return false;
+		}
+		if (requiredResources.crystals > 0 && crystals.amount < requiredResources.crystals)
+		{
+			Debug.Log("Not enough crystals.");
+			return false;
+		}
+
+		return true;
+    }
     
+
+	/// <summary>
+	/// Subtracts the given resources from the inventory, if there are enough
+	/// </summary>
+	/// <param name="requiredResources"></param>
+	public bool SpendResources(RequiredResources requiredResources)
+    {
+		if (!HasEnoughResources(requiredResources))
+        {
+#if UNITY_EDITOR
+			Debug.Log("Not enough resources.");
+#endif
+			return false;
+        }
+
+		wood.Remove(requiredResources.wood);
+		metal.Remove(requiredResources.metal);
+		leather.Remove(requiredResources.leather);
+		crystals.Remove(requiredResources.crystals);
+
+		return true;
+	}
+
+
+	public void AddResources(RequiredResources addedResources)
+    {
+		wood.Add(addedResources.wood);
+		metal.Add(addedResources.metal);
+		leather.Add(addedResources.leather);
+		crystals.Add(addedResources.crystals);
+	}
+
 }
 

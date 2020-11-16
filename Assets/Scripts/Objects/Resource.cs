@@ -10,7 +10,10 @@ public class Resource {
 		this.amount = amount;
 	}
 
-
+	/// <summary>
+	/// Adds the given amount of a resouce
+	/// </summary>
+	/// <param name="amountToAdd"></param>
 	public void Add(double amountToAdd) {
 		if (amountToAdd <= 0) return;
 
@@ -21,9 +24,27 @@ public class Resource {
 #endif
 		}
 
-		// Cast the result to int, then back to double to maintain it
-		amount = (double)Mathf.Round((float)(amount + amountToAdd));
+		amount = Mathf.Round((float)(amount + amountToAdd));
 	}
+
+
+	/// <summary>
+	/// Removes the given amount of a resource
+	/// </summary>
+	/// <param name="amountToRemove"></param>
+	public void Remove(double amountToRemove)
+    {
+		if (amountToRemove <= 0) return;
+
+		if (amountToRemove >= double.MaxValue)
+        {
+#if UNITY_EDITOR
+			Debug.LogError("Trying to remove MaxDouble of " + type);
+#endif
+		}
+
+		amount -= amountToRemove;
+    }
 
 
 

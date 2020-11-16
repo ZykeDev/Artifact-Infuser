@@ -20,7 +20,7 @@ MonoBehaviour:
   m_craftingTime: 1
   m_rarity: 0
   m_price: 0
-  m_wood: 0
+  m_wood: 10
   m_metal: 0
   m_leather: 0
   m_crystals: 0

@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class Crafter : MonoBehaviour {
 
-	[SerializeField] private GameController m_gameController;
+    #region Vars
+
+    [SerializeField] private GameController m_gameController;
 	[SerializeField] private UnlockSystem m_unlockSystem;
 	[SerializeField] private ButtonHandler m_buttonHandler;
 	[SerializeField] private Slider m_progressbar;
@@ -20,8 +22,11 @@ public class Crafter : MonoBehaviour {
     private int m_selectedBlueprintID = -1;
 	private bool[] m_activeBlueprints;
 
-	private Inventory m_refundedResources = new Inventory();
+	private RequiredResources m_refund = new RequiredResources();
 
+	#endregion
+
+	#region Awake & Start & Update
 
 	void Start()
 	{
@@ -41,11 +46,14 @@ public class Crafter : MonoBehaviour {
 		UpdateViewportHeight();
     }
 
+    #endregion
 
-	/// <summary>
-	/// Destroys all blueprint btns and re-instantiates them, checking for new active ones.
-	/// </summary>
-	public void UpdateActiveBlueprints()
+    #region Blueprint Selector
+
+    /// <summary>
+    /// Destroys all blueprint btns and re-instantiates them, checking for new active ones.
+    /// </summary>
+    public void UpdateActiveBlueprints()
 	{
     	foreach (GameObject bp in m_blueprintBtns)
 		{
@@ -139,8 +147,6 @@ public class Crafter : MonoBehaviour {
 		return n;
 	}
 
-
-
 	// TODO also be able to deselect and leave the crafting area empty
 	/// <summary>
 	/// Sets the clicked blueprint as selected and activates the Crafting functionality
@@ -170,11 +176,14 @@ public class Crafter : MonoBehaviour {
 		m_artifactSilhouette.sprite = artifactSprite;
 	}
 
+    #endregion
 
-	/// <summary>
-	/// Starts the crafting process (if there are enough resources)
-	/// </summary>
-	public void Craft()
+    #region Crafting System
+
+    /// <summary>
+    /// Starts the crafting process (if there are enough resources)
+    /// </summary>
+    public void Craft()
 	{
 		// Check if there is a blueprint selected
 		if (m_selectedBlueprintID < 0)
@@ -182,20 +191,25 @@ public class Crafter : MonoBehaviour {
 			return;
 		}
 
-		// Check if there are enough resources
+		Blueprint blueprint = GetBlueprintWithID(m_selectedBlueprintID);
+		
+		RequiredResources requiredResources = blueprint.GetRequiredResources();
+
+		// Check there are enough resources and spend them if there are
+		bool canCraft = m_gameController.inventory.SpendResources(requiredResources);
+		if (!canCraft) return;
+
+		// Save the refund amount
+		m_refund = requiredResources;
+
 
 		// Change the Craft btn to the "Stop Crafting" btn
 		m_buttonHandler.SawpCraftWithStop();
 
 		// Start the crafting timer coroutine
-		float craftingTime = GetBlueprintWithID(m_selectedBlueprintID).GetCraftingTime();
+		float craftingTime = blueprint.GetCraftingTime();
 		m_progressbar.value = 0;
 		m_gameController.Craft(m_selectedBlueprintID, craftingTime);
-
-		// Compute the "refounded resources" if stopped and store them (better to do this b4 starting the craft?)
-		
-		// Actually spend the resources
-
 	}
 	
 	/// <summary>
@@ -208,6 +222,9 @@ public class Crafter : MonoBehaviour {
 	}
 
 
+	/// <summary>
+	/// Stops crafting and refunds the spent resources
+	/// </summary>
 	public void StopCraft()
 	{
 		// Stop the timer
@@ -216,11 +233,24 @@ public class Crafter : MonoBehaviour {
     	// Reset the progress bar
     	UpdateCraftingProgress(0);
 
-    	// Change the Craft btn to the "Craft" btn
+    	// Change the "Stop Craft" btn to the "Craft" btn
 		m_buttonHandler.SawpStopWithCraft();
 
-		// Return the "refounded resources"
-		RefoundResources();
+		RefundResources();
+	}
+
+	/// <summary>
+	/// Refunds the spent resources
+	/// </summary>
+	public void RefundResources()
+    {
+		// Exit if the refund var is empty
+		if (m_refund.wood == default) return;
+
+		m_gameController.inventory.AddResources(m_refund);
+
+		// Reset the refund var
+		m_refund = new RequiredResources();
 	}
 
 
@@ -240,11 +270,6 @@ public class Crafter : MonoBehaviour {
 
 	}
 
-	// TODO
-	private void RefoundResources()
-	{
-		
-	}
 
     // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
     public Blueprint GetBlueprintWithID(int ID)
@@ -258,5 +283,6 @@ public class Crafter : MonoBehaviour {
     }
 
 
+	#endregion
 
 }
