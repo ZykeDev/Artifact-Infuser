@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Armory {
@@ -29,11 +27,25 @@ public class Armory {
 		m_artifacts.Add(newArtifact);
 	}
 
+
 	/// <summary>
-	/// Returns the list of artifacts in the Armory
+	/// Removes an artifact from the armory. Returns false if it's not in the list.
 	/// </summary>
+	/// <param name="artifactToRemove"></param>
 	/// <returns></returns>
-	public List<Artifact> GetArtifacts()
+	public bool RemoveArtifact(Artifact artifactToRemove)
+    {
+		return m_artifacts.Remove(artifactToRemove);
+    }
+
+
+    #region Getters
+
+    /// <summary>
+    /// Returns the list of artifacts in the Armory
+    /// </summary>
+    /// <returns></returns>
+    public List<Artifact> GetArtifacts()
 	{
 		return m_artifacts;
 	}
@@ -59,7 +71,7 @@ public class Armory {
 		return filteredArtifacts;
 	}
 
+    #endregion
 
-    
 }
 

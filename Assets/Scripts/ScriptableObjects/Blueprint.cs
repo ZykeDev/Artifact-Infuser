@@ -11,9 +11,11 @@ public class Blueprint : ScriptableObject {
 	[SerializeField] private float m_craftingTime;
 	[SerializeField] private int m_rarity, m_price;
 
+	[Header("Resources Required")]
 	[SerializeField] private double m_wood, m_metal, m_leather, m_crystals;
 
-	[SerializeField] private string m_tooltipDex;
+	[Header("Tooltip Description")]
+	[SerializeField, TextArea] private string m_tooltipDex;
 	private TooltipData m_tooltipData;
 
 

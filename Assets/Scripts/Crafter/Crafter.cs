@@ -26,7 +26,7 @@ public class Crafter : MonoBehaviour {
 
 	#endregion
 
-	#region Awake & Start & Update
+	#region Awake Start Update
 
 	void Start()
 	{
@@ -245,9 +245,10 @@ public class Crafter : MonoBehaviour {
 	public void RefundResources()
     {
 		// Exit if the refund var is empty
-		if (m_refund.wood == default) return;
-
-		m_gameController.inventory.AddResources(m_refund);
+		if (m_refund.Equals(default(RequiredRunes)))
+        {
+			m_gameController.inventory.Add(m_refund);
+        }
 
 		// Reset the refund var
 		m_refund = new RequiredResources();

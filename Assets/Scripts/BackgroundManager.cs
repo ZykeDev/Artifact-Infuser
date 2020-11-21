@@ -92,8 +92,14 @@ public class BackgroundManager : MonoBehaviour
 
     public void FinishInfusing(Artifact baseArtifact)
     {
-        if (m_infusionCoroutine == null) return;
-        if (baseArtifact == null) return;
+        //if (m_infusionCoroutine == null) return;
+        if (baseArtifact == null)
+        {
+#if UNITY_EDITOR
+            Debug.LogError("After infusing, the base artifact has been found to be null.");
+#endif
+            return;
+        }
 
     	// Check for invalid IDs
 		if (m_selectedCypherID < 0)

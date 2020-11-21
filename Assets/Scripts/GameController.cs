@@ -187,4 +187,17 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Removes the artifact from ther armory, if present
+    /// </summary>
+    /// <param name="artifact"></param>
+    public void RemoveArtifact(Artifact artifact)
+    {
+        armory.RemoveArtifact(artifact);
+
+        if (m_armory.activeSelf)
+        {
+            m_armoryHandler.GetComponent<ArmoryHandler>().UpdateContents();
+        }
+    }
 }

@@ -13,13 +13,17 @@ public class Cypher : ScriptableObject {
 	[SerializeField] private float m_infusionTime;
 	[SerializeField] private int m_rarity, m_price;
 
-	[SerializeField] private double m_alphaRune, m_novaRune, m_gradientRune;
+	[Header("Runes Required")]
+	[SerializeField] private int m_alphaRune;
+	[SerializeField] private int m_novaRune;
+	[SerializeField] private int m_prismaRune;
 
-	[SerializeField] private string m_tooltipDex;
+	[Header("Tooltip Description")]
+	[SerializeField, TextArea] private string m_tooltipDex;
 	private TooltipData m_tooltipData;
 
 	public RequiredRunes GetRequiredRunes() {
-		RequiredRunes rr = new RequiredRunes(m_alphaRune, m_novaRune, m_gradientRune);
+		RequiredRunes rr = new RequiredRunes(m_alphaRune, m_novaRune, m_prismaRune);
 		return rr;
 	}
 
@@ -43,14 +47,14 @@ public class Cypher : ScriptableObject {
 
 
 public struct RequiredRunes {
-	public double alphaRune;
-	public double novaRune;
-	public double gradientRune;
+	public int alphaRune;
+	public int novaRune;
+	public int prismaRune;
 
 
-	public RequiredRunes(double alphaRune, double novaRune, double gradientRune) {
+	public RequiredRunes(int alphaRune, int novaRune, int prismaRune) {
 		this.alphaRune = alphaRune;
 		this.novaRune = novaRune;
-		this.gradientRune = gradientRune;
+		this.prismaRune = prismaRune;
 	}
 }

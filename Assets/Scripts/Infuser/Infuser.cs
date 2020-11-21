@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class Infuser : MonoBehaviour {
 
-	[Header("Script References")]
+    #region Vars
+
+    [Header("Script References")]
     [SerializeField] private GameController m_gameController;
     [SerializeField] private UnlockSystem m_unlockSystem;
 	[SerializeField] private ButtonHandler m_buttonHandler;
@@ -28,11 +30,11 @@ public class Infuser : MonoBehaviour {
 
 	private Artifact m_selectedBaseArtifact = null;
 	private int m_selectedCypherID = -1;
-	
-
 	private bool[] m_activeCyphers;
 
+	private RequiredRunes m_refund = new RequiredRunes();
 
+	
 	private InfuserState m_infuserState;
 
 	private enum InfuserState 
@@ -42,7 +44,11 @@ public class Infuser : MonoBehaviour {
 		INFUSING
 	}
 
-	void Awake()
+    #endregion
+
+    #region Awake Start Update
+
+    void Awake()
     {
 		m_cypherBtns = new List<GameObject>();
 		m_artifactBtns = new List<GameObject>();
@@ -59,12 +65,10 @@ public class Infuser : MonoBehaviour {
 		UpdateViewportHeight();
 	}
 
-	void Start()
-	{
-		
-    }
+    #endregion
 
-	internal void OnFocus()
+
+    internal void OnFocus()
 	{
 		UpdateActiveArtifacts();
 		UpdateActiveCyphers();
@@ -315,10 +319,15 @@ public class Infuser : MonoBehaviour {
 		// Check if there are enough resources
 		RequiredRunes requiredRunes = cypher.GetRequiredRunes();
 
+		// Check there are enough resources and spend them if there are
+		bool canInfuse = m_gameController.inventory.SpendRunes(requiredRunes);
+		if (!canInfuse) return;
 
+		m_refund = requiredRunes;
 
+		// Remove the consumed artifact
+		m_gameController.RemoveArtifact(m_selectedBaseArtifact);
 
-		// Check if there is enough space (unimplemented)
 
 		// Change the Infuse btn to the "Stop Infusing" btn
 		m_buttonHandler.SawpInfuseWithStop();
@@ -329,9 +338,6 @@ public class Infuser : MonoBehaviour {
 
 		m_gameController.Infuse(m_selectedCypherID, m_selectedBaseArtifact, infusionTime);
 
-
-		// Spend the resources
-		//m_gameController.inventory.SpendRunes()
 
 	}
 
@@ -349,6 +355,8 @@ public class Infuser : MonoBehaviour {
 
     	// Change the Infuse btn to the "Infuse" btn
 		m_buttonHandler.SawpStopWithInfuse();
+		
+		RefundResources();
 	}
 
 
@@ -362,6 +370,21 @@ public class Infuser : MonoBehaviour {
 		// Show confirmation window (if this is the first artifact of its kind) TODO
 		// -- 
 	}
+
+
+	private void RefundResources()
+    {
+		m_gameController.AddNewArtifact(m_selectedBaseArtifact);
+
+		// Exit if the refund var is empty
+		if (!m_refund.Equals(default(RequiredResources)))
+        {
+			m_gameController.inventory.Add(m_refund);
+        }
+
+		// Reset the refund var
+		m_refund = new RequiredRunes();
+    }
 
     // Returns the cypher with the corresponding ID from the cyphers list. Else returns Null.
     public Cypher GetCypherWithID(int ID) {

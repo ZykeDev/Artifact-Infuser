@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,8 @@ public class Inventory {
 	public Resource leather;
 	public Resource crystals;
 
+	public Rune alphaRune, novaRune, prismaRune;
+
 	public List<Blueprint> blueprints;
 
 	private double[] tierMultiplier = new double[] {1, 2, 5, 10};
@@ -18,10 +20,14 @@ public class Inventory {
 	public Inventory() {
 		gold = 0;
 
-		wood = new Resource(ResourceType.WOOD, 0);
+		wood = new Resource(ResourceType.WOOD, 10);
 		metal = new Resource(ResourceType.METAL, 0);
 		leather = new Resource(ResourceType.LEATHER, 0);
 		crystals = new Resource(ResourceType.CRYSTALS, 0);
+
+		alphaRune = new Rune(RuneType.ALPHA, 0);
+		novaRune = new Rune(RuneType.NOVA, 0);
+		prismaRune = new Rune(RuneType.PRISMA, 0);
 
 		blueprints = new List<Blueprint>();
 	}
@@ -78,10 +84,10 @@ public class Inventory {
 	public void SetRandomResources(int tier) {
 		double multiplier = tierMultiplier[tier];
 
-		wood.Add(multiplier * Random.Range(5f, 12f));
-		metal.Add(multiplier * Random.Range(6f, 9f));
-		leather.Add((multiplier-1) * Random.Range(4f, 7f));
-		crystals.Add((multiplier-4) * Random.Range(1f, 2f));
+		wood.Add(multiplier * UnityEngine.Random.Range(5f, 12f));
+		metal.Add(multiplier * UnityEngine.Random.Range(6f, 9f));
+		leather.Add((multiplier-1) * UnityEngine.Random.Range(4f, 7f));
+		crystals.Add((multiplier-4) * UnityEngine.Random.Range(1f, 2f));
 	}
 
 
@@ -115,7 +121,35 @@ public class Inventory {
 
 		return true;
     }
-    
+
+	/// <summary>
+	/// Returns true if there are enough runes in the inventory
+	/// </summary>
+	/// <param name="requiredRunes"></param>
+	/// <returns></returns>
+	public bool HasEnoughRunes(RequiredRunes requiredRunes)
+    {
+		if (requiredRunes.alphaRune > 0 && alphaRune.amount < requiredRunes.alphaRune)
+        {
+			Debug.Log("Not enough wood. Need " + (requiredRunes.alphaRune - alphaRune.amount) + " more.");
+			return false;
+		}
+		if (requiredRunes.novaRune > 0 && novaRune.amount < requiredRunes.novaRune)
+		{
+			Debug.Log("Not enough wood. Need " + (requiredRunes.novaRune - novaRune.amount) + " more.");
+			return false;
+		}
+		if (requiredRunes.prismaRune > 0 && prismaRune.amount < requiredRunes.prismaRune)
+		{
+			Debug.Log("Not enough wood. Need " + (requiredRunes.prismaRune - prismaRune.amount) + " more.");
+			return false;
+		}
+
+
+		return true;
+	}
+
+
 
 	/// <summary>
 	/// Subtracts the given resources from the inventory, if there are enough
@@ -139,6 +173,29 @@ public class Inventory {
 		return true;
 	}
 
+	/// <summary>
+	/// Subtracts the given runes from the inventory, if there are enough
+	/// </summary>
+	/// <param name="requiredRunes"></param>
+	/// <returns></returns>
+	public bool SpendRunes(RequiredRunes requiredRunes)
+    {
+		if (!HasEnoughRunes(requiredRunes))
+		{
+#if UNITY_EDITOR
+			Debug.Log("Not enough runes.");
+#endif
+			return false;
+		}
+
+		alphaRune.Remove(requiredRunes.alphaRune);
+		novaRune.Remove(requiredRunes.novaRune);
+		prismaRune.Remove(requiredRunes.prismaRune);
+
+
+		return true;
+    }
+
 
 	public void AddResources(RequiredResources addedResources)
     {
@@ -147,6 +204,16 @@ public class Inventory {
 		leather.Add(addedResources.leather);
 		crystals.Add(addedResources.crystals);
 	}
+
+	public void AddRunes(RequiredRunes addedRunes)
+    {
+		alphaRune.Add(addedRunes.alphaRune);
+		novaRune.Add(addedRunes.novaRune);
+		prismaRune.Add(addedRunes.prismaRune);
+	}
+
+	public void Add(RequiredResources addedResources) => AddResources(addedResources);
+	public void Add(RequiredRunes addedRunes) => AddRunes(addedRunes);
 
 }
 

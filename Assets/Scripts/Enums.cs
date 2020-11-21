@@ -8,6 +8,13 @@ public enum ResourceType {
 
 };
 
+public enum RuneType
+{
+	ALPHA,
+	NOVA,
+	PRISMA
+}
+
 
 public enum Tab {
 	GATHERING,

@@ -4,40 +4,48 @@
 		"selected_items":
 		[
 			[
+				"artic",
+				"artifactGridScrollRect"
+			],
+			[
+				"defau",
+				"defaultTab"
+			],
+			[
+				"isntan",
+				"instantiatedCells"
+			],
+			[
+				"ab",
+				"ArmoryContentAbyss"
+			],
+			[
+				"armor",
+				"ArmoryContentArmor"
+			],
+			[
+				"Ar",
+				"ArtifactType"
+			],
+			[
+				"type",
+				"type"
+			],
+			[
+				"id",
+				"ID"
+			],
+			[
+				"blueprin",
+				"blueprints"
+			],
+			[
+				"rari",
+				"rarity"
+			],
+			[
 				"selecte",
-				"selectedCypherID"
-			],
-			[
-				"armory",
-				"armoryHandler"
-			],
-			[
-				"Dist",
-				"DistrictTypes"
-			],
-			[
-				"sele",
-				"selectedCypherID"
-			],
-			[
-				"Get",
-				"GetCyphersWithID"
-			],
-			[
-				"back",
-				"backgroundManager"
-			],
-			[
-				"crat",
-				"craftingDuration"
-			],
-			[
-				"backgr",
-				"backgroundManagerObj"
-			],
-			[
-				"gae",
-				"gameManager"
+				"selectedBlueprintID"
 			],
 			[
 				"act",
@@ -243,42 +251,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "Assets/Scripts/GameController.cs",
-			"settings":
-			{
-				"buffer_size": 5343,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Scripts/ButtonHandler.cs",
-			"settings":
-			{
-				"buffer_size": 2656,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Scripts/BackgroundManager.cs",
-			"settings":
-			{
-				"buffer_size": 2657,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Infuser.cs",
-			"settings":
-			{
-				"buffer_size": 6504,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -348,65 +320,50 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts"
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts"
 	],
 	"file_history":
 	[
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/ArmoryHandler.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/TabHandler.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/DistrictSelectionHandler.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/District.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/QuickOutline/Scripts/Outline.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/CameraController.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/Scripts/ZoomCamera.cs",
-		"/C/Users/Marco/Documents/project-wolves/Assets/DistrictSelectionHandler.cs",
-		"/C/Users/Marco/Documents/GitHub/Map Hover Test/Assets/District.cs",
-		"/C/Users/Marco/Documents/GitHub/Map Hover Test/Assets/DistrictSelect.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/UnlockSystem.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Infuser.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/ButtonHandler.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/GameController.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/BackgroundManager.cs",
-		"/C/Users/Marco/Documents/GitHub/Map Hover Test/Assets/QuickOutline/Scripts/Outline.cs",
-		"/C/Users/Marco/Documents/GitHub/Map Hover Test/Assets/Scenes/OutlineShader.shader",
-		"/C/Users/Marco/Downloads/message.txt",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Prefabs/BlueprintHover.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Crafter.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Prefabs/BlueprintBtnData.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Prefabs/CypherBtnData.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Infuser.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Cypher.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Blueprint.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Resource.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Armory.cs",
-		"/C/Users/Marco/Documents/GitHub/canvasTests/Assets/TabGroup.cs",
-		"/C/Users/Marco/Documents/GitHub/canvasTests/Assets/TabButton.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Artifact.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Prefabs/ArmoryGridCell.cs",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/Assets/Scripts/Inventory.cs",
-		"/C/Windows/System32/drivers/etc/hosts",
-		"/C/Users/Marco/Downloads/Event_3490825.ics",
-		"/C/Users/Marco/Documents/GitHub/Artifact-Infuser/.gitignore",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/GameController.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Enums.cs",
+		"/C/Users/Maaarco/Documents/project-wolves/Assets/_Scripts/Scripts_Mark/AI/Spawner/SpawnController.cs",
+		"/C/Users/Maaarco/Documents/project-wolves-tutorial/Assets/_Scenes/_D1_1/_D1_1.unity.meta",
+		"/C/Users/Maaarco/Downloads/J. PENAL Nº 1 DE DONOSTIA - UPAD PENAL_0000099_2014_Video 02.avi",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Blueprint.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Artifact.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ButtonHandler.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/TabHandler.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ArmoryTabHandler.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ArmoryHandler.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Crafter.cs",
+		"/C/Users/Maaarco/Desktop/trimps.save.txt",
+		"/C/Users/Maaarco/Desktop/quiteDark.css",
+		"/C/Users/Maaarco/Desktop/Modern Trimps.css",
+		"/C/Users/Maaarco/Desktop/darklingo fix.css",
+		"/C/Users/Maaarco/Desktop/darklingo.css",
 		"/C/UnityProject/Artifact Infuser/Assets/Prefabs/BlueprintBtnData.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Prefabs/ArmoryGridCell.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Prefabs/BlueprintHover.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Armory.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/ArmoryHandler.cs",
+		"/C/UnityProject/SnakeClone/Assets/Scripts/PlayerMovement.cs",
+		"/C/UnityProject/SnakeClone/Assets/Scripts/GameManager.cs",
+		"/C/UnityProject/SnakeClone/Library/PackageCache/com.unity.inputsystem@1.0.0/InputSystem/Plugins/PlayerInput/PlayerInput.cs",
+		"/C/UnityProject/SnakeClone/Assets/InputController.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/UnlockSystem.cs",
+		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ResourcesTabUI.cs",
+		"/C/UnityProject/SnakeClone/Assets/Scripts/GameManagewr.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Scripts/BlueprintBtnData.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Prefabs/BlueprintData.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/BlueprintBtnData.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Blueprint.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Blueprints/Simple Chestplate.asset",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/GameController.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/UnlockSystem.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ResourcesTabUI.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/ButtonHandler.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Crafter.cs",
 		"/C/projects/unity/src/UnityExtension/Assets/Editor/GitHub.Unity/EntryPoint.cs",
 		"/C/UnityProject/Artifact Infuser/Artifact-Infuser.sublime-project",
 		"/C/UnityProject/Artifact",
 		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/Crafter.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Enums.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Resource.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Inventory.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Scripts/PromptHandler.cs",
-		"/C/UnityProject/Artifact Infuser/Assets/Scripts/TabHandler.cs",
 		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/GameController.cs",
 		"/C/UnityProject/Artifact Infuser/Infuser/Assets/Scripts/ResourcesTabUI.cs",
 		"/C/UnityProject/Flip/Assets/Scripts/BoardController.cs",
@@ -452,6 +409,7 @@
 		"/C/UnityProject/Clock/Clock/Assets/Scripts/Clock.cs",
 		"/C/Users/Maaarco/Desktop/prod.keys",
 		"/D/Downloads/prod (1).keys",
+		"/C/Windows/System32/drivers/etc/hosts",
 		"/C/UnityProject/Flip/Assets/Scripts/LevelHandler.cs",
 		"/C/UnityProject/Flip/Assets/Scripts/AnimationHandler.cs",
 		"/D/Games/steamapps/common/Tabletop Simulator/Tabletop Simulator_Data/Mods/Workshop/670105168.json",
@@ -476,7 +434,7 @@
 	],
 	"find":
 	{
-		"height": 70.4
+		"height": 29.0
 	},
 	"find_in_files":
 	{
@@ -490,34 +448,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"Craft(",
-			"Craft()",
-			"destroy",
-			"tOut",
-			"target",
-			"selectedDistrict",
-			"hoveredDistrict",
-			"SelectedDistrictTe",
-			"UnityEngine",
-			"awake",
-			"Test",
-			"Tets",
-			"getCy",
-			"finish",
-			"infusingDu",
-			"bp",
-			"public void OnSelectBlueprintClick(int blueprintID) {\n        crafterComp.SelectBlueprint(blueprintID);    \n        \n    }\n\n    // Swap Craft -> Stop Crafting\n    public void SawpCraftWithStop() {\n        CraftBtn.SetActive(false);\n        StopCraftBtn.SetActive(true);\n    } \n    \n    // Swap Stop Crafting -> Craft\n    public void SawpStopWithCraft() {\n        StopCraftBtn.SetActive(false);\n        CraftBtn.SetActive(true);\n    }\n\n    // Makes the Craft Button clickable\n    public void ActivateCraftBtn() {\n        CraftBtn.GetComponent<Button>().interactable = true;\n    }",
-			"craft",
-			"blueprint",
-			"coroutine",
-			"craftingCoroutine",
-			"isCraftin",
-			"armoryGri",
-			"gcdn.2mdn.net ",
-			"o.scdn.co",
-			"i.scdn.co",
-			"tv.scdn.co",
-			"Count",
+			"318",
+			"bone",
+			"bones",
+			"new Arti",
+			"print(",
+			"print",
+			"setAct",
+			"List",
+			">();\n",
+			"offset",
+			"action.canceled",
+			"System",
 			";\n",
 			"textC",
 			"uvs",
@@ -580,9 +522,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"selectedDistrictType",
-			"hoveredDistrictType",
-			"cypher",
 			";\n",
 			"borde",
 			"borderedSize",
@@ -602,133 +541,14 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "Assets/Scripts/GameController.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5343,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2538,
-								2532
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1182.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "Assets/Scripts/ButtonHandler.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2656,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1819,
-								1819
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1025.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/Scripts/BackgroundManager.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2657,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								783,
-								783
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 512.8,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "Assets/Scripts/Infuser.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6504,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4911,
-								4917
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3020.8,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 30.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -773,7 +593,7 @@
 	"project": "Artifact-Infuser.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -811,7 +631,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 229.0,
+	"side_bar_width": 179.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
