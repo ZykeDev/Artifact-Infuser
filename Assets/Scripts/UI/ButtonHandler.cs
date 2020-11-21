@@ -1,18 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour
 {
+    [Header("Script References")]
     [SerializeField] private GameController m_gameController;
     [SerializeField] private Crafter m_crafter;
     [SerializeField] private Infuser m_infuser;
+    [SerializeField] private Shop m_shop;
 
-    // Instantiated buttons
-    [SerializeField]
-    private GameObject m_craftBtn, m_stopCraftBtn,
-                       m_infuseBtn, m_stopInfuseBtn,
-                       m_gatherBtn;
+    [Header("Buttons")]
+    [SerializeField] private GameObject m_craftBtn;
+    [SerializeField] private GameObject m_stopCraftBtn;
+    [SerializeField] private GameObject m_infuseBtn;
+    [SerializeField] private GameObject m_stopInfuseBtn;
+    [SerializeField] private GameObject m_gatherBtn;
 
     [SerializeField]
     private GameObject m_tooltipPrefab;
@@ -25,8 +27,7 @@ public class ButtonHandler : MonoBehaviour
         m_screenHeight = Screen.height;
     }
 
-
-    // ----------- Gather Button ----------- //
+    #region Gathering
 
     /// <summary>
     /// Starts the Resource Gathering expedition
@@ -37,8 +38,10 @@ public class ButtonHandler : MonoBehaviour
         m_gameController.TryGathering(gatherBtn);
     }
 
+    #endregion
 
-    // ----------- Craft Button ----------- //
+
+    #region Crafting
 
     /// <summary>
     /// Starts crafting the selected blueprint into an item
@@ -80,8 +83,10 @@ public class ButtonHandler : MonoBehaviour
         m_craftBtn.GetComponent<Button>().interactable = true;
     }
 
+    #endregion
 
-    // ----------- Infuse Button ----------- //
+
+    #region Infusion
 
     /// <summary>
     /// Starts infusing the selected cypher into an item
@@ -124,5 +129,17 @@ public class ButtonHandler : MonoBehaviour
     {
         m_infuseBtn.GetComponent<Button>().interactable = true;
     }
+
+    #endregion
+
+
+    #region Armory
+
+    public void OnArmoryCellClick(Artifact artifact)
+    {
+        m_shop.PromptSell(artifact);
+    }
+
+    #endregion
 
 }

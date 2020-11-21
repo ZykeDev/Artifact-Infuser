@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +7,8 @@ public class ArmoryHandler : MonoBehaviour {
     [SerializeField]
 	private GameObject m_gameManager, m_prefabCell;
 	private GameController m_gameController;
+
+    [SerializeField] private ButtonHandler m_buttonHandler;
 
     [SerializeField]
     private GameObject m_armoryContentWeapons, 
@@ -33,7 +34,8 @@ public class ArmoryHandler : MonoBehaviour {
 	void Awake()
     {
 		m_gameController = m_gameManager.GetComponent<GameController>();
-		m_cellsPerRow = 7;
+
+        m_cellsPerRow = 7;
 
         // Store the instantiated cells as lists inside a Cells struct
         instantiatedCells = new Cells
@@ -109,13 +111,18 @@ public class ArmoryHandler : MonoBehaviour {
     	float offset = 14f;
     	float cellSize = 128f;
 
-    	GameObject newCell = Instantiate(m_prefabCell, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
+    	GameObject newCell = Instantiate(m_prefabCell, new Vector2(0, 0), Quaternion.identity, targetParent.transform);
 	    newCell.name = "Cell_" + index;
 
 	    // Assign the corresponding sprite
 	    newCell.GetComponent<ArmoryGridCell>().cellIcon.GetComponent<Image>().sprite = artifact.GetSprite();
 
         newCell.GetComponent<TooltipTrigger>().SetTooltipData(artifact.GetName());
+
+        newCell.GetComponent<Button>().onClick.AddListener(delegate 
+            {
+                m_buttonHandler.OnArmoryCellClick(artifact);
+            });
 
 	    // Place the cells in a grid, changing row when needed
 		float rowIndex = 0;
@@ -130,9 +137,6 @@ public class ArmoryHandler : MonoBehaviour {
     	float y = -gap - (cellSize + offset) * colIndex;
         
 	    newCell.transform.localPosition = new Vector2(x + offset*2 , y + 800f - cellSize/2 - offset);
-
-        print(newCell.transform.position);
-        print(newCell.transform.localPosition);
 
     	return newCell;
     }
