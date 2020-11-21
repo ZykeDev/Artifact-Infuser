@@ -107,7 +107,7 @@ public class ArmoryHandler : MonoBehaviour {
     {
         float gap = 50f;
     	float offset = 14f;
-    	float cellSize = 72f;
+    	float cellSize = 128f;
 
     	GameObject newCell = Instantiate(m_prefabCell, new Vector2(0, 0), Quaternion.identity, targetParent.transform) as GameObject;
 	    newCell.name = "Cell_" + index;
@@ -128,9 +128,11 @@ public class ArmoryHandler : MonoBehaviour {
 
     	float x = gap + (cellSize + offset) * rowIndex;
     	float y = -gap - (cellSize + offset) * colIndex;
-    	
-	    newCell.transform.localPosition = new Vector2(x, y);
+        
+	    newCell.transform.localPosition = new Vector2(x + offset*2 , y + 800f - cellSize/2 - offset);
 
+        print(newCell.transform.position);
+        print(newCell.transform.localPosition);
 
     	return newCell;
     }
