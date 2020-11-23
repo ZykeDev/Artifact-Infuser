@@ -6,11 +6,11 @@ public class TabHandler : MonoBehaviour {
 	private Tab currentTab;
 
     [Header("Tabs")]
-    [SerializeField] private GameObject m_gatheringTab;
-    [SerializeField] private GameObject m_crafterTab;
-    [SerializeField] private GameObject m_infuserTab;
-    [SerializeField] private GameObject m_armoryTab;
-    [SerializeField] private GameObject m_upgradesTab;
+    [SerializeField] protected GameObject m_gatheringTab;
+    [SerializeField] protected GameObject m_crafterTab;
+    [SerializeField] protected GameObject m_infuserTab;
+    [SerializeField] protected GameObject m_armoryTab;
+    [SerializeField] protected GameObject m_upgradesTab;
 
 
     [Header("Buttons")]

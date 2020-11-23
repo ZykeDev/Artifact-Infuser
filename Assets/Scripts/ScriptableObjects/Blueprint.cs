@@ -9,10 +9,14 @@ public class Blueprint : ScriptableObject {
 	[SerializeField] private Sprite m_blueprintSprite, m_artifactSprite;
 
 	[SerializeField] private float m_craftingTime;
-	[SerializeField] private int m_rarity, m_price;
+	[SerializeField] private Rarity m_rarity;
+	[SerializeField] private int m_price;
 
 	[Header("Resources Required")]
-	[SerializeField] private double m_wood, m_metal, m_leather, m_crystals;
+	[SerializeField] private double m_wood;
+	[SerializeField] private double m_metal;
+	[SerializeField] private double m_leather;
+	[SerializeField] private double m_crystals;
 
 	[Header("Tooltip Description")]
 	[SerializeField, TextArea] private string m_tooltipDex;
@@ -42,7 +46,7 @@ public class Blueprint : ScriptableObject {
 	public Sprite GetBlueprintSprite() => m_blueprintSprite;
 	public Sprite GetArtifactSprite() => m_artifactSprite;
 	public float GetCraftingTime() => m_craftingTime;
-	public int GetRarity() => m_rarity;
+	public Rarity GetRarity() => m_rarity;
 	public int GetPrice() => m_price;
 
 }

@@ -16,16 +16,48 @@ public class ButtonHandler : MonoBehaviour
     [SerializeField] private GameObject m_stopInfuseBtn;
     [SerializeField] private GameObject m_gatherBtn;
 
-    [SerializeField]
-    private GameObject m_tooltipPrefab;
+    [SerializeField] private PromptSystem m_promptSystem;
 
-    private GameObject m_currentlyOpenedTooltip;
-    private float m_screenHeight;
+    //[SerializeField]
+    //private GameObject m_tooltipPrefab;
 
-    private void Awake()
+    //private GameObject m_currentlyOpenedTooltip;
+    //aprivate float m_screenHeight;
+
+    private bool m_isWaitingForConfirm = false;
+
+    void Update()
     {
-        m_screenHeight = Screen.height;
+        if (m_isWaitingForConfirm)
+        {
+            // Make sure the prompt system exists
+            if (m_promptSystem == null)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarning("PromptSystem reference is missing from the ButtonHandler. Seaching one with Find.");
+#endif
+                m_promptSystem = FindObjectOfType<PromptSystem>();
+
+                if (m_promptSystem == null)
+                {
+#if UNITY_EDITOR
+                    Debug.LogError("PromptSystem reference could not be found.");
+#endif
+                    m_isWaitingForConfirm = false;
+                    return;
+                }
+            }
+
+            if (m_promptSystem.isConfirm)
+            {
+                m_isWaitingForConfirm = false;
+                m_promptSystem.ResetConfirm();
+                m_shop.Sell();
+            }
+        }
     }
+
+
 
     #region Gathering
 
@@ -137,7 +169,11 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnArmoryCellClick(Artifact artifact)
     {
+        // Prepare the shop to sell the artifact
         m_shop.PromptSell(artifact);
+
+        // Make the ButtonHandler wait for confirmation
+        m_isWaitingForConfirm = true;
     }
 
     #endregion

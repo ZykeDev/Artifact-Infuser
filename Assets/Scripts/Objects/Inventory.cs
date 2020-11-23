@@ -13,6 +13,7 @@ public class Inventory {
 	public Rune alphaRune, novaRune, prismaRune;
 
 	public List<Blueprint> blueprints;
+	public List<Cypher> cyphers;
 
 	private double[] tierMultiplier = new double[] {1, 2, 5, 10};
 
@@ -30,6 +31,7 @@ public class Inventory {
 		prismaRune = new Rune(RuneType.PRISMA, 0);
 
 		blueprints = new List<Blueprint>();
+		cyphers = new List<Cypher>();
 	}
 
 
@@ -194,6 +196,35 @@ public class Inventory {
 
 
 		return true;
+    }
+
+
+	/// <summary>
+	/// Adds the given amount of gold to the inventory.
+	/// </summary>
+	/// <param name="amount"></param>
+	public void AddGold(int amount)
+    {
+		// TODO add maxint checks
+		gold += amount;
+    }
+	
+	/// <summary>
+	/// Spend the given amount of gold if there is enough.
+	/// </summary>
+	/// <param name="amount"></param>
+	public void SpendGold(int amount)
+    {
+		if (gold >= amount)
+        {
+			gold -= amount;
+		}
+		else
+        {
+#if UNITY_EDITOR
+			Debug.Log("Not enough gold.");
+#endif
+		}
     }
 
 

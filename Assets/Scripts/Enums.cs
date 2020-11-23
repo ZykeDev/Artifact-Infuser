@@ -16,6 +16,18 @@ public enum RuneType
 }
 
 
+public enum Rarity
+{
+	COMMON,
+	UNCOMMON,
+	RARE,
+	UNIQUE,
+	LEGENDARY,
+	ABYSSAL,
+	IMMORTAL
+}
+
+
 public enum Tab {
 	GATHERING,
 	CRAFTER,

@@ -114,13 +114,21 @@ public class ArmoryHandler : MonoBehaviour {
     	GameObject newCell = Instantiate(m_prefabCell, new Vector2(0, 0), Quaternion.identity, targetParent.transform);
 	    newCell.name = "Cell_" + index;
 
-	    // Assign the corresponding sprite
-	    newCell.GetComponent<ArmoryGridCell>().cellIcon.GetComponent<Image>().sprite = artifact.GetSprite();
+        // Assign the corresponding sprite
+        ArmoryGridCell agc = newCell.GetComponent<ArmoryGridCell>();
+        TooltipTrigger tooltip = newCell.GetComponent<TooltipTrigger>();
+        PromptTrigger prompt = newCell.GetComponent<PromptTrigger>();
+        Button button = newCell.GetComponent<Button>();
 
-        newCell.GetComponent<TooltipTrigger>().SetTooltipData(artifact.GetName());
 
-        newCell.GetComponent<Button>().onClick.AddListener(delegate 
+        agc.SetSprite(artifact.GetSprite());
+        tooltip.SetTooltipData(artifact.GetName());
+        prompt.SetTexts("Sell " + artifact.GetName() + "?");
+
+        button.onClick.AddListener(delegate 
             {
+                tooltip.HideTooltip();
+                prompt.ShowPrompt();
                 m_buttonHandler.OnArmoryCellClick(artifact);
             });
 

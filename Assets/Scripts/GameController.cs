@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
+    #region Vars
+
+    [SerializeField]
+    protected ResourcesTabUI m_resourcesTab;
+
     [SerializeField]
     protected BackgroundManager m_backgroundManager;
 
@@ -26,8 +31,10 @@ public class GameController : MonoBehaviour {
     [SerializeField] private Text m_gatherBtnText;
 	private Coroutine m_gatheringCoroutine = null;
 
+    #endregion
 
-	void Awake() {
+
+    void Awake() {
         m_crafterComp = m_crafter.GetComponent<Crafter>();
         m_infuserComp = m_infuser.GetComponent<Infuser>();
         m_armoryHandler = m_armory.GetComponent<ArmoryHandler>();
@@ -41,6 +48,7 @@ public class GameController : MonoBehaviour {
         inventory = new Inventory();
         armory = new Armory();
 	}
+
 
     #region Crafting
 
@@ -66,6 +74,7 @@ public class GameController : MonoBehaviour {
     }
 
 #endregion
+
 
     #region Infusion   
 
@@ -93,6 +102,7 @@ public class GameController : MonoBehaviour {
     }
 
     #endregion
+
 
     #region Gathering
 
@@ -176,8 +186,12 @@ public class GameController : MonoBehaviour {
     #endregion
 
 
+    #region Inventory Management
 
-    // Adds the newly crafted Artifact to the Armory and Updates it
+    /// <summary>
+    /// Adds the newly crafted Artifact to the Armory and Updates it.
+    /// </summary>
+    /// <param name="artifact"></param>
     public void AddNewArtifact(Artifact artifact)
     {
         armory.AddArtifact(artifact);
@@ -200,4 +214,16 @@ public class GameController : MonoBehaviour {
             m_armoryHandler.GetComponent<ArmoryHandler>().UpdateContents();
         }
     }
+
+    /// <summary>
+    /// Adds the given amount of gold to the inventory
+    /// </summary>
+    /// <param name="gold"></param>
+    public void GainGold(int gold)
+    {
+        inventory.AddGold(gold);
+    }
+
+    #endregion
+
 }

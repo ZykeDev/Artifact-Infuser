@@ -11,7 +11,6 @@ public class ResourcesTabUI : MonoBehaviour {
 								  m_leatherText, 
 								  m_crystalsText;
 
-	// TODO should this be moved to something like FixedUpdate or manual update?
 	void Update() {
 		// Retrieve the current inventory from the GameController
 		Inventory inventory = m_gameController.inventory;
