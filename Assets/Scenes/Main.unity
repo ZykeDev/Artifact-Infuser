@@ -6490,8 +6490,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gameController: {fileID: 271865951}
   m_backgroundManager: {fileID: 552614544}
-  m_enabled: 1
   m_tickrate: 2
+  m_ruleSettingPref: {fileID: 6434006442940158081, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+    type: 3}
+  m_enabled: 1
 --- !u!1 &1105129621
 GameObject:
   m_ObjectHideFlags: 0
@@ -6574,7 +6576,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99967945
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9458,7 +9460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -473, y: -382.81564}
+  m_AnchoredPosition: {x: -473, y: -382.8156}
   m_SizeDelta: {x: 946, y: 750}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1602375277 stripped
@@ -9833,8 +9835,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.74925816
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12218,10 +12220,140 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1102915180}
     m_Modifications:
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1102915183}
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Autosell, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateRule
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669813438914, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1102915183}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Autosell, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateRule
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: D
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
+      value: D
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548669880240203, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      value: D
+      objectReference: {fileID: 0}
+    - target: {fileID: 4654548670173921390, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1102915183}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Autosell, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateRule
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006442246238018, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6434006442940158081, guid: 998b8128cceb779478fdf9bebd2cdd7b,
         type: 3}
@@ -12332,6 +12464,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1102915183}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Autosell, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateRule
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434006443363828161, guid: 998b8128cceb779478fdf9bebd2cdd7b,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 998b8128cceb779478fdf9bebd2cdd7b, type: 3}
