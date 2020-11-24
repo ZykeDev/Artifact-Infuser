@@ -213,7 +213,7 @@ public class Crafter : MonoBehaviour {
 	}
 	
 	/// <summary>
-	/// Updates the progress bar value
+	/// Updates the progress bar
 	/// </summary>
 	/// <param name="progress"></param>
 	public void UpdateCraftingProgress(float progress)

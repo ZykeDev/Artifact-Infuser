@@ -5,17 +5,23 @@ public class ButtonHandler : MonoBehaviour
 {
     [Header("Script References")]
     [SerializeField] private GameController m_gameController;
+    [SerializeField] private Gathering m_gathering;
     [SerializeField] private Crafter m_crafter;
     [SerializeField] private Infuser m_infuser;
     [SerializeField] private Shop m_shop;
 
     [Header("Buttons")]
+    [SerializeField] private GameObject m_gatherBtn;
+    [SerializeField] private GameObject m_stopGatherBtn;
+    
     [SerializeField] private GameObject m_craftBtn;
     [SerializeField] private GameObject m_stopCraftBtn;
+
     [SerializeField] private GameObject m_infuseBtn;
     [SerializeField] private GameObject m_stopInfuseBtn;
-    [SerializeField] private GameObject m_gatherBtn;
+    
 
+    [Header("Prompt System Reference")]
     [SerializeField] private PromptSystem m_promptSystem;
 
     //[SerializeField]
@@ -66,8 +72,25 @@ public class ButtonHandler : MonoBehaviour
     /// </summary>
     public void OnGatherClick()
     {
-        Button gatherBtn = m_gatherBtn.GetComponent<Button>();
-        m_gameController.TryGathering(gatherBtn);
+        m_gathering.Gather();
+    }
+
+    public void OnStopGatherClick()
+    {
+        m_gathering.StopGather();
+    }
+
+
+    public void SawpGatherWithStop()
+    {
+        m_gatherBtn.SetActive(false);
+        m_stopGatherBtn.SetActive(true);
+    }
+
+    public void SawpStopWithGather()
+    {
+        m_stopGatherBtn.SetActive(false);
+        m_gatherBtn.SetActive(true);
     }
 
     #endregion

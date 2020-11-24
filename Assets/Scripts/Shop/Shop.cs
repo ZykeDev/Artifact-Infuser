@@ -22,6 +22,14 @@ public class Shop : MonoBehaviour
         }
     }
 
+
+
+    public void Sell(Artifact sellingArtifact)
+    {
+        m_sellingArtifact = sellingArtifact;
+        Sell();
+    }
+
     public void Sell()
     {
         if (m_sellingArtifact != null)
