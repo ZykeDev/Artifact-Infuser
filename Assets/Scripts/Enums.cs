@@ -60,3 +60,16 @@ public enum DialogType
 	DIALOGUE
 
 }
+
+
+public enum AutosellAmount
+{
+	ALL,
+	ALL_BUT_1
+}
+
+public enum AutosellType
+{
+	RARITY,
+	TYPE
+}

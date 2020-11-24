@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
@@ -23,13 +24,44 @@ public class Shop : MonoBehaviour
     }
 
 
-
-    public void Sell(Artifact sellingArtifact)
+    /// <summary>
+    /// Sells all the given artifacts
+    /// </summary>
+    /// <param name="artifacts"></param>
+    public void Sell(List<Artifact> artifacts)
     {
-        m_sellingArtifact = sellingArtifact;
+        if (artifacts.Count == 0) return;
+
+        int total = 0;
+
+        foreach (Artifact art in artifacts)
+        {
+            int goldGained = art.GetPrice();
+
+            // TODO multiplty the gained gold by any available multiplier before selling?
+
+            total += goldGained;
+
+            m_gameController.RemoveArtifact(art);
+            m_gameController.GainGold(goldGained);
+        }
+
+        m_dialog.AddLine(DialogType.SELL, "Sold " + artifacts.Count + " artifacts for a total of " + total + " gold.");
+    }
+
+    /// <summary>
+    /// Sells the given artifact
+    /// </summary>
+    /// <param name="artifact"></param>
+    public void Sell(Artifact artifact)
+    {
+        m_sellingArtifact = artifact;
         Sell();
     }
 
+    /// <summary>
+    /// Sells the artifact selected in the shop
+    /// </summary>
     public void Sell()
     {
         if (m_sellingArtifact != null)
@@ -55,4 +87,6 @@ public class Shop : MonoBehaviour
         m_sellingArtifact = artifact;
 
     }
+
+
 }

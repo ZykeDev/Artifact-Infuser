@@ -21,7 +21,7 @@ public class Inventory {
 	public Inventory() {
 		gold = 0;
 
-		wood = new Resource(ResourceType.WOOD, 10);
+		wood = new Resource(ResourceType.WOOD, 1000);
 		metal = new Resource(ResourceType.METAL, 0);
 		leather = new Resource(ResourceType.LEATHER, 0);
 		crystals = new Resource(ResourceType.CRYSTALS, 0);

@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
     #region Vars
 
-    [SerializeField]
-    protected ResourcesTabUI m_resourcesTab;
+    [Header("Script References")]
+    [SerializeField] protected BackgroundManager m_backgroundManager;
+    [SerializeField] protected ResourcesTabUI m_resourcesTab;
+    [SerializeField] protected Shop m_shop;
 
-    [SerializeField]
-    protected BackgroundManager m_backgroundManager;
 
     [SerializeField]
     protected GameObject m_gather, m_crafter, m_infuser, m_armory, m_upgrades;
@@ -112,7 +113,19 @@ public class GameController : MonoBehaviour {
     #endregion
 
 
-    
+    #region Sell
+
+    public void Sell(List<Artifact> artifacts)
+    {
+        if (artifacts == null || artifacts.Count == 0)
+        {
+            return;
+        }
+
+        m_shop.Sell(artifacts);
+    }
+
+    #endregion
 
 
     #region Inventory Management

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
@@ -187,5 +188,13 @@ public class BackgroundManager : MonoBehaviour
 
     #endregion
 
+
+    #region Sell
+
+    public void Sell(List<Artifact> artifacts) => m_gameController.Sell(artifacts);
+    
+
+
+    #endregion
 
 }

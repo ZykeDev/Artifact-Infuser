@@ -39,7 +39,13 @@ public class Armory {
     }
 
 
-    #region Getters
+	#region Getters
+
+	/// <summary>
+	/// Returns true if the armory is empty
+	/// </summary>
+	/// <returns></returns>
+	public bool IsEmpty() => m_artifacts.Count == 0;
 
     /// <summary>
     /// Returns the list of artifacts in the Armory
@@ -70,6 +76,23 @@ public class Armory {
 
 		return filteredArtifacts;
 	}
+
+
+	public List<Artifact> FilterByRarity(Rarity filter)
+    {
+		List<Artifact> filteredArtifacts = new List<Artifact>();
+
+		foreach (Artifact art in m_artifacts)
+		{
+			if (art.GetRarity() == filter)
+			{
+				filteredArtifacts.Add(art);
+			}
+		}
+
+		return filteredArtifacts;
+	}
+
 
     #endregion
 
