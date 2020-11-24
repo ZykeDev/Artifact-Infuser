@@ -1,5 +1,4 @@
-﻿
-public enum ResourceType {
+﻿public enum ResourceType {
 	WOOD,
 	METAL,
 	LEATHER,

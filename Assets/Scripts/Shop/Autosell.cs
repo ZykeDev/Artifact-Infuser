@@ -8,13 +8,17 @@ public class Autosell : MonoBehaviour
     [SerializeField] protected GameController m_gameController;
     [SerializeField] protected BackgroundManager m_backgroundManager;
 
+    [Header("Autosell Rules")]
     [SerializeField, Tooltip("Every how many seconds a rule is executed.")]
     private float m_tickrate = 2f;
+
+    [SerializeField] private GameObject m_ruleSettingPref;
 
     [SerializeField]
     private bool m_enabled = false;
     private bool m_running = false;
 
+    private List<RuleSetting> m_ruleSettings;
     private List<AutosellRule> m_rules;
     private List<Coroutine> m_ruleCoroutines;
 
@@ -22,11 +26,22 @@ public class Autosell : MonoBehaviour
     void Awake()
     {
         m_rules = new List<AutosellRule>();
+        m_ruleSettings = new List<RuleSetting>();
         m_ruleCoroutines = new List<Coroutine>();
+
+        // TODO get the initial rules from either the savefile, or a default
+        if (true) // if (notSavefile)
+        {
+            AutosellRule defaultRule = new AutosellRule(AutosellAmount.ALL, AutosellType.TYPE, ArtifactType.ARMOR);
+            m_rules.Add(defaultRule);
+        }
     }
 
     void Update()
     {
+        // TODO FIX HERE, rules need to be checked that they are not in the list first
+        //UpdateRules();
+
         if (m_enabled && !m_running)
         {
             StartAutosell();
@@ -41,6 +56,25 @@ public class Autosell : MonoBehaviour
 
     public void Enable() => m_enabled = true;
     public void Disable() => m_enabled = false;
+
+
+    public void UpdateRules()
+    {
+        foreach (AutosellRule rule in m_rules)
+        {
+            GameObject defaultRule = Instantiate(m_ruleSettingPref, transform);
+            defaultRule.name = "Rule";
+
+            RuleSetting rs = defaultRule.GetComponent<RuleSetting>();
+
+            rs.SetSettings(rule);
+            rs.SetOnValueChange(delegate { UpdateRules(); });
+
+            m_ruleSettings.Add(rs);
+        }
+    }
+
+
 
 
 

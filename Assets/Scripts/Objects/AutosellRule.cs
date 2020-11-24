@@ -107,10 +107,6 @@ public class AutosellRule
 
     }
 
-
-
-
-
     /// <summary>
     /// Sets the rule as active
     /// </summary>
@@ -131,4 +127,15 @@ public class AutosellRule
         m_isActive = false;
     }
 
+
+
+    #region Getters
+
+    public bool GetIsActive() => m_isActive;
+    public AutosellAmount GetAutosellAmount() => m_amount;
+    public AutosellType GetAutosellType() => m_type;
+    public ArtifactType GetArtifactType() => m_artifactType;
+    public Rarity GetRarity() => m_rarity;
+
+    #endregion
 }
