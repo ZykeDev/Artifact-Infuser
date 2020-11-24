@@ -51,3 +51,12 @@ public enum ArmoryTab {
 	ACCESSORIES,
 	ABYSS
 }
+
+
+
+public enum DialogType
+{
+	SELL,
+	DIALOGUE
+
+}
