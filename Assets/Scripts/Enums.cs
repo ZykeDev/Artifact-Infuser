@@ -71,5 +71,6 @@ public enum AutosellAmount
 public enum AutosellType
 {
 	RARITY,
-	TYPE
+	TYPE,
+	ANY
 }

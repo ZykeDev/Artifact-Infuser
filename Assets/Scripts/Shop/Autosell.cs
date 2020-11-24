@@ -8,14 +8,12 @@ public class Autosell : MonoBehaviour
     [SerializeField] protected GameController m_gameController;
     [SerializeField] protected BackgroundManager m_backgroundManager;
 
+    [SerializeField, Tooltip("Every how many seconds a rule is executed.")]
+    private float m_tickrate = 2f;
 
     [SerializeField]
     private bool m_enabled = false;
     private bool m_running = false;
-
-    [SerializeField, Tooltip("Every how many seconds a rule is executed.")]
-    private float m_tickrate = 2f;
-
 
     private List<AutosellRule> m_rules;
     private List<Coroutine> m_ruleCoroutines;
@@ -25,22 +23,6 @@ public class Autosell : MonoBehaviour
     {
         m_rules = new List<AutosellRule>();
         m_ruleCoroutines = new List<Coroutine>();
-    }
-
-    void Start()
-    {
-        AutosellRule testRule = new AutosellRule(AutosellAmount.ALL, AutosellType.TYPE, ArtifactType.ARMOR);
-        m_rules.Add(testRule);
-
-        if (m_enabled)
-        {
-            foreach (AutosellRule rule in m_rules)
-            {
-                rule.Activate();
-            }
-
-            StartAutosell();
-        }
     }
 
     void Update()
@@ -57,12 +39,17 @@ public class Autosell : MonoBehaviour
 
 
 
+    public void Enable() => m_enabled = true;
+    public void Disable() => m_enabled = false;
 
-    public void StopAutosell()
+
+
+    private void StopAutosell()
     {
         m_enabled = false;
         m_running = false;
 
+        // Stop the coroutines
         foreach (Coroutine ruleCoroutine in m_ruleCoroutines)
         {
             StopCoroutine(ruleCoroutine);
@@ -71,7 +58,7 @@ public class Autosell : MonoBehaviour
     }
 
 
-    public void StartAutosell()
+    private void StartAutosell()
     {
         int i = 0;
         foreach (AutosellRule rule in m_rules)

@@ -2,7 +2,9 @@
 using UnityEngine;
 
 public class AutosellRule
-{    
+{
+    #region Vars
+
     private bool m_isActive = false;
     private AutosellAmount m_amount;
     private AutosellType m_type;
@@ -10,6 +12,10 @@ public class AutosellRule
     private Rarity m_rarity = Rarity.COMMON;
     private ArtifactType m_artifactType = ArtifactType.WEAPON;
 
+    #endregion
+
+
+    #region Constructors
 
     public AutosellRule(AutosellAmount amount, AutosellType type)
     {
@@ -43,7 +49,7 @@ public class AutosellRule
         m_rarity = rarity;
     }
 
-
+    #endregion
 
 
     public void ChangeRule(AutosellAmount amount, AutosellType type)
@@ -77,6 +83,14 @@ public class AutosellRule
 
             case AutosellType.TYPE:
                 filteredArmory = armory.FilterByType(m_artifactType);
+
+                break;
+
+            case AutosellType.ANY:
+                filteredArmory = armory.GetArtifacts();
+
+                // TODO if amount is set to ALL this will sell every single artifact.
+                // A prompt to alert the user might be appropriate.
 
                 break;
 
