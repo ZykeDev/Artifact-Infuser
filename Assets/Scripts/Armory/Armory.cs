@@ -58,6 +58,30 @@ public class Armory {
 
 
 	/// <summary>
+	/// Returns a list of all artifacts, except the last N ones
+	/// </summary>
+	/// <param name="exceptN"></param>
+	/// <returns></returns>
+	public List<Artifact> GetArtifacts(int exceptN)
+	{
+		List<Artifact> filterdArtifacts = new List<Artifact>();
+
+		int targetAmount = m_artifacts.Count - exceptN;
+
+		if (targetAmount > 0)
+		{
+			for (int i = 0; i < targetAmount; i++)
+			{
+				filterdArtifacts.Add(m_artifacts[i]);
+			}
+		}
+
+		return filterdArtifacts;
+	}
+
+
+
+	/// <summary>
 	/// Returns all Artifacts in the Armory that fit the given type, except for the last n ones
 	/// </summary>
 	/// <param name="filter"></param>

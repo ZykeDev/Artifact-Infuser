@@ -115,7 +115,14 @@ public class AutosellRule
                 break;
 
             case AutosellType.ANY:
-                filteredArmory = armory.GetArtifacts();
+                if (m_amount == AutosellAmount.ALL_BUT_1)
+                {
+                    filteredArmory = armory.GetArtifacts(1);
+                }
+                else
+                {
+                    filteredArmory = armory.GetArtifacts();
+                }
 
                 // TODO if amount is set to ALL this will sell every single artifact.
                 // A prompt to alert the user might be helpul.
