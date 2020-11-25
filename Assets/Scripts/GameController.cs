@@ -173,6 +173,10 @@ public class GameController : MonoBehaviour {
         inventory.AddGold(gold);
     }
 
+
+    public void UpdateResourceUI(RequiredResources resources) => m_resourcesTab.DisplayGain(resources);
+    
+
     #endregion
 
 }

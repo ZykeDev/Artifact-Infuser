@@ -13,24 +13,26 @@ public class ResourceUI : MonoBehaviour
     [SerializeField] private float m_animDuration = 0.75f;
 
     private Color m_gainColor;
-    private Color m_loseColor;
+    private Color m_lossColor;
 
     private Text m_gain;
     private Coroutine m_gainCoroutine;
+    private Vector3 m_startingPos;
 
 
     void Awake()
     {
         m_gain = m_gainObj.GetComponent<Text>();
         m_gain.text = "";
+        m_startingPos = m_gainObj.transform.position;
         m_gainObj.SetActive(false);
     }
 
 
-    public void SetColors(Color gain, Color lose)
+    public void SetColors(Color gain, Color loss)
     {
         m_gainColor = gain;
-        m_loseColor = lose;
+        m_lossColor = loss;
     }
 
 
@@ -83,19 +85,23 @@ public class ResourceUI : MonoBehaviour
             else
             {
                 m_gain.text = value.ToString();
-                m_gain.color = m_loseColor;
+                m_gain.color = m_lossColor;
             }
 
             m_gainObj.SetActive(true);
+            if (m_gainCoroutine != null) { StopCoroutine(m_gainCoroutine); }
             m_gainCoroutine = StartCoroutine(AnimateGain());
         }
     }
+
+    
 
 
 
     private IEnumerator AnimateGain()
     {
-        Vector3 startingPos = m_gainObj.transform.position;
+        m_gainObj.transform.position = m_startingPos;
+
         float startingAlpha = 1f;
         float finalAlpha = 0f;
 
@@ -104,7 +110,7 @@ public class ResourceUI : MonoBehaviour
 
         while (elapsedTime < time)
         {
-            m_gainObj.transform.position = Vector2.Lerp(startingPos, m_gainDestination.position, EaseOut(elapsedTime / time));
+            m_gainObj.transform.position = Vector2.Lerp(m_startingPos, m_gainDestination.position, EaseOut(elapsedTime / time));
             
             // Lerp the alpha channel of the color
             Color newColor = m_gain.color;
@@ -117,7 +123,7 @@ public class ResourceUI : MonoBehaviour
         }
 
         m_gainObj.SetActive(false);
-        m_gainObj.transform.position = startingPos;
+        m_gainObj.transform.position = m_startingPos;
         m_gain.text = "";
         
         m_gainCoroutine = null;

@@ -34,6 +34,7 @@ public class ResourcesTabUI : MonoBehaviour
 	}
 
 
+
 	public void DisplayGain(Inventory booty)
     {
 		m_gold.DisplayGain(booty);
@@ -47,5 +48,13 @@ public class ResourcesTabUI : MonoBehaviour
     {
 		m_gold.DisplayGain(gold);
     }
+
+	public void DisplayGain(RequiredResources resources)
+	{
+		m_wood.DisplayGain(-(int)resources.wood);
+		m_metal.DisplayGain(-(int)resources.metal);
+		m_leather.DisplayGain(-(int)resources.leather);
+		m_crystals.DisplayGain(-(int)resources.crystals);
+	}
 
 }
