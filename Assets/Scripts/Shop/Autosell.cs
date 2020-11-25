@@ -34,14 +34,14 @@ public class Autosell : MonoBehaviour
         {
             AutosellRule defaultRule = new AutosellRule(AutosellAmount.ALL, AutosellType.TYPE, ArtifactType.ARMOR);
             m_rules.Add(defaultRule);
+            
         }
+
+        UpdateRules();
     }
 
     void Update()
     {
-        // TODO FIX HERE, rules need to be checked that they are not in the list first
-        //UpdateRules();
-
         if (m_enabled && !m_running)
         {
             StartAutosell();
@@ -60,10 +60,19 @@ public class Autosell : MonoBehaviour
 
     public void UpdateRules()
     {
+        GameObject[] slots = GameObject.FindGameObjectsWithTag("Rule Slot");
+
+        if (m_rules.Count > slots.Length)
+        {
+            Debug.LogError("Missing Autosell Rule slot.");
+        }
+
+        int i = 0;
         foreach (AutosellRule rule in m_rules)
         {
-            GameObject defaultRule = Instantiate(m_ruleSettingPref, transform);
-            defaultRule.name = "Rule";
+            GameObject defaultRule = Instantiate(m_ruleSettingPref, slots[i].transform);
+            defaultRule.name = "Rule_" + i;
+            defaultRule.transform.localPosition = new Vector2(0, 0);
 
             RuleSetting rs = defaultRule.GetComponent<RuleSetting>();
 
@@ -71,6 +80,8 @@ public class Autosell : MonoBehaviour
             rs.SetOnValueChange(delegate { UpdateRules(); });
 
             m_ruleSettings.Add(rs);
+
+            i++;
         }
     }
 
