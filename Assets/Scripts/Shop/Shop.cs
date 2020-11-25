@@ -8,7 +8,6 @@ public class Shop : MonoBehaviour
     [SerializeField] protected Autosell m_autosell;
     [SerializeField] protected DialogHandler m_dialog;
 
-
     private Artifact m_sellingArtifact;
 
 

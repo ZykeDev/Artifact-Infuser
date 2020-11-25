@@ -115,7 +115,10 @@ public class Autosell : MonoBehaviour
         // Stop the coroutines
         foreach (Coroutine ruleCoroutine in m_ruleCoroutines)
         {
-            StopCoroutine(ruleCoroutine);
+            if (ruleCoroutine != null)
+            {
+                StopCoroutine(ruleCoroutine);
+            }
         }
 
     }

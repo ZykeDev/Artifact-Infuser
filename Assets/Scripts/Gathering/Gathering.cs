@@ -29,8 +29,9 @@ public class Gathering : MonoBehaviour
     #region Gathering
 
 
-
-
+    /// <summary>
+    /// Starts the gathering process
+    /// </summary>
     public void Gather()
     {
         if (m_gatheringState == GatheringState.GATHERING) return;
@@ -86,7 +87,7 @@ public class Gathering : MonoBehaviour
         Inventory booty = new Inventory();
         booty.SetRandomResources(tier);
 
-        m_gameController.inventory.CombineWith(booty);
+        m_gameController.AddResources(booty);
     }
 
 

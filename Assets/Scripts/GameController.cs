@@ -130,6 +130,12 @@ public class GameController : MonoBehaviour {
 
     #region Inventory Management
 
+    public void AddResources(Inventory booty)
+    {
+        m_resourcesTab.DisplayGain(booty);
+        inventory.CombineWith(booty);
+    }
+
     /// <summary>
     /// Adds the newly crafted Artifact to the Armory and Updates it.
     /// </summary>
@@ -163,6 +169,7 @@ public class GameController : MonoBehaviour {
     /// <param name="gold"></param>
     public void GainGold(int gold)
     {
+        m_resourcesTab.DisplayGain(gold);
         inventory.AddGold(gold);
     }
 
