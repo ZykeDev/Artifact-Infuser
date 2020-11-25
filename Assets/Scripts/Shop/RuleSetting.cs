@@ -48,33 +48,40 @@ public class RuleSetting : MonoBehaviour
 
     public void UpdateSettings()
     {
-        m_enabled = m_toggle.enabled;
+        m_enabled = m_toggle.isOn;
         m_autosellAmount = (AutosellAmount)m_amountType.value;
         m_autosellType = (AutosellType)m_sellType.value;
 
         // If ANY has been selected, dont show the choice dropdown
-        if (m_autosellType == AutosellType.ANY)
-        {
-            m_choiceType.gameObject.SetActive(false);
-        }
+        if (m_autosellType == AutosellType.ANY) m_choiceType.gameObject.SetActive(false);
+        else                                    m_choiceType.gameObject.SetActive(true);
+
 
         switch (m_autosellType)
         {
             case AutosellType.RARITY:
                 m_rarity = (Rarity)m_choiceType.value;
+                PopulateChoiceDropdown();
                 break;
 
             case AutosellType.TYPE:
                 m_artifactType = (ArtifactType)m_choiceType.value;
+                PopulateChoiceDropdown();
                 break;
 
             default:
                 break;
         }
+    }
 
+    private void PopulateDropdowns()
+    {
+        m_toggle.isOn = m_enabled;
 
-        PopulateDropdowns();
+        PopulateAmountDropdown();
+        PopulateTypeDropdown();
 
+        PopulateChoiceDropdown();
     }
 
 
@@ -108,20 +115,9 @@ public class RuleSetting : MonoBehaviour
                 break;
         }
 
+        m_choiceType.ClearOptions();
         m_choiceType.AddOptions(options);
     }
-
-
-    private void PopulateDropdowns()
-    {
-        m_toggle.enabled = m_enabled;
-
-        PopulateAmountDropdown();
-        PopulateTypeDropdown();
-
-        PopulateChoiceDropdown();
-    }
-
 
     private void PopulateAmountDropdown()
     {
@@ -129,9 +125,11 @@ public class RuleSetting : MonoBehaviour
 
         foreach (AutosellAmount amount in Enum.GetValues(typeof(AutosellAmount)))
         {
-            options.Add(amount.ToString());
+            string optionString = GetAmountToString(amount.ToString());
+            options.Add(optionString);
         }
 
+        m_amountType.ClearOptions();
         m_amountType.AddOptions(options);
     }
 
@@ -144,8 +142,26 @@ public class RuleSetting : MonoBehaviour
             options.Add(amount.ToString());
         }
 
+        m_sellType.ClearOptions();
         m_sellType.AddOptions(options);
     }
 
 
+
+    public bool GetEnabled() => m_enabled;
+    public AutosellAmount GetAutosellAmount() => m_autosellAmount;
+    public AutosellType GetAutosellType() => m_autosellType;
+    public ArtifactType GetArtifactType() => m_artifactType;
+    public Rarity GetRarity() => m_rarity;
+
+
+
+
+    private string GetAmountToString(string input)
+    {
+        if (input == "ALL")         return "ALL";
+        if (input == "ALL_BUT_1")   return "ALL BUT 1";
+
+        return input;
+    }
 }

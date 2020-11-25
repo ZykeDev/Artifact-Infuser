@@ -58,43 +58,76 @@ public class Armory {
 
 
 	/// <summary>
-	/// Returns all Artifacts in the Armory that fit the given type
+	/// Returns all Artifacts in the Armory that fit the given type, except for the last n ones
 	/// </summary>
-	/// <param name="type"></param>
+	/// <param name="filter"></param>
+	/// <param name="n"></param>
 	/// <returns></returns>
-	public List<Artifact> FilterByType(ArtifactType filter)
+	public List<Artifact> FilterByType(ArtifactType filter, int n)
 	{
 		List<Artifact> filteredArtifacts = new List<Artifact>();
 
-		foreach(Artifact art in m_artifacts)
+		int targetAmount = m_artifacts.Count - n;
+
+		if (targetAmount > 0)
 		{
-			if (art.GetArtifactType() == filter)
+			for (int i = 0; i < targetAmount; i++)
 			{
-				filteredArtifacts.Add(art);
+				Artifact art = m_artifacts[i];
+				if (art.GetArtifactType() == filter)
+				{
+					filteredArtifacts.Add(art);
+				}
 			}
 		}
 
 		return filteredArtifacts;
 	}
 
+	/// <summary>
+	/// Returns all Artifacts in the Armory that fit the given type
+	/// </summary>
+	/// <param name="filter"></param>
+	/// <returns></returns>
+	public List<Artifact> FilterByType(ArtifactType filter) => FilterByType(filter, 0);
 
-	public List<Artifact> FilterByRarity(Rarity filter)
+
+
+	/// <summary>
+	/// Returns all Artifacts in the Armory that fit the given rarity, except for the last n ones
+	/// </summary>
+	/// <param name="filter"></param>
+	/// <param name="n"></param>
+	/// <returns></returns>
+	public List<Artifact> FilterByRarity(Rarity filter, int n)
     {
 		List<Artifact> filteredArtifacts = new List<Artifact>();
 
-		foreach (Artifact art in m_artifacts)
+		int targetAmount = m_artifacts.Count - n;
+
+		if (targetAmount > 0)
 		{
-			if (art.GetRarity() == filter)
+			for (int i = 0; i < targetAmount ; i++)
 			{
-				filteredArtifacts.Add(art);
+				Artifact art = m_artifacts[i];
+				if (art.GetRarity() == filter)
+				{
+					filteredArtifacts.Add(art);
+				}
 			}
 		}
 
 		return filteredArtifacts;
 	}
 
+	/// <summary>
+	/// Returns all Artifacts in the Armory that fit the given type
+	/// </summary>
+	/// <param name="filter"></param>
+	/// <returns></returns>
+	public List<Artifact> FilterByRarity(Rarity filter) => FilterByRarity(filter, 0);
 
-    #endregion
+	#endregion
 
 }
 

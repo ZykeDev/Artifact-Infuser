@@ -52,14 +52,28 @@ public class AutosellRule
     #endregion
 
 
-    public void ChangeRule(AutosellAmount amount, AutosellType type)
+
+    public void SetArtifactType(ArtifactType artifactType) => m_artifactType = artifactType;
+    public void SetArtifactRarity(Rarity rarity) => m_rarity = rarity;
+
+    public void UpdateRule(AutosellAmount amount, AutosellType type)
     {
         m_amount = amount;
         m_type = type;
     }
 
-    public void SetArtifactType(ArtifactType artifactType) => m_artifactType = artifactType;
-    public void SetArtifactRarity(Rarity rarity) => m_rarity = rarity;
+
+    public void UpdateRule(RuleSetting settings)
+    {
+        m_isActive = settings.GetEnabled();
+        m_amount = settings.GetAutosellAmount();
+        m_type = settings.GetAutosellType();
+
+        m_artifactType = settings.GetArtifactType();
+        m_rarity = settings.GetRarity();
+    } 
+
+
 
 
 
@@ -77,12 +91,26 @@ public class AutosellRule
         switch (m_type)
         {
             case AutosellType.RARITY:
-                filteredArmory = armory.FilterByRarity(m_rarity);
+                if (m_amount == AutosellAmount.ALL_BUT_1)
+                {
+                    filteredArmory = armory.FilterByRarity(m_rarity, 1);
+                }
+                else
+                {
+                    filteredArmory = armory.FilterByRarity(m_rarity);
+                }
                
                 break;
 
             case AutosellType.TYPE:
-                filteredArmory = armory.FilterByType(m_artifactType);
+                if (m_amount == AutosellAmount.ALL_BUT_1)
+                {
+                    filteredArmory = armory.FilterByType(m_artifactType, 1);
+                }
+                else
+                {
+                    filteredArmory = armory.FilterByType(m_artifactType);
+                }
 
                 break;
 
@@ -90,7 +118,7 @@ public class AutosellRule
                 filteredArmory = armory.GetArtifacts();
 
                 // TODO if amount is set to ALL this will sell every single artifact.
-                // A prompt to alert the user might be appropriate.
+                // A prompt to alert the user might be helpul.
 
                 break;
 

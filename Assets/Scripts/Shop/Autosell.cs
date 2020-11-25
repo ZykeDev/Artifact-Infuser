@@ -37,7 +37,7 @@ public class Autosell : MonoBehaviour
             
         }
 
-        UpdateRules();
+        InitRules();
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class Autosell : MonoBehaviour
     public void Disable() => m_enabled = false;
 
 
-    public void UpdateRules()
+    public void InitRules()
     {
         GameObject[] slots = GameObject.FindGameObjectsWithTag("Rule Slot");
 
@@ -70,19 +70,37 @@ public class Autosell : MonoBehaviour
         int i = 0;
         foreach (AutosellRule rule in m_rules)
         {
-            GameObject defaultRule = Instantiate(m_ruleSettingPref, slots[i].transform);
-            defaultRule.name = "Rule_" + i;
+            // Using a local var so that, when sending the delegate, it doesn't read the highest value of "i".
+            int currentIndex = i;
+
+            GameObject defaultRule = Instantiate(m_ruleSettingPref, slots[currentIndex].transform);
+            defaultRule.name = "Rule_" + currentIndex;
             defaultRule.transform.localPosition = new Vector2(0, 0);
 
             RuleSetting rs = defaultRule.GetComponent<RuleSetting>();
 
             rs.SetSettings(rule);
-            rs.SetOnValueChange(delegate { UpdateRules(); });
+            rs.SetOnValueChange(delegate { UpdateRule(currentIndex); });
 
             m_ruleSettings.Add(rs);
 
             i++;
         }
+    }
+
+
+    /// <summary>
+    /// Updates the rule at the given index, reading from its associated ruleSettings
+    /// </summary>
+    /// <param name="index"></param>
+    private void UpdateRule(int index)
+    {
+        AutosellRule rule = m_rules[index];
+        RuleSetting settings = m_ruleSettings[index];
+
+        settings.UpdateSettings();
+
+        rule.UpdateRule(settings);
     }
 
 
