@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    [Header("Script References")]
     [SerializeField] protected GameController m_gameController;
+    [SerializeField] protected Autosell m_autosell;
     [SerializeField] protected DialogHandler m_dialog;
 
 
@@ -30,7 +32,9 @@ public class Shop : MonoBehaviour
     /// <param name="artifacts"></param>
     public void Sell(List<Artifact> artifacts)
     {
-        if (artifacts.Count == 0) return;
+        int numberOfArtifacts = artifacts.Count;
+
+        if (numberOfArtifacts == 0) return;
 
         int total = 0;
 
@@ -46,7 +50,7 @@ public class Shop : MonoBehaviour
             m_gameController.GainGold(goldGained);
         }
 
-        m_dialog.AddLine(DialogType.SELL, "Sold " + artifacts.Count + " artifacts for a total of " + total + " gold.");
+        m_dialog.AddLine(DialogType.SELL, "Sold " + numberOfArtifacts + " artifacts for a total of " + total + " gold.");
     }
 
     /// <summary>
@@ -88,5 +92,9 @@ public class Shop : MonoBehaviour
 
     }
 
+
+
+    public void EnableAutosell() => m_autosell.Enable();
+    public void DisableAutosell() => m_autosell.Disable();
 
 }

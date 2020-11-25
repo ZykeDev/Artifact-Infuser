@@ -19,7 +19,10 @@ public class ButtonHandler : MonoBehaviour
 
     [SerializeField] private GameObject m_infuseBtn;
     [SerializeField] private GameObject m_stopInfuseBtn;
-    
+
+    [SerializeField] private GameObject m_autosellBtn;
+    [SerializeField] private GameObject m_stopAutosellBtn;
+
 
     [Header("Prompt System Reference")]
     [SerializeField] private PromptSystem m_promptSystem;
@@ -197,6 +200,38 @@ public class ButtonHandler : MonoBehaviour
 
         // Make the ButtonHandler wait for confirmation
         m_isWaitingForConfirm = true;
+    }
+
+    #endregion
+
+
+    #region Autoselling
+
+    public void EnableAutosell()
+    {
+        m_shop.EnableAutosell();
+        SawpAutosellWithStop();
+    }
+
+    public void DisableAutosell()
+    {
+        m_shop.DisableAutosell();
+        SawpStopWithAutosell();
+    }
+
+
+
+
+    public void SawpAutosellWithStop()
+    {
+        m_autosellBtn.SetActive(false);
+        m_stopAutosellBtn.SetActive(true);
+    }
+
+    public void SawpStopWithAutosell()
+    {
+        m_stopAutosellBtn.SetActive(false);
+        m_autosellBtn.SetActive(true);
     }
 
     #endregion
