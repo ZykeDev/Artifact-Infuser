@@ -64,7 +64,7 @@ public class Autosell : MonoBehaviour
 
         if (m_rules.Count > slots.Length)
         {
-            Debug.LogError("Missing Autosell Rule slot.");
+            Debug.LogError("Not enough Autosell Rule slots.");
         }
 
         int i = 0;

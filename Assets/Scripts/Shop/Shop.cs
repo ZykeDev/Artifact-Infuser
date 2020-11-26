@@ -37,7 +37,8 @@ public class Shop : MonoBehaviour
 
         int total = 0;
 
-        foreach (Artifact art in artifacts)
+        // Using .ToArray() to have a copy of the current artifacts before they are deleated
+        foreach (Artifact art in artifacts.ToArray())
         {
             int goldGained = art.GetPrice();
 

@@ -11,6 +11,8 @@ public class UnlockSystem : MonoBehaviour {
     public List<Cypher> cyphers;
     public bool[] activeBlueprints; // index = blueprint ID
     public bool[] activeCyphers; // index = cypher ID
+
+    
     
     // Start is called before the first frame update
     void Awake() {
@@ -23,7 +25,9 @@ public class UnlockSystem : MonoBehaviour {
 
         activeCyphers = new bool[cyphers.Count];
         activeCyphers[0] = true;
-        activeCyphers[1] = true;    
+        activeCyphers[1] = true;
+
+        
     }
 
 
@@ -32,5 +36,31 @@ public class UnlockSystem : MonoBehaviour {
     	//Crafter crafter = GameObject.Find("Crafter").GetComponent<Crafter>();
         //crafter.Notify();
     }
+
+    /// <summary>
+    /// Returns the Blueprint with the given ID
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
+    public Blueprint GetBlueprint(int ID)
+    {
+        if (blueprints[ID].GetID() == ID)
+        {
+            return blueprints[ID];
+        }
+        else
+        {
+            foreach (Blueprint bp in blueprints)
+            {
+                if (bp.GetID() == ID)
+                {
+                    return bp;
+                }
+            }
+        }
+
+        return null;
+    }
+
     
 }
