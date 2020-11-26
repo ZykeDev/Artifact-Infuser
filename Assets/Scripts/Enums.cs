@@ -56,7 +56,8 @@ public enum ArmoryTab {
 public enum DialogType
 {
 	SELL,
-	DIALOGUE
+	DIALOGUE,
+	REQUEST
 
 }
 

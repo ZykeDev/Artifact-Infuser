@@ -1915,6 +1915,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_requestPref: {fileID: 5561977425357560658, guid: 6b4912af89e30a048a0521cc2d7e2f92,
     type: 3}
+  m_enableRandomRequests: 0
+  m_requestInterval: 5
+  m_requestSpawnChance: 0.5
 --- !u!1 &281338376
 GameObject:
   m_ObjectHideFlags: 0
@@ -5869,9 +5872,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '> Welcome to your shop'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4835f1b74641d3e47b81df4a742ed3e8, type: 2}
-  m_sharedMaterial: {fileID: 1231757487175283680, guid: 4835f1b74641d3e47b81df4a742ed3e8,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6802,7 +6804,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99967945
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9883,7 +9885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -473, y: -382.81567}
+  m_AnchoredPosition: {x: -473, y: -382.81558}
   m_SizeDelta: {x: 946, y: 750}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1622592414
@@ -10246,8 +10248,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9998854
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RequestSystem : MonoBehaviour
@@ -7,9 +8,21 @@ public class RequestSystem : MonoBehaviour
     private GameController m_gameController;
     private UnlockSystem m_unlockSystem;
 
+    [SerializeField, Tooltip("Enable to make a new commission can randomly appear every so often.")]
+    private bool m_enableRandomRequests = false;
+    [SerializeField, Tooltip("How often a new commission can randomly appear (seconds)."), Min(0.1f)]
+    private float m_requestInterval = 5f;
+    [SerializeField, Range(0f, 1f)]
+    private float m_requestSpawnChance = 0.5f;
+
+    private bool m_running = false;
+    private Coroutine m_requestCoroutine;
+
+
     private List<Request> m_activeRequests;
     private List<GameObject> m_requestObjs;
 
+    private Request m_firstRequest;
 
 
     void Awake()
@@ -20,10 +33,26 @@ public class RequestSystem : MonoBehaviour
         m_activeRequests = new List<Request>();
         m_requestObjs = new List<GameObject>();
 
-        DisplayRequests();
+        m_firstRequest = new Request(0, 50);
 
-        NewRequest();
+
+        DisplayRequests();
     }
+
+
+    void Update()
+    {
+        if (m_enableRandomRequests && !m_running)
+        {
+            StartRandomRequests();
+        }
+        else if (!m_enableRandomRequests && m_running)
+        {
+            StopRandomRequests();
+        }
+    }
+
+
 
 
     /// <summary>
@@ -77,14 +106,16 @@ public class RequestSystem : MonoBehaviour
 
 
 
-    public void NewRequest()
+    public Request AddRequest(Request request)
     {
-        Request newRequet = new Request(Rarity.COMMON, 1); // TODO
-
-        m_activeRequests.Add(newRequet);
+        m_activeRequests.Add(request);
 
         UpateRequests();
+
+        return request;
     }
+
+    public Request AddFirstRequest() => AddRequest(m_firstRequest);
 
 
     /// <summary>
@@ -126,4 +157,49 @@ public class RequestSystem : MonoBehaviour
     }
 
 
+
+
+
+    private void StartRandomRequests()
+    {
+        m_running = true;
+        m_requestCoroutine = StartCoroutine(CheckRandomRequest());
+    }
+
+    private void StopRandomRequests()
+    {
+        m_running = false;
+        StopCoroutine(m_requestCoroutine);
+        m_requestCoroutine = null;
+    }
+
+
+    private IEnumerator CheckRandomRequest()
+    {
+        bool ignoreFirst = true;
+        
+        while (m_enableRandomRequests)
+        {
+            if (ignoreFirst)
+            {
+                ignoreFirst = false;
+            }
+            else
+            {
+                float chance = Random.Range(0f, 1f);
+
+                if (chance <= m_requestSpawnChance)
+                {
+                    print("new request");
+                }
+                else
+                {
+                    print("failed");
+                }
+            }
+            
+
+            yield return new WaitForSeconds(m_requestInterval);
+        }
+    }
 }

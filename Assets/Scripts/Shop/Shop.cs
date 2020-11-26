@@ -93,6 +93,22 @@ public class Shop : MonoBehaviour
     }
 
 
+    public void Request(Request request)
+    {
+        string line = "An adventurer enters your shop.\n";
+        line += "NEW COMMISSION: Craft a " + request.artifactName + " for " + request.client + ".\n";
+        line += "Reward: " + request.GetReward() + " gold.";
+
+        m_dialog.AddLine(DialogType.REQUEST, line);
+    }
+
+
+
+
+
+
+    public void NewDialogue(DialogType type, string line) => m_dialog.AddLine(type, line);
+    
 
     public void EnableAutosell() => m_autosell.Enable();
     public void DisableAutosell() => m_autosell.Disable();

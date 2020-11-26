@@ -175,7 +175,15 @@ public class GameController : MonoBehaviour {
 
 
     public void UpdateResourceUI(RequiredResources resources) => m_resourcesTab.DisplayGain(resources);
-    
+
+
+    #endregion
+
+
+    #region Dialog
+
+    public void AddDialogue(DialogType type, string line) => m_shop.NewDialogue(type, line);
+    public void AddDialogueRequest(Request request) => m_shop.Request(request);
 
     #endregion
 

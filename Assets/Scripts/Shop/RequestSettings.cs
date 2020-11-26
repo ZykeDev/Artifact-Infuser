@@ -38,6 +38,9 @@ public class RequestSettings : MonoBehaviour
         // Add the onClick listeners to the buttons
         m_confirm.onClick.AddListener(Confirm);
         m_cancel.onClick.AddListener(Cancel);
+
+        m_confirm.GetComponentInChildren<TMP_Text>().text = "Confirm (" + request.GetReward() + ")";
+        // TODO make the button not interactable while its not done
     }
 
 
