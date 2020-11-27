@@ -125,6 +125,18 @@ public class GameController : MonoBehaviour {
         m_shop.Sell(artifacts);
     }
 
+    public void Sell(Artifact artifact)
+    {
+        List<Artifact> artifactList = new List<Artifact>();
+        artifactList.Add(artifact);
+
+        Sell(artifactList);
+    }
+
+    public void Sell(Artifact artifact, int reward)
+    {
+        m_shop.Sell(artifact, reward);
+    }
     #endregion
 
 
@@ -183,7 +195,7 @@ public class GameController : MonoBehaviour {
     #region Dialog
 
     public void AddDialogue(DialogType type, string line) => m_shop.NewDialogue(type, line);
-    public void AddDialogueRequest(Request request) => m_shop.Request(request);
+    public void AddDialogueRequest(Request request) => m_shop.NewRequest(request);
 
     #endregion
 

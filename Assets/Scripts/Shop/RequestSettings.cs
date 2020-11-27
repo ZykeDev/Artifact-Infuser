@@ -18,6 +18,14 @@ public class RequestSettings : MonoBehaviour
     private string m_artifactName;
     private Sprite m_sprite;
 
+    [SerializeField] private bool m_isFulfilled = false;
+
+
+    void Update()
+    {
+        m_confirm.interactable = m_isFulfilled;
+    }
+
 
     public void SetData(RequestSystem requestSystem, Request request, Sprite sprite)
     {
@@ -40,13 +48,17 @@ public class RequestSettings : MonoBehaviour
         m_cancel.onClick.AddListener(Cancel);
 
         m_confirm.GetComponentInChildren<TMP_Text>().text = "Confirm (" + request.GetReward() + ")";
-        // TODO make the button not interactable while its not done
+        m_confirm.interactable = m_isFulfilled;
     }
+
 
 
     public void Confirm()
     {
-        m_requestSystem?.FulfilRequest(m_request);
+        if (m_isFulfilled)
+        {
+            m_requestSystem?.FulfilRequest(m_request);
+        }
     }
 
     public void Cancel()
@@ -54,5 +66,12 @@ public class RequestSettings : MonoBehaviour
         m_requestSystem?.CancelRequest(m_request);
     }
 
+
+
+
+    public void SetFulfilled(bool isFulfilled)
+    {
+        m_isFulfilled = isFulfilled;
+    }
 
 }

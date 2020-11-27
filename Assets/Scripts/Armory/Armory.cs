@@ -39,6 +39,8 @@ public class Armory {
     }
 
 
+
+
 	#region Getters
 
 	/// <summary>
@@ -54,6 +56,58 @@ public class Armory {
     public List<Artifact> GetArtifacts()
 	{
 		return m_artifacts;
+	}
+
+	/// <summary>
+	/// Returns the first artifact in the armory with the given ID. Returns null if none are found.
+	/// </summary>
+	/// <param name="ID"></param>
+	/// <returns></returns>
+	public Artifact GetArtifact(int ID)
+    {
+		if (ID < m_artifacts.Count)
+        {
+			if (m_artifacts[ID].GetArtifactID() == ID)
+            {
+				return m_artifacts[ID];
+            }
+        }
+
+		foreach (Artifact artifact in m_artifacts)
+        {
+			if (artifact.GetArtifactID() == ID)
+            {
+				return artifact;
+            }
+        }
+
+		return null;
+    }
+
+	/// <summary>
+	/// Returns true if an artifact with the given ID exists in the armory.
+	/// </summary>
+	/// <param name="ID"></param>
+	/// <returns></returns>
+	public bool HasArtifact(int ID)
+    {
+		if (ID < m_artifacts.Count)
+		{
+			if (m_artifacts[ID].GetArtifactID() == ID)
+			{
+				return true;
+			}
+		}
+
+		foreach (Artifact artifact in m_artifacts)
+		{
+			if (artifact.GetArtifactID() == ID)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 

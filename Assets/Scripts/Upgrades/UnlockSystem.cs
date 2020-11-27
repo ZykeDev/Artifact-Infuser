@@ -36,12 +36,7 @@ public class UnlockSystem : MonoBehaviour {
 
         // TODO add a check to make sure the blueprints' ID == index in BlueprintDatabase.blueprints
         BlueprintDatabase.SetBlueprints(blueprints);
-        /*
-        activeBlueprints = new bool[blueprints.Count];
-        activeBlueprints[0] = true;
-        activeBlueprints[1] = true;
-        activeBlueprints[2] = true;
-        */
+ 
         activeCyphers = new bool[cyphers.Count];
         activeCyphers[0] = true;
         activeCyphers[1] = true;
@@ -68,9 +63,7 @@ public class UnlockSystem : MonoBehaviour {
 
     private void FirstRequest()
     {
-        Request firstRequest = m_requestSystem.AddFirstRequest(); 
-
-        m_gameController.AddDialogueRequest(firstRequest);
+        m_requestSystem.AddFirstRequest(); 
     }
 
 

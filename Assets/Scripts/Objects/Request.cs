@@ -16,6 +16,9 @@ public class Request
     {
         m_artifactID = artifactID;
         m_reward = reward;
+
+        artifactName = BlueprintDatabase.GetBlueprint(artifactID).GetName();
+        client = "Steve";
     }
 
     public Request(Rarity rarity, int baseReward)

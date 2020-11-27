@@ -63,6 +63,22 @@ public class Shop : MonoBehaviour
         Sell();
     }
 
+    public void Sell(Artifact artifact, int reward)
+    {
+        if (artifact != null)
+        {
+            string artifactName = artifact.GetName();
+            int goldGained = reward;
+
+            // TODO multiplty the gained gold by any available multiplier before selling?
+
+            m_gameController.RemoveArtifact(artifact);
+            m_gameController.GainGold(goldGained);
+
+            m_dialog.Sold(artifactName, goldGained);
+        }
+    }
+
     /// <summary>
     /// Sells the artifact selected in the shop
     /// </summary>
@@ -93,19 +109,8 @@ public class Shop : MonoBehaviour
     }
 
 
-    public void Request(Request request)
-    {
-        string line = "An adventurer enters your shop.\n";
-        line += "NEW COMMISSION: Craft a " + request.artifactName + " for " + request.client + ".\n";
-        line += "Reward: " + request.GetReward() + " gold.";
-
-        m_dialog.AddLine(DialogType.REQUEST, line);
-    }
-
-
-
-
-
+    public void NewRequest(Request request) => m_dialog.AddLine(DialogType.REQUEST, request);
+    
 
     public void NewDialogue(DialogType type, string line) => m_dialog.AddLine(type, line);
     

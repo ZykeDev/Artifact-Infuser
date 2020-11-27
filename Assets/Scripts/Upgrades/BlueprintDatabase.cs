@@ -52,8 +52,6 @@ public static class BlueprintDatabase
 
 
 
-
-
     private static List<Blueprint> FilterBlueprints(Rarity rarity)
     {
         List<Blueprint> filteredBlueprints = new List<Blueprint>();

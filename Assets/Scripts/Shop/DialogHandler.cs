@@ -38,6 +38,15 @@ public class DialogHandler : MonoBehaviour
 
     }
 
+    public void AddLine(DialogType type, Request request)
+    {
+        string line = "An adventurer enters your shop.\n";
+        line += "NEW COMMISSION: Craft a " + request.artifactName + " for " + request.client + ".\n";
+        line += "Reward: " + request.GetReward() + " gold.";
+
+        AddLine(type, line);
+    }
+
 
     public void Sold(string name, int gold)
     {
@@ -54,7 +63,7 @@ public class DialogHandler : MonoBehaviour
     /// </summary>
     private void UpdateViewer()
     {
-        int numberOfRows = m_dialogLines.Count;
+        int numberOfRows = GetNumberOfRows();
 
         // Update the viewer
         if (numberOfRows > m_visibleRows && numberOfRows < m_maxRows)
@@ -79,10 +88,8 @@ public class DialogHandler : MonoBehaviour
             }
         }
 
-        numberOfRows = m_dialogLines.Count;
-
         // Fill the text with the updated lines
-        for (int i = 0; i < numberOfRows; i++)
+        for (int i = 0; i < m_dialogLines.Count; i++)
         {
             // Items2 is the second item in the tuple
             string line = m_dialogLines[i].Item2;
@@ -97,5 +104,27 @@ public class DialogHandler : MonoBehaviour
                 m_dialog.text += "\n" + line;
             }
         }
+    }
+
+
+    /// <summary>
+    /// Returns the effective number of rows being displayed in the dialog
+    /// </summary>
+    /// <returns></returns>
+    private int GetNumberOfRows()
+    {
+        int counter = 0;
+
+        foreach ((DialogType type, string line) in m_dialogLines)
+        {
+            if (type == DialogType.REQUEST)
+            {
+                counter += 2;
+            }
+
+            counter++;
+        }
+
+        return counter;
     }
 }

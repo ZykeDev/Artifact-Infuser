@@ -1916,8 +1916,8 @@ MonoBehaviour:
   m_requestPref: {fileID: 5561977425357560658, guid: 6b4912af89e30a048a0521cc2d7e2f92,
     type: 3}
   m_enableRandomRequests: 1
-  m_requestInterval: 1
-  m_requestSpawnChance: 1
+  m_requestInterval: 60
+  m_requestSpawnChance: 0.5
 --- !u!1 &281338376
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,8 +4461,8 @@ MonoBehaviour:
   m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 10
+  m_DecelerationRate: 0.2
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 1056515994}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1105129623}
@@ -6874,7 +6874,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99967945
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9957,7 +9957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -473, y: -171.33224}
+  m_AnchoredPosition: {x: -473, y: -382.81567}
   m_SizeDelta: {x: 946, y: 750}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1622592414
@@ -10320,8 +10320,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.4999999
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

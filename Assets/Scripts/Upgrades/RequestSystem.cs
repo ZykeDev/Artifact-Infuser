@@ -36,7 +36,7 @@ public class RequestSystem : MonoBehaviour
         m_activeRequests = new List<Request>();
         m_requestObjs = new List<GameObject>();
 
-        m_firstRequest = new Request(0, 50);
+        m_firstRequest = new Request(0, 10);
 
 
         DisplayRequests();
@@ -64,6 +64,9 @@ public class RequestSystem : MonoBehaviour
         {
             m_isSlotAvailable = false;
         }
+
+
+        CheckRequestState();
     }
 
 
@@ -133,6 +136,7 @@ public class RequestSystem : MonoBehaviour
     public Request AddRequest(Request request)
     {
         m_activeRequests.Add(request);
+        m_gameController.AddDialogueRequest(request);
 
         UpateRequests();
 
@@ -152,7 +156,7 @@ public class RequestSystem : MonoBehaviour
 
         return AddRequest(request);
     }
-    public Request AddFirstRequest() => AddRequest(m_firstRequest);
+    public void AddFirstRequest() => AddRequest(m_firstRequest);
 
 
     /// <summary>
@@ -161,10 +165,11 @@ public class RequestSystem : MonoBehaviour
     /// <param name="request"></param>
     public void FulfilRequest(Request request)
     {
-        int rewardGold = request.GetReward();
-        m_gameController.GainGold(rewardGold);
+        Artifact artifact = m_gameController.armory.GetArtifact(request.GetArtifactID());
+        int reward = request.GetReward();
 
         RemoveRequest(request);
+        m_gameController.Sell(artifact, reward);
     }
 
     /// <summary>
@@ -194,7 +199,18 @@ public class RequestSystem : MonoBehaviour
     }
 
 
+    private void CheckRequestState()
+    {
+        for (int i = 0; i < m_activeRequests.Count; i++)
+        {
+            Request request = m_activeRequests[i];
+            int requestArtifactID = request.GetArtifactID();
 
+            bool isFulfilled = m_gameController.armory.HasArtifact(requestArtifactID);
+
+            m_requestObjs[i].GetComponent<RequestSettings>().SetFulfilled(isFulfilled);           
+        }
+    }
 
 
     private void StartRandomRequests()
