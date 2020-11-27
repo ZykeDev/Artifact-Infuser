@@ -17,7 +17,7 @@ public class UnlockSystem : MonoBehaviour {
     // TODO move to a specific Progress.cs file?
     private enum Progress
     {
-        START,      // The very beginning of the game
+        START,              // The very beginning of the game
         FIRST_GATHER,
         FIRST_BLUEPRINT,
         FIRST_ARTIFACT,
@@ -33,17 +33,20 @@ public class UnlockSystem : MonoBehaviour {
     void Awake() {
         m_gameController = GetComponent<GameController>();
         m_requestSystem = GetComponent<RequestSystem>();
-        
+
+        BlueprintDatabase.SetBlueprints(blueprints);
+        /*
         activeBlueprints = new bool[blueprints.Count];
         activeBlueprints[0] = true;
         activeBlueprints[1] = true;
         activeBlueprints[2] = true;
-
+        */
         activeCyphers = new bool[cyphers.Count];
         activeCyphers[0] = true;
         activeCyphers[1] = true;
 
         m_progress = Progress.FIRST_REQUEST;
+
         
     }
 

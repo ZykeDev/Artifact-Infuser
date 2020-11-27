@@ -59,7 +59,7 @@ public class Artifact {
 
 
 
-
+	public int GetArtifactID() => m_artifactTypeID;
 	public ArtifactType GetArtifactType() => m_type;
 	public string GetName() => m_name;
 	public Sprite GetSprite() => m_sprite;

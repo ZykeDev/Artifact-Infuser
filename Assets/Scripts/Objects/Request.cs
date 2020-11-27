@@ -1,10 +1,15 @@
-﻿public class Request
+﻿using UnityEngine;
+
+public class Request
 {
     private int m_artifactID;
     private int m_reward;
 
-    public string client = "Bob";
-    public string artifactName = "Simple Sword";
+    public string client = "Client Name";
+    public string artifactName = "Artifact Name";
+
+    private float m_minRewardFluct = 0.6f;
+    private float m_maxRewardFluct = 1.2f;
 
 
     public Request(int artifactID, int reward)
@@ -15,18 +20,31 @@
 
     public Request(Rarity rarity, int baseReward)
     {
-        (int artifactID, int reward) = GetRandomRequest(rarity, baseReward);
+        (Artifact artifact, int reward) = GetRandomRequirements(rarity, baseReward);
 
-        m_artifactID = artifactID;
+        m_artifactID = artifact.GetArtifactID();
         m_reward = reward;
+        artifactName = artifact.GetName();
+        client = GetRandomClient();
     }
 
 
-    private (int, int) GetRandomRequest(Rarity rarity, int baseReward)
+    private (Artifact, int) GetRandomRequirements(Rarity rarity, int baseReward)
     {
-        // TODO
+        int multiplier = 1 + (int)rarity;
+        int reward = (int)(baseReward * multiplier * Random.Range(m_minRewardFluct, m_maxRewardFluct));
 
-        return (0, 0);
+        Blueprint blueprint = BlueprintDatabase.GetBlueprint(rarity);
+        Artifact artifact = new Artifact(blueprint);
+
+
+        return (artifact, reward);
+    }
+
+    // TODO
+    private string GetRandomClient()
+    {
+        return "Bob";
     }
 
 

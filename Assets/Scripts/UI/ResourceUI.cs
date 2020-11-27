@@ -43,6 +43,11 @@ public class ResourceUI : MonoBehaviour
     /// <param name="type"></param>
     public void UpdateUI(Inventory inv, ResourceType type)
     {
+        if (inv == null)
+        {
+            Debug.LogWarning("Inventory is null");
+            return;
+        }
         m_text.text = inv.GetResourceAmount(type).ToString();
     }
 
@@ -53,6 +58,11 @@ public class ResourceUI : MonoBehaviour
     /// <param name="inv"></param>
     public void UpdateUI(Inventory inv)
     {
+        if (inv == null)
+        { 
+            Debug.LogWarning("Inventory is null"); 
+            return; 
+        }
         m_text.text = inv.GetGold().ToString();
     }
 

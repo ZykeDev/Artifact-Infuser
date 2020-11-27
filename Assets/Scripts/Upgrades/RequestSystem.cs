@@ -10,11 +10,12 @@ public class RequestSystem : MonoBehaviour
 
     [SerializeField, Tooltip("Enable to make a new commission can randomly appear every so often.")]
     private bool m_enableRandomRequests = false;
-    [SerializeField, Tooltip("How often a new commission can randomly appear (seconds)."), Min(0.1f)]
+    [SerializeField, Tooltip("How often a new commission randomly appear (seconds)."), Min(0.1f)]
     private float m_requestInterval = 5f;
     [SerializeField, Range(0f, 1f)]
     private float m_requestSpawnChance = 0.5f;
 
+    private bool m_isSlotAvailable = true;
     private bool m_running = false;
     private Coroutine m_requestCoroutine;
 
@@ -23,6 +24,8 @@ public class RequestSystem : MonoBehaviour
     private List<GameObject> m_requestObjs;
 
     private Request m_firstRequest;
+
+    private int tier = 1;
 
 
     void Awake()
@@ -42,13 +45,24 @@ public class RequestSystem : MonoBehaviour
 
     void Update()
     {
-        if (m_enableRandomRequests && !m_running)
+        if (m_enableRandomRequests && !m_running && m_isSlotAvailable)
         {
             StartRandomRequests();
         }
         else if (!m_enableRandomRequests && m_running)
         {
             StopRandomRequests();
+        }
+        
+        
+        // TODO don't find the slots on update
+        if (GameObject.FindGameObjectsWithTag("Request Slot").Length > m_activeRequests.Count)
+        {
+            m_isSlotAvailable = true;
+        }
+        else
+        {
+            m_isSlotAvailable = false;
         }
     }
 
@@ -64,12 +78,18 @@ public class RequestSystem : MonoBehaviour
 
         if (m_activeRequests.Count > slots.Length)
         {
-            Debug.LogError("Not enough Request slots.");
+            Debug.LogWarning("Not enough Request slots.");
         }
 
         int i = 0;
         foreach (Request request in m_activeRequests)
         {
+            // Exit if there are no more slots TODO change this to something... better
+            if (i == slots.Length)
+            {
+                break;
+            }
+
             // Using a local var so that, when sending the delegate, it doesn't read the highest value of "i".
             int currentIndex = i;
             
@@ -105,7 +125,11 @@ public class RequestSystem : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// Adds the given request to the list of active requests and displays it
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     public Request AddRequest(Request request)
     {
         m_activeRequests.Add(request);
@@ -115,6 +139,19 @@ public class RequestSystem : MonoBehaviour
         return request;
     }
 
+    /// <summary>
+    /// Creates a new random request and adds it 
+    /// </summary>
+    /// <returns></returns>
+    public Request AddRequest()
+    {
+        Rarity rarity = (Rarity)UnityEngine.Random.Range(0, tier);
+        int baseReward = 10;
+
+        Request request = new Request(rarity, baseReward);
+
+        return AddRequest(request);
+    }
     public Request AddFirstRequest() => AddRequest(m_firstRequest);
 
 
@@ -188,13 +225,9 @@ public class RequestSystem : MonoBehaviour
             {
                 float chance = Random.Range(0f, 1f);
 
-                if (chance <= m_requestSpawnChance)
+                if (chance <= m_requestSpawnChance && m_isSlotAvailable)
                 {
-                    print("new request");
-                }
-                else
-                {
-                    print("failed");
+                    AddRequest();
                 }
             }
             
