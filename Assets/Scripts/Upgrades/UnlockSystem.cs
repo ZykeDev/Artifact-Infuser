@@ -8,7 +8,7 @@ public class UnlockSystem : MonoBehaviour {
 
     private bool m_isFirstPlaythrough = true;
 
-	public List<Blueprint> blueprints;
+	[SerializeField] private List<Blueprint> blueprints;
     public List<Cypher> cyphers;
     public bool[] activeBlueprints; // index = blueprint ID
     public bool[] activeCyphers; // index = cypher ID
@@ -34,6 +34,7 @@ public class UnlockSystem : MonoBehaviour {
         m_gameController = GetComponent<GameController>();
         m_requestSystem = GetComponent<RequestSystem>();
 
+        // TODO add a check to make sure the blueprints' ID == index in BlueprintDatabase.blueprints
         BlueprintDatabase.SetBlueprints(blueprints);
         /*
         activeBlueprints = new bool[blueprints.Count];

@@ -1899,7 +1899,7 @@ MonoBehaviour:
   cyphers:
   - {fileID: 11400000, guid: d65ad39ea71f5fe488f6f50f58ef45a6, type: 2}
   - {fileID: 11400000, guid: 60f902003a1d5d84b90a053c30abd1a7, type: 2}
-  activeBlueprints: 01010101
+  activeBlueprints: 01010100
   activeCyphers: 
 --- !u!114 &271865954
 MonoBehaviour:
@@ -9957,7 +9957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -473, y: -588.74023}
+  m_AnchoredPosition: {x: -473, y: -171.33224}
   m_SizeDelta: {x: 946, y: 750}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1622592414
@@ -10320,8 +10320,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.52041614
+  m_Value: 0
+  m_Size: 0.4999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

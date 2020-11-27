@@ -6,17 +6,19 @@ public class Crafter : MonoBehaviour {
 
     #region Vars
 
+	[Header("Script References")]
     [SerializeField] private GameController m_gameController;
 	[SerializeField] private UnlockSystem m_unlockSystem;
 	[SerializeField] private ButtonHandler m_buttonHandler;
+
+	[Header("UI Elements")]
 	[SerializeField] private Slider m_progressbar;
 	[SerializeField] private Image m_artifactSilhouette;
 
-	[SerializeField]
-    private GameObject m_blueprintSelectorContent, m_blueprintBtnPref;
+	[SerializeField] private GameObject m_blueprintSelectorContent;
+	[SerializeField] private GameObject m_blueprintBtnPref;
 
     private List<GameObject> m_blueprintBtns;
-    private List<Blueprint> m_blueprints;
     private float m_blueprintBtnHeight = 0f;
 	private int m_blueprintBtnsPerScreen = 4;
     private int m_selectedBlueprintID = -1;
@@ -36,7 +38,6 @@ public class Crafter : MonoBehaviour {
 		m_blueprintBtns = new List<GameObject>();
 
 		// Boolean list of which blueprints are active (where index = ID)
-		m_blueprints = m_unlockSystem.blueprints;
 		m_activeBlueprints = m_unlockSystem.activeBlueprints;
 
 		// Instantiate the active blueprint btns
@@ -73,8 +74,9 @@ public class Crafter : MonoBehaviour {
 	{
 		// Button's offset position from the sides
 		float offset = 15f;
-    	
-    	foreach (Blueprint bp in m_blueprints)
+
+		int selectorIndex = 0;
+    	foreach (Blueprint bp in BlueprintDatabase.blueprintsList)
 		{
 			int currentID = bp.GetID();
 
@@ -97,7 +99,7 @@ public class Crafter : MonoBehaviour {
 	    	if (m_blueprintBtnHeight == 0) m_blueprintBtnHeight = height;
 	    	
 	    	// Position the new button. Use its ID as a vertical index
-			newBlueprint.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
+			newBlueprint.transform.localPosition = new Vector2(offset, -height - offset - (height * selectorIndex));
 			newBlueprint.name = "BPbtn_" + currentID;
 
 	    	// Add a click listener to the new Button
@@ -111,6 +113,8 @@ public class Crafter : MonoBehaviour {
 
 	    	// Add the finished button to the list of instantiated buttons
 	    	m_blueprintBtns.Add(newBlueprint);
+
+			selectorIndex++;
     	}
     }
 
@@ -277,7 +281,7 @@ public class Crafter : MonoBehaviour {
     // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
     public Blueprint GetBlueprintWithID(int ID)
 	{
-    	foreach(Blueprint bp in m_blueprints)
+    	foreach(Blueprint bp in BlueprintDatabase.blueprintsList)
 		{
     		if (bp.GetID() == ID) return bp;
     	}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0d1ad5f27cc8345a2ab9b6b9919fd5, type: 3}
   m_Name: Simple Bow
   m_EditorClassIdentifier: 
-  m_ID: 0
+  m_ID: 3
   m_artifactName: Simple Bow
   m_type: 0
   m_blueprintSprite: {fileID: 21300000, guid: 9312d2c80bde0da4489a2da8b971381e, type: 3}

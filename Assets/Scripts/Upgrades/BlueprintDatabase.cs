@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class BlueprintDatabase
 {
-    private static List<Blueprint> blueprintsList;
+    public static List<Blueprint> blueprintsList;
 
 
     public static void SetBlueprints(List<Blueprint> blueprints) 
