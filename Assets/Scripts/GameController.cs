@@ -23,12 +23,14 @@ public class GameController : MonoBehaviour {
     public Inventory inventory;
     public Armory armory;
 
-	
+    public UnlockSystem m_unlockSystem;
 
     #endregion
 
 
     void Awake() {
+        m_unlockSystem = GetComponent<UnlockSystem>();
+
         m_gathering = m_gather.GetComponent<Gathering>();
         m_crafterComp = m_crafter.GetComponent<Crafter>();
         m_infuserComp = m_infuser.GetComponent<Infuser>();
@@ -39,6 +41,7 @@ public class GameController : MonoBehaviour {
         inventory = new Inventory();
         armory = new Armory();
 	}
+
 
 
     #region Gathering
@@ -78,6 +81,9 @@ public class GameController : MonoBehaviour {
 
         // Add the Artifact to the Armory
         AddNewArtifact(newArtifact);
+
+        // Notify the UnlockSystem in case it's waiting for an artifact to be crafted
+        m_unlockSystem.Notify(newArtifact);
 
         m_crafterComp.FinishCrafting();
     }
@@ -194,8 +200,12 @@ public class GameController : MonoBehaviour {
 
     #region Dialog
 
+    public void AddNewline() => m_shop.AddNewline();
+
     public void AddDialogue(DialogType type, string line) => m_shop.NewDialogue(type, line);
     public void AddDialogueRequest(Request request) => m_shop.NewRequest(request);
+
+
 
     #endregion
 

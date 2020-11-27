@@ -38,7 +38,6 @@ public class RequestSystem : MonoBehaviour
 
         m_firstRequest = new Request(0, 10);
 
-
         DisplayRequests();
     }
 
@@ -101,7 +100,7 @@ public class RequestSystem : MonoBehaviour
             newRequest.transform.localPosition = new Vector2(0, 0);
 
             RequestSettings rs = newRequest.GetComponent<RequestSettings>();
-            Sprite sprite = m_unlockSystem.GetBlueprint(request.GetArtifactID()).GetBlueprintSprite();
+            Sprite sprite = BlueprintDatabase.GetBlueprint(request.GetArtifactID()).GetBlueprintSprite();
 
             rs.SetData(this, request, sprite);
 

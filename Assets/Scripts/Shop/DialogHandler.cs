@@ -12,7 +12,7 @@ public class DialogHandler : MonoBehaviour
     [SerializeField] private int m_dialogPadding = 12;
     [SerializeField] private int m_visibleRows = 8;
     [SerializeField, Range(8, 24)] private int m_maxRows = 16;
-    [SerializeField] private int m_charsPerRow = 50;
+    [SerializeField] private int m_charsPerRow = 75;
 
     [SerializeField, Range(1, 30)] private int m_lineHeight = 8;
 
@@ -28,7 +28,8 @@ public class DialogHandler : MonoBehaviour
     }
 
 
-
+    public void AddNewline() => AddLine(DialogType.EMPTY, "");
+   
 
     public void AddLine(DialogType type, string newLine)
     {
@@ -41,7 +42,7 @@ public class DialogHandler : MonoBehaviour
     public void AddLine(DialogType type, Request request)
     {
         string line = "An adventurer enters your shop.\n";
-        line += "NEW COMMISSION: Craft a " + request.artifactName + " for " + request.client + ".\n";
+        line += "NEW COMMISSION: Sell a [" + request.artifactName + "] to " + request.client + ".\n";
         line += "Reward: " + request.GetReward() + " gold.";
 
         AddLine(type, line);
@@ -74,7 +75,7 @@ public class DialogHandler : MonoBehaviour
 
             rt.offsetMax = new Vector2(rt.offsetMax.x, newOffsetY);
         }
-        
+       
 
         // Reset the text     
         m_dialog.text = "";
@@ -120,6 +121,10 @@ public class DialogHandler : MonoBehaviour
             if (type == DialogType.REQUEST)
             {
                 counter += 2;
+            }
+            else
+            {
+                counter += (int)line.Length / m_charsPerRow;
             }
 
             counter++;

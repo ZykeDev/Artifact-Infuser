@@ -1865,6 +1865,7 @@ MonoBehaviour:
   m_infuser: {fileID: 6247726}
   m_armory: {fileID: 73572184}
   m_upgrades: {fileID: 76265657}
+  m_unlockSystem: {fileID: 0}
 --- !u!4 &271865952
 Transform:
   m_ObjectHideFlags: 0
@@ -1915,7 +1916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_requestPref: {fileID: 5561977425357560658, guid: 6b4912af89e30a048a0521cc2d7e2f92,
     type: 3}
-  m_enableRandomRequests: 1
+  m_enableRandomRequests: 0
   m_requestInterval: 60
   m_requestSpawnChance: 0.5
 --- !u!1 &281338376
@@ -4525,10 +4526,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dialog: {fileID: 998886800}
   m_dialogPadding: 12
-  m_visibleRows: 8
-  m_maxRows: 16
-  m_charsPerRow: 50
-  m_lineHeight: 15
+  m_visibleRows: 9
+  m_maxRows: 18
+  m_charsPerRow: 75
+  m_lineHeight: 12
 --- !u!1 &674574882
 GameObject:
   m_ObjectHideFlags: 0
@@ -5940,7 +5941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '> Welcome to your shop'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5967,8 +5968,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12905,7 +12906,7 @@ PrefabInstance:
     - target: {fileID: 1877141997022900315, guid: 54666b6ecdbb66343aee943bfe2fa191,
         type: 3}
       propertyPath: m_Text
-      value: Crafter
+      value: Forge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54666b6ecdbb66343aee943bfe2fa191, type: 3}

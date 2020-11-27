@@ -25,6 +25,8 @@ public class Shop : MonoBehaviour
     }
 
 
+    #region Dialog 
+
     /// <summary>
     /// Sells all the given artifacts
     /// </summary>
@@ -108,14 +110,21 @@ public class Shop : MonoBehaviour
 
     }
 
+    public void AddNewline() => m_dialog.AddNewline();
 
     public void NewRequest(Request request) => m_dialog.AddLine(DialogType.REQUEST, request);
     
 
     public void NewDialogue(DialogType type, string line) => m_dialog.AddLine(type, line);
-    
+
+    #endregion
+
+
+    #region Autosell
 
     public void EnableAutosell() => m_autosell.Enable();
     public void DisableAutosell() => m_autosell.Disable();
+
+    #endregion
 
 }

@@ -14,9 +14,10 @@ public class UnlockSystem : MonoBehaviour {
     public bool[] activeCyphers; // index = cypher ID
 
 
-    // TODO move to a specific Progress.cs file?
+    // TODO move to a specific Progress.cs file? or an actual FSM system?
     private enum Progress
     {
+        SETUP,              // Setting up the game/scene
         START,              // The very beginning of the game
         FIRST_GATHER,
         FIRST_BLUEPRINT,
@@ -24,12 +25,16 @@ public class UnlockSystem : MonoBehaviour {
         FIRST_REQUEST,
         _
     }
+    private enum WaitState
+    {
+        NOTHING,
+        CRAFT_SWORD
+    }
 
     private Progress m_progress;
-
+    private WaitState m_waitState;
     
     
-    // Start is called before the first frame update
     void Awake() {
         m_gameController = GetComponent<GameController>();
         m_requestSystem = GetComponent<RequestSystem>();
@@ -41,23 +46,63 @@ public class UnlockSystem : MonoBehaviour {
         activeCyphers[0] = true;
         activeCyphers[1] = true;
 
-        m_progress = Progress.FIRST_REQUEST;
+        m_progress = Progress.SETUP;
 
-        
     }
 
     void Start()
     {
-        FirstRequest();
+        NextState();
     }
 
 
-    // TODO
+
+
+
     private void NextState()
     {
         m_progress++;
 
+        switch (m_progress)
+        {
+            case Progress.START:
+                //m_gameController.AddDialogue(DialogType.DIALOGUE, "It's a cold autum morning. You enter the dark shop and light up a candle.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "You are a bit nervous. It's your first day on the job, after all.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "It takes you a few minutes to start up the forge, but you are finally successful.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Purchasing this old smithy to start your new career as a blacksmith might not have been a bad idea.");
+
+                m_gameController.AddNewline();
+                NextState();
+                break;
+
+            case Progress.FIRST_GATHER:
+                NextState();
+                break;
+
+            case Progress.FIRST_BLUEPRINT:
+                NextState();
+                break;
+
+            case Progress.FIRST_ARTIFACT:
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Try crafting a <#FFA100>[Simple Sword]</color> from the <#FFA100>[Forge]</color> menu. You should have sufficient resources.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Select the <#FFA100>[Simple Sword]</color> blueprint from the list on the left. Then click the <#FFA100>[Craft]</color> button.");
+                m_waitState = WaitState.CRAFT_SWORD;
+                break;
+
+            case Progress.FIRST_REQUEST:
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "The newly created artifact has been deposite in the <#FFA100>[Armory]</color>.");
+                m_gameController.AddNewline();
+                FirstRequest();
+                break;
+
+            case Progress._:
+                break;
+
+            default:
+                break;
+        }
     }
+
 
 
 
@@ -69,51 +114,18 @@ public class UnlockSystem : MonoBehaviour {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Notifies the Crafter that its data has been updated (i.e. new blueprint unlock) TODO
-    public void NotifyCrafter() {
-    	//Crafter crafter = GameObject.Find("Crafter").GetComponent<Crafter>();
-        //crafter.Notify();
-    }
-
-    /// <summary>
-    /// Returns the Blueprint with the given ID
-    /// </summary>
-    /// <param name="ID"></param>
-    /// <returns></returns>
-    public Blueprint GetBlueprint(int ID)
+    public void Notify(Artifact artifact)
     {
-        if (blueprints[ID].GetID() == ID)
+        // Unlock if it's waiting for a sword
+        if (m_waitState == WaitState.CRAFT_SWORD)
         {
-            return blueprints[ID];
-        }
-        else
-        {
-            foreach (Blueprint bp in blueprints)
+            if (artifact.GetArtifactID() == 0)
             {
-                if (bp.GetID() == ID)
-                {
-                    return bp;
-                }
+                m_waitState = WaitState.NOTHING;
+                NextState();
             }
         }
-
-        return null;
     }
 
-    
+
 }
