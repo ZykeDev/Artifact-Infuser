@@ -50,7 +50,11 @@ public class Tooltip : MonoBehaviour
         int dexLength = m_dexText.text.Length;
 
         m_layoutElement.enabled = (titleLength > m_charWrapLimit || dexLength > m_charWrapLimit);
+    }
 
-       
+    public void SetTexts(string text)
+    {
+        TooltipData tooltipData = new TooltipData(text, "");
+        SetTexts(tooltipData);
     }
 }
