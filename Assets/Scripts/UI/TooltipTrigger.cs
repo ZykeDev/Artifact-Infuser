@@ -13,7 +13,6 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print("called");
         if (m_header != null && m_header != "")
         {
             TooltipSystem.Show(m_header);
