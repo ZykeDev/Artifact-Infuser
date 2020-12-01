@@ -27,13 +27,10 @@ public class ButtonHandler : MonoBehaviour
     [Header("Prompt System Reference")]
     [SerializeField] private PromptSystem m_promptSystem;
 
-    //[SerializeField]
-    //private GameObject m_tooltipPrefab;
-
-    //private GameObject m_currentlyOpenedTooltip;
-    //aprivate float m_screenHeight;
 
     private bool m_isWaitingForConfirm = false;
+
+
 
     void Update()
     {
@@ -83,6 +80,11 @@ public class ButtonHandler : MonoBehaviour
         m_gathering.StopGather();
     }
 
+
+    public void EnableGather()
+    {
+        m_gatherBtn.GetComponent<Button>().interactable = true;
+    }
 
     public void SawpGatherWithStop()
     {

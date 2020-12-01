@@ -36,6 +36,7 @@ public class BackgroundManager : MonoBehaviour
 
     public void Gather(int tier, float time)
     {
+        print("gathering tier " + tier);
         m_gatheringCoroutine = StartCoroutine(Gather(time, delegate { FinishGathering(tier); }));
     }
 

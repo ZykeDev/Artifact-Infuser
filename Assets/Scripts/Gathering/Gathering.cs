@@ -25,6 +25,13 @@ public class Gathering : MonoBehaviour
         m_tier = 0;
     }
 
+    public void SetTier(int tier)
+    {
+        m_tier = tier;
+        m_buttonHandler.EnableGather();
+    }
+
+
 
     #region Gathering
 

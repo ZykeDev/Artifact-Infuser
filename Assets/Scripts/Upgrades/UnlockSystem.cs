@@ -12,8 +12,9 @@ public class UnlockSystem : MonoBehaviour {
     public List<Cypher> cyphers;
     public bool[] activeBlueprints; // index = blueprint ID
     public bool[] activeCyphers; // index = cypher ID
+    public bool[] unlockedAreas;
 
-
+    
     // TODO move to a specific Progress.cs file? or an actual FSM system?
     private enum Progress
     {

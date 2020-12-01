@@ -52,10 +52,11 @@ public class RequestSystem : MonoBehaviour
         {
             StopRandomRequests();
         }
-        
-        
+
+
         // TODO don't find the slots on update
-        if (GameObject.FindGameObjectsWithTag("Request Slot").Length > m_activeRequests.Count)
+        GameObject[] slots = GameObject.FindGameObjectsWithTag("Request Slot");
+        if (slots?.Length > m_activeRequests.Count)
         {
             m_isSlotAvailable = true;
         }

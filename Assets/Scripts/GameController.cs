@@ -43,7 +43,6 @@ public class GameController : MonoBehaviour {
 	}
 
 
-
     #region Gathering
 
     public void Gather(int tier, float time) => m_backgroundManager.Gather(tier, time);
@@ -88,7 +87,7 @@ public class GameController : MonoBehaviour {
         m_crafterComp.FinishCrafting();
     }
 
-#endregion
+    #endregion
 
 
     #region Infusion   

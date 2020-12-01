@@ -1875,6 +1875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a264165c1c378de47a6fec9d0f18010a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_unlockSystem: {fileID: 271865953}
+  m_gathering: {fileID: 450042825}
   m_areaWoodsObj: {fileID: 1157667768}
   m_areaRiverObj: {fileID: 315865815}
   m_areaMineObj: {fileID: 3752422}
@@ -2232,6 +2234,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60f902003a1d5d84b90a053c30abd1a7, type: 2}
   activeBlueprints: 01010100
   activeCyphers: 
+  unlockedAreas: 0101000000
 --- !u!114 &271865954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7527,7 +7530,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99967945
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8959,7 +8962,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1257943880}
   m_OnClick:
     m_PersistentCalls:
@@ -13793,6 +13796,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 232715955}
     m_Modifications:
+    - target: {fileID: 3020076426179929698, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929698, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929698, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3020076426179929700, guid: 3be0fd12d2a571945bda6050270bbc5d,
         type: 3}
       propertyPath: m_Name
@@ -13907,6 +13925,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_header
       value: The Woods
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_isUnlocked
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be0fd12d2a571945bda6050270bbc5d, type: 3}
