@@ -47,7 +47,7 @@ public class Resource {
     }
 
 
-
+	public ResourceType GetResourceType() => type;
     public override string ToString() => amount.ToString();
 
     public void Print() => MonoBehaviour.print(amount);

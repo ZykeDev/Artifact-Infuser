@@ -75,3 +75,28 @@ public enum AutosellType
 	TYPE,
 	RARITY
 }
+
+
+public enum EffectType
+{
+	DEFAULT, 
+	RESOURCES,
+	GOLD,
+	TIME,
+	UNLOCK
+
+}
+
+
+public enum EffectBonus
+{
+	DEFAULT, PLUS, TIMES
+}
+
+// List of all unlockable features
+public enum UnlockFeature
+{
+	DEFAULT,
+	AUTOSELL,
+	INFUSER
+}

@@ -16,3 +16,8 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2b4c083162d444542bcfc795df634a1e, type: 3}
   dex: +10 Wood on gather
   unlocked: 1
+  effectType: 1
+  effectBonus: 1
+  effectResource: 0
+  modifier: 10
+  feature: 0
