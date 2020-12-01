@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Miner
   m_EditorClassIdentifier: 
   requirements:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: dd66dc9636ba3e9499d72b2e955a8439, type: 2}
   sprite: {fileID: 21300000, guid: 9ae10913eeb71d148a6f25c8d88d7f37, type: 3}
   dex: +10 Metal on gather
   unlocked: 0

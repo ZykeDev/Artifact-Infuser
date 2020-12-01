@@ -38,11 +38,39 @@ public class UpgradeButton : MonoBehaviour
 
 
     public void Buy() => m_upgrades.Buy(m_upgrade, this);
-    
 
-    public void UpdateButton()
+
+    public void UpdateButton() => UpdateButton(null);
+
+    public void UpdateButton(Upgrade boughtUpgrade)
     {
+        // Remove the bought upgrade from the requirements
+        if (boughtUpgrade != null)
+        {
+            UpgradeData originalData = boughtUpgrade.GetOriginal();
+            List<UpgradeData> requirements = m_upgrade.GetRequirements();
+
+            if (requirements.Contains(originalData))
+            {
+                requirements.Remove(originalData);
+            }
+        }
+
+        // Check if all requirements have been bought
+        List<UpgradeData> updatedRequirements = m_upgrade.GetRequirements();
+        if (updatedRequirements.Count == 0)
+        {
+            m_upgrade.Unlock();
+        }
+
+
         m_button.interactable = m_upgrade.GetUnlocked() && !m_upgrade.GetBought();
+
+        if (m_upgrade.GetBought())
+        {
+            m_button.image.color = Color.red;
+        }
+
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Upgrades : MonoBehaviour
@@ -6,11 +7,15 @@ public class Upgrades : MonoBehaviour
     private List<Upgrade> m_upgrades; // List of all upgrades (maybe make this into an upgrade DB?)
     public List<Upgrade> boughtUpgrades;
 
+    private List<UpgradeButton> m_upgradeButtons;
+
 
     void Awake()
     {
         m_upgrades = new List<Upgrade>();
         boughtUpgrades = new List<Upgrade>();
+
+        m_upgradeButtons = FindObjectsOfType<UpgradeButton>().ToList();
     }
 
      
@@ -42,7 +47,12 @@ public class Upgrades : MonoBehaviour
         {
             boughtUpgrades.Add(upgrade);
             upgrade.Buy();
-            caller.UpdateButton();
+            
+
+            foreach(UpgradeButton button in m_upgradeButtons)
+            {
+                button.UpdateButton(upgrade);
+            }
         }
         
     }

@@ -12,6 +12,8 @@ public class Upgrade
     private bool m_unlocked = false;
     private bool m_bought = false;
 
+    private UpgradeData m_originalData;
+
 
 
     public Upgrade(UpgradeData data)
@@ -22,6 +24,8 @@ public class Upgrade
         m_dex = data.dex;
         m_effect = data.effect;
         m_name = data.name;
+
+        m_originalData = data;
 
         m_bought = false;
     }
@@ -34,4 +38,7 @@ public class Upgrade
     public Sprite GetSprite() => m_sprite;
     public string GetDex() => m_dex;
     public string GetName() => m_name;
+    public List<UpgradeData> GetRequirements() => m_requirements;
+
+    public UpgradeData GetOriginal() => m_originalData;
 }
