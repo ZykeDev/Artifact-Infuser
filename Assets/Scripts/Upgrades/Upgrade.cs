@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Upgrade
 {
@@ -18,7 +19,7 @@ public class Upgrade
 
     public Upgrade(UpgradeData data)
     {
-        m_requirements = data.requirements;
+        m_requirements = data.requirements.ToList();
         m_sprite = data.sprite;
         m_unlocked = data.unlocked;
         m_dex = data.dex;

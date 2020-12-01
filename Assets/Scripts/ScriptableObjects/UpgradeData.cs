@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade")]
 public class UpgradeData : ScriptableObject {
 
-    public List<UpgradeData> requirements = new List<UpgradeData>();
+    [SerializeField] public UpgradeData[] requirements;
     public Sprite sprite;
     public Effect effect;
     [TextArea] public string dex;
