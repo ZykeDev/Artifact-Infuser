@@ -96,6 +96,8 @@ public class BackgroundManager : MonoBehaviour
         StopCoroutine(m_craftingCoroutine);
 
         m_gameController.FinishCrafting(m_selectedBlueprintID);
+
+        m_selectedBlueprintID = -1;
     }
 
 

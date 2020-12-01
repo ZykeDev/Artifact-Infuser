@@ -37,7 +37,7 @@ public class UpgradeButton : MonoBehaviour
     }
 
 
-    public void Buy() => m_upgrades.Buy(m_upgrade, this);
+    public void Buy() => m_upgrades.Buy(m_upgrade);
 
 
     public void UpdateButton() => UpdateButton(null);

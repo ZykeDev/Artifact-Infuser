@@ -24,6 +24,8 @@ public class Crafter : MonoBehaviour {
     private int m_selectedBlueprintID = -1;
 	private bool[] m_activeBlueprints;
 
+	private bool m_isCrafting = false;
+
 	private RequiredResources m_refund = new RequiredResources();
 
 	#endregion
@@ -151,7 +153,6 @@ public class Crafter : MonoBehaviour {
 		return n;
 	}
 
-	// TODO also be able to deselect and leave the crafting area empty
 	/// <summary>
 	/// Sets the clicked blueprint as selected and activates the Crafting functionality
 	/// </summary>
@@ -170,7 +171,7 @@ public class Crafter : MonoBehaviour {
 		caller.GetComponent<ButtonGraphic>().Select();
 
 		// Activate the Craft button
-		m_buttonHandler.ActivateCraftBtn();
+		m_buttonHandler.EnableCraftBtn();
 
 		// Make sure the silhouette's image is enabled
 		if (!m_artifactSilhouette.enabled) m_artifactSilhouette.enabled = true;
@@ -179,6 +180,31 @@ public class Crafter : MonoBehaviour {
 		Sprite artifactSprite = GetBlueprintWithID(m_selectedBlueprintID).GetArtifactSprite();
 		m_artifactSilhouette.sprite = artifactSprite;
 	}
+
+	public void ClearSelection()
+    {
+		if (m_isCrafting)
+        {
+			return;
+        }
+
+
+		// Remove the silhouette
+		m_artifactSilhouette.enabled = false;
+
+		// Deselect all buttons
+		foreach (GameObject bpb in m_blueprintBtns)
+        {
+			bpb.GetComponent<ButtonGraphic>().Deselect();
+        }
+
+		// Reset the selected blueprint
+		m_selectedBlueprintID = -1;
+
+		// Make the Craft button not interactable
+		m_buttonHandler.DisableCraftBtn();
+	}
+
 
     #endregion
 
@@ -216,6 +242,8 @@ public class Crafter : MonoBehaviour {
 		float craftingTime = blueprint.GetCraftingTime();
 		m_progressbar.value = 0;
 		m_gameController.Craft(m_selectedBlueprintID, craftingTime);
+
+		m_isCrafting = true;
 	}
 	
 	/// <summary>
@@ -243,6 +271,8 @@ public class Crafter : MonoBehaviour {
 		m_buttonHandler.SawpStopWithCraft();
 
 		RefundResources();
+
+		m_isCrafting = false;
 	}
 
 	/// <summary>
@@ -261,7 +291,6 @@ public class Crafter : MonoBehaviour {
 	}
 
 
-	// Upon compleation, show the new Artifact and add it to the armory
 	public void FinishCrafting()
 	{
     	UpdateCraftingProgress(0); // Needed?
@@ -269,17 +298,16 @@ public class Crafter : MonoBehaviour {
     	// Change the Craft btn to the "Craft" btn
 		m_buttonHandler.SawpStopWithCraft();
 
-		// Show confirmation window (if this is the first artifact of its kind) TODO
-		// -- 
-
-		// AFTER the confirmation window is closed (if it ever gets opened)
-		// artifactSilhouetteImage.sprite = null;
-
+		m_isCrafting = false;
 	}
 
 
-    // Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
-    public Blueprint GetBlueprintWithID(int ID)
+	/// <summary>
+	/// Returns the Blueprint with the corresponding ID from the blueprints list. Else returns Null.
+	/// </summary>
+	/// <param name="ID"></param>
+	/// <returns></returns>
+	public Blueprint GetBlueprintWithID(int ID)
 	{
     	foreach(Blueprint bp in BlueprintDatabase.blueprintsList)
 		{

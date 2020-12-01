@@ -37,7 +37,7 @@ public class Upgrades : MonoBehaviour
 
 
 
-    public void Buy(Upgrade upgrade, UpgradeButton caller)
+    public void Buy(Upgrade upgrade)
     {
         if (boughtUpgrades.Contains(upgrade))
         {

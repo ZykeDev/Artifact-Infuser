@@ -138,10 +138,9 @@ public class ButtonHandler : MonoBehaviour
     }
 
     // Makes the Craft Button clickable
-    public void ActivateCraftBtn()
-    {
-        m_craftBtn.GetComponent<Button>().interactable = true;
-    }
+    public void EnableCraftBtn() => m_craftBtn.GetComponent<Button>().interactable = true;
+    
+    public void DisableCraftBtn() => m_craftBtn.GetComponent<Button>().interactable = false;
 
     #endregion
 
