@@ -102,7 +102,7 @@ public class Inventory {
     {
 		if (requiredResources.wood > 0 && wood.amount < requiredResources.wood)
 		{
-			Debug.Log("Not enough wood. Need " + (requiredResources.wood - wood.amount) + " more.");
+			Debug.Log("Need " + (requiredResources.wood - wood.amount) + " more wood.");
 			return false;
 		}
 		if (requiredResources.metal > 0 && metal.amount < requiredResources.metal)

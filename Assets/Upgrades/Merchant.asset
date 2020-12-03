@@ -25,8 +25,8 @@ MonoBehaviour:
   prisma: 0
   dex: +25% Gold on every sale
   effectType: 2
-  effectBonus: 1
+  effectBonus: 2
   effectResource: 0
-  modifier: 6
+  modifier: 1.25
   feature: 0
   unlocked: 0

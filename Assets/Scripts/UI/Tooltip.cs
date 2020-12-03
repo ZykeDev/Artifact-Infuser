@@ -13,6 +13,9 @@ public class Tooltip : MonoBehaviour
     [SerializeField]
     private int m_charWrapLimit = 80;
 
+    [SerializeField]
+    private bool m_dynamicPosition = false;
+
     private RectTransform m_rectTransform;
 
     void Awake()
@@ -24,11 +27,20 @@ public class Tooltip : MonoBehaviour
     {
         Vector2 mousePos = Input.mousePosition;
 
-        float pivotX = mousePos.x / Screen.width;
-        float pivotY = mousePos.y / Screen.height;
+        if (m_dynamicPosition)
+        {
+            float pivotX = mousePos.x / Screen.width;
+            float pivotY = mousePos.y / Screen.height;
 
-        m_rectTransform.pivot = new Vector2(pivotX, pivotY);
-        transform.position = mousePos;
+            m_rectTransform.pivot = new Vector2(pivotX - 0.2f, pivotY);
+            transform.position = mousePos;
+        }
+        else
+        {
+            m_rectTransform.pivot = new Vector2(0.1f, -0.1f);
+            transform.position = mousePos;
+        }
+        
     }
 
 

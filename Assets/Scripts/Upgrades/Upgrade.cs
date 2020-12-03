@@ -29,7 +29,6 @@ public class Upgrade
         m_requirements = data.requirements.ToList();
         m_sprite = data.sprite;
         m_unlocked = data.unlocked;
-        m_dex = data.dex;
         m_effect = data.GetEffect();
         m_name = data.name;
 
@@ -38,8 +37,31 @@ public class Upgrade
         m_requiredRunes = data.requiredRunes;
 
 
+        m_dex = FormatDex(data.dex);
+
+
         m_bought = false;
     }
+
+
+    private string FormatDex(string dex)
+    {
+        dex += "\n";
+
+        if (m_requiredResources.wood > 0)       dex += "\n[Wood: " + m_requiredResources.wood + "]";
+        if (m_requiredResources.metal > 0)      dex += "\n[Metal: " + m_requiredResources.metal + "]";
+        if (m_requiredResources.leather > 0)    dex += "\n[Leather: " + m_requiredResources.leather + "]";
+        if (m_requiredResources.crystals > 0)   dex += "\n[Crystals: " + m_requiredResources.crystals + "]";
+        
+        if (m_requiredRunes.alphaRune > 0)      dex += "\n[Alpha Runes: " + m_requiredRunes.alphaRune + "]";
+        if (m_requiredRunes.novaRune > 0)       dex += "\n[Nova Runes: " + m_requiredRunes.novaRune + "]";
+        if (m_requiredRunes.prismaRune > 0)     dex += "\n[Prisma Runes: " + m_requiredRunes.prismaRune + "]";
+
+        if (m_gold > 0) dex += "\n[Gold: " + m_gold + "]";
+
+        return dex;
+    }
+
 
 
     public void Unlock() => m_unlocked = true;

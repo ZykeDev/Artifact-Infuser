@@ -143,10 +143,7 @@ public class Effect
             }
             else if (m_bonus == EffectBonus.TIMES)
             {
-                Debug.Log(m_modifier);
-                Debug.Log(Mathf.Round(gold * m_modifier));
                 gold = (int)Mathf.Round(gold * m_modifier);
-                
             }
         }
 
