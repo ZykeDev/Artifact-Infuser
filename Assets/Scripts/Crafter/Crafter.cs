@@ -229,7 +229,7 @@ public class Crafter : MonoBehaviour {
 		bool canCraft = m_gameController.inventory.SpendResources(requiredResources);
 		if (!canCraft) return;
 
-		m_gameController.UpdateResourceUI(requiredResources);
+		m_gameController.UpdateResourceUILoss(requiredResources);
 
 		// Save the refund amount
 		m_refund = requiredResources;

@@ -8,15 +8,15 @@ public class Blueprint : ScriptableObject {
 	[SerializeField] private ArtifactType m_type;
 	[SerializeField] private Sprite m_blueprintSprite, m_artifactSprite;
 
-	[SerializeField] private float m_craftingTime;
+	[SerializeField] [Min(0)] private float m_craftingTime;
 	[SerializeField] private Rarity m_rarity;
 	[SerializeField] private int m_price;
 
 	[Header("Resources Required")]
-	[SerializeField] private double m_wood;
-	[SerializeField] private double m_metal;
-	[SerializeField] private double m_leather;
-	[SerializeField] private double m_crystals;
+	[SerializeField] [Min(0)] private int m_wood;
+	[SerializeField] [Min(0)] private int m_metal;
+	[SerializeField] [Min(0)] private int m_leather;
+	[SerializeField] [Min(0)] private int m_crystals;
 
 	[Header("Tooltip Description")]
 	[SerializeField, TextArea] private string m_tooltipDex;
@@ -85,9 +85,9 @@ public struct TooltipData
 
 public struct RequiredResources
 {
-	public double wood, metal, leather, crystals;
+	public int wood, metal, leather, crystals;
 
-	public RequiredResources(double wood, double metal, double leather, double crystals) {
+	public RequiredResources(int wood, int metal, int leather, int crystals) {
 		this.wood = wood;
 		this.metal = metal;
 		this.leather = leather;

@@ -79,7 +79,7 @@ public enum AutosellType
 
 public enum EffectType
 {
-	DEFAULT, 
+	NONE, 
 	RESOURCES,
 	GOLD,
 	TIME,
@@ -90,13 +90,13 @@ public enum EffectType
 
 public enum EffectBonus
 {
-	DEFAULT, PLUS, TIMES
+	NONE, PLUS, TIMES
 }
 
 // List of all unlockable features
 public enum UnlockFeature
 {
-	DEFAULT,
+	NONE,
 	AUTOSELL,
 	INFUSER
 }

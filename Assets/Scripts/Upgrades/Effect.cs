@@ -1,6 +1,4 @@
-﻿
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Effect
 {
@@ -8,9 +6,8 @@ public class Effect
     private EffectBonus m_bonus;
     private float m_modifier;
 
-    private ResourceType m_resourceType;
+    public ResourceType m_resourceType; // todo make private
     private UnlockFeature m_feature;
-
 
 
     public Effect(EffectType effectType, EffectBonus effectBonus, ResourceType effectResource, float modifier, UnlockFeature feature)
@@ -19,23 +16,20 @@ public class Effect
 
         switch (effectType)
             {
-                case EffectType.DEFAULT:
-                    break;
-
                 case EffectType.RESOURCES:
-                    new Effect(effectResource, effectBonus, modifier);
+                    ResourceEffect(effectResource, effectBonus, modifier);
                     break;
 
                 case EffectType.GOLD:
-                    new Effect(effectBonus, (int)modifier);
+                    GoldEffect(effectBonus, (int)modifier);
                     break;
 
                 case EffectType.TIME:
-                    new Effect(effectBonus, modifier);
+                    TimeEffect(effectBonus, modifier);
                     break;
 
                 case EffectType.UNLOCK:
-                    new Effect(feature);
+                    FeatureEffect(feature);
                     break;
 
                 default:
@@ -43,26 +37,37 @@ public class Effect
             }
     }
 
-    public Effect(ResourceType resourceType, EffectBonus effectBonus, float modifier) 
+
+    #region Overloads
+
+    public Effect(ResourceType resourceType, EffectBonus effectBonus, float modifier) => ResourceEffect(resourceType, effectBonus, modifier);
+    public Effect(EffectBonus effectBonus, int modifier) => GoldEffect(effectBonus, modifier);
+    public Effect(EffectBonus effectBonus, float modifier) => TimeEffect(effectBonus, modifier);
+    public Effect(UnlockFeature feature) => FeatureEffect(feature);
+
+    #endregion
+
+
+    public void ResourceEffect(ResourceType resourceType, EffectBonus effectBonus, float modifier) 
     {
         m_bonus = effectBonus;
         m_modifier = modifier;
         m_resourceType = resourceType;
     }
 
-    public Effect(EffectBonus bonusType, int modifier)
-    {
-        m_bonus = bonusType;
-        m_modifier = modifier;
-    }
-
-    public Effect(EffectBonus effectBonus, float modifier)
+    public void GoldEffect(EffectBonus effectBonus, int modifier)
     {
         m_bonus = effectBonus;
         m_modifier = modifier;
     }
 
-    public Effect(UnlockFeature feature)
+    public void TimeEffect(EffectBonus effectBonus, float modifier)
+    {
+        m_bonus = effectBonus;
+        m_modifier = modifier;
+    }
+
+    public void FeatureEffect(UnlockFeature feature)
     {
         m_feature = feature;
     }
@@ -73,6 +78,15 @@ public class Effect
 
 
 
+    public Inventory Apply(Inventory inv)
+    {
+        Apply(inv.wood);
+        Apply(inv.metal);
+        Apply(inv.leather);
+        Apply(inv.crystals);
+        
+        return inv;
+    }
 
 
     /// <summary>

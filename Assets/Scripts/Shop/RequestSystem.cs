@@ -16,6 +16,7 @@ public class RequestSystem : MonoBehaviour
     private float m_requestSpawnChance = 0.5f;
 
     private bool m_isSlotAvailable = true;
+    private int m_slotsNumber = 0;
     private bool m_running = false;
     private Coroutine m_requestCoroutine;
 
@@ -41,6 +42,11 @@ public class RequestSystem : MonoBehaviour
         DisplayRequests();
     }
 
+    void Start()
+    {
+        m_slotsNumber = GameObject.FindGameObjectsWithTag("Request Slot").Length;
+    }
+
 
     void Update()
     {
@@ -53,17 +59,7 @@ public class RequestSystem : MonoBehaviour
             StopRandomRequests();
         }
 
-
-        // TODO don't find the slots on update
-        GameObject[] slots = GameObject.FindGameObjectsWithTag("Request Slot");
-        if (slots?.Length > m_activeRequests.Count)
-        {
-            m_isSlotAvailable = true;
-        }
-        else
-        {
-            m_isSlotAvailable = false;
-        }
+        m_isSlotAvailable = m_slotsNumber > m_activeRequests?.Count;
 
 
         CheckRequestState();
@@ -201,7 +197,7 @@ public class RequestSystem : MonoBehaviour
 
     private void CheckRequestState()
     {
-        for (int i = 0; i < m_activeRequests.Count; i++)
+        for (int i = 0; i < m_activeRequests?.Count; i++)
         {
             Request request = m_activeRequests[i];
             int requestArtifactID = request.GetArtifactID();

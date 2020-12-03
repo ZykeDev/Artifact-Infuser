@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Upgrades : MonoBehaviour
 {
+    [SerializeField] private GameController m_gameController;  
+
     private List<Upgrade> m_upgrades; // List of all upgrades (maybe make this into an upgrade DB?)
     public List<Upgrade> boughtUpgrades;
 
     private List<UpgradeButton> m_upgradeButtons;
 
-
-    void Awake()
+    public void Awake()
     {
         m_upgrades = new List<Upgrade>();
         boughtUpgrades = new List<Upgrade>();
@@ -36,7 +37,6 @@ public class Upgrades : MonoBehaviour
     }
 
 
-
     public void Buy(Upgrade upgrade)
     {
         if (boughtUpgrades.Contains(upgrade))
@@ -45,16 +45,33 @@ public class Upgrades : MonoBehaviour
         }
         else
         {
-            boughtUpgrades.Add(upgrade);
-            upgrade.Buy();
-            
-
-            foreach(UpgradeButton button in m_upgradeButtons)
+            if (m_gameController.inventory.PayForUpgrade(upgrade))
             {
-                button.UpdateButton(upgrade);
+                upgrade.Buy();
+                boughtUpgrades.Add(upgrade);
+                m_gameController.UpdateResourceUILoss(upgrade); // TODO remove once the ResUI takes care of this on update
+
+
+                foreach (UpgradeButton button in m_upgradeButtons)
+                {
+                    button.UpdateButton(upgrade);
+                }
             }
         }
-        
+    }
+
+
+    public Inventory ApplyBonuses(Inventory inv)
+    {
+        foreach(Upgrade upgrade in boughtUpgrades)
+        {
+            print(upgrade.GetEffect().m_resourceType);
+            inv = upgrade.GetEffect().Apply(inv);
+        }
+
+
+        return inv;
+
     }
 
 

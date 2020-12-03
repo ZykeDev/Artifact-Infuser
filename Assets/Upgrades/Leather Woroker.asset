@@ -12,9 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7dab3de99c0c404889b61122bb199d0, type: 3}
   m_Name: Leather Woroker
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 91a8fd979351a784289c93678874fa20, type: 3}
   requirements:
   - {fileID: 11400000, guid: e9c136c5541f636458ca167f7b22f6cf, type: 2}
   - {fileID: 11400000, guid: 7da32b2b18aa55c49a6c6f246ea7ef22, type: 2}
-  sprite: {fileID: 21300000, guid: 91a8fd979351a784289c93678874fa20, type: 3}
+  gold: 5
+  wood: 0
+  metal: 0
+  leather: 10
+  crystals: 0
+  alpha: 0
+  nova: 0
+  prisma: 0
   dex: +10 Leather on gather
+  effectType: 0
+  effectBonus: 0
+  effectResource: 0
+  modifier: 0
+  feature: 0
   unlocked: 0

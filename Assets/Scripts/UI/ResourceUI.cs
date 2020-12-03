@@ -67,6 +67,7 @@ public class ResourceUI : MonoBehaviour
     }
 
 
+    #region Gains
 
     public void DisplayGain(Inventory inv)
     {
@@ -104,7 +105,28 @@ public class ResourceUI : MonoBehaviour
         }
     }
 
-    
+
+    #endregion
+
+
+    #region Losses
+
+    public void DisplayLoss(Inventory inv)
+    {
+        DisplayLoss(inv.gold);
+    }
+
+    public void DisplayLoss(Inventory inv, ResourceType type)
+    {
+        int value = (int)inv.GetResourceAmount(type);
+
+        DisplayLoss(value);
+    }
+
+    public void DisplayLoss(int value) => DisplayGain(-value);
+
+    #endregion
+
 
 
 

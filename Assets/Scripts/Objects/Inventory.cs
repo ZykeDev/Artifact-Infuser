@@ -21,7 +21,7 @@ public class Inventory {
 	public Inventory() {
 		gold = 0;
 
-		wood = new Resource(ResourceType.WOOD, 1000);
+		wood = new Resource(ResourceType.WOOD, 50);
 		metal = new Resource(ResourceType.METAL, 0);
 		leather = new Resource(ResourceType.LEATHER, 0);
 		crystals = new Resource(ResourceType.CRYSTALS, 0);
@@ -209,23 +209,63 @@ public class Inventory {
 		gold += amount;
     }
 	
+	public bool HasEnoughGold(int amount)
+    {
+        if (gold >= amount)
+        {
+			return true;
+        }
+
+		return false;
+    }
+
 	/// <summary>
 	/// Spend the given amount of gold if there is enough.
 	/// </summary>
 	/// <param name="amount"></param>
-	public void SpendGold(int amount)
+	public bool SpendGold(int amount)
     {
-		if (gold >= amount)
-        {
-			gold -= amount;
-		}
-		else
+		if (!HasEnoughGold(amount))
         {
 #if UNITY_EDITOR
 			Debug.Log("Not enough gold.");
 #endif
+			return false;
 		}
-    }
+
+		gold -= amount;
+		return true;
+	}
+
+
+	/// <summary>
+	/// Pays the cost of the given upgrade. Returns true if it did.
+	/// </summary>
+	/// <param name="upgrade"></param>
+	/// <returns></returns>
+	public bool PayForUpgrade(Upgrade upgrade)
+    {
+		int upgradeGold = upgrade.GetGold();
+		RequiredResources resources = upgrade.GetRequiredResources();
+		RequiredRunes runes = upgrade.GetRequiredRunes();
+
+		bool hasGold = HasEnoughGold(upgradeGold);
+		bool hasResources = HasEnoughResources(resources);
+		bool hasRunes = HasEnoughRunes(runes);
+
+		if (hasGold && hasResources && hasRunes)
+        {
+			SpendGold(upgradeGold);
+			SpendResources(resources);
+			SpendRunes(runes);
+
+			return true;
+        }
+
+		return false;
+	}
+
+
 
 
 	public void AddResources(RequiredResources addedResources)

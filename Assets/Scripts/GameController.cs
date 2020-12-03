@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
     private Crafter m_crafterComp;
     private Infuser m_infuserComp;
     private ArmoryHandler m_armoryHandler; //Called armoryHandler to not confuse it with the armory struct
-    //private UpgradesHandler m_upgradesHandler;
+    private Upgrades m_upgradesHandler;
 
     public Inventory inventory;
     public Armory armory;
@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour {
         m_crafterComp = m_crafter.GetComponent<Crafter>();
         m_infuserComp = m_infuser.GetComponent<Infuser>();
         m_armoryHandler = m_armory.GetComponent<ArmoryHandler>();
-        //m_upgradesHandler = m_upgrades.GetComponent<Upgrades>();
+        m_upgradesHandler = m_upgrades.GetComponent<Upgrades>();
 
         // Init Inventory
         inventory = new Inventory();
@@ -149,6 +149,7 @@ public class GameController : MonoBehaviour {
 
     public void AddResources(Inventory booty)
     {
+        booty = m_upgradesHandler.ApplyBonuses(booty);
         m_resourcesTab.DisplayGain(booty);
         inventory.CombineWith(booty);
     }
@@ -191,7 +192,9 @@ public class GameController : MonoBehaviour {
     }
 
 
-    public void UpdateResourceUI(RequiredResources resources) => m_resourcesTab.DisplayGain(resources);
+    public void UpdateResourceUILoss(RequiredResources resources) => m_resourcesTab.DisplayLoss(resources);
+    public void UpdateResourceUILoss(Upgrade upgrade) => m_resourcesTab.DisplayLoss(upgrade);
+    public void UpdateResourceUIGain(RequiredResources resources) => m_resourcesTab.DisplayGain(resources);
 
 
     #endregion

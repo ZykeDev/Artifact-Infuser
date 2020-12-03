@@ -13,7 +13,7 @@ public class UnlockSystem : MonoBehaviour {
     public bool[] activeBlueprints; // index = blueprint ID
     public bool[] activeCyphers; // index = cypher ID
     public bool[] unlockedAreas;
-    public bool[] boughtUpgrades;
+    public bool[] boughtUpgrades; // unused for now
 
     
     // TODO move to a specific Progress.cs file? or an actual FSM system?

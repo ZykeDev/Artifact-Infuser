@@ -8,11 +8,11 @@ public class MapOverlay : MonoBehaviour
     [SerializeField] private Gathering m_gathering;
 
     [Header("Areas")]
-    [SerializeField] private GameObject m_areaWoodsObj;
-    [SerializeField] private GameObject m_areaRiverObj;
-    [SerializeField] private GameObject m_areaMineObj;
-    [SerializeField] private GameObject m_areaVillageObj;
-    [SerializeField] private GameObject m_areaBeachObj;
+    [SerializeField] protected GameObject m_areaWoodsObj;
+    [SerializeField] protected GameObject m_areaRiverObj;
+    [SerializeField] protected GameObject m_areaMineObj;
+    [SerializeField] protected GameObject m_areaVillageObj;
+    [SerializeField] protected GameObject m_areaBeachObj;
 
     private List<MapArea> m_areas;
   
