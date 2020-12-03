@@ -20,7 +20,7 @@ public class Gathering : MonoBehaviour
 
     private int m_tier = 0;
 
-    void Awake()
+    public void Awake()
     {
         m_tier = 0;
     }
@@ -50,7 +50,8 @@ public class Gathering : MonoBehaviour
 
         m_progressbar.value = 0;
 
-        float time = (m_tier + 1) * 2f;
+        float time = (m_tier + 1) * 2f; // TODO get this from the selected area
+        
         m_gameController.Gather(m_tier, time);
     }
 

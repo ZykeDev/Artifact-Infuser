@@ -6,7 +6,7 @@ public class Effect
     private EffectBonus m_bonus;
     private float m_modifier;
 
-    public ResourceType m_resourceType; // todo make private
+    private ResourceType m_resourceType;
     private UnlockFeature m_feature;
 
 
@@ -21,7 +21,7 @@ public class Effect
                     break;
 
                 case EffectType.GOLD:
-                    GoldEffect(effectBonus, (int)modifier);
+                    GoldEffect(effectType, effectBonus, modifier);
                     break;
 
                 case EffectType.TIME:
@@ -37,16 +37,46 @@ public class Effect
             }
     }
 
+    public Effect(EffectType effectType, EffectBonus effectBonus, ResourceType effectResource, int modifier, UnlockFeature feature)
+    {
+        m_type = effectType;
+
+        switch (effectType)
+        {
+            case EffectType.RESOURCES:
+                ResourceEffect(effectResource, effectBonus, modifier);
+                break;
+
+            case EffectType.GOLD:
+                GoldEffect(effectType, effectBonus, modifier);
+                break;
+
+            case EffectType.TIME:
+                TimeEffect(effectBonus, modifier);
+                break;
+
+            case EffectType.UNLOCK:
+                FeatureEffect(feature);
+                break;
+
+            default:
+                break;
+        }
+    }
+
 
     #region Overloads
 
     public Effect(ResourceType resourceType, EffectBonus effectBonus, float modifier) => ResourceEffect(resourceType, effectBonus, modifier);
-    public Effect(EffectBonus effectBonus, int modifier) => GoldEffect(effectBonus, modifier);
+    public Effect(EffectType effectType, EffectBonus effectBonus, int modifier) => GoldEffect(effectType, effectBonus, modifier);
+    public Effect(EffectType effectType, EffectBonus effectBonus, float modifier) => GoldEffect(effectType, effectBonus, modifier);
     public Effect(EffectBonus effectBonus, float modifier) => TimeEffect(effectBonus, modifier);
     public Effect(UnlockFeature feature) => FeatureEffect(feature);
 
     #endregion
 
+
+    #region Constructor Helpers
 
     public void ResourceEffect(ResourceType resourceType, EffectBonus effectBonus, float modifier) 
     {
@@ -55,7 +85,12 @@ public class Effect
         m_resourceType = resourceType;
     }
 
-    public void GoldEffect(EffectBonus effectBonus, int modifier)
+    public void GoldEffect(EffectType effectType, EffectBonus effectBonus, int modifier)
+    {
+        m_bonus = effectBonus;
+        m_modifier = modifier;
+    }
+    public void GoldEffect(EffectType effectType, EffectBonus effectBonus, float modifier)
     {
         m_bonus = effectBonus;
         m_modifier = modifier;
@@ -72,12 +107,16 @@ public class Effect
         m_feature = feature;
     }
 
+    #endregion
 
 
-    public EffectType GetEffectType() => m_type;
+    #region Applications
 
-
-
+    /// <summary>
+    /// Applies the effect to every resource in the inventory
+    /// </summary>
+    /// <param name="inv"></param>
+    /// <returns></returns>
     public Inventory Apply(Inventory inv)
     {
         Apply(inv.wood);
@@ -95,16 +134,19 @@ public class Effect
     /// <param name="gold"></param>
     /// <returns></returns>
     public int Apply(int gold)
-    {
+    {        
         if (m_type == EffectType.GOLD)
         {
             if (m_bonus == EffectBonus.PLUS)
             {
-                return gold + (int)m_modifier;
+                gold += (int)m_modifier;
             }
             else if (m_bonus == EffectBonus.TIMES)
             {
-                return (int)Mathf.Floor(gold * m_modifier);
+                Debug.Log(m_modifier);
+                Debug.Log(Mathf.Round(gold * m_modifier));
+                gold = (int)Mathf.Round(gold * m_modifier);
+                
             }
         }
 
@@ -153,10 +195,19 @@ public class Effect
             }
             else if (m_bonus == EffectBonus.TIMES)
             {
-                return Mathf.Floor(time * m_modifier);
+                return time * m_modifier;
             }
         }
 
         return time;
     }
+
+    #endregion
+
+
+    #region Getters
+
+    public EffectType GetEffectType() => m_type;
+
+    #endregion
 }

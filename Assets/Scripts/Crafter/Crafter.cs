@@ -28,11 +28,16 @@ public class Crafter : MonoBehaviour {
 
 	private RequiredResources m_refund = new RequiredResources();
 
-	#endregion
+    #endregion
 
-	#region Awake Start Update
+    #region Awake Start Update
 
-	void Start()
+    public void Awake()
+    {
+        // Does nothing for now
+    }
+
+    void Start()
 	{
 		// Make sure the silhouette is disabled at the start
 		m_artifactSilhouette.enabled = false;

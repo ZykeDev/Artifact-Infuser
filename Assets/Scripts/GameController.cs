@@ -37,15 +37,30 @@ public class GameController : MonoBehaviour {
         m_armoryHandler = m_armory.GetComponent<ArmoryHandler>();
         m_upgradesHandler = m_upgrades.GetComponent<Upgrades>();
 
-        // Init Inventory
+        // Init the Inventory and the Armory
         inventory = new Inventory();
         armory = new Armory();
-	}
+
+
+        // The forced-awakes should always be the last thing to be called in this method
+        m_gathering.Awake();
+        m_crafterComp.Awake();
+        m_infuserComp.Awake();
+        m_armoryHandler.Awake();
+        m_upgradesHandler.Awake();
+        // Dont add anything here
+    }
 
 
     #region Gathering
 
-    public void Gather(int tier, float time) => m_backgroundManager.Gather(tier, time);
+    public void Gather(int tier, float time)
+    {
+        // Applies bonuses to the time
+        time = m_upgradesHandler.ApplyBonuses(time);
+
+        m_backgroundManager.Gather(tier, time);
+    }
     public void StopGather() => m_backgroundManager.StopGathering();
 
     public void UpdateGatheringProgress(float progress)
@@ -63,7 +78,13 @@ public class GameController : MonoBehaviour {
 
     #region Crafting
 
-    public void Craft(int blueprintID, float time) => m_backgroundManager.Craft(blueprintID, time);
+    public void Craft(int blueprintID, float time)
+    {
+        // Applies bonuses to the time
+        time = m_upgradesHandler.ApplyBonuses(time);
+
+        m_backgroundManager.Craft(blueprintID, time);
+    }
     public void StopCraft() => m_backgroundManager.StopCraft();
 
     public void UpdateCraftingProgress(float progress)

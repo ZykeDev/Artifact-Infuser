@@ -7,6 +7,7 @@ public class Shop : MonoBehaviour
     [SerializeField] protected GameController m_gameController;
     [SerializeField] protected Autosell m_autosell;
     [SerializeField] protected DialogHandler m_dialog;
+    [SerializeField] protected Upgrades m_upgrades;
 
     private Artifact m_sellingArtifact;
 
@@ -44,7 +45,7 @@ public class Shop : MonoBehaviour
         {
             int goldGained = art.GetPrice();
 
-            // TODO multiplty the gained gold by any available multiplier before selling?
+            goldGained = m_upgrades.ApplyBonuses(goldGained);
 
             total += goldGained;
 
@@ -71,8 +72,8 @@ public class Shop : MonoBehaviour
         {
             string artifactName = artifact.GetName();
             int goldGained = reward;
-
-            // TODO multiplty the gained gold by any available multiplier before selling?
+            
+            goldGained = m_upgrades.ApplyBonuses(goldGained);
 
             m_gameController.RemoveArtifact(artifact);
             m_gameController.GainGold(goldGained);
@@ -90,9 +91,9 @@ public class Shop : MonoBehaviour
         {
             string artifactName = m_sellingArtifact.GetName();
             int goldGained = m_sellingArtifact.GetPrice();
-
-            // TODO multiplty the gained gold by any available multiplier before selling?
-
+            
+            goldGained = m_upgrades.ApplyBonuses(goldGained);
+            
             m_gameController.RemoveArtifact(m_sellingArtifact);
             m_gameController.GainGold(goldGained);
 

@@ -39,7 +39,10 @@ public class BackgroundManager : MonoBehaviour
         m_gatheringCoroutine = StartCoroutine(Gather(time, delegate { FinishGathering(tier); }));
     }
 
-    public void StopGathering() => StopCoroutine(m_gatheringCoroutine);
+    public void StopGathering()
+    {
+        StopCoroutine(m_gatheringCoroutine);
+    }
 
     private void FinishGathering(int tier)
     {

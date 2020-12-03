@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7dab3de99c0c404889b61122bb199d0, type: 3}
-  m_Name: Woodcutter
+  m_Name: Gathering Tools
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 2b4c083162d444542bcfc795df634a1e, type: 3}
-  requirements: []
+  sprite: {fileID: 0}
+  requirements:
+  - {fileID: 11400000, guid: e9c136c5541f636458ca167f7b22f6cf, type: 2}
   gold: 0
-  wood: 100
+  wood: 0
   metal: 0
   leather: 0
   crystals: 0
   alpha: 0
   nova: 0
   prisma: 0
-  dex: +10 Wood on gather
-  effectType: 1
-  effectBonus: 1
+  dex: -20% seconds to the Gathering timer
+  effectType: 3
+  effectBonus: 2
   effectResource: 0
-  modifier: 10
+  modifier: 0.8
   feature: 0
   unlocked: 1

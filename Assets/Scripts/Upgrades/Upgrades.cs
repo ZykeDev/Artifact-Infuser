@@ -61,17 +61,37 @@ public class Upgrades : MonoBehaviour
     }
 
 
+
+
     public Inventory ApplyBonuses(Inventory inv)
     {
         foreach(Upgrade upgrade in boughtUpgrades)
         {
-            print(upgrade.GetEffect().m_resourceType);
             inv = upgrade.GetEffect().Apply(inv);
         }
 
-
         return inv;
+    }
 
+    public float ApplyBonuses(float time)
+    {
+        foreach (Upgrade upgrade in boughtUpgrades)
+        {
+            time = upgrade.GetEffect().Apply(time);
+        }
+
+        return time;
+    }
+
+
+    public int ApplyBonuses(int gold)
+    {
+        foreach (Upgrade upgrade in boughtUpgrades)
+        {
+            gold = upgrade.GetEffect().Apply(gold);
+        }
+
+        return gold;
     }
 
 

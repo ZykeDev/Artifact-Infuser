@@ -44,11 +44,11 @@ public class Infuser : MonoBehaviour {
 		INFUSING
 	}
 
-    #endregion
+	#endregion
 
-    #region Awake Start Update
+	#region Awake Start Update
 
-    void Awake()
+	public void Awake()
     {
 		m_cypherBtns = new List<GameObject>();
 		m_artifactBtns = new List<GameObject>();
@@ -58,6 +58,15 @@ public class Infuser : MonoBehaviour {
 		m_cyphers = m_unlockSystem.cyphers;
 		m_activeCyphers = m_unlockSystem.activeCyphers;
 
+		// Instantiate the active artifact and cypher btns
+		//InstantiateArtifacts();
+		//InstantiateCyphers();
+
+		//UpdateViewportHeight();
+	}
+
+    private void Start()
+    {
 		// Instantiate the active artifact and cypher btns
 		InstantiateArtifacts();
 		InstantiateCyphers();

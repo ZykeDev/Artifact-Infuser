@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd66dc9636ba3e9499d72b2e955a8439, type: 2}
   gold: 0
   wood: 0
-  metal: 0
+  metal: 50
   leather: 0
   crystals: 0
   alpha: 0

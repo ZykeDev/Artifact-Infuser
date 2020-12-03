@@ -31,7 +31,7 @@ public class ArmoryHandler : MonoBehaviour {
 
 	private Cells instantiatedCells;
 
-	void Awake()
+	public void Awake()
     {
 		m_gameController = m_gameManager.GetComponent<GameController>();
 
