@@ -36,19 +36,19 @@ public class ArmoryTabHandler : MonoBehaviour {
         // Grab the Content-GameObjects from the ArmoryHandler component
         ArmoryHandler m_armoryHandler = GetComponent<ArmoryHandler>();
 
-        m_contentAll = m_armoryHandler.GetContent();
-        m_contentWeapons = m_armoryHandler.GetContent(ArtifactType.WEAPON);
-        m_contentArmor = m_armoryHandler.GetContent(ArtifactType.ARMOR);
+        m_contentAll =      m_armoryHandler.GetContent();
+        m_contentWeapons =  m_armoryHandler.GetContent(ArtifactType.WEAPON);
+        m_contentArmor =    m_armoryHandler.GetContent(ArtifactType.ARMOR);
         m_contentAccessories = m_armoryHandler.GetContent(ArtifactType.ACCESSORY);
-        m_contentAbyss = m_armoryHandler.GetContent(ArtifactType.ABYSS);
+        m_contentAbyss =    m_armoryHandler.GetContent(ArtifactType.ABYSS);
 
         m_artifactGridScrollRect = m_artifactGrid.GetComponent<ScrollRect>();
 
-        m_allBtn = m_allTabBtn.GetComponent<Button>();
-		m_weaponsBtn = m_weaponsTabBtn.GetComponent<Button>();
-		m_armorBtn = m_armorTabBtn.GetComponent<Button>();
+        m_allBtn =      m_allTabBtn.GetComponent<Button>();
+		m_weaponsBtn =  m_weaponsTabBtn.GetComponent<Button>();
+		m_armorBtn =    m_armorTabBtn.GetComponent<Button>();
 		m_accessoriesBtn = m_accessoriesTabBtn.GetComponent<Button>();
-		m_abyssBtn = m_abyssTabBtn.GetComponent<Button>();
+		m_abyssBtn =    m_abyssTabBtn.GetComponent<Button>();
 	}
 
     void Start()
