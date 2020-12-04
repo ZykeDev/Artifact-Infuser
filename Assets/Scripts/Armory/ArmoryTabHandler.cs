@@ -11,18 +11,21 @@ public class ArmoryTabHandler : MonoBehaviour {
 	private GameObject m_artifactGrid;
 
 	private ScrollRect m_artifactGridScrollRect;
-    private GameObject m_contentWeapons,
+    private GameObject m_contentAll,
+        m_contentWeapons,
         m_contentArmor, 
         m_contentAccessories, 
         m_contentAbyss;
 
     [SerializeField]
-	private GameObject m_weaponsTabBtn,
+    private GameObject m_allTabBtn,
+        m_weaponsTabBtn,
         m_armorTabBtn,
         m_accessoriesTabBtn,
         m_abyssTabBtn;
 
-	private Button m_weaponBtn, 
+    private Button m_allBtn,
+        m_weaponsBtn, 
         m_armorBtn, 
         m_accessoriesBtn,
         m_abyssBtn;
@@ -33,15 +36,16 @@ public class ArmoryTabHandler : MonoBehaviour {
         // Grab the Content-GameObjects from the ArmoryHandler component
         ArmoryHandler m_armoryHandler = GetComponent<ArmoryHandler>();
 
+        m_contentAll = m_armoryHandler.GetContent();
         m_contentWeapons = m_armoryHandler.GetContent(ArtifactType.WEAPON);
         m_contentArmor = m_armoryHandler.GetContent(ArtifactType.ARMOR);
         m_contentAccessories = m_armoryHandler.GetContent(ArtifactType.ACCESSORY);
         m_contentAbyss = m_armoryHandler.GetContent(ArtifactType.ABYSS);
 
+        m_artifactGridScrollRect = m_artifactGrid.GetComponent<ScrollRect>();
 
-        m_artifactGridScrollRect = m_artifactGrid.GetComponent<ScrollRect>(); 
-
-		m_weaponBtn = m_weaponsTabBtn.GetComponent<Button>();
+        m_allBtn = m_allTabBtn.GetComponent<Button>();
+		m_weaponsBtn = m_weaponsTabBtn.GetComponent<Button>();
 		m_armorBtn = m_armorTabBtn.GetComponent<Button>();
 		m_accessoriesBtn = m_accessoriesTabBtn.GetComponent<Button>();
 		m_abyssBtn = m_abyssTabBtn.GetComponent<Button>();
@@ -54,9 +58,10 @@ public class ArmoryTabHandler : MonoBehaviour {
 		
 		// Set defaults
 		m_currentTab = m_defaultTab; // TODO change this to save-state's last Tab
+        
+        GetBtn(m_currentTab).interactable = false;
+        GetContent(m_currentTab).SetActive(true);
 
-    	m_weaponBtn.interactable = false; // TODO make this change depending on the default loaded tab    	
-    	m_contentWeapons.SetActive(true);
 
     	m_artifactGridScrollRect.content = m_contentWeapons.GetComponent<RectTransform>();
 
@@ -64,25 +69,71 @@ public class ArmoryTabHandler : MonoBehaviour {
     }
 
 
-    public void SwitchTabToWeapons()
-    { 
-        SwitchTab(ArmoryTab.WEAPONS);
-    }
+    public void SwitchToAll() => SwitchTab(ArmoryTab.ALL);
+    public void SwitchTabToWeapons() => SwitchTab(ArmoryTab.WEAPONS);
+    public void SwitchTabToArmor() => SwitchTab(ArmoryTab.ARMOR);
+    public void SwitchTabToAccessories() => SwitchTab(ArmoryTab.ACCESSORIES);
+    public void SwitchTabToAbyss() => SwitchTab(ArmoryTab.ABYSS);
 
-    public void SwitchTabToArmor()
+
+    /// <summary>
+    /// Returns the Button object associated to the given tab
+    /// </summary>
+    /// <param name="tab"></param>
+    /// <returns></returns>
+    public Button GetBtn(ArmoryTab tab)
     {
-    	SwitchTab(ArmoryTab.ARMOR);
+        switch (tab)
+        {
+            case ArmoryTab.ALL:
+                return m_allBtn;
+
+            case ArmoryTab.WEAPONS:
+                return m_weaponsBtn;
+
+            case ArmoryTab.ARMOR:
+                return m_armorBtn;
+
+            case ArmoryTab.ACCESSORIES:
+                return m_accessoriesBtn;
+
+            case ArmoryTab.ABYSS:
+                return m_abyssBtn;
+
+            default:
+                return m_allBtn;
+        }
     }
 
-    public void SwitchTabToAccessories()
+    /// <summary>
+    /// Returns the Content object associated to the given tab
+    /// </summary>
+    /// <param name="tab"></param>
+    /// <returns></returns>
+    public GameObject GetContent(ArmoryTab tab)
     {
-    	SwitchTab(ArmoryTab.ACCESSORIES);
+        switch (tab)
+        {
+            case ArmoryTab.ALL:
+                return m_contentAll;
+
+            case ArmoryTab.WEAPONS:
+                return m_contentWeapons;
+
+            case ArmoryTab.ARMOR:
+                return m_contentArmor;
+
+            case ArmoryTab.ACCESSORIES:
+                return m_contentAccessories;
+
+            case ArmoryTab.ABYSS:
+                return m_contentAbyss;
+
+            default:
+                return m_contentAll;
+        }
     }
 
-    public void SwitchTabToAbyss()
-    { 
-    	SwitchTab(ArmoryTab.ABYSS);
-    }
 
     /// <summary>
     /// Switches the active Tab by changing the scrollview content.
@@ -100,8 +151,14 @@ public class ArmoryTabHandler : MonoBehaviour {
     	CloseAllTabs();
 
     	switch (tab) {
+            case ArmoryTab.ALL:
+                m_allBtn.interactable = false;
+                m_contentAll.SetActive(true);
+                m_artifactGridScrollRect.content = m_contentAll.GetComponent<RectTransform>();
+                break;
+
     		case ArmoryTab.WEAPONS:
-    			m_weaponBtn.interactable = false;
+    			m_weaponsBtn.interactable = false;
     			m_contentWeapons.SetActive(true);
     			m_artifactGridScrollRect.content = m_contentWeapons.GetComponent<RectTransform>();
     			break;
@@ -130,20 +187,20 @@ public class ArmoryTabHandler : MonoBehaviour {
     }
 
     private void CloseAllTabs() {
-    	m_contentWeapons.SetActive(false);
+        m_contentAll.SetActive(false);
+        m_contentWeapons.SetActive(false);
         m_contentArmor.SetActive(false);
         m_contentAccessories.SetActive(false);
         m_contentAbyss.SetActive(false);
     }
 
     private void SetAllTabBtnsInteractable() {
-	    m_weaponBtn.interactable = true;
+        m_allBtn.interactable = true;
+	    m_weaponsBtn.interactable = true;
 		m_armorBtn.interactable = true;
 		m_accessoriesBtn.interactable = true;
 		m_abyssBtn.interactable = true;
     }
-
-
 
 
 

@@ -11,7 +11,8 @@ public class ArmoryHandler : MonoBehaviour {
     [SerializeField] private ButtonHandler m_buttonHandler;
 
     [SerializeField]
-    private GameObject m_armoryContentWeapons, 
+    private GameObject m_armoryContentAll,
+        m_armoryContentWeapons, 
         m_armoryContentArmor, 
         m_armoryContentAccessories, 
         m_armoryContentAbyss;
@@ -23,6 +24,7 @@ public class ArmoryHandler : MonoBehaviour {
     /// Struct containing a pool of armory cells
     /// </summary>
 	struct Cells {
+        public List<GameObject> allCellsList;
 		public List<GameObject> weaponCellsList;
 		public List<GameObject> armorCellsList;
 		public List<GameObject> accessoryCellsList;
@@ -40,6 +42,7 @@ public class ArmoryHandler : MonoBehaviour {
         // Store the instantiated cells as lists inside a Cells struct
         instantiatedCells = new Cells
         {
+            allCellsList = new List<GameObject>(),
             weaponCellsList = new List<GameObject>(),
             armorCellsList = new List<GameObject>(),
             accessoryCellsList = new List<GameObject>(),
@@ -47,27 +50,19 @@ public class ArmoryHandler : MonoBehaviour {
         };
     }
 
-    void Start()
-    {
-    	PopulateGrids();
-    }
+    void Start() => PopulateGrids();
+    
 
     /// <summary>
     /// Updates the contents of every tab in the Armory.
     /// </summary>
-    public void UpdateContents()
-    {
-		PopulateGrids();
-    }
-
+    public void UpdateContents() => PopulateGrids();
 
     /// <summary>
     /// Updates the tab contents when it is focused on.
     /// </summary>
-    public void OnFocus()
-    {
-        PopulateGrids();
-    }
+    public void OnFocus() => PopulateGrids();
+    
 
 
     /// <summary>
@@ -78,8 +73,21 @@ public class ArmoryHandler : MonoBehaviour {
     	// First, clear the list of currently instantiated cells
     	DestroyAllCells();
 
-    	// Display the Artifacts in different tabs depending on their type
-    	foreach(ArtifactType type in System.Enum.GetValues(typeof(ArtifactType)))
+        // Display all artifacts in the All tab
+        int j = 0;
+        foreach (Artifact artifact in m_gameController.armory.GetArtifacts())
+        {
+            GameObject targetParent = m_armoryContentAll;
+            GameObject cell = CreateGridCell(artifact, targetParent, j);
+
+            // Add it to the corresponding pool
+            instantiatedCells.allCellsList.Add(cell);
+
+            j++;
+        }
+
+        // Display the Artifacts in different tabs depending on their type
+        foreach (ArtifactType type in System.Enum.GetValues(typeof(ArtifactType)))
         {
     		List<Artifact> filteredArtifacts = m_gameController.armory.FilterByType(type); 
 
@@ -171,7 +179,7 @@ public class ArmoryHandler : MonoBehaviour {
     			return m_armoryContentAbyss;
 
     		default:
-    			return m_armoryContentWeapons;    		
+    			return m_armoryContentAll;    		
     	}
     }
 
@@ -197,7 +205,7 @@ public class ArmoryHandler : MonoBehaviour {
     			return cells.abyssCellsList;
 
     		default:
-    			return cells.weaponCellsList;    		
+    			return cells.allCellsList;    		
     	}
     }
 
@@ -246,7 +254,10 @@ public class ArmoryHandler : MonoBehaviour {
             case ArtifactType.ABYSS:
                 return m_armoryContentAbyss;
             default:
-                return null;
+                return m_armoryContentAll;
         }
     }
+
+    public GameObject GetContent() => m_armoryContentAll;
+    
 }

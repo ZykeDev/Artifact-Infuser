@@ -45,6 +45,7 @@ public enum ArtifactType {
 }
 
 public enum ArmoryTab {
+	ALL,
 	WEAPONS,
 	ARMOR,
 	ACCESSORIES,
