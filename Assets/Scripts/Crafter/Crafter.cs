@@ -194,6 +194,7 @@ public class Crafter : MonoBehaviour {
 		
 		m_artifact.sprite = artifactSprite;
 		m_reverse.sprite = reverseSprite;
+		m_backdrop.transform.localScale = Vector3.one;
 	}
 
 	public void ClearSelection()
@@ -269,14 +270,7 @@ public class Crafter : MonoBehaviour {
 	{
 		m_progressbar.value = progress;
 
-
 		m_backdrop.transform.localScale = new Vector3(1f, (1 - progress), 1f);
-
-		//RectTransform rectTransform = m_backdrop.GetComponent<RectTransform>();
-
-		//rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 480 * progress);
-		//rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 480 * (1 - progress));
-		//rectTransform.ForceUpdateRectTransforms();
 	}
 
 
