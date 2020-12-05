@@ -44,7 +44,7 @@ public class UnlockSystem : MonoBehaviour {
     private WaitState m_waitState;
     
     
-    void Awake() {
+    public void Awake() {
         m_gameController = GetComponent<GameController>();
         m_requestSystem = GetComponent<RequestSystem>();
 

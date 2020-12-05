@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
 
 
         // The forced-awakes should always be the last thing to be called in this method
+        m_unlockSystem.Awake();
         m_gathering.Awake();
         m_crafterComp.Awake();
         m_infuserComp.Awake();

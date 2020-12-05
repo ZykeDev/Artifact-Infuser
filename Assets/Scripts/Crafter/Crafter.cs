@@ -15,7 +15,7 @@ public class Crafter : MonoBehaviour {
 	[SerializeField] private Slider m_progressbar;
 	[SerializeField] private Image m_artifact;
 	[SerializeField] private Image m_reverse;
-	[SerializeField] private GameObject m_backdrop;
+	[SerializeField] private Image m_backdrop;
 
 	[SerializeField] private GameObject m_blueprintSelectorContent;
 	[SerializeField] private GameObject m_blueprintBtnPref;
@@ -44,7 +44,7 @@ public class Crafter : MonoBehaviour {
 		// Make sure the silhouette is disabled at the start
 		m_artifact.enabled = false;
 		m_reverse.enabled = false;
-		m_backdrop.GetComponent<Image>().enabled = false;
+		m_backdrop.enabled = false;
 
 		m_blueprintBtns = new List<GameObject>();
 
@@ -185,7 +185,7 @@ public class Crafter : MonoBehaviour {
 		// Make sure the silhouette's image is enabled
 		m_artifact.enabled = true;
 		m_reverse.enabled = true;
-		m_backdrop.GetComponent<Image>().enabled = true;
+		m_backdrop.enabled = true;
 
 		// Render the artifact's silhouette in the ArtifactViewer
 		Blueprint bp = GetBlueprintWithID(m_selectedBlueprintID);
@@ -207,6 +207,8 @@ public class Crafter : MonoBehaviour {
 
 		// Remove the silhouette
 		m_artifact.enabled = false;
+		m_reverse.enabled = false;
+		m_backdrop.enabled = false;
 
 		// Deselect all buttons
 		foreach (GameObject bpb in m_blueprintBtns)

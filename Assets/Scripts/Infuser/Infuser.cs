@@ -131,8 +131,15 @@ public class Infuser : MonoBehaviour {
 		float offset = 15f;
 		int listIndex = 0;
 
+		List<int> visibleArtifactIDs = new List<int>();
+
 		foreach (Artifact art in m_gameController.armory.GetArtifacts())
 		{
+			// Ignore duplicates
+			if (visibleArtifactIDs.Contains(art.GetArtifactID())) continue;
+
+			visibleArtifactIDs.Add(art.GetArtifactID());
+
 			GameObject newArtifactBtn = Instantiate(m_artifactBtnPrefab,
 				new Vector2(0, 0),
 				Quaternion.identity,
@@ -165,7 +172,7 @@ public class Infuser : MonoBehaviour {
 
 			// Add the finished button to the list of instantiated buttons
 			m_artifactBtns.Add(newArtifactBtn);
-			
+
 			listIndex++;
 		}
 	}
@@ -232,7 +239,7 @@ public class Infuser : MonoBehaviour {
 			c.InitTooltipData();
 
 			// Don't show cyphers that are not active
-			if (!m_activeCyphers[currentID])
+			if (currentID >= m_activeCyphers.Length || !m_activeCyphers[currentID])
 			{
     			continue;
     		}
@@ -346,8 +353,6 @@ public class Infuser : MonoBehaviour {
 		m_progressbar.value = 0;
 
 		m_gameController.Infuse(m_selectedCypherID, m_selectedBaseArtifact, infusionTime);
-
-
 	}
 
 	public void UpdateInfusionProgress(float progress) {
