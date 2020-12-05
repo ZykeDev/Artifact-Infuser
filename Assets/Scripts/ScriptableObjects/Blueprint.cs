@@ -6,7 +6,7 @@ public class Blueprint : ScriptableObject {
 	[SerializeField] private int m_ID;
 	[SerializeField] private string m_artifactName;
 	[SerializeField] private ArtifactType m_type;
-	[SerializeField] private Sprite m_blueprintSprite, m_artifactSprite;
+	[SerializeField] private Sprite m_blueprintSprite, m_artifactSprite, m_reverseSprite;
 
 	[SerializeField] [Min(0)] private float m_craftingTime;
 	[SerializeField] private Rarity m_rarity;
@@ -45,6 +45,7 @@ public class Blueprint : ScriptableObject {
 	public ArtifactType GetArtifactType() => m_type;
 	public Sprite GetBlueprintSprite() => m_blueprintSprite;
 	public Sprite GetArtifactSprite() => m_artifactSprite;
+	public Sprite GetReverseSprite() => m_reverseSprite;
 	public float GetCraftingTime() => m_craftingTime;
 	public Rarity GetRarity() => m_rarity;
 	public int GetPrice() => m_price;

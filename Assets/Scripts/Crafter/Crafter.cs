@@ -13,7 +13,9 @@ public class Crafter : MonoBehaviour {
 
 	[Header("UI Elements")]
 	[SerializeField] private Slider m_progressbar;
-	[SerializeField] private Image m_artifactSilhouette;
+	[SerializeField] private Image m_artifact;
+	[SerializeField] private Image m_reverse;
+	[SerializeField] private GameObject m_backdrop;
 
 	[SerializeField] private GameObject m_blueprintSelectorContent;
 	[SerializeField] private GameObject m_blueprintBtnPref;
@@ -40,7 +42,9 @@ public class Crafter : MonoBehaviour {
     void Start()
 	{
 		// Make sure the silhouette is disabled at the start
-		m_artifactSilhouette.enabled = false;
+		m_artifact.enabled = false;
+		m_reverse.enabled = false;
+		m_backdrop.GetComponent<Image>().enabled = false;
 
 		m_blueprintBtns = new List<GameObject>();
 
@@ -179,11 +183,17 @@ public class Crafter : MonoBehaviour {
 		m_buttonHandler.EnableCraftBtn();
 
 		// Make sure the silhouette's image is enabled
-		if (!m_artifactSilhouette.enabled) m_artifactSilhouette.enabled = true;
+		m_artifact.enabled = true;
+		m_reverse.enabled = true;
+		m_backdrop.GetComponent<Image>().enabled = true;
 
 		// Render the artifact's silhouette in the ArtifactViewer
-		Sprite artifactSprite = GetBlueprintWithID(m_selectedBlueprintID).GetArtifactSprite();
-		m_artifactSilhouette.sprite = artifactSprite;
+		Blueprint bp = GetBlueprintWithID(m_selectedBlueprintID);
+		Sprite artifactSprite = bp.GetArtifactSprite();
+		Sprite reverseSprite = bp.GetReverseSprite();
+		
+		m_artifact.sprite = artifactSprite;
+		m_reverse.sprite = reverseSprite;
 	}
 
 	public void ClearSelection()
@@ -195,7 +205,7 @@ public class Crafter : MonoBehaviour {
 
 
 		// Remove the silhouette
-		m_artifactSilhouette.enabled = false;
+		m_artifact.enabled = false;
 
 		// Deselect all buttons
 		foreach (GameObject bpb in m_blueprintBtns)
@@ -258,6 +268,15 @@ public class Crafter : MonoBehaviour {
 	public void UpdateCraftingProgress(float progress)
 	{
 		m_progressbar.value = progress;
+
+
+		m_backdrop.transform.localScale = new Vector3(1f, (1 - progress), 1f);
+
+		//RectTransform rectTransform = m_backdrop.GetComponent<RectTransform>();
+
+		//rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 480 * progress);
+		//rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 480 * (1 - progress));
+		//rectTransform.ForceUpdateRectTransforms();
 	}
 
 
