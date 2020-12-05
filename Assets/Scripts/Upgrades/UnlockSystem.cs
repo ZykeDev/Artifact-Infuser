@@ -22,10 +22,11 @@ public class UnlockSystem : MonoBehaviour {
         SETUP,              // Setting up the game/scene
         START,              // The very beginning of the game
         FIRST_GATHER,
-        FIRST_BLUEPRINT,
         FIRST_ARTIFACT, 
         FIRST_SELL,
         FIRST_REQUEST,
+        FIRST_UPGRADE,
+        FIRST_INFUSION,
         _
     }
     public enum WaitState
@@ -35,6 +36,8 @@ public class UnlockSystem : MonoBehaviour {
         CRAFT_SWORD,
         SELL_SWORD,
         REQUEST,
+        UPGRADE,
+        INFUSION
     }
 
     private Progress m_progress;
@@ -84,45 +87,64 @@ public class UnlockSystem : MonoBehaviour {
                 break;
 
             case Progress.FIRST_GATHER:
+                m_gameController.AddNewline();
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "The warehouse is kind of empty. It's time to go out and Gather some resources.");
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "From the <#FFA100>[Gathering]</color> tab on the left, select the <#FFA100>[Woods]</color> and click <#FFA100>[Gather Resources]</color>");
                 
                 m_waitState = WaitState.GATHER;
                 break;
 
-            case Progress.FIRST_BLUEPRINT:
-                NextState();
-                break;
-
             case Progress.FIRST_ARTIFACT:
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "Try crafting a <#FFA100>[Simple Sword]</color> from the <#FFA100>[Forge]</color> menu. You should have sufficient resources.");
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "Select the <#FFA100>[Simple Sword]</color> blueprint from the list on the left. Then click the <#FFA100>[Craft]</color> button.");
-
                 m_gameController.AddNewline();
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Try crafting a <#FFA100>[Simple Sword]</color> from the <#FFA100>[Forge]</color> menu. You should have sufficient resources now.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Select the <#FFA100>[Simple Sword Blueprint]</color> from the list on the left. Then click the <#FFA100>[Craft]</color> button.");
 
                 m_waitState = WaitState.CRAFT_SWORD;
                 break;
 
             case Progress.FIRST_SELL:
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "The newly created artifact has been deposited in the <#FFA100>[Armory]</color>.");
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "Select it from there and <#FFA100>[Sell it]</color> to your first costumer.");
-
                 m_gameController.AddNewline();
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "The newly created artifact has been deposited in the <#FFA100>[Armory]</color>.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Select it from there and <#FFA100>[Sell it]</color>.");
 
                 m_waitState = WaitState.SELL_SWORD;
                 break;
 
             case Progress.FIRST_REQUEST:
+                m_gameController.AddNewline();
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Your old firend Steve has come to commission a specific Artifact.");
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Requests can be seen from the <#FFA100>[Commissions]</color> panel above.");
-
-                m_gameController.AddNewline();
 
                 m_requestSystem.AddFirstRequest();
                 m_waitState = WaitState.REQUEST;
                 break;
 
+            case Progress.FIRST_UPGRADE:
+                m_gameController.AddNewline();
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Improve your shop and your crafting skills from the <#FFA100>[Upgrades]</color> menu.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Gather enough resources to buy your first Upgrade.");
+
+
+                m_waitState = WaitState.UPGRADE;
+                break;
+
+            case Progress.FIRST_INFUSION:
+                m_gameController.AddNewline();
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "You just unlocked <#FFA100>[Infusion]</color>!");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Infusion can add magical properties to an artifact by imbuing it with the power of Runes.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Just like blueprints, different abilities require the use of different Cyphers.");
+
+                m_gameController.AddNewline();
+
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Infuse your first artifact with the <#FFA100>[Higher Power Cypher]</color>.");
+
+                
+
+                m_waitState = WaitState.INFUSION;
+                break;
+
             case Progress._:
+                print("done");
                 break;
 
             default:
@@ -185,5 +207,43 @@ public class UnlockSystem : MonoBehaviour {
                 break;
         }
     }
+    
+    public void Notify(Upgrade upgrade)
+    {
+        switch (upgrade.GetID())
+        {
+            case 0: // ID of the first upgrade
+                Notify(WaitState.UPGRADE);
+                break;
 
+            default:
+                break;
+        }
+    }
+
+    public void Notify(Cypher cypher)
+    {
+        switch (cypher.GetID())
+        {
+            case 0: // ID of the first cypher
+                Notify(WaitState.INFUSION);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void Notify(Request request)
+    {
+        switch (request.GetArtifactID())
+        {
+            case 0: // ID of the artifact in the first request
+                Notify(WaitState.REQUEST);
+                break;
+
+            default:
+                break;
+        }
+    }
 }

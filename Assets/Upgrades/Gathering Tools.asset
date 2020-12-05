@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Gathering Tools
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
+  ID: 4
   requirements:
   - {fileID: 11400000, guid: e9c136c5541f636458ca167f7b22f6cf, type: 2}
   gold: 0

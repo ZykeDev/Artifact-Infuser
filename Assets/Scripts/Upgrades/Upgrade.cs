@@ -4,6 +4,7 @@ using System.Linq;
 
 public class Upgrade
 {
+    private int m_ID;
     private Sprite m_sprite;
     private Effect m_effect;
     [SerializeField, TextArea] private string m_dex;
@@ -26,6 +27,7 @@ public class Upgrade
         data.Init();
         m_originalData = data;
 
+        m_ID = data.ID;
         m_requirements = data.requirements.ToList();
         m_sprite = data.sprite;
         m_unlocked = data.unlocked;
@@ -66,6 +68,8 @@ public class Upgrade
 
     public void Unlock() => m_unlocked = true;
     public void Buy() => m_bought = true;
+
+    public int GetID() => m_ID;
     public bool GetUnlocked() => m_unlocked;
     public bool GetBought() => m_bought;
     public Sprite GetSprite() => m_sprite;

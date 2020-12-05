@@ -165,6 +165,7 @@ public class RequestSystem : MonoBehaviour
         int reward = request.GetReward();
 
         RemoveRequest(request);
+        m_unlockSystem.Notify(request);
         m_gameController.Sell(artifact, reward);
     }
 

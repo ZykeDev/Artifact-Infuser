@@ -4,6 +4,7 @@
 public class UpgradeData : ScriptableObject {
 
     [SerializeField] public Sprite sprite;
+    [SerializeField] public int ID;
 
     [Header("Upgrade costs")]
     [SerializeField] public UpgradeData[] requirements;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Leather Woroker
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 91a8fd979351a784289c93678874fa20, type: 3}
+  ID: 2
   requirements:
   - {fileID: 11400000, guid: e9c136c5541f636458ca167f7b22f6cf, type: 2}
   - {fileID: 11400000, guid: 7da32b2b18aa55c49a6c6f246ea7ef22, type: 2}

@@ -5,6 +5,7 @@ public class Shop : MonoBehaviour
 {
     [Header("Script References")]
     [SerializeField] protected GameController m_gameController;
+    [SerializeField] protected UnlockSystem m_unlockSystem;
     [SerializeField] protected Autosell m_autosell;
     [SerializeField] protected DialogHandler m_dialog;
     [SerializeField] protected Upgrades m_upgrades;
@@ -78,6 +79,9 @@ public class Shop : MonoBehaviour
             m_gameController.GainGold(goldGained);
 
             m_dialog.Sold(artifactName, goldGained);
+
+            // Notify the UnlockSystem in case selling this artifact completes a quest
+            m_unlockSystem.NotifySell(artifact);
         }
     }
 
@@ -97,7 +101,9 @@ public class Shop : MonoBehaviour
             m_gameController.GainGold(goldGained);
 
             m_dialog.Sold(artifactName, goldGained);
-            
+
+            // Notify the UnlockSystem in case selling this artifact completes a quest
+            m_unlockSystem.NotifySell(m_sellingArtifact);
 
             m_sellingArtifact = null;
         }
@@ -107,7 +113,6 @@ public class Shop : MonoBehaviour
     public void PromptSell(Artifact artifact)
     {
         m_sellingArtifact = artifact;
-        print("sellintgArt has been set");
     }
 
     public void AddNewline() => m_dialog.AddNewline();
@@ -127,11 +132,5 @@ public class Shop : MonoBehaviour
 
     #endregion
 
-
-    #region Getters
-
-    public Artifact GetSellingArtifact() => m_sellingArtifact;
-
-    #endregion
 
 }

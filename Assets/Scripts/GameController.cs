@@ -135,6 +135,8 @@ public class GameController : MonoBehaviour {
         // Add the Artifact to the Armory
         AddNewArtifact(newArtifact);
 
+        m_unlockSystem.Notify(cypher);
+
         m_infuserComp.FinishInfusing();
     }
 
@@ -146,37 +148,13 @@ public class GameController : MonoBehaviour {
     public void Sell(List<Artifact> artifacts)
     {
         if (artifacts == null || artifacts.Count == 0) return;
-
-        foreach (Artifact artifact in artifacts)
-        {
-            m_unlockSystem.NotifySell(artifact);
-        }
         
         m_shop.Sell(artifacts);
     }
 
-    /* Deprecated
-    public void Sell(Artifact artifact)
-    {
-        List<Artifact> artifactList = new List<Artifact>();
-        artifactList.Add(artifact);
-
-        Sell(artifactList);
-    }*/
-
-    public void Sell(Artifact artifact, int reward)
-    {
-        // Notify the UnlockSystem in case selling this artifact completes a quest
-        m_unlockSystem.NotifySell(artifact);
-        m_shop.Sell(artifact, reward);
-    }
-
-    public void Sell()
-    {
-        // Notify the UnlockSystem in case selling this artifact completes a quest
-        m_unlockSystem.NotifySell(m_shop.GetSellingArtifact());
-        m_shop.Sell();
-    }
+   public void Sell(Artifact artifact, int reward) => m_shop.Sell(artifact, reward);
+   public void Sell() => m_shop.Sell();
+    
 
     #endregion
 

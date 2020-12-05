@@ -376,8 +376,6 @@ public class Infuser : MonoBehaviour {
     	// Change the Infuse btn to the "Infuse" btn
 		m_buttonHandler.SawpStopWithInfuse();
 
-		// Show confirmation window (if this is the first artifact of its kind) TODO
-		// -- 
 	}
 
 

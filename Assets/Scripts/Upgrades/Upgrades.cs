@@ -5,6 +5,7 @@ using UnityEngine;
 public class Upgrades : MonoBehaviour
 {
     [SerializeField] private GameController m_gameController;  
+    [SerializeField] private UnlockSystem m_unlockSystem;  
 
     private List<Upgrade> m_upgrades; // List of all upgrades (maybe make this into an upgrade DB?)
     public List<Upgrade> boughtUpgrades;
@@ -47,6 +48,7 @@ public class Upgrades : MonoBehaviour
         {
             if (m_gameController.inventory.PayForUpgrade(upgrade))
             {
+                m_unlockSystem.Notify(upgrade);
                 upgrade.Buy();
                 boughtUpgrades.Add(upgrade);
                 m_gameController.UpdateResourceUILoss(upgrade); // TODO remove once the ResUI takes care of this on update

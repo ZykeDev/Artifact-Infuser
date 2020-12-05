@@ -1027,6 +1027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gameController: {fileID: 271865951}
+  m_unlockSystem: {fileID: 271865953}
 --- !u!1 &100087819
 GameObject:
   m_ObjectHideFlags: 0
@@ -7903,7 +7904,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99967945
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11623,7 +11624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -473, y: -382.81564}
+  m_AnchoredPosition: {x: -473, y: -382.81558}
   m_SizeDelta: {x: 946, y: 750}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1622592414
@@ -12118,8 +12119,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829449435}
   m_HandleRect: {fileID: 829449434}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999918
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13738,6 +13739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gameController: {fileID: 271865951}
+  m_unlockSystem: {fileID: 271865953}
   m_autosell: {fileID: 1102915183}
   m_dialog: {fileID: 674502420}
   m_upgrades: {fileID: 76265661}

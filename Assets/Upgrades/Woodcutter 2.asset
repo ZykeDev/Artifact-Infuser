@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Woodcutter 2
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 2b4c083162d444542bcfc795df634a1e, type: 3}
+  ID: 5
   requirements:
   - {fileID: 11400000, guid: 2ad87fbef9a37574cb9360a1fbe013b4, type: 2}
   gold: 30
