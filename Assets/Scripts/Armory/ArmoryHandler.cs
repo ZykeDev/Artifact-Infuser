@@ -217,7 +217,8 @@ public class ArmoryHandler : MonoBehaviour {
     /// Destroys every GameObject in instantiatedCells and Clears the list.
     /// </summary>
     private void DestroyAllCells() {
-    	DestroyCells(instantiatedCells.weaponCellsList);
+        DestroyCells(instantiatedCells.allCellsList);
+        DestroyCells(instantiatedCells.weaponCellsList);
     	DestroyCells(instantiatedCells.armorCellsList);
     	DestroyCells(instantiatedCells.accessoryCellsList);
     	DestroyCells(instantiatedCells.abyssCellsList);    	

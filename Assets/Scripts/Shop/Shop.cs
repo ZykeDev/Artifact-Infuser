@@ -34,10 +34,9 @@ public class Shop : MonoBehaviour
     /// <param name="artifacts"></param>
     public void Sell(List<Artifact> artifacts)
     {
+        if (artifacts == null || artifacts.Count == 0) return;
+
         int numberOfArtifacts = artifacts.Count;
-
-        if (numberOfArtifacts == 0) return;
-
         int total = 0;
 
         // Using .ToArray() to have a copy of the current artifacts before they are deleated
@@ -108,7 +107,7 @@ public class Shop : MonoBehaviour
     public void PromptSell(Artifact artifact)
     {
         m_sellingArtifact = artifact;
-
+        print("sellintgArt has been set");
     }
 
     public void AddNewline() => m_dialog.AddNewline();
@@ -125,6 +124,13 @@ public class Shop : MonoBehaviour
 
     public void EnableAutosell() => m_autosell.Enable();
     public void DisableAutosell() => m_autosell.Disable();
+
+    #endregion
+
+
+    #region Getters
+
+    public Artifact GetSellingArtifact() => m_sellingArtifact;
 
     #endregion
 

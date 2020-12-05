@@ -58,7 +58,7 @@ public class ButtonHandler : MonoBehaviour
             {
                 m_isWaitingForConfirm = false;
                 m_promptSystem.ResetConfirm();
-                m_shop.Sell();
+                m_gameController.Sell();
             }
         }
     }
