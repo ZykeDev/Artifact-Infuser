@@ -11,6 +11,8 @@ public class Artifact {
 
 	private readonly int m_price;
 
+
+	private bool m_isInfused;
 	// TODO how do I encode abilities and properties? a list of IDs?
 	private List<int> m_properties;
 	private List<int> m_abilities;
@@ -24,6 +26,7 @@ public class Artifact {
 		m_sprite = artifactSprite;
 		m_rarity = rarity;
 		m_price = price;
+		m_isInfused = false;
 
 		m_tooltipData.title = name;
 		m_tooltipData.dex = type.ToString();
@@ -55,6 +58,8 @@ public class Artifact {
 
 		m_tooltipData.title = m_name;
 		m_tooltipData.dex = m_type.ToString();
+
+		m_isInfused = true;
 	}
 
 
@@ -66,6 +71,8 @@ public class Artifact {
 	public Rarity GetRarity() => m_rarity;
 	public int GetPrice() => m_price;
 	public TooltipData GetTooltipData() => m_tooltipData;
+
+	public bool IsInfused() => m_isInfused;
     
 
 	/// <summary>

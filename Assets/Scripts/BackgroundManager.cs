@@ -146,7 +146,6 @@ public class BackgroundManager : MonoBehaviour
 
     public void FinishInfusing(Artifact baseArtifact)
     {
-        //if (m_infusionCoroutine == null) return;
         if (baseArtifact == null)
         {
 #if UNITY_EDITOR
@@ -170,7 +169,7 @@ public class BackgroundManager : MonoBehaviour
     }
 
 
-    // Crafting coroutine
+    // Infusion coroutine
     private IEnumerator Infusing(float time, Action callback)
     {
         if (time == 0) time = m_minInfusionTime;

@@ -16,7 +16,9 @@ public class Infuser : MonoBehaviour {
 	[SerializeField] private GameObject m_cypherSelector;
 
 	[SerializeField] private Slider m_progressbar;
+	[SerializeField] private Image m_artifactSprite;
 
+	
 	[SerializeField]
 	private GameObject m_cypherSelectorContent, m_artifactSelectorContent;
 
@@ -57,21 +59,17 @@ public class Infuser : MonoBehaviour {
 
 		m_cyphers = m_unlockSystem.cyphers;
 		m_activeCyphers = m_unlockSystem.activeCyphers;
-
-		// Instantiate the active artifact and cypher btns
-		//InstantiateArtifacts();
-		//InstantiateCyphers();
-
-		//UpdateViewportHeight();
 	}
 
-    private void Start()
+    void Start()
     {
 		// Instantiate the active artifact and cypher btns
 		InstantiateArtifacts();
 		InstantiateCyphers();
 
 		UpdateViewportHeight();
+
+		m_artifactSprite.enabled = false;
 	}
 
     #endregion
@@ -105,17 +103,28 @@ public class Infuser : MonoBehaviour {
             case InfuserState.SELECTING_CYPHER:
 				if (nextState == InfuserState.SELECTING_ARTIFACT)
 				{
-					m_cypherSelectorContent.SetActive(false);
+					m_cypherSelector.SetActive(false);
 
 					UpdateActiveArtifacts();
 
-					m_artifactSelectorContent.SetActive(true);
+					m_artifactSelector.SetActive(true);
 					
 					m_infuserState = nextState;
 				}
 				break;
             case InfuserState.INFUSING:
+				if (nextState == InfuserState.SELECTING_ARTIFACT)
+                {
+					m_cypherSelector.SetActive(false);
+
+					UpdateActiveArtifacts();
+
+					m_artifactSelector.SetActive(true);
+
+					m_infuserState = nextState;
+				}
                 break;
+
             default:
                 break;
         }
@@ -135,8 +144,11 @@ public class Infuser : MonoBehaviour {
 
 		foreach (Artifact art in m_gameController.armory.GetArtifacts())
 		{
-			// Ignore duplicates
-			if (visibleArtifactIDs.Contains(art.GetArtifactID())) continue;
+			// Ignore duplicates and already infused artifacts
+			bool isDuplicate = visibleArtifactIDs.Contains(art.GetArtifactID());
+			bool isInfused = art.IsInfused();
+
+			if (isDuplicate || isInfused) continue;
 
 			visibleArtifactIDs.Add(art.GetArtifactID());
 
@@ -162,6 +174,7 @@ public class Infuser : MonoBehaviour {
 			{
 				tooltipComp.HideTooltip();
 				m_selectedBaseArtifact = art;
+				m_artifactSprite.enabled = true;
 				ChangeState(InfuserState.SELECTING_CYPHER);
 			});
 
@@ -318,9 +331,9 @@ public class Infuser : MonoBehaviour {
         // Activate the Craft button
         m_buttonHandler.ActivateInfuseBtn();
 
-		// Render the artifact's on the rune table
-        // TODO
-
+		// Render the artifact on the rune table
+		m_artifactSprite.sprite = m_selectedBaseArtifact.GetSprite();
+		m_artifactSprite.enabled = true;
 	}
 
 
@@ -328,7 +341,6 @@ public class Infuser : MonoBehaviour {
 	public void Infuse() {
 		// Check if there is a cypher selected
 		if (m_selectedCypherID < 0) return;
-
 
 		Cypher cypher = GetCypherWithID(m_selectedCypherID);
 
@@ -344,9 +356,10 @@ public class Infuser : MonoBehaviour {
 		// Remove the consumed artifact
 		m_gameController.RemoveArtifact(m_selectedBaseArtifact);
 
-
 		// Change the Infuse btn to the "Stop Infusing" btn
 		m_buttonHandler.SawpInfuseWithStop();
+
+		m_infuserState = InfuserState.INFUSING;
 
 		// Start the infusing timer coroutine
 		float infusionTime = cypher.GetInfusionTime();
@@ -355,8 +368,22 @@ public class Infuser : MonoBehaviour {
 		m_gameController.Infuse(m_selectedCypherID, m_selectedBaseArtifact, infusionTime);
 	}
 
-	public void UpdateInfusionProgress(float progress) {
+	/// <summary>
+	/// Updates the progress bar and the color lerp of the artifact sprite
+	/// </summary>
+	/// <param name="progress"></param>
+	public void UpdateInfusionProgress(float progress)
+	{
 		m_progressbar.value = progress;
+
+		if (progress != 0) 
+		{ 
+			float r = Mathf.Lerp(m_artifactSprite.color.r, 0.6f,  progress);
+			float g = Mathf.Lerp(m_artifactSprite.color.g, 0.95f, progress);
+			float b = Mathf.Lerp(m_artifactSprite.color.b, 0.56f, progress);
+			
+			m_artifactSprite.color = new Color(r, g, b);
+		}
 	}
 
 
@@ -367,20 +394,24 @@ public class Infuser : MonoBehaviour {
     	// Reset the progress bar
     	UpdateInfusionProgress(0);
 
-    	// Change the Infuse btn to the "Infuse" btn
+		m_artifactSprite.enabled = false;
+
+		// Change the Infuse btn to the "Infuse" btn
 		m_buttonHandler.SawpStopWithInfuse();
 		
 		RefundResources();
 	}
 
 
-	// Upon compleation, show the new Artifact and add it to the armory
 	public void FinishInfusing() {
-    	UpdateInfusionProgress(0); // Needed?
+    	UpdateInfusionProgress(0);
 
-    	// Change the Infuse btn to the "Infuse" btn
+		m_artifactSprite.enabled = false;
+
+		// Change the Infuse btn to the "Infuse" btn
 		m_buttonHandler.SawpStopWithInfuse();
 
+		ChangeState(InfuserState.SELECTING_ARTIFACT);
 	}
 
 
