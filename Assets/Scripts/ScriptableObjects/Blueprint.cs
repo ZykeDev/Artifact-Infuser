@@ -95,3 +95,5 @@ public struct RequiredResources
 		this.crystals = crystals;
 	}
 }
+
+

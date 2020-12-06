@@ -1,4 +1,6 @@
-﻿public enum ResourceType {
+﻿using System.Collections.Generic;
+
+public enum ResourceType {
 	WOOD,
 	METAL,
 	LEATHER,
@@ -25,6 +27,7 @@ public enum Rarity
 	ABYSSAL,
 	IMMORTAL
 }
+
 
 
 public enum Tab {

@@ -209,7 +209,7 @@ public class Infuser : MonoBehaviour {
 			tooltipComp.SetTooltipData(art.GetTooltipData());
 
 			// Add the text and the sprite to the button
-			graphicComp.SetData(art.GetName(), art.GetSprite());
+			graphicComp.SetData(art.GetName(), art.GetSprite(), art.GetRarity());
 
 			// Add the finished button to the list of instantiated buttons
 			m_artifactBtns.Add(newArtifactBtn);
@@ -322,7 +322,7 @@ public class Infuser : MonoBehaviour {
 			tooltipComp.SetTooltipData(c.GetTooltipData());
 
 			// Add the text and the sprite to the button
-			graphicComp.SetData(c.GetName(), c.GetCypherSprite());
+			graphicComp.SetData(c.GetName(), c.GetCypherSprite(), c.GetRarity());
 
 
 	    	// Add the finished button to the list of instantiated buttons

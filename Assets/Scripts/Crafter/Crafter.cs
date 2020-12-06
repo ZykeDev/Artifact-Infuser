@@ -120,7 +120,7 @@ public class Crafter : MonoBehaviour {
 			newBlueprint.GetComponent<TooltipTrigger>().SetTooltipData(bp.GetTooltipData());
 
 			// Add the text and the sprite to the button
-			newBlueprint.GetComponent<ButtonGraphic>().SetData(bp.GetName(), bp.GetBlueprintSprite());
+			newBlueprint.GetComponent<ButtonGraphic>().SetData(bp.GetName(), bp.GetBlueprintSprite(), bp.GetRarity());
 
 	    	// Add the finished button to the list of instantiated buttons
 	    	m_blueprintBtns.Add(newBlueprint);
