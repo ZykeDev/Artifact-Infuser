@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ID: 1
   m_artifactName: Simple Chestplate
-  m_type: 1
+  m_type: 2
   m_blueprintSprite: {fileID: 21300000, guid: 58d390b247a1f974ab2878a1c16b00d0, type: 3}
   m_artifactSprite: {fileID: 21300000, guid: e34389ead8c37404f9a9c19fc95112aa, type: 3}
   m_reverseSprite: {fileID: 21300000, guid: b0e52b8b381ba2e4facd219647edd948, type: 3}

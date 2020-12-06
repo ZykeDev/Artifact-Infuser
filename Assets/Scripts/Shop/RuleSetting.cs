@@ -88,7 +88,6 @@ public class RuleSetting : MonoBehaviour
     /// <summary>
     /// Adds an option for every enum record. Changes depending on the given type.
     /// </summary>
-    /// <param name="autosellType"></param>
     private void PopulateChoiceDropdown() 
     {
         List<string> options = new List<string>();
@@ -106,6 +105,9 @@ public class RuleSetting : MonoBehaviour
             case AutosellType.TYPE:
                 foreach (ArtifactType artifactType in Enum.GetValues(typeof(ArtifactType)))
                 {
+                    // Ignore ALL
+                    if (artifactType == ArtifactType.ALL) continue;
+
                     options.Add(artifactType.ToString());
                 }
 

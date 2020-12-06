@@ -89,6 +89,9 @@ public class ArmoryHandler : MonoBehaviour {
         // Display the Artifacts in different tabs depending on their type
         foreach (ArtifactType type in System.Enum.GetValues(typeof(ArtifactType)))
         {
+            // Ignore the ALL tab, as it's already beeing populated earlier
+            if (type == ArtifactType.ALL) continue;
+
     		List<Artifact> filteredArtifacts = m_gameController.armory.FilterByType(type); 
 
     		int i = 0;

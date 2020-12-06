@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ID: 1
   m_cypherName: Higher Power
-  m_allowedTypes: 0000000002000000
+  m_allowedTypes: 0100000003000000
   m_cypherSprite: {fileID: 0}
   m_artifactSprite: {fileID: 0}
   m_infusionTime: 0
@@ -22,5 +22,5 @@ MonoBehaviour:
   m_price: 0
   m_alphaRune: 0
   m_novaRune: 0
-  m_gradientRune: 0
+  m_prismaRune: 0
   m_tooltipDex: Increase the offensive capabilities of a weapon

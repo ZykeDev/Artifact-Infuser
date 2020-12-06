@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,15 +16,20 @@ public class Infuser : MonoBehaviour {
 	[SerializeField] private GameObject m_artifactSelector;
 	[SerializeField] private GameObject m_cypherSelector;
 
-	[SerializeField] private Slider m_progressbar;
-	[SerializeField] private Image m_artifactSprite;
-
-	
 	[SerializeField]
 	private GameObject m_cypherSelectorContent, m_artifactSelectorContent;
 
+	[Header("Selection")]
+	[SerializeField] private TMP_Dropdown m_artifactDropdown;
+
+	[Header("Progress")]
+	[SerializeField] private Slider m_progressbar;
+	[SerializeField] private Image m_artifactSprite;
+
 	[Header("Prefabs")]
-	[SerializeField] private GameObject m_cypherBtnPref, m_artifactBtnPrefab;
+	[SerializeField] private GameObject m_cypherBtnPref;
+	[SerializeField] private GameObject m_artifactBtnPrefab;
+
 
     private List<GameObject> m_cypherBtns, m_artifactBtns;
     private List<Cypher> m_cyphers;
@@ -64,7 +70,7 @@ public class Infuser : MonoBehaviour {
     void Start()
     {
 		// Instantiate the active artifact btns
-		InstantiateArtifacts();
+		InstantiateArtifacts((ArtifactType)m_artifactDropdown.value);
 
 		UpdateViewportHeight();
 
@@ -108,6 +114,7 @@ public class Infuser : MonoBehaviour {
 					m_infuserState = nextState;
 				}
                 break;
+
             case InfuserState.SELECTING_CYPHER:
 				if (nextState == InfuserState.SELECTING_ARTIFACT)
 				{
@@ -121,6 +128,7 @@ public class Infuser : MonoBehaviour {
 					m_infuserState = nextState;
 				}
 				break;
+
             case InfuserState.INFUSING:
 				if (nextState == InfuserState.SELECTING_ARTIFACT)
                 {
@@ -145,7 +153,7 @@ public class Infuser : MonoBehaviour {
 	/// <summary>
 	/// Instantiate all availabe artifacts as buttons
 	/// </summary>
-	private void InstantiateArtifacts()
+	private void InstantiateArtifacts(ArtifactType filter)
     {
 		// Button's offset position from the sides
 		float offset = 15f;
@@ -155,6 +163,15 @@ public class Infuser : MonoBehaviour {
 
 		foreach (Artifact art in m_gameController.armory.GetArtifacts())
 		{
+			// Ignore if the current filter is different
+			if (filter != ArtifactType.ALL)
+            {
+                if (art.GetArtifactType() != filter)
+                {
+					continue;
+                }
+            }
+            
 			// Ignore duplicates and already infused artifacts
 			bool isDuplicate = visibleArtifactIDs.Contains(art.GetArtifactID());
 			bool isInfused = art.IsInfused();
@@ -185,9 +202,6 @@ public class Infuser : MonoBehaviour {
 			{
 				tooltipComp.HideTooltip();
 				m_selectedBaseArtifact = art;
-				print("selected: " + m_selectedBaseArtifact);
-
-				
 
 				ChangeState(InfuserState.SELECTING_CYPHER);
 			});
@@ -223,8 +237,12 @@ public class Infuser : MonoBehaviour {
 			m_artifactBtns.Clear();
         }
 
-		InstantiateArtifacts();
+		InstantiateArtifacts((ArtifactType)m_artifactDropdown.value);
 	}
+
+
+	public void OnArtifactDropdownChange() => UpdateActiveArtifacts();
+
 
 
 	/// <summary>
@@ -257,7 +275,7 @@ public class Infuser : MonoBehaviour {
 
 		// Button's offset position from the sides
 		float offset = 15f;
-		int i = 0;
+		int listIndex = 0;
 
 		foreach (Cypher c in m_cyphers)
 		{		
@@ -286,7 +304,7 @@ public class Infuser : MonoBehaviour {
 	    	if (m_btnHeight == 0) m_btnHeight = height;
 
 			// Correctly position the new button. Use its ID as a vertical index
-			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * i));
+			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * listIndex));
 			newCypher.name = "Cypher Btn " + currentID;
 
 			Button buttonComp = newCypher.GetComponent<Button>();
@@ -310,7 +328,7 @@ public class Infuser : MonoBehaviour {
 	    	// Add the finished button to the list of instantiated buttons
 	    	m_cypherBtns.Add(newCypher);
 
-			i++;
+			listIndex++;
     	}
     }
 
@@ -455,8 +473,13 @@ public class Infuser : MonoBehaviour {
 		m_refund = new RequiredRunes();
     }
 
-    // Returns the cypher with the corresponding ID from the cyphers list. Else returns Null.
-    public Cypher GetCypherWithID(int ID) {
+
+	/// <summary>
+	/// Returns the cypher with the corresponding ID from the cyphers list. Else returns Null.
+	/// </summary>
+	/// <param name="ID"></param>
+	/// <returns></returns>
+	public Cypher GetCypherWithID(int ID) {
     	foreach(Cypher c in m_cyphers) {
     		if (c.GetID() == ID) {
     			return c;

@@ -32,12 +32,13 @@ public enum Tab {
 	CRAFTER,
 	INFUSER,
 	ARMORY, 
-	UPGRADES // TODO change name to somthing like R&D lab
+	UPGRADES
 };
 
 
 
 public enum ArtifactType {
+	ALL,
 	WEAPON,
 	ARMOR,
 	ACCESSORY,

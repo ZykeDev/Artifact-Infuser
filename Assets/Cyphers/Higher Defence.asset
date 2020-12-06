@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ID: 0
   m_cypherName: Higher Defence
-  m_allowedTypes: 0100000002000000
+  m_allowedTypes: 0200000003000000
   m_cypherSprite: {fileID: 0}
   m_artifactSprite: {fileID: 0}
   m_infusionTime: 0
@@ -22,5 +22,5 @@ MonoBehaviour:
   m_price: 0
   m_alphaRune: 0
   m_novaRune: 0
-  m_gradientRune: 0
+  m_prismaRune: 0
   m_tooltipDex: Increase the defensive capabilities of an armor peice
