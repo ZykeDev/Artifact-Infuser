@@ -63,25 +63,29 @@ public class Infuser : MonoBehaviour {
 
     void Start()
     {
-		// Instantiate the active artifact and cypher btns
+		// Instantiate the active artifact btns
 		InstantiateArtifacts();
-		InstantiateCyphers();
 
 		UpdateViewportHeight();
 
 		m_artifactSprite.enabled = false;
 	}
 
-    #endregion
+	#endregion
 
 
-    internal void OnFocus()
+	internal void OnFocus()
 	{
-		UpdateActiveArtifacts();
-		UpdateActiveCyphers();
+		if (m_infuserState == InfuserState.SELECTING_ARTIFACT)
+        {
+			UpdateActiveArtifacts();
+		}
+        else if (m_infuserState == InfuserState.SELECTING_CYPHER)
+        {
+			UpdateActiveCyphers();
+        }
 		
 		UpdateViewportHeight();
-		//UpdateArtifactViewportHeight();
 	}
 
 	private void ChangeState(InfuserState nextState)
@@ -93,16 +97,21 @@ public class Infuser : MonoBehaviour {
                 {
 					m_artifactSelector.SetActive(false);
 
+					// Render the artifact on the rune table
+					m_artifactSprite.sprite = m_selectedBaseArtifact.GetSprite();
+					m_artifactSprite.enabled = true;
+
 					UpdateActiveCyphers();
 
 					m_cypherSelector.SetActive(true);
 
 					m_infuserState = nextState;
-                }
+				}
                 break;
             case InfuserState.SELECTING_CYPHER:
 				if (nextState == InfuserState.SELECTING_ARTIFACT)
 				{
+					m_artifactSprite.enabled = false;
 					m_cypherSelector.SetActive(false);
 
 					UpdateActiveArtifacts();
@@ -115,6 +124,8 @@ public class Infuser : MonoBehaviour {
             case InfuserState.INFUSING:
 				if (nextState == InfuserState.SELECTING_ARTIFACT)
                 {
+					m_artifactSprite.sprite = null;
+					m_artifactSprite.enabled = false;
 					m_cypherSelector.SetActive(false);
 
 					UpdateActiveArtifacts();
@@ -174,7 +185,10 @@ public class Infuser : MonoBehaviour {
 			{
 				tooltipComp.HideTooltip();
 				m_selectedBaseArtifact = art;
-				m_artifactSprite.enabled = true;
+				print("selected: " + m_selectedBaseArtifact);
+
+				
+
 				ChangeState(InfuserState.SELECTING_CYPHER);
 			});
 
@@ -243,9 +257,14 @@ public class Infuser : MonoBehaviour {
 
 		// Button's offset position from the sides
 		float offset = 15f;
+		int i = 0;
 
-    	foreach (Cypher c in m_cyphers)
-		{
+		foreach (Cypher c in m_cyphers)
+		{		
+			// Ignore cyphers that ar not aplicable to the selected artifact
+			bool allowesType = c.GetAllowedTypes().Contains(m_selectedBaseArtifact.GetArtifactType());
+			if (!allowesType) continue;
+
 			int currentID = c.GetID();
 
 			// Init the tooltip texts within the cypher
@@ -267,7 +286,7 @@ public class Infuser : MonoBehaviour {
 	    	if (m_btnHeight == 0) m_btnHeight = height;
 
 			// Correctly position the new button. Use its ID as a vertical index
-			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * currentID));
+			newCypher.transform.localPosition = new Vector2(offset, -height - offset - (height * i));
 			newCypher.name = "Cypher Btn " + currentID;
 
 			Button buttonComp = newCypher.GetComponent<Button>();
@@ -290,11 +309,15 @@ public class Infuser : MonoBehaviour {
 
 	    	// Add the finished button to the list of instantiated buttons
 	    	m_cypherBtns.Add(newCypher);
+
+			i++;
     	}
     }
 
 
-    // Updates the height of the cyphers viewport to accomodate more buttons
+	/// <summary>
+	/// Updates the height of the cyphers viewport to accomodate more buttons
+	/// </summary>
 	private void UpdateViewportHeight()
 	{
 		RectTransform cSelectorContentTransform = m_cypherSelectorContent.GetComponent<RectTransform>();
@@ -309,7 +332,10 @@ public class Infuser : MonoBehaviour {
 	}
 
 
-	// Returns the number of active cyphers
+	/// <summary>
+	/// Returns the number of active cyphers
+	/// </summary>
+	/// <returns></returns>
 	private int GetNumberOfActiveCyphers() {
 		int n = 0;
 
@@ -330,17 +356,16 @@ public class Infuser : MonoBehaviour {
 
         // Activate the Craft button
         m_buttonHandler.ActivateInfuseBtn();
-
-		// Render the artifact on the rune table
-		m_artifactSprite.sprite = m_selectedBaseArtifact.GetSprite();
-		m_artifactSprite.enabled = true;
 	}
 
 
-	// Tries to start infusing an Artifact
-	public void Infuse() {
+	/// <summary>
+	/// Tries to infuse an artifact. Returns false if unsuccessful
+	/// </summary>
+	/// <returns></returns>
+	public bool Infuse() {
 		// Check if there is a cypher selected
-		if (m_selectedCypherID < 0) return;
+		if (m_selectedCypherID < 0) return false;
 
 		Cypher cypher = GetCypherWithID(m_selectedCypherID);
 
@@ -349,7 +374,7 @@ public class Infuser : MonoBehaviour {
 
 		// Check there are enough resources and spend them if there are
 		bool canInfuse = m_gameController.inventory.SpendRunes(requiredRunes);
-		if (!canInfuse) return;
+		if (!canInfuse) return false;
 
 		m_refund = requiredRunes;
 
@@ -366,6 +391,7 @@ public class Infuser : MonoBehaviour {
 		m_progressbar.value = 0;
 
 		m_gameController.Infuse(m_selectedCypherID, m_selectedBaseArtifact, infusionTime);
+		return true;
 	}
 
 	/// <summary>
