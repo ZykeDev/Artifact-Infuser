@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class ButtonGraphic : MonoBehaviour
 {
-    private Image m_background;
-    private Button m_button;
+    [SerializeField] private Image m_background;
+    [SerializeField] private Button m_button;
     private ColorBlock m_buttonColors;
     // Store an initial copy of the colors
     private ColorBlock m_defaultColors;
@@ -16,8 +16,9 @@ public class ButtonGraphic : MonoBehaviour
 
     void Awake()
     {
-        m_button = GetComponent<Button>();
-        m_background = GetComponent<Image>();
+        if (!m_button) m_button = GetComponent<Button>();
+        if (!m_background) m_background = GetComponent<Image>();
+
         m_buttonColors = m_button.colors;
         m_defaultColors = m_buttonColors;
 
@@ -46,35 +47,7 @@ public class ButtonGraphic : MonoBehaviour
 
     private void UpdateGraphic()
     {
-        Color color = m_background.color;
-
-        switch (m_rarity)
-        {
-            case Rarity.COMMON:
-                color = new Color(0.9f, 0.9f, 0.9f);
-                break;
-            case Rarity.UNCOMMON:
-                color = new Color(0.137f, 0.707f, 0.707f);
-                break;
-            case Rarity.RARE:
-                color = new Color(0.09968f, 0.6037f, 0.09968f);
-                break;
-            case Rarity.UNIQUE:
-                color = new Color(0.3718f, 0.058f, 0.585f);
-                break;
-            case Rarity.LEGENDARY:
-                //color = new Color(1f, 0.5f, 0f);
-                color = new Color(0.698f, 0.3444f, 0.056f);
-                break;
-            case Rarity.ABYSSAL:
-                color = new Color(1f, 0.2311f, 1f);
-                break;
-            case Rarity.IMMORTAL:
-                color = new Color(0.6698f, 0.1485f, 0.1485f);
-                break;
-        }
-
-        m_background.color = color;
+        m_background.color = RarityColor.GetColor(m_rarity);
     }
 
 

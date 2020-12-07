@@ -16,8 +16,8 @@ public class Infuser : MonoBehaviour {
 	[SerializeField] private GameObject m_artifactSelector;
 	[SerializeField] private GameObject m_cypherSelector;
 
-	[SerializeField]
-	private GameObject m_cypherSelectorContent, m_artifactSelectorContent;
+	[SerializeField] private GameObject m_artifactSelectorContent;
+	[SerializeField] private GameObject m_cypherSelectorContent;
 
 	[Header("Selection")]
 	[SerializeField] private TMP_Dropdown m_artifactDropdown;
@@ -27,9 +27,9 @@ public class Infuser : MonoBehaviour {
 	[SerializeField] private Image m_artifactSprite;
 
 	[Header("Prefabs")]
-	[SerializeField] private GameObject m_cypherBtnPref;
 	[SerializeField] private GameObject m_artifactBtnPrefab;
-
+	[SerializeField] private GameObject m_cypherBtnPref;
+	
 
     private List<GameObject> m_cypherBtns, m_artifactBtns;
     private List<Cypher> m_cyphers;

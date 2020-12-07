@@ -132,7 +132,7 @@ public class ArmoryHandler : MonoBehaviour {
         Button button = newCell.GetComponent<Button>();
 
 
-        agc.SetSprite(artifact.GetSprite());
+        agc.SetSprite(artifact.GetSprite(), artifact.GetRarity());
         tooltip.SetTooltipData(artifact.GetName());
         prompt.SetTexts("Sell " + artifact.GetName() + "?");
 

@@ -3,28 +3,18 @@ using UnityEngine.UI;
 
 public class ArmoryGridCell : MonoBehaviour {
    
-    public GameObject m_cellIcon;
+    public Image m_cellIcon;
+    public Image m_cellFrame;
 
 
     /// <summary>
     /// Sets the sprite of the cell
     /// </summary>
     /// <param name="sprite"></param>
-    public void SetSprite(Sprite sprite)
+    public void SetSprite(Sprite sprite, Rarity rarity)
     {
-        Image image = m_cellIcon.GetComponent<Image>();
-
-        if (image != null)
-        {
-            m_cellIcon.GetComponent<Image>().sprite = sprite;
-        }
-        else
-        {
-#if UNITY_EDITOR
-            Debug.LogError("Missing Image component in Armory Cell Object.");
-#endif
-        }
-        
+        m_cellIcon.sprite = sprite;
+        m_cellFrame.color = RarityColor.GetColor(rarity);
     }
 
 }

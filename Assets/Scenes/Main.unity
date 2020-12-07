@@ -320,14 +320,14 @@ MonoBehaviour:
   m_buttonHandler: {fileID: 1115166227}
   m_artifactSelector: {fileID: 2007497460}
   m_cypherSelector: {fileID: 899369675}
-  m_cypherSelectorContent: {fileID: 325760838}
   m_artifactSelectorContent: {fileID: 628063443}
+  m_cypherSelectorContent: {fileID: 325760838}
   m_artifactDropdown: {fileID: 75870840}
   m_progressbar: {fileID: 1371788665}
   m_artifactSprite: {fileID: 962351967}
-  m_cypherBtnPref: {fileID: 7645731078256115510, guid: b36a305378034be45b36a1d60f8d2693,
-    type: 3}
   m_artifactBtnPrefab: {fileID: 7916797708932793468, guid: ade5ec613fda33d4695062290af17b8d,
+    type: 3}
+  m_cypherBtnPref: {fileID: 7645731078256115510, guid: b36a305378034be45b36a1d60f8d2693,
     type: 3}
 --- !u!114 &6247729
 MonoBehaviour:
@@ -8623,7 +8623,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99967945
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
