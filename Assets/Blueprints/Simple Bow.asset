@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Simple Bow
   m_EditorClassIdentifier: 
   m_ID: 3
-  m_artifactName: Simple Bow
+  m_artifactName: Practice Bow
   m_type: 1
   m_blueprintSprite: {fileID: 21300000, guid: 9312d2c80bde0da4489a2da8b971381e, type: 3}
   m_artifactSprite: {fileID: 21300000, guid: 4b873f0faeb2f5b4d9fdcaf108ec9d75, type: 3}
   m_reverseSprite: {fileID: 21300000, guid: d329e71f283ce584e94dfd2085432517, type: 3}
   m_craftingTime: 1
-  m_rarity: 3
-  m_price: 10
-  m_wood: 10
+  m_rarity: 0
+  m_price: 7
+  m_wood: 25
   m_metal: 0
-  m_leather: 0
+  m_leather: 2
   m_crystals: 0
-  m_tooltipDex: A simple bow
+  m_tooltipDex: A bow typically given to yougsters to practice their shooting.

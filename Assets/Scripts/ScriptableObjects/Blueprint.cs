@@ -26,7 +26,7 @@ public class Blueprint : ScriptableObject {
 	// Groups the tooltip data fields into one struct
 	public void InitTooltipData()
 	{
-		m_tooltipData = new TooltipData(m_artifactName, m_tooltipDex);
+		m_tooltipData = new TooltipData(m_artifactName, FormatDex(m_tooltipDex));
 	}
 
 	public RequiredResources GetRequiredResources()
@@ -39,6 +39,21 @@ public class Blueprint : ScriptableObject {
 	{
 		return m_tooltipData;
 	}
+
+
+	private string FormatDex(string dex)
+	{
+		dex += "\n";
+
+		if (m_wood > 0) dex += "\n[Wood: " + m_wood + "]";
+		if (m_metal > 0) dex += "\n[Metal: " + m_metal + "]";
+		if (m_leather > 0) dex += "\n[Leather: " + m_leather + "]";
+		if (m_crystals > 0) dex += "\n[Crystals: " + m_crystals + "]";
+
+		return dex;
+	}
+
+
 
 	public int GetID() => m_ID;
 	public string GetName() => m_artifactName;

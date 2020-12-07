@@ -10,7 +10,6 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetTooltipData(TooltipData tooltipData) => m_tooltipData = tooltipData;
     public void SetTooltipData(string header) => m_tooltipData = new TooltipData(header, null);
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (m_header != null && m_header != "")

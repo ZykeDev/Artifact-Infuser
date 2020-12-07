@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class Artifact {
 
-	private int m_artifactTypeID;
+	private int m_artifactID;
+	private int m_ID;
 	private readonly ArtifactType m_type;
 	private readonly string m_name;
 	private readonly Sprite m_sprite;
 	private readonly Rarity m_rarity;
 
 	private readonly int m_price;
-
-
+	
 	private bool m_isInfused;
 	// TODO how do I encode abilities and properties? a list of IDs?
 	private List<int> m_properties;
@@ -19,8 +19,9 @@ public class Artifact {
 
 	private TooltipData m_tooltipData;
 
-	public Artifact(int artifactTypeID, ArtifactType type, string name, Sprite artifactSprite, Rarity rarity, int price) {
-		m_artifactTypeID = artifactTypeID;
+	public Artifact(int artifactID, ArtifactType type, string name, Sprite artifactSprite, Rarity rarity, int price) {
+		m_artifactID = artifactID;
+		m_ID = m_artifactID;
 		m_type = type;
 		m_name = name;
 		m_sprite = artifactSprite;
@@ -39,8 +40,19 @@ public class Artifact {
 	public Artifact(Blueprint bp) : this(bp.GetID(), bp.GetArtifactType(), bp.GetName(), bp.GetArtifactSprite(), bp.GetRarity(), bp.GetPrice()) { }
 
 
+	/// <summary>
+	/// Creates an Artifact by infusing the given base with a cypher
+	/// </summary>
+	/// <param name="baseArtifact"></param>
+	/// <param name="cypher"></param>
 	public Artifact(Artifact baseArtifact, Cypher cypher) {
-		m_artifactTypeID = baseArtifact.m_artifactTypeID;
+		m_artifactID = baseArtifact.m_artifactID;
+
+		// The item's ID becomes A00C
+		// where A is the artifact ID
+		// where C is the cypher ID
+		m_ID = (m_artifactID * 1000) + cypher.GetID();
+
 		m_type = baseArtifact.m_type;
 		m_name = NewInfusedName(baseArtifact.m_name, cypher);
 
@@ -49,7 +61,6 @@ public class Artifact {
 			m_abilities = new List<int>();
         }
 
-		// TODO for now the ability ID = cypher ID
 		m_abilities.Add(cypher.GetID());
 
 		m_sprite = baseArtifact.m_sprite;
@@ -64,7 +75,8 @@ public class Artifact {
 
 
 
-	public int GetArtifactID() => m_artifactTypeID;
+	public int GetArtifactID() => m_artifactID;
+	public int GetID() => m_ID;
 	public ArtifactType GetArtifactType() => m_type;
 	public string GetName() => m_name;
 	public Sprite GetSprite() => m_sprite;

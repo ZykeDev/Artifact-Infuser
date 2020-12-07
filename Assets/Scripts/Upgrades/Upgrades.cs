@@ -51,7 +51,7 @@ public class Upgrades : MonoBehaviour
                 m_unlockSystem.Notify(upgrade);
                 upgrade.Buy();
                 boughtUpgrades.Add(upgrade);
-                m_gameController.UpdateResourceUILoss(upgrade); // TODO remove once the ResUI takes care of this on update
+                m_gameController.UpdateResourceUILoss(upgrade);
 
 
                 foreach (UpgradeButton button in m_upgradeButtons)

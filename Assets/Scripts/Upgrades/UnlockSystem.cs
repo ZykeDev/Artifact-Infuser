@@ -75,12 +75,13 @@ public class UnlockSystem : MonoBehaviour {
         switch (m_progress)
         {
             case Progress.START:
-                //m_gameController.AddDialogue(DialogType.DIALOGUE, "It's a cold autum morning. You enter the dark shop and light up a candle.");
-                //m_gameController.AddDialogue(DialogType.DIALOGUE, "You are a bit nervous. It's your first day on the job, after all.");
-                //m_gameController.AddDialogue(DialogType.DIALOGUE, "It takes you a few minutes to start up the forge, but you are finally successful.");
-                //m_gameController.AddDialogue(DialogType.DIALOGUE, "Purchasing this old smithy to start your new career as a blacksmith might not have been a bad idea.");
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "Welcome to Artifact Infuser");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "It's a cold morning. You enter the dark shop and light up a candle.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "It takes you a few minutes to start up the forge, but you are finally successful.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Your life as a blacksmith starts today.");
 
+                m_gameController.AddNewline();
+
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Welcome to Artifact Infuser");
 
                 m_gameController.AddNewline();
                 NextState();
@@ -88,7 +89,7 @@ public class UnlockSystem : MonoBehaviour {
 
             case Progress.FIRST_GATHER:
                 m_gameController.AddNewline();
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "The warehouse is kind of empty. It's time to go out and Gather some resources.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "The warehouse is empty. It's time to go out and Gather some resources.");
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "From the <#FFA100>[Gathering]</color> tab on the left, select the <#FFA100>[Woods]</color> and click <#FFA100>[Gather Resources]</color>");
                 
                 m_waitState = WaitState.GATHER;

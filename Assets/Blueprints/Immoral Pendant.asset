@@ -20,9 +20,9 @@ MonoBehaviour:
   m_reverseSprite: {fileID: 21300000, guid: d329e71f283ce584e94dfd2085432517, type: 3}
   m_craftingTime: 1
   m_rarity: 6
-  m_price: 15
+  m_price: 10000
   m_wood: 0
-  m_metal: 0
-  m_leather: 0
-  m_crystals: 0
-  m_tooltipDex: the immortal pendant
+  m_metal: 190
+  m_leather: 40
+  m_crystals: 400
+  m_tooltipDex: A pendant imbued with the souls of a thousand worriors.
