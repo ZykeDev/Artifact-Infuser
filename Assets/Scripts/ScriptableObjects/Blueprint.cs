@@ -67,6 +67,7 @@ public class Blueprint : ScriptableObject {
 
 }
 
+[System.Serializable]
 public struct TooltipData
 {
 	public string title, dex;
@@ -99,6 +100,7 @@ public struct TooltipData
 }
 
 
+[System.Serializable]
 public struct RequiredResources
 {
 	public int wood, metal, leather, crystals;

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Artifact {
 
 	private int m_artifactID;
 	private int m_ID;
 	private readonly ArtifactType m_type;
 	private readonly string m_name;
-	private readonly Sprite m_sprite;
+	[System.NonSerialized] private Sprite m_sprite;
 	private readonly Rarity m_rarity;
 
 	private readonly int m_price;
@@ -74,6 +75,8 @@ public class Artifact {
 	}
 
 
+	public void UpdateSprite() => m_sprite = BlueprintDatabase.GetBlueprint(m_artifactID).GetArtifactSprite();
+  
 
 	public int GetArtifactID() => m_artifactID;
 	public int GetID() => m_ID;

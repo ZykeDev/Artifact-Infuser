@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Inventory {
 
 	public int gold;
@@ -12,8 +13,11 @@ public class Inventory {
 
 	public Rune alphaRune, novaRune, prismaRune;
 
-	public List<Blueprint> blueprints;
-	public List<Cypher> cyphers;
+	[NonSerialized] public List<Blueprint> blueprints;
+	[NonSerialized] public List<Cypher> cyphers;
+
+	public List<int> blueprintIDs;
+	public List<int> cypherIDs;
 
 	private double[] tierMultiplier = new double[] {1, 2, 5, 10};
 
@@ -32,7 +36,35 @@ public class Inventory {
 
 		blueprints = new List<Blueprint>();
 		cyphers = new List<Cypher>();
+
+		blueprintIDs = new List<int>();
+		cypherIDs = new List<int>();
 	}
+
+
+	public void PrepareForSave()
+    {
+		if (blueprints == null) blueprints = new List<Blueprint>();
+		if (blueprintIDs == null) blueprintIDs = new List<int>();
+		if (cyphers == null)	cyphers = new List<Cypher>();
+		if (cypherIDs == null)	cypherIDs = new List<int>();
+
+
+		// Store the blueprints as IDs
+		blueprintIDs.Clear();
+		for (int i = 0; i < blueprints.Count; i++)
+        {
+			blueprintIDs.Add(blueprints[i].GetID());
+        }
+
+		// Store the cyphers as IDs
+		cypherIDs.Clear();
+		for (int i = 0; i < cyphers.Count; i++)
+		{
+			cypherIDs.Add(cyphers[i].GetID());
+		}
+	}
+
 
 
 	public int GetGold() => gold;

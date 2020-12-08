@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Armory {
 
 	private List<Artifact> m_artifacts;
@@ -38,6 +39,14 @@ public class Armory {
 		return m_artifacts.Remove(artifactToRemove);
     }
 
+
+	public void UpdateSprites()
+    {
+		foreach (Artifact art in m_artifacts)
+        {
+			art.UpdateSprite();
+        }
+    }
 
 
 

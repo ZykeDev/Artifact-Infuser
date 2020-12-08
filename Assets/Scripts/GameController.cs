@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
     private Gathering m_gathering;
     private Crafter m_crafterComp;
     private Infuser m_infuserComp;
-    private ArmoryHandler m_armoryHandler; //Called armoryHandler to not confuse it with the armory struct
+    private ArmoryHandler m_armoryHandler;
     private Upgrades m_upgradesHandler;
 
     public Inventory inventory;
@@ -43,15 +43,53 @@ public class GameController : MonoBehaviour {
         armory = new Armory();
 
 
-        // The forced-awakes should always be the last thing to be called in this method
-        m_unlockSystem.Awake();
+        // Load the save file. If there isn't, create a new one.
+        SaveData saveData = Load();
+
+        inventory = saveData.inventory;
+        armory = saveData.armory;
+        
+
+        m_unlockSystem.Init(saveData);
         m_gathering.Awake();
         m_crafterComp.Awake();
         m_infuserComp.Awake();
         m_armoryHandler.Awake();
         m_upgradesHandler.Awake();
-        // Dont add anything here
+
+        armory.UpdateSprites();
+
+        Save();
     }
+
+    public void SaveGame() => Save();
+    public SaveData Save()
+    {
+        SaveData saveData = new SaveData(
+            m_unlockSystem.activeBlueprints, 
+            m_unlockSystem.activeCyphers, 
+            m_unlockSystem.unlockedAreas, 
+            m_unlockSystem.boughtUpgrades, 
+            inventory,
+            armory,
+            m_unlockSystem.m_progress - 1);
+
+        SaveSystem.Save(saveData);
+
+        return saveData;
+    }
+
+    /// <summary>
+    /// Loads the default savefile. If it's not found, a new one is created.
+    /// </summary>
+    private SaveData Load()
+    { 
+        SaveData data = SaveSystem.Load();
+
+        if (data != null) return data;
+        else              return Save();
+    }
+
 
 
     #region Gathering

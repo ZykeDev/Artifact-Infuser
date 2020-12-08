@@ -10,14 +10,14 @@ public class UnlockSystem : MonoBehaviour {
 
 	[SerializeField] private List<Blueprint> blueprints;
     public List<Cypher> cyphers;
+
     public bool[] activeBlueprints; // index = blueprint ID
     public bool[] activeCyphers; // index = cypher ID
     public bool[] unlockedAreas;
     public bool[] boughtUpgrades; // unused for now
 
     
-    // TODO move to a specific Progress.cs file?
-    private enum Progress
+    public enum Progress
     {
         SETUP,              // Setting up the game/scene
         START,              // The very beginning of the game
@@ -40,24 +40,41 @@ public class UnlockSystem : MonoBehaviour {
         INFUSION
     }
 
-    private Progress m_progress;
+    public Progress m_progress;
     private WaitState m_waitState;
     
     
-    public void Awake() {
+    public void Init(SaveData saveData) {
+        
         m_gameController = GetComponent<GameController>();
         m_requestSystem = GetComponent<RequestSystem>();
 
         // TODO add a check to make sure the blueprints' ID == index in BlueprintDatabase.blueprints
         BlueprintDatabase.SetBlueprints(blueprints);
- 
-        activeCyphers = new bool[cyphers.Count];
-        activeCyphers[0] = true;
-        activeCyphers[1] = true;
 
-        m_progress = Progress.SETUP;
+        // Init the data
+        if (saveData == null)
+        {
+            activeCyphers = new bool[cyphers.Count];
+            activeCyphers[0] = true;
+            activeCyphers[1] = true;
+
+            m_progress = Progress.SETUP;
+        } 
+        else // Read the data from the savefile
+        {
+            activeBlueprints = saveData.activeBlueprints;
+            activeCyphers = saveData.activeCyphers;
+            unlockedAreas = saveData.unlockedAreas;
+            boughtUpgrades = saveData.boughtUpgrades;
+
+            m_progress = saveData.progress;
+        }
+
+        
 
     }
+
 
     void Start()
     {
