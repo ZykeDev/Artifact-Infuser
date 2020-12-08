@@ -12,7 +12,6 @@ public class TabHandler : MonoBehaviour {
     [SerializeField] protected GameObject m_armoryTab;
     [SerializeField] protected GameObject m_upgradesTab;
 
-
     [Header("Buttons")]
     [SerializeField] private Button m_gatheringBtn;
     [SerializeField] private Button m_crafterBtn;
@@ -20,6 +19,8 @@ public class TabHandler : MonoBehaviour {
     [SerializeField] private Button m_armoryBtn;
     [SerializeField] private Button m_upgradesBtn;
 
+    private bool isInfusionUnlocked = false;
+    private bool isUpgradesUnlocked = false;
 
 	void Start()
     {		
@@ -29,6 +30,10 @@ public class TabHandler : MonoBehaviour {
     	currentTab = Tab.GATHERING; // TODO change this to save-state's last Tab
         m_gatheringBtn.interactable = false;
         m_gatheringTab.SetActive(true);
+
+        // TODO when there's a save file, read the isLocked vars from there
+        m_infuserBtn.interactable = isInfusionUnlocked;
+        m_upgradesBtn.interactable = isUpgradesUnlocked;
     }
 
 
@@ -94,8 +99,29 @@ public class TabHandler : MonoBehaviour {
     {
         m_gatheringBtn.interactable = true;
         m_crafterBtn.interactable = true;
-		m_infuserBtn.interactable = true;
-		m_armoryBtn.interactable = true;
-		m_upgradesBtn.interactable = true;
+        m_infuserBtn.interactable = isInfusionUnlocked;
+        m_armoryBtn.interactable = true;
+		m_upgradesBtn.interactable = isUpgradesUnlocked;
     }
+
+
+
+
+    #region Unlocks
+
+    public void UnlockUpgrades()
+    {
+        isUpgradesUnlocked = true;
+        m_upgradesBtn.interactable = isUpgradesUnlocked;
+    }
+
+    public void UnlockInfusion()
+    {
+        isInfusionUnlocked = true;
+        m_infuserBtn.interactable = isInfusionUnlocked;
+    }
+
+
+    #endregion
+
 }

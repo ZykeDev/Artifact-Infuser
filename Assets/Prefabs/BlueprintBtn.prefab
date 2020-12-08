@@ -316,6 +316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f624dafc08a32479d7d78e571d673b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_background: {fileID: 8164704813601823588}
+  m_button: {fileID: 8164704813601823589}
   m_name: {fileID: 3573876849468940953}
   m_image: {fileID: 8163256225104232764}
 --- !u!114 &1546836756112633260

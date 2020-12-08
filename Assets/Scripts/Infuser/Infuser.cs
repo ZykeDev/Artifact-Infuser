@@ -54,6 +54,7 @@ public class Infuser : MonoBehaviour {
 
 	#endregion
 
+
 	#region Awake Start Update
 
 	public void Awake()
@@ -106,6 +107,7 @@ public class Infuser : MonoBehaviour {
 					// Render the artifact on the rune table
 					m_artifactSprite.sprite = m_selectedBaseArtifact.GetSprite();
 					m_artifactSprite.enabled = true;
+					m_artifactSprite.color = Color.white;
 
 					UpdateActiveCyphers();
 
@@ -118,7 +120,10 @@ public class Infuser : MonoBehaviour {
             case InfuserState.SELECTING_CYPHER:
 				if (nextState == InfuserState.SELECTING_ARTIFACT)
 				{
+					DeselectCypher();
+
 					m_artifactSprite.enabled = false;
+					m_artifactSprite.color = Color.white;
 					m_cypherSelector.SetActive(false);
 
 					UpdateActiveArtifacts();
@@ -134,6 +139,7 @@ public class Infuser : MonoBehaviour {
                 {
 					m_artifactSprite.sprite = null;
 					m_artifactSprite.enabled = false;
+					m_artifactSprite.color = Color.white;
 					m_cypherSelector.SetActive(false);
 
 					UpdateActiveArtifacts();
@@ -149,6 +155,8 @@ public class Infuser : MonoBehaviour {
         }
     }
 
+
+	#region Artifact Selector
 
 	/// <summary>
 	/// Instantiate all availabe artifacts as buttons
@@ -219,7 +227,6 @@ public class Infuser : MonoBehaviour {
 	}
 
 
-
     /// <summary>
     /// Destroys all artifact btns and re-instantiates them, checking for new ones.
     /// </summary>
@@ -243,12 +250,15 @@ public class Infuser : MonoBehaviour {
 
 	public void OnArtifactDropdownChange() => UpdateActiveArtifacts();
 
+    #endregion
 
 
-	/// <summary>
-	/// Destroys all cypher btns and re-instantiates them, checking for new active ones.
-	/// </summary>
-	public void UpdateActiveCyphers()
+    #region Cypher Selector
+
+    /// <summary>
+    /// Destroys all cypher btns and re-instantiates them, checking for new active ones.
+    /// </summary>
+    public void UpdateActiveCyphers()
 	{
 		if (m_cypherBtns == null) return;
 
@@ -365,9 +375,6 @@ public class Infuser : MonoBehaviour {
 	}
 
 
-
-
-	// TODO also be able to deselect and leave the crafting area empty
 	public void SelectCypher(int cypherID) {
         // Set the cypher as "selected"
         m_selectedCypherID = cypherID;
@@ -376,12 +383,26 @@ public class Infuser : MonoBehaviour {
         m_buttonHandler.ActivateInfuseBtn();
 	}
 
+	public void DeselectCypher()
+    {
+		m_selectedCypherID = -1;
 
-	/// <summary>
-	/// Tries to infuse an artifact. Returns false if unsuccessful
-	/// </summary>
-	/// <returns></returns>
-	public bool Infuse() {
+		m_buttonHandler.DeactivateInfuseBtn();
+
+	}
+
+	public void Back() => ChangeState(InfuserState.SELECTING_ARTIFACT);
+
+    #endregion
+
+
+    #region Infusion
+
+    /// <summary>
+    /// Tries to infuse an artifact. Returns false if unsuccessful
+    /// </summary>
+    /// <returns></returns>
+    public bool Infuse() {
 		// Check if there is a cypher selected
 		if (m_selectedCypherID < 0) return false;
 
@@ -474,12 +495,17 @@ public class Infuser : MonoBehaviour {
     }
 
 
-	/// <summary>
-	/// Returns the cypher with the corresponding ID from the cyphers list. Else returns Null.
-	/// </summary>
-	/// <param name="ID"></param>
-	/// <returns></returns>
-	public Cypher GetCypherWithID(int ID) {
+    #endregion
+
+
+    #region Getters
+
+    /// <summary>
+    /// Returns the cypher with the corresponding ID from the cyphers list. Else returns Null.
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <returns></returns>
+    public Cypher GetCypherWithID(int ID) {
     	foreach(Cypher c in m_cyphers) {
     		if (c.GetID() == ID) {
     			return c;
@@ -489,6 +515,5 @@ public class Infuser : MonoBehaviour {
     	return null;
     }
 
-
-
+    #endregion
 }

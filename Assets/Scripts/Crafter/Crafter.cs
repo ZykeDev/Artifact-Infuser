@@ -16,8 +16,11 @@ public class Crafter : MonoBehaviour {
 	[SerializeField] private Image m_artifact;
 	[SerializeField] private Image m_reverse;
 	[SerializeField] private Image m_backdrop;
+	[SerializeField] private GameObject m_notice;
 
 	[SerializeField] private GameObject m_blueprintSelectorContent;
+
+	[Header("Prefabs")]
 	[SerializeField] private GameObject m_blueprintBtnPref;
 
     private List<GameObject> m_blueprintBtns;
@@ -45,6 +48,7 @@ public class Crafter : MonoBehaviour {
 		m_artifact.enabled = false;
 		m_reverse.enabled = false;
 		m_backdrop.enabled = false;
+		m_notice?.SetActive(false);
 
 		m_blueprintBtns = new List<GameObject>();
 
@@ -169,6 +173,9 @@ public class Crafter : MonoBehaviour {
 	/// <param name="caller"></param>
 	public void SelectBlueprint(int blueprintID, GameObject caller)
 	{
+		// Don't allow clicks mid-crafting
+		if (m_isCrafting) return;
+
         // Set the blueprint as selected
         m_selectedBlueprintID = blueprintID;
 
@@ -203,7 +210,6 @@ public class Crafter : MonoBehaviour {
         {
 			return;
         }
-
 
 		// Remove the silhouette
 		m_artifact.enabled = false;
@@ -245,7 +251,12 @@ public class Crafter : MonoBehaviour {
 
 		// Check there are enough resources and spend them if there are
 		bool canCraft = m_gameController.inventory.SpendResources(requiredResources);
-		if (!canCraft) return;
+		if (!canCraft)
+		{
+			m_notice?.SetActive(true);
+			Delay.DelayAction(delegate { m_notice?.SetActive(false); });
+			return;
+		}
 
 		m_gameController.UpdateResourceUILoss(requiredResources);
 

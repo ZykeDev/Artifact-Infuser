@@ -18,7 +18,7 @@ public class ButtonGraphic : MonoBehaviour
     {
         if (!m_button) m_button = GetComponent<Button>();
         if (!m_background) m_background = GetComponent<Image>();
-
+        
         m_buttonColors = m_button.colors;
         m_defaultColors = m_buttonColors;
 
@@ -47,7 +47,7 @@ public class ButtonGraphic : MonoBehaviour
 
     private void UpdateGraphic()
     {
-        m_background.color = RarityColor.GetColor(m_rarity);
+        if (m_background) m_background.color = RarityColor.GetColor(m_rarity);
     }
 
 

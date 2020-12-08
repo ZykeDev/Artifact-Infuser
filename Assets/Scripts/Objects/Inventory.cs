@@ -21,8 +21,8 @@ public class Inventory {
 	public Inventory() {
 		gold = 0;
 
-		wood = new Resource(ResourceType.WOOD, 50);
-		metal = new Resource(ResourceType.METAL, 0);
+		wood = new Resource(ResourceType.WOOD, 100);
+		metal = new Resource(ResourceType.METAL, 50);
 		leather = new Resource(ResourceType.LEATHER, 0);
 		crystals = new Resource(ResourceType.CRYSTALS, 0);
 
@@ -86,8 +86,8 @@ public class Inventory {
 	public void SetRandomResources(int tier) {
 		double multiplier = tierMultiplier[tier];
 
-		wood.Add(multiplier * UnityEngine.Random.Range(5f, 120f));
-		metal.Add(multiplier * UnityEngine.Random.Range(6f, 90f));
+		wood.Add(multiplier * UnityEngine.Random.Range(5f, 12f));
+		metal.Add(multiplier * UnityEngine.Random.Range(6f, 9f));
 		leather.Add((multiplier-1) * UnityEngine.Random.Range(4f, 7f));
 		crystals.Add((multiplier-4) * UnityEngine.Random.Range(1f, 2f));
 	}

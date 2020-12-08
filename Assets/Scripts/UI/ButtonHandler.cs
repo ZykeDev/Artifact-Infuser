@@ -183,11 +183,9 @@ public class ButtonHandler : MonoBehaviour
         m_infuseBtn.SetActive(true);
     }
 
-    // Makes the Craft Button clickable
-    public void ActivateInfuseBtn()
-    {
-        m_infuseBtn.GetComponent<Button>().interactable = true;
-    }
+    public void ActivateInfuseBtn() => m_infuseBtn.GetComponent<Button>().interactable = true;
+
+    public void DeactivateInfuseBtn() => m_infuseBtn.GetComponent<Button>().interactable = false;
 
     #endregion
 
@@ -236,5 +234,6 @@ public class ButtonHandler : MonoBehaviour
     }
 
     #endregion
+
 
 }

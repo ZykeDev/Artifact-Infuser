@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour {
 
     [Header("Script References")]
     [SerializeField] protected BackgroundManager m_backgroundManager;
+    [SerializeField] protected TabHandler m_tabHandler;
     [SerializeField] protected ResourcesTabUI m_resourcesTab;
     [SerializeField] protected Shop m_shop;
 
@@ -226,4 +227,11 @@ public class GameController : MonoBehaviour {
 
     #endregion
 
+
+    #region Unlocks
+
+    public void UnlockUpgrades() => m_tabHandler.UnlockUpgrades();
+    public void UnlockInfusion() => m_tabHandler.UnlockInfusion();
+
+    #endregion
 }

@@ -16,7 +16,7 @@ public class UnlockSystem : MonoBehaviour {
     public bool[] boughtUpgrades; // unused for now
 
     
-    // TODO move to a specific Progress.cs file? or an actual FSM system?
+    // TODO move to a specific Progress.cs file?
     private enum Progress
     {
         SETUP,              // Setting up the game/scene
@@ -125,7 +125,7 @@ public class UnlockSystem : MonoBehaviour {
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Improve your shop and your crafting skills from the <#FFA100>[Upgrades]</color> menu.");
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Gather enough resources to buy your first Upgrade.");
 
-
+                m_gameController.UnlockUpgrades();
                 m_waitState = WaitState.UPGRADE;
                 break;
 
@@ -133,14 +133,13 @@ public class UnlockSystem : MonoBehaviour {
                 m_gameController.AddNewline();
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "You just unlocked <#FFA100>[Infusion]</color>!");
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Infusion can add magical properties to an artifact by imbuing it with the power of Runes.");
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "Just like blueprints, different abilities require the use of different Cyphers.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Just like blueprints, different abilities require different Cyphers.");
 
                 m_gameController.AddNewline();
 
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Infuse your first artifact with the <#FFA100>[Higher Power Cypher]</color>.");
 
-                
-
+                m_gameController.UnlockInfusion();
                 m_waitState = WaitState.INFUSION;
                 break;
 
@@ -154,6 +153,8 @@ public class UnlockSystem : MonoBehaviour {
     }
 
 
+
+    #region Notifications
 
     /// <summary>
     /// Notifies that a certain action has been completed. 
@@ -247,4 +248,8 @@ public class UnlockSystem : MonoBehaviour {
                 break;
         }
     }
+
+
+    #endregion
+
 }
