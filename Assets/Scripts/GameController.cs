@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour {
 
     public UnlockSystem m_unlockSystem;
 
+    private SaveData m_saveData;
+
     #endregion
 
 
@@ -38,41 +40,52 @@ public class GameController : MonoBehaviour {
         m_armoryHandler = m_armory.GetComponent<ArmoryHandler>();
         m_upgradesHandler = m_upgrades.GetComponent<Upgrades>();
 
-        // Init the Inventory and the Armory
+        // Load the save file
+        SaveData saveData = Load();
+
         inventory = new Inventory();
         armory = new Armory();
 
-
-        // Load the save file. If there isn't, create a new one.
-        SaveData saveData = Load();
-
-        inventory = saveData.inventory;
-        armory = saveData.armory;
-        
+        // Apply the save data if there is
+        if (saveData != null)
+        {
+            inventory = saveData.inventory;
+            armory = saveData.armory;
+        }
 
         m_unlockSystem.Init(saveData);
         m_gathering.Awake();
-        m_crafterComp.Awake();
         m_infuserComp.Awake();
         m_armoryHandler.Awake();
         m_upgradesHandler.Awake();
 
-        armory.UpdateSprites();
+        //armory.UpdateSprites();
 
+        m_saveData = saveData;
+    }
+
+
+    void Start()
+    {
+        m_tabHandler.UpdateLocks(m_saveData);
+        armory.UpdateSprites();
         Save();
     }
+
 
     public void SaveGame() => Save();
     public SaveData Save()
     {
         SaveData saveData = new SaveData(
-            m_unlockSystem.activeBlueprints, 
-            m_unlockSystem.activeCyphers, 
-            m_unlockSystem.unlockedAreas, 
-            m_unlockSystem.boughtUpgrades, 
+            m_unlockSystem.activeBlueprints,
+            m_unlockSystem.activeCyphers,
+            m_unlockSystem.unlockedAreas,
+            m_unlockSystem.boughtUpgrades,
             inventory,
             armory,
-            m_unlockSystem.m_progress - 1);
+            m_unlockSystem.m_progress,
+            m_tabHandler.isInfusionUnlocked,
+            m_tabHandler.isUpgradesUnlocked);
 
         SaveSystem.Save(saveData);
 
@@ -80,14 +93,13 @@ public class GameController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Loads the default savefile. If it's not found, a new one is created.
+    /// Loads the default savefile. Returns null if none are found.
     /// </summary>
     private SaveData Load()
     { 
         SaveData data = SaveSystem.Load();
 
-        if (data != null) return data;
-        else              return Save();
+        return data;
     }
 
 
@@ -270,6 +282,7 @@ public class GameController : MonoBehaviour {
 
     public void UnlockUpgrades() => m_tabHandler.UnlockUpgrades();
     public void UnlockInfusion() => m_tabHandler.UnlockInfusion();
+    public void UpdateAreas() => m_gathering.UpdateAreas(); 
 
     #endregion
 }

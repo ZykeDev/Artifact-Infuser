@@ -37,7 +37,7 @@ public class Crafter : MonoBehaviour {
 
     #region Awake Start Update
 
-    public void Awake()
+    void Awake()
     {
         // Does nothing for now
     }

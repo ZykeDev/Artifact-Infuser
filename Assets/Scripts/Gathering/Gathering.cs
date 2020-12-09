@@ -7,7 +7,9 @@ public class Gathering : MonoBehaviour
     [SerializeField] protected GameController m_gameController;
     [SerializeField] protected BackgroundManager m_backgroundManager;
     [SerializeField] protected ButtonHandler m_buttonHandler;
+    [SerializeField] protected MapHandler m_mapHandler;
 
+    [Header("UI Components")]
     [SerializeField] private Slider m_progressbar;
 
     [SerializeField]
@@ -100,5 +102,9 @@ public class Gathering : MonoBehaviour
 
 
     #endregion
+
+
+    public void UpdateAreas() => m_mapHandler.UpdateAreas();
+    
 
 }

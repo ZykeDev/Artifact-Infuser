@@ -13,14 +13,21 @@ public class SaveData
     public Armory armory;
 
     public UnlockSystem.Progress progress;
-    
+
+    public bool isInfusionUnlocked = false;
+    public bool isUpgradesUnlocked = false;
+
+
+
     public SaveData(bool[] activeBlueprints,
                     bool[] activeCyphers, 
                     bool[] unlockedAreas, 
                     bool[] boughtUpgrades, 
                     Inventory inventory, 
                     Armory armory,
-                    UnlockSystem.Progress progress)
+                    UnlockSystem.Progress progress,
+                    bool isInfusionUnlocked,
+                    bool isUpgradesUnlocked)
     
     {
         this.activeBlueprints = activeBlueprints;
@@ -33,6 +40,9 @@ public class SaveData
         this.armory = armory;
 
         this.progress = progress;
+
+        this.isInfusionUnlocked = isInfusionUnlocked;
+        this.isUpgradesUnlocked = isUpgradesUnlocked;
 
     }
   

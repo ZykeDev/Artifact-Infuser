@@ -13,18 +13,18 @@ public class TooltipSystem : MonoBehaviour
 
     public static void Show(TooltipData tooltipData)
     {
-        current.tooltip.SetTexts(tooltipData);
-        current.tooltip.gameObject.SetActive(true);
+        current.tooltip?.SetTexts(tooltipData);
+        current.tooltip?.gameObject.SetActive(true);
     }
 
     public static void Show(string text)
     {
-        current.tooltip.SetTexts(text);
-        current.tooltip.gameObject.SetActive(true);
+        current.tooltip?.SetTexts(text);
+        current.tooltip?.gameObject.SetActive(true);
     }
 
     public static void Hide()
     {
-        current.tooltip.gameObject.SetActive(false);
+        current.tooltip?.gameObject.SetActive(false);
     }
 }

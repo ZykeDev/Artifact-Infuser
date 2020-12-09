@@ -14,7 +14,7 @@ public class UnlockSystem : MonoBehaviour {
     public bool[] activeBlueprints; // index = blueprint ID
     public bool[] activeCyphers; // index = cypher ID
     public bool[] unlockedAreas;
-    public bool[] boughtUpgrades; // unused for now
+    public bool[] boughtUpgrades;
 
     
     public enum Progress
@@ -27,6 +27,7 @@ public class UnlockSystem : MonoBehaviour {
         FIRST_REQUEST,
         FIRST_UPGRADE,
         FIRST_INFUSION,
+        UNLOCK_NEW_AREA,
         _
     }
     public enum WaitState
@@ -59,7 +60,7 @@ public class UnlockSystem : MonoBehaviour {
             activeCyphers[0] = true;
             activeCyphers[1] = true;
 
-            m_progress = Progress.SETUP;
+            m_progress = Progress.START;
         } 
         else // Read the data from the savefile
         {
@@ -70,26 +71,23 @@ public class UnlockSystem : MonoBehaviour {
 
             m_progress = saveData.progress;
         }
-
-        
-
     }
-
 
     void Start()
     {
-        NextState();
+        ChangeState(m_progress);
     }
-
-
-
 
 
     private void NextState()
     {
         m_progress++;
+        ChangeState(m_progress);
+    }
 
-        switch (m_progress)
+    private void ChangeState(Progress progress)
+    {
+        switch (progress)
         {
             case Progress.START:
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "It's a cold morning. You enter the dark shop and light up a candle.");
@@ -98,9 +96,8 @@ public class UnlockSystem : MonoBehaviour {
 
                 m_gameController.AddNewline();
 
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "Welcome to Artifact Infuser");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "<#FFA100>Welcome to Artifact Infuser</color>");
 
-                m_gameController.AddNewline();
                 NextState();
                 break;
 
@@ -160,13 +157,31 @@ public class UnlockSystem : MonoBehaviour {
                 m_waitState = WaitState.INFUSION;
                 break;
 
+            case Progress.UNLOCK_NEW_AREA:
+                m_gameController.AddNewline();
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "Steve has come back to thank you for the sword you forged.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "He tells you his party of adventurers just successfully chased away the mosnters in the Beach south of here (partially) thanks to your smithing skills!");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "You unlocked <#FFA100>[The Beach Area]</color> in the Gather menu. Go and see what you find there!");
+
+                UnlockArea(2); // 2 = Beach area ID
+
+                break;
+
             case Progress._:
-                print("done");
+                print("Tutorial Done");
                 break;
 
             default:
                 break;
         }
+    }
+
+
+
+    private void UnlockArea(int index)
+    {
+        unlockedAreas[index] = true;
+        m_gameController.UpdateAreas();
     }
 
 
@@ -244,7 +259,7 @@ public class UnlockSystem : MonoBehaviour {
     {
         switch (cypher.GetID())
         {
-            case 0: // ID of the first cypher
+            case 1: // ID of the first cypher
                 Notify(WaitState.INFUSION);
                 break;
 

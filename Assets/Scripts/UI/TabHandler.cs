@@ -19,8 +19,8 @@ public class TabHandler : MonoBehaviour {
     [SerializeField] private Button m_armoryBtn;
     [SerializeField] private Button m_upgradesBtn;
 
-    private bool isInfusionUnlocked = false;
-    private bool isUpgradesUnlocked = false;
+    public bool isInfusionUnlocked = false;
+    public bool isUpgradesUnlocked = false;
 
 	void Start()
     {		
@@ -31,7 +31,19 @@ public class TabHandler : MonoBehaviour {
         m_gatheringBtn.interactable = false;
         m_gatheringTab.SetActive(true);
 
-        // TODO when there's a save file, read the isLocked vars from there
+        UpdateInteractables();
+    }
+
+    public void UpdateLocks(SaveData saveData)
+    {
+        isInfusionUnlocked = saveData != null && saveData.isInfusionUnlocked;
+        isUpgradesUnlocked = saveData != null && saveData.isUpgradesUnlocked;
+
+        UpdateInteractables();
+    }
+
+    public void UpdateInteractables()
+    {
         m_infuserBtn.interactable = isInfusionUnlocked;
         m_upgradesBtn.interactable = isUpgradesUnlocked;
     }

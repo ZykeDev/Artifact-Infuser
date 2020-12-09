@@ -4086,6 +4086,7 @@ MonoBehaviour:
   m_gameController: {fileID: 271865951}
   m_backgroundManager: {fileID: 552614544}
   m_buttonHandler: {fileID: 1115166227}
+  m_mapHandler: {fileID: 1058578921}
   m_progressbar: {fileID: 307886489}
   m_gatheringDuration: 2
 --- !u!1 &457013178
@@ -8672,6 +8673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6940a63ff560d114b82d00b2359f3f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mapOverlay: {fileID: 232715956}
 --- !u!1 &1080615195
 GameObject:
   m_ObjectHideFlags: 0
@@ -8984,7 +8986,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 539146910}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99967945
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9473,7 +9475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225, y: 345}
+  m_AnchoredPosition: {x: 291, y: 356}
   m_SizeDelta: {x: 262.51404, y: 44.911133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1140895778

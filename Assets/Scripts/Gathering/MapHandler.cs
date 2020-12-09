@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private MapOverlay m_mapOverlay;
+
+    void Awake()
     {
-        
+        if (m_mapOverlay == null)
+        {
+            m_mapOverlay = FindObjectOfType<MapOverlay>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+    public void UpdateAreas() => m_mapOverlay.UpdateAreas();
 }

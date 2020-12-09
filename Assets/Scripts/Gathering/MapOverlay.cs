@@ -10,9 +10,9 @@ public class MapOverlay : MonoBehaviour
     [Header("Areas")]
     [SerializeField] protected GameObject m_areaWoodsObj;
     [SerializeField] protected GameObject m_areaRiverObj;
-    [SerializeField] protected GameObject m_areaMineObj;
-    [SerializeField] protected GameObject m_areaVillageObj;
     [SerializeField] protected GameObject m_areaBeachObj;
+    [SerializeField] protected GameObject m_areaVillageObj;
+    [SerializeField] protected GameObject m_areaMineObj;
 
     private List<MapArea> m_areas;
   
@@ -33,17 +33,23 @@ public class MapOverlay : MonoBehaviour
         // Areas are added in sequence to keep their order
         m_areas.Add(m_areaWoodsObj.GetComponent<MapArea>());
         m_areas.Add(m_areaRiverObj.GetComponent<MapArea>());
-        m_areas.Add(m_areaMineObj.GetComponent<MapArea>());
-        m_areas.Add(m_areaVillageObj.GetComponent<MapArea>());
         m_areas.Add(m_areaBeachObj.GetComponent<MapArea>());
+        m_areas.Add(m_areaVillageObj.GetComponent<MapArea>());
+        m_areas.Add(m_areaMineObj.GetComponent<MapArea>());
     }
 
 
     /// <summary>
     /// Updates the lock state of all areas
     /// </summary>
-    private void UpdateAreas()
+    public void UpdateAreas()
     {
+        // Make sure the areas have been setup
+        if (m_areas == null || m_areas.Count == 0)
+        {
+            SetupAreas();
+        } 
+
         for (int i = 0; i < m_areas.Count; i++)
         {
             if (i < m_unlockSystem.unlockedAreas.Length)
