@@ -8,6 +8,7 @@ public class SaveData
     public bool[] activeCyphers;
     public bool[] unlockedAreas;
     public bool[] boughtUpgrades;
+    public int assistants;
 
     public Inventory inventory;
     public Armory armory;
@@ -22,7 +23,8 @@ public class SaveData
     public SaveData(bool[] activeBlueprints,
                     bool[] activeCyphers, 
                     bool[] unlockedAreas, 
-                    bool[] boughtUpgrades, 
+                    bool[] boughtUpgrades,
+                    int assistants,
                     Inventory inventory, 
                     Armory armory,
                     UnlockSystem.Progress progress,
@@ -34,6 +36,7 @@ public class SaveData
         this.activeCyphers = activeCyphers;
         this.unlockedAreas = unlockedAreas;
         this.boughtUpgrades = boughtUpgrades;
+        this.assistants = assistants;
 
         inventory.PrepareForSave();
         this.inventory = inventory;

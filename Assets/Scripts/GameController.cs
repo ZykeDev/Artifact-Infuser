@@ -59,8 +59,6 @@ public class GameController : MonoBehaviour {
         m_armoryHandler.Awake();
         m_upgradesHandler.Awake();
 
-        //armory.UpdateSprites();
-
         m_saveData = saveData;
     }
 
@@ -69,6 +67,7 @@ public class GameController : MonoBehaviour {
     {
         m_tabHandler.UpdateLocks(m_saveData);
         armory.UpdateSprites();
+
         Save();
     }
 
@@ -81,6 +80,7 @@ public class GameController : MonoBehaviour {
             m_unlockSystem.activeCyphers,
             m_unlockSystem.unlockedAreas,
             m_unlockSystem.boughtUpgrades,
+            m_unlockSystem.assistants,
             inventory,
             armory,
             m_unlockSystem.m_progress,
@@ -282,7 +282,8 @@ public class GameController : MonoBehaviour {
 
     public void UnlockUpgrades() => m_tabHandler.UnlockUpgrades();
     public void UnlockInfusion() => m_tabHandler.UnlockInfusion();
-    public void UpdateAreas() => m_gathering.UpdateAreas(); 
+    public void UpdateAreas() => m_gathering.UpdateAreas();
+    public void UnlockAssitant() => m_gathering.UnlockAssistant();
 
     #endregion
 }

@@ -15,6 +15,7 @@ public class UnlockSystem : MonoBehaviour {
     public bool[] activeCyphers; // index = cypher ID
     public bool[] unlockedAreas;
     public bool[] boughtUpgrades;
+    public int assistants;
 
     
     public enum Progress
@@ -28,6 +29,7 @@ public class UnlockSystem : MonoBehaviour {
         FIRST_UPGRADE,
         FIRST_INFUSION,
         UNLOCK_NEW_AREA,
+        FIRST_ASSISTANT,
         _
     }
     public enum WaitState
@@ -38,7 +40,9 @@ public class UnlockSystem : MonoBehaviour {
         SELL_SWORD,
         REQUEST,
         UPGRADE,
-        INFUSION
+        INFUSION,
+        GATHER_BEACH,
+        SEND_ASSISTANT
     }
 
     public Progress m_progress;
@@ -68,6 +72,7 @@ public class UnlockSystem : MonoBehaviour {
             activeCyphers = saveData.activeCyphers;
             unlockedAreas = saveData.unlockedAreas;
             boughtUpgrades = saveData.boughtUpgrades;
+            assistants = saveData.assistants;
 
             m_progress = saveData.progress;
         }
@@ -164,7 +169,16 @@ public class UnlockSystem : MonoBehaviour {
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "You unlocked <#FFA100>[The Beach Area]</color> in the Gather menu. Go and see what you find there!");
 
                 UnlockArea(2); // 2 = Beach area ID
+                m_waitState = WaitState.GATHER_BEACH;
+                break;
 
+            case Progress.FIRST_ASSISTANT:
+                m_gameController.AddNewline();
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "A young lady enters the shop and asks to be your apprentice.");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "You unlocked your first <#FFA100>[Assistant]</color>. From Gather menu you can send assistants to gather resources in your stead.");
+
+                UnlockAssitant();
+                m_waitState = WaitState.SEND_ASSISTANT;
                 break;
 
             case Progress._:
@@ -184,6 +198,11 @@ public class UnlockSystem : MonoBehaviour {
         m_gameController.UpdateAreas();
     }
 
+    private void UnlockAssitant()
+    {
+        assistants++;
+        m_gameController.UnlockAssitant();
+    }
 
 
     #region Notifications

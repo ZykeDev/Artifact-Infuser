@@ -8,6 +8,7 @@ public class Gathering : MonoBehaviour
     [SerializeField] protected BackgroundManager m_backgroundManager;
     [SerializeField] protected ButtonHandler m_buttonHandler;
     [SerializeField] protected MapHandler m_mapHandler;
+    [SerializeField] protected AssistantSystem m_assistantSystem;
 
     [Header("UI Components")]
     [SerializeField] private Slider m_progressbar;
@@ -106,5 +107,9 @@ public class Gathering : MonoBehaviour
 
     public void UpdateAreas() => m_mapHandler.UpdateAreas();
     
+    public void UnlockAssistant()
+    {
+        //m_assistantSystem.Unlock();
+    }
 
 }
