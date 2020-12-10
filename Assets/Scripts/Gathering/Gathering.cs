@@ -141,6 +141,8 @@ public class Gathering : MonoBehaviour
             booty.SetRandomResources(tier);
 
             m_gameController.AddResources(booty);
+
+            m_assistantSystem.Return(assistant, tier);
         }
     }
 

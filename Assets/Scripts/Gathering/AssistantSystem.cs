@@ -6,6 +6,7 @@ public class AssistantSystem : MonoBehaviour
 {
     [SerializeField] protected GameController m_gameController;
     [SerializeField] private GameObject m_rowPrefab;
+    [SerializeField] private AssistantRow row; // TODO make into a list
 
 
     private List<(Assistant, int, bool)> m_assistants;
@@ -22,12 +23,10 @@ public class AssistantSystem : MonoBehaviour
             // Display the assistant row
         }
 
+        Assistant a = AddAssistant();
+        row.Set(this, a);
     }
 
-    public void Send()
-    {
-        Send(AddAssistant());
-    }
 
     /// <summary>
     /// Sends the selected assistant to gather.
@@ -70,10 +69,10 @@ public class AssistantSystem : MonoBehaviour
         m_assistantsNumber = m_assistants.Count;
 
         return newAssistant;
-    }    
+    }
 
 
-    public void OnChange(Assistant assistant, int area, bool isWorking)
+    public void UpdateAssistant(Assistant assistant, int area, bool isWorking)
     {
         for (int i = 0; i < m_assistants.Count; i++)
         {
@@ -84,6 +83,14 @@ public class AssistantSystem : MonoBehaviour
             }
         }
     }
+
+
+    public void Return(Assistant assistant, int area)
+    {
+        UpdateAssistant(assistant, area, false);
+        row.Return();
+    }
+
 }
 
 
