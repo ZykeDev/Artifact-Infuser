@@ -84,8 +84,8 @@ public class GameController : MonoBehaviour {
             inventory,
             armory,
             m_unlockSystem.m_progress,
-            m_tabHandler.isInfusionUnlocked,
-            m_tabHandler.isUpgradesUnlocked);
+            m_tabHandler.isInfusionLocked,
+            m_tabHandler.isUpgradesLocked);
 
         SaveSystem.Save(saveData);
 
@@ -122,7 +122,8 @@ public class GameController : MonoBehaviour {
 
     public void FinishGathering(int tier)
     {
-        m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER);
+        if (tier == 0 || tier == 1) m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER);
+        else if (tier == 2) m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER_BEACH);
 
         m_gathering.FinishGathering(tier);
     }

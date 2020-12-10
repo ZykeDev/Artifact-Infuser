@@ -53,7 +53,7 @@ public class Gathering : MonoBehaviour
 
         m_progressbar.value = 0;
 
-        float time = (m_tier + 1) * 2f; // TODO get this from the selected area
+        float time = (m_tier + 1) * 1.4f; // TODO get this from the selected area
         
         m_gameController.Gather(m_tier, time);
     }

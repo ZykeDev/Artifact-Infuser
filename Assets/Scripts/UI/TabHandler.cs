@@ -13,39 +13,42 @@ public class TabHandler : MonoBehaviour {
     [SerializeField] protected GameObject m_upgradesTab;
 
     [Header("Buttons")]
-    [SerializeField] private Button m_gatheringBtn;
-    [SerializeField] private Button m_crafterBtn;
-    [SerializeField] private Button m_infuserBtn;
-    [SerializeField] private Button m_armoryBtn;
-    [SerializeField] private Button m_upgradesBtn;
+    [SerializeField] private TabButton m_gatheringBtn;
+    [SerializeField] private TabButton m_crafterBtn;
+    [SerializeField] private TabButton m_infuserBtn;
+    [SerializeField] private TabButton m_armoryBtn;
+    [SerializeField] private TabButton m_upgradesBtn;
 
-    public bool isInfusionUnlocked = false;
-    public bool isUpgradesUnlocked = false;
+    public bool isInfusionLocked = true;
+    public bool isUpgradesLocked = true;
 
 	void Start()
     {		
 		SetAllTabsInteractable();
     	CloseAllTabs();
 
-    	currentTab = Tab.GATHERING; // TODO change this to save-state's last Tab
-        m_gatheringBtn.interactable = false;
+    	currentTab = Tab.GATHERING;
+        m_gatheringBtn.Select(true);
         m_gatheringTab.SetActive(true);
 
-        UpdateInteractables();
+        UpdateTabInteractability();
     }
 
     public void UpdateLocks(SaveData saveData)
     {
-        isInfusionUnlocked = saveData != null && saveData.isInfusionUnlocked;
-        isUpgradesUnlocked = saveData != null && saveData.isUpgradesUnlocked;
+        if (saveData != null)
+        {
+            isInfusionLocked = saveData.isInfusionUnlocked;
+            isUpgradesLocked = saveData.isUpgradesUnlocked;
+        }
 
-        UpdateInteractables();
+        UpdateTabInteractability();
     }
 
-    public void UpdateInteractables()
+    public void UpdateTabInteractability()
     {
-        m_infuserBtn.interactable = isInfusionUnlocked;
-        m_upgradesBtn.interactable = isUpgradesUnlocked;
+        m_infuserBtn.UpdateLock(isInfusionLocked);
+        m_upgradesBtn.UpdateLock(isUpgradesLocked);
     }
 
 
@@ -53,7 +56,7 @@ public class TabHandler : MonoBehaviour {
     public void SwitchTabToCrafter() => SwitchTab(Tab.CRAFTER);
     public void SwitchTabToInfuser() => SwitchTab(Tab.INFUSER);
     public void SwitchTabToArmory() => SwitchTab(Tab.ARMORY);
-    // TODO update this if "upgrades" changes, to signal new available upgrades?
+    // TODO update this if "upgrades" changes, to signal new available upgrades? like with a "!" next to it
     public void SwitchTabToUpgrades() => SwitchTab(Tab.UPGRADES);
   
 
@@ -67,30 +70,30 @@ public class TabHandler : MonoBehaviour {
 
     	switch (tab) {
             case Tab.GATHERING:
-                m_gatheringBtn.interactable = false;
+                m_gatheringBtn.Select(true);
                 m_gatheringTab.SetActive(true);
                 break;
 
             case Tab.CRAFTER:
-    			m_crafterBtn.interactable = false;
-    			m_crafterTab.SetActive(true);
+                m_crafterBtn.Select(true);
+                m_crafterTab.SetActive(true);
     			break;
 
     		case Tab.INFUSER:
-    			m_infuserBtn.interactable = false;
-    			m_infuserTab.SetActive(true);
+    			m_infuserBtn.Select(true);
+                m_infuserTab.SetActive(true);
                 m_infuserTab.GetComponent<Infuser>().OnFocus();
                 break;
 
     		case Tab.ARMORY:
-    			m_armoryBtn.interactable = false;
-    			m_armoryTab.SetActive(true);
+    			m_armoryBtn.Select(true);
+                m_armoryTab.SetActive(true);
                 m_armoryTab.GetComponent<ArmoryHandler>().OnFocus();
     			break;
 
     		case Tab.UPGRADES:
-    			m_upgradesBtn.interactable = false;
-    			m_upgradesTab.SetActive(true);
+    			m_upgradesBtn.Select(true);
+                m_upgradesTab.SetActive(true);
     			break;
 
     		default:
@@ -109,11 +112,11 @@ public class TabHandler : MonoBehaviour {
 
     private void SetAllTabsInteractable()
     {
-        m_gatheringBtn.interactable = true;
-        m_crafterBtn.interactable = true;
-        m_infuserBtn.interactable = isInfusionUnlocked;
-        m_armoryBtn.interactable = true;
-		m_upgradesBtn.interactable = isUpgradesUnlocked;
+        m_gatheringBtn.Select(false);
+        m_crafterBtn.Select(false);
+        m_infuserBtn.Select(false);
+        m_armoryBtn.Select(false);
+        m_upgradesBtn.Select(false);
     }
 
 
@@ -123,14 +126,14 @@ public class TabHandler : MonoBehaviour {
 
     public void UnlockUpgrades()
     {
-        isUpgradesUnlocked = true;
-        m_upgradesBtn.interactable = isUpgradesUnlocked;
+        isUpgradesLocked = false;
+        UpdateTabInteractability();
     }
 
     public void UnlockInfusion()
     {
-        isInfusionUnlocked = true;
-        m_infuserBtn.interactable = isInfusionUnlocked;
+        isInfusionLocked = false;
+        UpdateTabInteractability();
     }
 
 

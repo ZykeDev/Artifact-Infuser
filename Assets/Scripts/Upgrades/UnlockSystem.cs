@@ -166,7 +166,7 @@ public class UnlockSystem : MonoBehaviour {
                 m_gameController.AddNewline();
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "Steve has come back to thank you for the sword you forged.");
                 m_gameController.AddDialogue(DialogType.DIALOGUE, "He tells you his party of adventurers just successfully chased away the mosnters in the Beach south of here (partially) thanks to your smithing skills!");
-                m_gameController.AddDialogue(DialogType.DIALOGUE, "You unlocked <#FFA100>[The Beach Area]</color> in the Gather menu. Go and see what you find there!");
+                m_gameController.AddDialogue(DialogType.DIALOGUE, "You unlocked <#FFA100>[The Beach Area]</color> in the Gather menu. Go and see what you find there");
 
                 UnlockArea(2); // 2 = Beach area ID
                 m_waitState = WaitState.GATHER_BEACH;
