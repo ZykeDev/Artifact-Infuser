@@ -303,4 +303,12 @@ public class UnlockSystem : MonoBehaviour {
 
     #endregion
 
+
+    #region Getters
+    
+    public bool IsAreaUnlocked(int areaIndex) => unlockedAreas[areaIndex];
+ 
+
+    #endregion
+
 }

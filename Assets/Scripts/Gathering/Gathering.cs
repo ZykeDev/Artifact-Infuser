@@ -25,7 +25,13 @@ public class Gathering : MonoBehaviour
 
     public void Awake()
     {
+        
+    }
+
+    public void Init(SaveData saveData)
+    {
         m_tier = 0;
+        m_assistantSystem.Init(saveData);
     }
 
     public void SetTier(int tier)
@@ -112,4 +118,31 @@ public class Gathering : MonoBehaviour
         //m_assistantSystem.Unlock();
     }
 
+
+    #region Assistants
+
+    public void SendAssistant(Assistant assistant)
+    {
+        int tier = 0;
+        float time = 1f;
+
+        m_backgroundManager.SendAssistant(assistant, tier, time);
+
+    }
+
+    public void AssistantReturn(Assistant assistant, int tier)
+    {
+        bool isRerun = false;
+
+        if (!isRerun)
+        {
+            // Add the new resources to the inventory
+            Inventory booty = new Inventory();
+            booty.SetRandomResources(tier);
+
+            m_gameController.AddResources(booty);
+        }
+    }
+
+    #endregion
 }

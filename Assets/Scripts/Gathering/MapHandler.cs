@@ -15,4 +15,5 @@ public class MapHandler : MonoBehaviour
 
 
     public void UpdateAreas() => m_mapOverlay.UpdateAreas();
+
 }

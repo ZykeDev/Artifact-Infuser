@@ -54,7 +54,7 @@ public class GameController : MonoBehaviour {
         }
 
         m_unlockSystem.Init(saveData);
-        m_gathering.Awake();
+        m_gathering.Init(saveData);
         m_infuserComp.Awake();
         m_armoryHandler.Awake();
         m_upgradesHandler.Awake();
@@ -127,6 +127,14 @@ public class GameController : MonoBehaviour {
 
         m_gathering.FinishGathering(tier);
     }
+
+
+    public bool IsAreaUnlocked(int areaIndex) => m_unlockSystem.IsAreaUnlocked(areaIndex);
+
+
+    public void SendAssistant(Assistant assistant) => m_gathering.SendAssistant(assistant);
+
+    public void AssistantReturn(Assistant assistant, int tier) => m_gathering.AssistantReturn(assistant, tier);
 
     #endregion
 

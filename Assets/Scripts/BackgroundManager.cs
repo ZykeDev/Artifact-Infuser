@@ -196,9 +196,48 @@ public class BackgroundManager : MonoBehaviour
     #region Sell
 
     public void Sell(List<Artifact> artifacts) => m_gameController.Sell(artifacts);
-    
+
 
 
     #endregion
 
+
+    #region Assistants
+
+    public void SendAssistant(Assistant assistant, int tier, float time)
+    {
+        m_gatheringCoroutine = StartCoroutine(AssistantGather(assistant, tier, time, delegate { AssistantReturn(assistant, tier); }));
+    }
+
+    private IEnumerator AssistantGather(Assistant assistant, int tier, float time, Action callback)
+    {
+        if (time == 0) time = m_minGatheringTime;
+
+        for (float i = 0f; i < time; i += m_tickIncrement)
+        {
+            //m_gameController.UpdateGatheringProgress(i / time); TODO change to counter for assistant panel
+
+            yield return new WaitForSeconds(m_tickIncrement);
+
+            // Callback when done
+            if (i >= time - m_tickIncrement)
+            {
+                //m_gameController.UpdateGatheringProgress(0);  TODO reset counter in assinta tpanel
+                callback?.Invoke();
+            }
+        }
+    }
+
+
+    private void AssistantReturn(Assistant assistant, int tier)
+    {
+        //StopGathering();
+        // handle the coroutine
+        
+
+        m_gameController.AssistantReturn(assistant, tier);
+    }
+
+
+    #endregion
 }
