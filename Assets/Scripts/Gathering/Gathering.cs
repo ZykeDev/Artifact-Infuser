@@ -132,18 +132,17 @@ public class Gathering : MonoBehaviour
 
     public void AssistantReturn(Assistant assistant, int tier)
     {
-        bool isRerun = false;
+        // Add the new resources to the inventory
+        Inventory booty = new Inventory();
+        booty.SetRandomResources(tier);
 
-        if (!isRerun)
+        m_gameController.AddResources(booty);
+
+        if (!assistant.repeat)
         {
-            // Add the new resources to the inventory
-            Inventory booty = new Inventory();
-            booty.SetRandomResources(tier);
-
-            m_gameController.AddResources(booty);
-
             m_assistantSystem.Return(assistant, tier);
         }
+        
     }
 
     #endregion

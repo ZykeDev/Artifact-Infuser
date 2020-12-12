@@ -76,5 +76,19 @@ public class MapOverlay : MonoBehaviour
         m_gathering.SetTier(index);
     }
 
+    public List<MapArea> GetActiveAreas()
+    {
+        List<MapArea> activeAreas = new List<MapArea>();
+
+        foreach (MapArea area in m_areas)
+        {
+            if (area.IsUnlocked())
+            {
+                activeAreas.Add(area);
+            }
+        }
+
+        return activeAreas;
+    }
 
 }

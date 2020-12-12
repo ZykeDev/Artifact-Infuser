@@ -222,8 +222,13 @@ public class BackgroundManager : MonoBehaviour
             // Callback when done
             if (i >= time - m_tickIncrement)
             {
-                //m_gameController.UpdateGatheringProgress(0);  TODO reset counter in assinta tpanel
                 callback?.Invoke();
+
+                // Restart the coroutine if repeat is set
+                if (assistant.repeat)
+                {
+                    i = 0f;
+                }
             }
         }
     }

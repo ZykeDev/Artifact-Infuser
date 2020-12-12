@@ -245,6 +245,16 @@ PrefabInstance:
       propertyPath: m_header
       value: The Old Mine
       objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_isUnlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_name
+      value: The Old Mine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be0fd12d2a571945bda6050270bbc5d, type: 3}
 --- !u!224 &3752421 stripped
@@ -680,6 +690,16 @@ PrefabInstance:
     - target: {fileID: 3020076426179929702, guid: 3be0fd12d2a571945bda6050270bbc5d,
         type: 3}
       propertyPath: m_header
+      value: The Beach
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_isUnlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_name
       value: The Beach
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3310,6 +3330,11 @@ PrefabInstance:
     - target: {fileID: 3020076426179929702, guid: 3be0fd12d2a571945bda6050270bbc5d,
         type: 3}
       propertyPath: m_header
+      value: The River
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_name
       value: The River
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -17245,6 +17270,11 @@ PrefabInstance:
       propertyPath: m_header
       value: The Village
       objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_name
+      value: The Village
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be0fd12d2a571945bda6050270bbc5d, type: 3}
 --- !u!224 &2033542981 stripped
@@ -18625,6 +18655,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isUnlocked
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3020076426179929703, guid: 3be0fd12d2a571945bda6050270bbc5d,
+        type: 3}
+      propertyPath: m_name
+      value: The Woods
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be0fd12d2a571945bda6050270bbc5d, type: 3}

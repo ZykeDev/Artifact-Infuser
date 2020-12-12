@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -29,10 +30,10 @@ public class AssistantSystem : MonoBehaviour
 
 
     /// <summary>
-    /// Sends the selected assistant to gather.
+    /// Sends the selected assistant to gather. Returns true if it successfuly sends them
     /// </summary>
     /// <param name="assistant"></param>
-    public void Send(Assistant assistant)
+    public bool Send(Assistant assistant)
     {
         for (int i = 0; i < m_assistants.Count; i++)
         {
@@ -45,25 +46,27 @@ public class AssistantSystem : MonoBehaviour
                 {
                     m_assistants[i] = (assistant, m_assistants[i].Item2, true);
                     m_gameController.SendAssistant(m_assistants[i].Item1);
+
+                    return true;
                 }
                 else
                 {
 #if UNITY_EDITOR
                     Debug.Log("Can't send assistant.");
 #endif
+                    return false;
                 }
-                
-                break;
             }
         }
 
+        return false;
     }
 
 
 
     public Assistant AddAssistant()
     {
-        Assistant newAssistant = new Assistant(m_assistantsNumber, "Lydia Smith");
+        Assistant newAssistant = new Assistant(m_assistantsNumber, "Lydia Smith", false);
         m_assistants.Add((newAssistant, 0, false));
 
         m_assistantsNumber = m_assistants.Count;
@@ -72,13 +75,14 @@ public class AssistantSystem : MonoBehaviour
     }
 
 
-    public void UpdateAssistant(Assistant assistant, int area, bool isWorking)
+    public void UpdateAssistant(Assistant assistant, int area, bool isRepeat)
     {
         for (int i = 0; i < m_assistants.Count; i++)
         {
             if (m_assistants[i].Item1 == assistant)
             {
-                m_assistants[i] = (assistant, area, isWorking);
+                assistant.repeat = isRepeat;
+                m_assistants[i] = (assistant, area, false);
                 break;
             }
         }
@@ -95,23 +99,27 @@ public class AssistantSystem : MonoBehaviour
 
 
 
-[System.Serializable]
+[Serializable]
 public class Assistant
 {
     public int id;
     public string name;
     public Sprite sprite;
+
+    public bool repeat;
     // TODO bonuses?
 
-    public Assistant(int id, string name)
+    public Assistant(int id, string name, bool repeat)
     {
         this.id = id;
         this.name = name;
+        this.repeat = repeat;
 
         sprite = RandomSprite();
     }
 
 
+    // TODO
     private Sprite RandomSprite()
     {
         return null;

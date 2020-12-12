@@ -9,8 +9,8 @@ public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     [SerializeField] private GameObject m_lock;
     [SerializeField] private GameObject m_go;
 
-    [SerializeField]
-    private bool m_isUnlocked = false;
+    [SerializeField] private bool m_isUnlocked = false;
+    [SerializeField] private string m_name = "";
 
 
     private int m_index;
@@ -88,5 +88,8 @@ public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         m_image.color = baseColor;
     }
 
+
+    public bool IsUnlocked() => m_isUnlocked;
+    public string GetName() => m_name;
 
 }
