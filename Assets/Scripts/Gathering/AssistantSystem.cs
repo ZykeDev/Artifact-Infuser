@@ -95,6 +95,12 @@ public class AssistantSystem : MonoBehaviour
         row.Return();
     }
 
+    public void UpdateRows()
+    {
+        // TODO foreach row
+        row.UpdateDropdown();
+    }
+
 }
 
 

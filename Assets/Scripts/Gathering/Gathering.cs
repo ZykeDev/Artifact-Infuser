@@ -111,7 +111,11 @@ public class Gathering : MonoBehaviour
     #endregion
 
 
-    public void UpdateAreas() => m_mapHandler.UpdateAreas();
+    public void UpdateAreas()
+    {
+        m_mapHandler.UpdateAreas();
+        m_assistantSystem.UpdateRows();
+    }
     
     public void UnlockAssistant()
     {
