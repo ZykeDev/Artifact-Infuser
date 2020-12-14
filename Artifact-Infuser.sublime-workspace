@@ -251,6 +251,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/C/Users/Maaarco/AppData/LocalLow/DefaultCompany/Artifact Infuser/data.save",
+			"settings":
+			{
+				"buffer_size": 9655,
+				"encoding": "Hexadecimal",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -542,8 +551,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Maaarco/AppData/LocalLow/DefaultCompany/Artifact Infuser/data.save",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9655,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

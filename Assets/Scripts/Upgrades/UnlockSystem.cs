@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class UnlockSystem : MonoBehaviour {
-	
+public class UnlockSystem : MonoBehaviour 
+{
     private GameController m_gameController;
     private RequestSystem m_requestSystem;
 
@@ -15,7 +15,6 @@ public class UnlockSystem : MonoBehaviour {
     public bool[] activeCyphers; // index = cypher ID
     public bool[] unlockedAreas;
     public bool[] boughtUpgrades;
-    public int assistants;
 
     
     public enum Progress
@@ -72,7 +71,6 @@ public class UnlockSystem : MonoBehaviour {
             activeCyphers = saveData.activeCyphers;
             unlockedAreas = saveData.unlockedAreas;
             boughtUpgrades = saveData.boughtUpgrades;
-            assistants = saveData.assistants;
 
             m_progress = saveData.progress;
         }
@@ -200,7 +198,7 @@ public class UnlockSystem : MonoBehaviour {
 
     private void UnlockAssitant()
     {
-        assistants++;
+        //assistants++;
         m_gameController.UnlockAssitant();
     }
 

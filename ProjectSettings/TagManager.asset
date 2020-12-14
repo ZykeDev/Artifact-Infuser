@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Rule Slot
   - Request Slot
+  - Assistant Slot
   layers:
   - Default
   - TransparentFX

@@ -16,7 +16,7 @@ public class AssistantRow : MonoBehaviour
 
     [SerializeField] private GameObject m_waitText;
 
-    private Assistant m_assistant;
+    public Assistant assistant { get; private set; }
     private AssistantSystem m_assistantSystem;
     private MapOverlay m_map;
 
@@ -27,26 +27,27 @@ public class AssistantRow : MonoBehaviour
         m_map = FindObjectOfType<MapOverlay>(); // TODO dont use find
     }
 
-    public void Set(AssistantSystem assistantSystem, Assistant assistant)
+    public void Set(AssistantSystem assistantSystem, (Assistant assistant, int area, bool isGathering) assistantData)
     {
         m_assistantSystem = assistantSystem;
 
-        m_assistant = assistant;
-        m_name.text = assistant.name;
-        m_avatar.sprite = assistant.sprite;
+        assistant = assistantData.assistant;
+        m_name.text = assistantData.assistant.name;
+        m_avatar.sprite = assistantData.assistant.sprite;
         m_areaChoice = m_dropdownObj.GetComponent<TMP_Dropdown>();
-        m_isRepeat.isOn = false;
+        m_isRepeat.isOn = assistantData.assistant.repeat;
 
-        isGathering = false; // TODO update on save load or after offlineProgress calc
+        isGathering = assistantData.isGathering; // TODO update on save load or after offlineProgress calc
 
         if (m_map == null) m_map = FindObjectOfType<MapOverlay>(); // TODO dont use find
 
         UpdateDropdown();
+        SelectDropdown(assistantData.area);
     }
 
     public void OnValueChange()
     {
-        m_assistantSystem?.UpdateAssistant(m_assistant, m_areaChoice.value, m_isRepeat.isOn);
+        m_assistantSystem?.UpdateAssistant(assistant, m_areaChoice.value, m_isRepeat.isOn);
     }
 
 
@@ -55,8 +56,8 @@ public class AssistantRow : MonoBehaviour
     /// </summary>
     public void Send()
     {
-        m_assistant.repeat = m_isRepeat.isOn;
-        if (m_assistantSystem.Send(m_assistant))
+        assistant.repeat = m_isRepeat.isOn;
+        if (m_assistantSystem.Send(assistant))
         {
             isGathering = true;
             UpdateElements();
@@ -104,5 +105,10 @@ public class AssistantRow : MonoBehaviour
 
         m_areaChoice.ClearOptions();
         m_areaChoice.AddOptions(options);
+    }
+
+    public void SelectDropdown(int area)
+    {
+        m_areaChoice.value = area;
     }
 }

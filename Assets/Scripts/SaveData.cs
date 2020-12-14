@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class SaveData
 {
-
     public bool[] activeBlueprints;
     public bool[] activeCyphers;
     public bool[] unlockedAreas;
     public bool[] boughtUpgrades;
-    public int assistants;
+    public List<(Assistant, int, bool)> assistants;
 
     public Inventory inventory;
     public Armory armory;
@@ -24,12 +24,12 @@ public class SaveData
                     bool[] activeCyphers, 
                     bool[] unlockedAreas, 
                     bool[] boughtUpgrades,
-                    int assistants,
                     Inventory inventory, 
                     Armory armory,
                     UnlockSystem.Progress progress,
                     bool isInfusionUnlocked,
-                    bool isUpgradesUnlocked)
+                    bool isUpgradesUnlocked,
+                    List<(Assistant, int, bool)> assistants)
     
     {
         this.activeBlueprints = activeBlueprints;

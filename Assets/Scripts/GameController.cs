@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] protected TabHandler m_tabHandler;
     [SerializeField] protected ResourcesTabUI m_resourcesTab;
     [SerializeField] protected Shop m_shop;
-
+    [SerializeField] protected AssistantSystem m_assistantSystem;
 
     [SerializeField]
     protected GameObject m_gather, m_crafter, m_infuser, m_armory, m_upgrades;
@@ -80,12 +80,12 @@ public class GameController : MonoBehaviour {
             m_unlockSystem.activeCyphers,
             m_unlockSystem.unlockedAreas,
             m_unlockSystem.boughtUpgrades,
-            m_unlockSystem.assistants,
             inventory,
             armory,
             m_unlockSystem.m_progress,
             m_tabHandler.isInfusionLocked,
-            m_tabHandler.isUpgradesLocked);
+            m_tabHandler.isUpgradesLocked,
+            m_assistantSystem.assistants);
 
         SaveSystem.Save(saveData);
 
