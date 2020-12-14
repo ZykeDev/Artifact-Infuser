@@ -36,8 +36,6 @@ public static class OfflineProgress
 
         int passedTime = GetTimeSince(saveData.saveTime);
 
-        Debug.Log(passedTime + "s have passed");
-
         for (int i = 0; i < assistants.Count; i++)
         {
             // Ignore non working ones

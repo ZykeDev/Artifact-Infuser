@@ -22,17 +22,11 @@ public class Gathering : MonoBehaviour
 
     private Coroutine m_gatheringCoroutine = null;
 
-    private int m_tier = 0;
     private MapArea m_selectedArea;
 
-    public void Awake()
-    {
-        
-    }
 
     public void Init(SaveData saveData)
     {
-        m_tier = 0;
         m_assistantSystem.Init(saveData);
     }
 
@@ -41,7 +35,6 @@ public class Gathering : MonoBehaviour
         m_selectedArea = area;
         m_buttonHandler.EnableGather();
     }
-
 
 
     #region Gathering
@@ -60,7 +53,7 @@ public class Gathering : MonoBehaviour
 
         m_progressbar.value = 0;
 
-        m_gameController.Gather(m_tier, m_selectedArea.GetTime());
+        m_gameController.Gather(m_selectedArea.index, m_selectedArea.GetTime());
     }
 
 
@@ -91,7 +84,7 @@ public class Gathering : MonoBehaviour
     /// <summary>
     /// Stops gathering resources and adds them to the inventory
     /// </summary>
-    public void FinishGathering(int tier)
+    public void FinishGathering(int area)
     {
         m_gatheringState = GatheringState.IDLE;
 
@@ -101,7 +94,7 @@ public class Gathering : MonoBehaviour
 
         // Add the new resources to the inventory
         Inventory booty = new Inventory();
-        booty.SetRandomResources(tier);
+        booty.SetRandomResources(area);
 
         m_gameController.AddResources(booty);
     }
@@ -117,11 +110,7 @@ public class Gathering : MonoBehaviour
         m_assistantSystem.UpdateRows();
     }
     
-    public void UnlockAssistant()
-    {
-        // TODO
-        //m_assistantSystem.Unlock();
-    }
+    public void UnlockAssistant() => m_assistantSystem.Unlock();
 
 
     #region Assistants

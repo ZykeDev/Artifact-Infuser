@@ -34,9 +34,9 @@ public class BackgroundManager : MonoBehaviour
 
     #region Gather
 
-    public void Gather(int tier, float time)
+    public void Gather(int area, float time)
     {
-        m_gatheringCoroutine = StartCoroutine(Gather(time, delegate { FinishGathering(tier); }));
+        m_gatheringCoroutine = StartCoroutine(Gather(time, delegate { FinishGathering(area); }));
     }
 
     public void StopGathering()
@@ -44,10 +44,10 @@ public class BackgroundManager : MonoBehaviour
         StopCoroutine(m_gatheringCoroutine);
     }
 
-    private void FinishGathering(int tier)
+    private void FinishGathering(int area)
     {
         StopGathering();
-        m_gameController.FinishGathering(tier);
+        m_gameController.FinishGathering(area);
     }
 
     private IEnumerator Gather(float time, Action callback)

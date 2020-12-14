@@ -131,12 +131,12 @@ public class GameController : MonoBehaviour {
 
     #region Gathering
 
-    public void Gather(int tier, float time)
+    public void Gather(int area, float time)
     {
         // Applies bonuses to the time
         time = m_upgradesHandler.ApplyBonuses(time);
 
-        m_backgroundManager.Gather(tier, time);
+        m_backgroundManager.Gather(area, time);
     }
     public void StopGather() => m_backgroundManager.StopGathering();
 
@@ -145,12 +145,12 @@ public class GameController : MonoBehaviour {
         if (m_gather.activeSelf) m_gathering.UpdateGatheringProgress(progress);
     }
 
-    public void FinishGathering(int tier)
+    public void FinishGathering(int area)
     {
-        if (tier == 0 || tier == 1) m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER);
-        else if (tier == 2) m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER_BEACH);
+        if (area == 0 || area == 1) m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER);
+        else if (area == 2)         m_unlockSystem.Notify(UnlockSystem.WaitState.GATHER_BEACH);
 
-        m_gathering.FinishGathering(tier);
+        m_gathering.FinishGathering(area);
     }
 
 

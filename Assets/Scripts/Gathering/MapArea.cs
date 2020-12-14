@@ -16,7 +16,7 @@ public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     [SerializeField] private string m_name = "";
 
 
-    private int m_index;
+    public int index { get; private set; }
     private bool m_isSelected = false;
     private Image m_image;
     
@@ -46,14 +46,14 @@ public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         if (m_isUnlocked && !m_isSelected)
         {
             m_isSelected = true;
-            FindObjectOfType<MapOverlay>().Select(m_index);
+            FindObjectOfType<MapOverlay>().Select(index);
         }
     }
 
 
     public void SetLock(int index, bool state)
     {
-        m_index = index;
+        this.index = index;
         m_isUnlocked = state;
         UpdateLock();
     }

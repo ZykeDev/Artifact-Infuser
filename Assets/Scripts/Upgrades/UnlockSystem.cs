@@ -198,7 +198,6 @@ public class UnlockSystem : MonoBehaviour
 
     private void UnlockAssitant()
     {
-        //assistants++;
         m_gameController.UnlockAssitant();
     }
 

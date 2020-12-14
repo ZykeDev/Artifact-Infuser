@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AssistantSystem : MonoBehaviour
 {
+    [Header("Script References")]
     [SerializeField] protected GameController m_gameController;
+
+    [Header("UI Components")]
+    [SerializeField] private GameObject m_button;
     [SerializeField] private GameObject m_rowPrefab;
 
-    public List<Assistant> assistants;
-    private int m_assistantsNumber;
+    [Space(10)]
+    [SerializeField] private List<Sprite> m_sprites;
 
+    [Header("Assistant")]
     [SerializeField] private List<GameObject> m_slots;
-    private List<AssistantRow> m_rows;
 
+    private List<AssistantRow> m_rows;
+    public List<Assistant> assistants;
 
     public void Init(SaveData saveData)
     {
@@ -23,32 +28,20 @@ public class AssistantSystem : MonoBehaviour
         if (saveData != null && saveData.assistants != null)
         {
             assistants = saveData.assistants;
+
+            // Reload the sprites
+            foreach (Assistant assistant in assistants)
+            {
+                assistant.UpdateSprites(m_sprites);
+            }
         }
         else
         {
             // Otherwise create a new list
             assistants = new List<Assistant>();
-            AddAssistant();
         }
 
-        // Fill a slot with each assistant row
-        for (int i = 0; i < assistants.Count; i++)
-        {
-            // TODO move this to its own function
-            GameObject rowObj = Instantiate(m_rowPrefab, m_slots[i].transform);
-            rowObj.name = assistants[i].Name;
-
-            RectTransform rowRT = rowObj.GetComponent<RectTransform>();
-            rowRT.SetLeft(0);
-            rowRT.SetRight(0);
-            rowRT.SetTop(0);
-            rowRT.SetBottom(0);
-
-            AssistantRow row = rowObj.GetComponent<AssistantRow>();
-            row.Set(this, assistants[i]);
-            m_rows.Add(row);
-        }
-        
+        AddRow();
     }
 
 
@@ -89,44 +82,46 @@ public class AssistantSystem : MonoBehaviour
             return true;
         }
 
-        return false;   
+        return false;
     }
 
 
-
-    public Assistant AddAssistant()
+    /// <summary>
+    /// Adds a new assistant with the given name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public Assistant AddAssistant(string name)
     {
-        // TODO check there are enough slots?
-        Assistant newAssistant = new Assistant(m_assistantsNumber, "Lydia Smith");
+        Assistant newAssistant = new Assistant(assistants.Count, name, m_sprites);
+
         assistants.Add(newAssistant);
 
-        m_assistantsNumber = assistants.Count;
+        AddRow();
 
         return newAssistant;
     }
 
 
     public void UpdateAssistant(Assistant assistant, int area, bool isRepeat)
-    { 
+    {
         for (int i = 0; i < assistants.Count; i++)
         {
             if (assistants[i] == assistant)
             {
+                assistant.area = area;
                 assistant.repeat = isRepeat;
                 assistants[i] = assistant;
                 break;
             }
         }
     }
-
-
     public void Return(Assistant assistant, int area)
     {
         assistant.isWorking = false;
         UpdateAssistant(assistant, area, false);
         GetRow(assistant)?.Return();
     }
-
     public void UpdateRows()
     {
         for (int i = 0; i < m_rows.Count; i++)
@@ -134,6 +129,55 @@ public class AssistantSystem : MonoBehaviour
             m_rows[i].UpdateDropdown();
         }
     }
+
+    public void Unlock() 
+    {
+        m_button.SetActive(true);
+
+        string defaultName = "Lydia Smith";
+
+        // Ignore if the assistant is already there
+        bool isDuplicate = false;
+
+        for (int i = 0; i < assistants.Count; i++)
+        {
+            if (assistants[i].Name == defaultName)
+            {
+                isDuplicate = true;
+                break;
+            }
+        }    
+        
+        if (!isDuplicate) AddAssistant(defaultName);
+    }
+
+    /// <summary>
+    /// Fills all slots with the available assistants
+    /// </summary>
+    private void AddRow()
+    {
+        for (int i = 0; i < assistants.Count; i++)
+        {
+            if (m_slots[i].transform.childCount > 0)
+            {
+                continue;
+            }
+
+            GameObject rowObj = Instantiate(m_rowPrefab, m_slots[i].transform);
+            rowObj.name = assistants[i].Name;
+
+            RectTransform rowRT = rowObj.GetComponent<RectTransform>();
+            rowRT.SetLeft(0);
+            rowRT.SetRight(0);
+            rowRT.SetTop(0);
+            rowRT.SetBottom(0);
+
+            AssistantRow row = rowObj.GetComponent<AssistantRow>();
+            row.Set(this, assistants[i]);
+            m_rows.Add(row);
+        }
+    }
+
 
     /// <summary>
     /// Returns the AssistantRow the given Assistant is in
@@ -163,20 +207,29 @@ public class Assistant
     public int ID { get; private set; }
     public string Name { get; private set; }
     public int SpriteID { get; private set; }
+
     [NonSerialized] public Sprite sprite;
+    [NonSerialized] private List<Sprite> sprites;
 
     public int area;
     public bool isWorking = false;
     public bool repeat = false;
     // TODO bonuses?
 
-    public Assistant(int id, string name)
+    public Assistant(int id, string name, List<Sprite> spritesList)
     {
         ID = id;
         Name = name;
+        sprites = spritesList;
 
-        SpriteID = RandomSprite();
-        sprite = GetSprite(SpriteID);
+        SpriteID = GetRandomSpriteID();
+        sprite = GetSprite();    
+    }
+
+    public void UpdateSprites(List<Sprite> updatedSprites)
+    {
+        sprites = updatedSprites;
+        sprite = GetSprite();
     }
 
     public bool Send()
@@ -190,15 +243,6 @@ public class Assistant
         return true;
     }
 
-
-    private int RandomSprite()
-    {
-        return UnityEngine.Random.Range(0, 10);
-    }
-
-    // TODO
-    private Sprite GetSprite(int id)
-    {
-        return null;
-    }
+    private int GetRandomSpriteID() => UnityEngine.Random.Range(0, sprites.Count);
+    private Sprite GetSprite() => sprites[SpriteID];
 }

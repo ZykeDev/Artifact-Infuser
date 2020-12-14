@@ -1575,6 +1575,11 @@ MonoBehaviour:
   m_buttonText: {fileID: 8849939190210440714}
   m_isRepeat: {fileID: 4721411883544648828}
   m_waitText: {fileID: 8849939189321385829}
+  m_sprites:
+  - {fileID: 21300000, guid: f8bf1a7bb3237244488a4be4afcd2ea6, type: 3}
+  - {fileID: 21300000, guid: ad84eb8763e05f5418916daecb598eaf, type: 3}
+  - {fileID: 21300000, guid: f66f14cacbf6eb641a72fef0e021cadf, type: 3}
+  - {fileID: 21300000, guid: f91b23c09ceba514788ffb023096cccc, type: 3}
 --- !u!1 &8849939189906078020
 GameObject:
   m_ObjectHideFlags: 0
