@@ -4,8 +4,11 @@ using UnityEngine.UI;
 
 public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    [SerializeField] private float m_highlightAlpha = 0.5f;
+    [Header("UI Options")]
+    [SerializeField, Tooltip("Transparency of the map overlays")]
+    private float m_highlightAlpha = 0.5f;
 
+    [SerializeField, Min(0)] public float m_gatherTime = 0f;
     [SerializeField] private GameObject m_lock;
     [SerializeField] private GameObject m_go;
 
@@ -91,5 +94,5 @@ public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     public bool IsUnlocked() => m_isUnlocked;
     public string GetName() => m_name;
-
+    public float GetTime() => m_gatherTime;
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class MapHandler : MonoBehaviour
 {
@@ -12,8 +13,6 @@ public class MapHandler : MonoBehaviour
         }
     }
 
-
-
     public void UpdateAreas() => m_mapOverlay.UpdateAreas();
-
+    public List<MapArea> GetAreas() => m_mapOverlay.GetAreas();
 }

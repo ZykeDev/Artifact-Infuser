@@ -63,7 +63,8 @@ public enum DialogType
 	EMPTY,
 	SELL,
 	DIALOGUE,
-	REQUEST
+	REQUEST,
+	OFFLINE
 
 }
 

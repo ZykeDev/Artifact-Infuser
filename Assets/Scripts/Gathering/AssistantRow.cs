@@ -20,34 +20,37 @@ public class AssistantRow : MonoBehaviour
     private AssistantSystem m_assistantSystem;
     private MapOverlay m_map;
 
-    private bool isGathering = false;
-
     void Awake()
     {
         m_map = FindObjectOfType<MapOverlay>(); // TODO dont use find
     }
 
-    public void Set(AssistantSystem assistantSystem, (Assistant assistant, int area, bool isGathering) assistantData)
+    public void Set(AssistantSystem assistantSystem, Assistant assistant)
     {
         m_assistantSystem = assistantSystem;
 
-        assistant = assistantData.assistant;
-        m_name.text = assistantData.assistant.name;
-        m_avatar.sprite = assistantData.assistant.sprite;
+        this.assistant = assistant;
+        m_name.text = assistant.Name;
+        m_avatar.sprite = assistant.sprite;
         m_areaChoice = m_dropdownObj.GetComponent<TMP_Dropdown>();
-        m_isRepeat.isOn = assistantData.assistant.repeat;
-
-        isGathering = assistantData.isGathering; // TODO update on save load or after offlineProgress calc
+        m_isRepeat.isOn = assistant.repeat;
 
         if (m_map == null) m_map = FindObjectOfType<MapOverlay>(); // TODO dont use find
 
         UpdateDropdown();
-        SelectDropdown(assistantData.area);
+        SelectDropdown(assistant.area);
+        UpdateElements();
+
+        if (assistant.isWorking)
+        {
+            m_assistantSystem.Resume(assistant);
+        }
     }
 
     public void OnValueChange()
     {
-        m_assistantSystem?.UpdateAssistant(assistant, m_areaChoice.value, m_isRepeat.isOn);
+        assistant.area = m_areaChoice.value;
+        assistant.repeat = m_isRepeat.isOn;
     }
 
 
@@ -59,7 +62,7 @@ public class AssistantRow : MonoBehaviour
         assistant.repeat = m_isRepeat.isOn;
         if (m_assistantSystem.Send(assistant))
         {
-            isGathering = true;
+            assistant.isWorking = true;
             UpdateElements();
         }
     }
@@ -70,7 +73,7 @@ public class AssistantRow : MonoBehaviour
     /// </summary>
     public void Return()
     {
-        isGathering = false;
+        assistant.isWorking = false;
         UpdateElements();
     }
 
@@ -81,12 +84,12 @@ public class AssistantRow : MonoBehaviour
     private void UpdateElements()
     {
         // Change the button
-        m_sendButton.interactable = !isGathering;
-        m_buttonText.text = isGathering ? "Gathering..." : "Send";
+        m_sendButton.interactable = !assistant.isWorking;
+        m_buttonText.text = assistant.isWorking ? "Gathering..." : "Send";
 
         // Hide the dropdown
-        m_dropdownObj.SetActive(!isGathering);
-        m_waitText.SetActive(isGathering);
+        m_dropdownObj.SetActive(!assistant.isWorking);
+        m_waitText.SetActive(assistant.isWorking);
     }
 
 

@@ -68,6 +68,12 @@ public class GameController : MonoBehaviour {
         m_tabHandler.UpdateLocks(m_saveData);
         armory.UpdateSprites();
 
+        // Calc Offline Progress
+        if (m_saveData != null)
+        {
+            ComputeOfflineProgress();
+        }
+
         Save();
     }
 
@@ -103,6 +109,25 @@ public class GameController : MonoBehaviour {
     }
 
 
+    #region Offline Progress
+
+    private void ComputeOfflineProgress()
+    {
+        List<MapArea> areas = m_gathering.GetAreas();
+        Inventory offlineResources = OfflineProgress.GetGatheredResources(m_saveData, areas, m_upgradesHandler);
+
+        string offlineGather = "While you where away, your assistants gathered:\n";
+        offlineGather += offlineResources.wood + " Wood\n";
+        offlineGather += offlineResources.metal + " Metal\n";
+        offlineGather += offlineResources.leather + " Leather\n";
+        offlineGather += offlineResources.crystals + " Crystals";
+
+        AddDialogue(DialogType.OFFLINE, offlineGather);
+        AddResources(offlineResources, false);
+    }
+
+    #endregion
+
 
     #region Gathering
 
@@ -134,7 +159,7 @@ public class GameController : MonoBehaviour {
 
     public void SendAssistant(Assistant assistant) => m_gathering.SendAssistant(assistant);
 
-    public void AssistantReturn(Assistant assistant, int tier) => m_gathering.AssistantReturn(assistant, tier);
+    public void AssistantReturn(Assistant assistant) => m_gathering.AssistantReturn(assistant);
 
     #endregion
 
@@ -222,9 +247,11 @@ public class GameController : MonoBehaviour {
 
     #region Inventory Management
 
-    public void AddResources(Inventory booty)
+    public void AddResources(Inventory booty) => AddResources(booty, true);
+    public void AddResources(Inventory booty, bool isApplyBonus)
     {
-        booty = m_upgradesHandler.ApplyBonuses(booty);
+        if (isApplyBonus) booty = m_upgradesHandler.ApplyBonuses(booty);
+
         m_resourcesTab.DisplayGain(booty);
         inventory.CombineWith(booty);
     }

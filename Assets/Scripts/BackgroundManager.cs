@@ -204,13 +204,15 @@ public class BackgroundManager : MonoBehaviour
 
     #region Assistants
 
-    public void SendAssistant(Assistant assistant, int tier, float time)
+    public void SendAssistant(Assistant assistant, float time)
     {
-        m_gatheringCoroutine = StartCoroutine(AssistantGather(assistant, tier, time, delegate { AssistantReturn(assistant, tier); }));
+        m_gatheringCoroutine = StartCoroutine(AssistantGather(assistant, time, delegate { AssistantReturn(assistant); }));
     }
 
-    private IEnumerator AssistantGather(Assistant assistant, int tier, float time, Action callback)
+    private IEnumerator AssistantGather(Assistant assistant, float time, Action callback)
     {
+        assistant.isWorking = true;
+
         if (time == 0) time = m_minGatheringTime;
 
         for (float i = 0f; i < time; i += m_tickIncrement)
@@ -229,18 +231,22 @@ public class BackgroundManager : MonoBehaviour
                 {
                     i = 0f;
                 }
+                else
+                {
+                    assistant.isWorking = false;
+                }
             }
         }
     }
 
 
-    private void AssistantReturn(Assistant assistant, int tier)
+    private void AssistantReturn(Assistant assistant)
     {
         //StopGathering();
         // handle the coroutine
         
 
-        m_gameController.AssistantReturn(assistant, tier);
+        m_gameController.AssistantReturn(assistant);
     }
 
 

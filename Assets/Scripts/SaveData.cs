@@ -8,7 +8,7 @@ public class SaveData
     public bool[] activeCyphers;
     public bool[] unlockedAreas;
     public bool[] boughtUpgrades;
-    public List<(Assistant, int, bool)> assistants;
+    public List<Assistant> assistants;
 
     public Inventory inventory;
     public Armory armory;
@@ -17,6 +17,8 @@ public class SaveData
 
     public bool isInfusionUnlocked = false;
     public bool isUpgradesUnlocked = false;
+
+    public int saveTime = 0; 
 
 
 
@@ -29,7 +31,7 @@ public class SaveData
                     UnlockSystem.Progress progress,
                     bool isInfusionUnlocked,
                     bool isUpgradesUnlocked,
-                    List<(Assistant, int, bool)> assistants)
+                    List<Assistant> assistants)
     
     {
         this.activeBlueprints = activeBlueprints;
@@ -47,6 +49,8 @@ public class SaveData
         this.isInfusionUnlocked = isInfusionUnlocked;
         this.isUpgradesUnlocked = isUpgradesUnlocked;
 
+        saveTime = OfflineProgress.GetTime();
+        
     }
   
 

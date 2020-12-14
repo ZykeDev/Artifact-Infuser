@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Gathering : MonoBehaviour
@@ -22,6 +23,7 @@ public class Gathering : MonoBehaviour
     private Coroutine m_gatheringCoroutine = null;
 
     private int m_tier = 0;
+    private MapArea m_selectedArea;
 
     public void Awake()
     {
@@ -34,9 +36,9 @@ public class Gathering : MonoBehaviour
         m_assistantSystem.Init(saveData);
     }
 
-    public void SetTier(int tier)
+    public void SetArea(MapArea area)
     {
-        m_tier = tier;
+        m_selectedArea = area;
         m_buttonHandler.EnableGather();
     }
 
@@ -52,16 +54,13 @@ public class Gathering : MonoBehaviour
     {
         if (m_gatheringState == GatheringState.GATHERING) return;
         
-
         m_gatheringState = GatheringState.GATHERING;
 
         m_buttonHandler.SawpGatherWithStop();
 
         m_progressbar.value = 0;
 
-        float time = (m_tier + 1) * 1.4f; // TODO get this from the selected area
-        
-        m_gameController.Gather(m_tier, time);
+        m_gameController.Gather(m_tier, m_selectedArea.GetTime());
     }
 
 
@@ -107,6 +106,7 @@ public class Gathering : MonoBehaviour
         m_gameController.AddResources(booty);
     }
 
+    public List<MapArea> GetAreas() => m_mapHandler.GetAreas();
 
     #endregion
 
@@ -119,6 +119,7 @@ public class Gathering : MonoBehaviour
     
     public void UnlockAssistant()
     {
+        // TODO
         //m_assistantSystem.Unlock();
     }
 
@@ -127,24 +128,22 @@ public class Gathering : MonoBehaviour
 
     public void SendAssistant(Assistant assistant)
     {
-        int tier = 0;
-        float time = 1f;
+        float time = GetAreas()[assistant.area].GetTime();
 
-        m_backgroundManager.SendAssistant(assistant, tier, time);
-
+        m_backgroundManager.SendAssistant(assistant, time);
     }
 
-    public void AssistantReturn(Assistant assistant, int tier)
+    public void AssistantReturn(Assistant assistant)
     {
         // Add the new resources to the inventory
         Inventory booty = new Inventory();
-        booty.SetRandomResources(tier);
+        booty.SetRandomResources(assistant.area);
 
         m_gameController.AddResources(booty);
 
         if (!assistant.repeat)
         {
-            m_assistantSystem.Return(assistant, tier);
+            m_assistantSystem.Return(assistant, assistant.area);
         }
         
     }

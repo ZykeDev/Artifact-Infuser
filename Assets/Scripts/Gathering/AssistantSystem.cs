@@ -8,7 +8,7 @@ public class AssistantSystem : MonoBehaviour
     [SerializeField] protected GameController m_gameController;
     [SerializeField] private GameObject m_rowPrefab;
 
-    public List<(Assistant, int, bool)> assistants;
+    public List<Assistant> assistants;
     private int m_assistantsNumber;
 
     [SerializeField] private List<GameObject> m_slots;
@@ -26,9 +26,9 @@ public class AssistantSystem : MonoBehaviour
         }
         else
         {
-            // Otherwise create a new list and add the default assistant
-            //assistants = new List<(Assistant, int, bool)>();
-            //Assistant a = AddAssistant();
+            // Otherwise create a new list
+            assistants = new List<Assistant>();
+            AddAssistant();
         }
 
         // Fill a slot with each assistant row
@@ -36,7 +36,7 @@ public class AssistantSystem : MonoBehaviour
         {
             // TODO move this to its own function
             GameObject rowObj = Instantiate(m_rowPrefab, m_slots[i].transform);
-            rowObj.name = assistants[i].Item1.name;
+            rowObj.name = assistants[i].Name;
 
             RectTransform rowRT = rowObj.GetComponent<RectTransform>();
             rowRT.SetLeft(0);
@@ -58,31 +58,38 @@ public class AssistantSystem : MonoBehaviour
     /// <param name="assistant"></param>
     public bool Send(Assistant assistant)
     {
-        for (int i = 0; i < assistants.Count; i++)
+        bool isArea = m_gameController.IsAreaUnlocked(assistant.area);
+        bool isFree = !assistant.isWorking;
+
+        if (isArea && isFree)
         {
-            if (assistants[i].Item1 == assistant)
-            {
-                bool isArea = m_gameController.IsAreaUnlocked(assistants[i].Item2);
-                bool isFree = !assistants[i].Item3;
+            m_gameController.SendAssistant(assistant);
 
-                if (isArea && isFree)
-                {
-                    assistants[i] = (assistant, assistants[i].Item2, true);
-                    m_gameController.SendAssistant(assistants[i].Item1);
-
-                    return true;
-                }
-                else
-                {
+            return true;
+        }
+        else
+        {
 #if UNITY_EDITOR
-                    Debug.Log("Can't send assistant.");
+            Debug.Log("Can't send assistant.");
 #endif
-                    return false;
-                }
-            }
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Sends the given assistant to gather after loading up a save
+    /// </summary>
+    /// <param name="assistant"></param>
+    /// <returns></returns>
+    public bool Resume(Assistant assistant)
+    {
+        if (assistant.isWorking)
+        {
+            m_gameController.SendAssistant(assistant);
+            return true;
         }
 
-        return false;
+        return false;   
     }
 
 
@@ -90,8 +97,8 @@ public class AssistantSystem : MonoBehaviour
     public Assistant AddAssistant()
     {
         // TODO check there are enough slots?
-        Assistant newAssistant = new Assistant(m_assistantsNumber, "Lydia Smith", false);
-        assistants.Add((newAssistant, 0, false));
+        Assistant newAssistant = new Assistant(m_assistantsNumber, "Lydia Smith");
+        assistants.Add(newAssistant);
 
         m_assistantsNumber = assistants.Count;
 
@@ -100,13 +107,13 @@ public class AssistantSystem : MonoBehaviour
 
 
     public void UpdateAssistant(Assistant assistant, int area, bool isRepeat)
-    {
+    { 
         for (int i = 0; i < assistants.Count; i++)
         {
-            if (assistants[i].Item1 == assistant)
+            if (assistants[i] == assistant)
             {
                 assistant.repeat = isRepeat;
-                assistants[i] = (assistant, area, false);
+                assistants[i] = assistant;
                 break;
             }
         }
@@ -115,6 +122,7 @@ public class AssistantSystem : MonoBehaviour
 
     public void Return(Assistant assistant, int area)
     {
+        assistant.isWorking = false;
         UpdateAssistant(assistant, area, false);
         GetRow(assistant)?.Return();
     }
@@ -152,22 +160,34 @@ public class AssistantSystem : MonoBehaviour
 [Serializable]
 public class Assistant
 {
-    public int id;
-    public string name;
-    public int spriteID;
+    public int ID { get; private set; }
+    public string Name { get; private set; }
+    public int SpriteID { get; private set; }
     [NonSerialized] public Sprite sprite;
 
-    public bool repeat;
+    public int area;
+    public bool isWorking = false;
+    public bool repeat = false;
     // TODO bonuses?
 
-    public Assistant(int id, string name, bool repeat)
+    public Assistant(int id, string name)
     {
-        this.id = id;
-        this.name = name;
-        this.repeat = repeat;
+        ID = id;
+        Name = name;
 
-        spriteID = RandomSprite();
-        this.sprite = GetSprite(spriteID);
+        SpriteID = RandomSprite();
+        sprite = GetSprite(SpriteID);
+    }
+
+    public bool Send()
+    {
+        if (isWorking)
+        {
+            return false;
+        }
+
+        isWorking = true;
+        return true;
     }
 
 

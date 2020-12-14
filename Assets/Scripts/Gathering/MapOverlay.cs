@@ -73,7 +73,7 @@ public class MapOverlay : MonoBehaviour
         }
 
         // Set the gathering area
-        m_gathering.SetTier(index);
+        m_gathering.SetArea(m_areas[index]);
     }
 
     public List<MapArea> GetActiveAreas()
@@ -90,5 +90,7 @@ public class MapOverlay : MonoBehaviour
 
         return activeAreas;
     }
+
+    public List<MapArea> GetAreas() => m_areas;
 
 }
