@@ -322,4 +322,20 @@ public class GameController : MonoBehaviour {
     public void UnlockAssitant() => m_gathering.UnlockAssistant();
 
     #endregion
+
+
+    #region Quit
+
+    /// <summary>
+    /// Save and then quit the application.
+    /// </summary>
+    public void Quit()
+    {
+        Save();
+        Application.Quit();
+    }
+
+    #endregion
+
+
 }
