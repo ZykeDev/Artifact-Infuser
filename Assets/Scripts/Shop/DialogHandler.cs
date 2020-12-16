@@ -6,15 +6,15 @@ public class DialogHandler : MonoBehaviour
 {
     #region Vars
 
-    [SerializeField] private TextMeshProUGUI m_dialog;
+    [SerializeField] protected TextMeshProUGUI m_dialog;
 
     [Header("Dialog Overflow")]
-    [SerializeField] private int m_dialogPadding = 12;
-    [SerializeField] private int m_visibleRows = 8;
-    [SerializeField, Range(8, 24)] private int m_maxRows = 16;
-    [SerializeField] private int m_charsPerRow = 75;
+    [SerializeField] protected int m_dialogPadding = 12;
+    [SerializeField] protected int m_visibleRows = 8;
+    [SerializeField, Range(8, 24)] protected int m_maxRows = 16;
+    [SerializeField] protected int m_charsPerRow = 75;
 
-    [SerializeField, Range(1, 30)] private int m_lineHeight = 8;
+    [SerializeField, Range(1, 30)] protected int m_lineHeight = 8;
 
     // A list of tulpes containing the current dialog lines
     private List<(DialogType, string)> m_dialogLines;

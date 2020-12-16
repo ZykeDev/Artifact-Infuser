@@ -36,6 +36,10 @@ public static class OfflineProgress
 
         int passedTime = GetTimeSince(saveData.saveTime);
 
+        // If the passed time is negative, it means someone tampered with the computer's time
+        if (passedTime <= 0) return new Inventory();
+        
+
         for (int i = 0; i < assistants.Count; i++)
         {
             // Ignore non working ones

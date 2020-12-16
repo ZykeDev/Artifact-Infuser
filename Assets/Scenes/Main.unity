@@ -19637,6 +19637,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood
       objectReference: {fileID: 0}
+    - target: {fileID: 4959897288093587305, guid: d352da2d44f132c4e9f700858cc16a05,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b4c083162d444542bcfc795df634a1e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d352da2d44f132c4e9f700858cc16a05, type: 3}
 --- !u!114 &4959897288242082223 stripped

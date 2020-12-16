@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class ArmoryTabHandler : MonoBehaviour {
 	
     [SerializeField]
-	private ArmoryTab m_defaultTab;
-	private ArmoryTab m_currentTab;
+    protected ArmoryTab m_defaultTab;
+    protected ArmoryTab m_currentTab;
 
     [SerializeField]
-	private GameObject m_artifactGrid;
+    protected GameObject m_artifactGrid;
 
 	private ScrollRect m_artifactGridScrollRect;
     private GameObject m_contentAll,
@@ -18,7 +18,7 @@ public class ArmoryTabHandler : MonoBehaviour {
         m_contentAbyss;
 
     [SerializeField]
-    private GameObject m_allTabBtn,
+    protected GameObject m_allTabBtn,
         m_weaponsTabBtn,
         m_armorTabBtn,
         m_accessoriesTabBtn,

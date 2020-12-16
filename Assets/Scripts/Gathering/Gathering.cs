@@ -12,15 +12,15 @@ public class Gathering : MonoBehaviour
     [SerializeField] protected AssistantSystem m_assistantSystem;
 
     [Header("UI Components")]
-    [SerializeField] private Slider m_progressbar;
+    [SerializeField] protected Slider m_progressbar;
 
     [SerializeField]
-    [Range(1f, 60f)] private float m_gatheringDuration = 2f;
+    [Range(1f, 60f)] protected float m_gatheringDuration = 2f;
     
     private GatheringState m_gatheringState;
     private enum GatheringState { IDLE, GATHERING }
 
-    private Coroutine m_gatheringCoroutine = null;
+    //private Coroutine m_gatheringCoroutine = null;
 
     private MapArea m_selectedArea;
 

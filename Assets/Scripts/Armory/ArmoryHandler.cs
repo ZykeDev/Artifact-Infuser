@@ -5,13 +5,13 @@ using UnityEngine.UI;
 public class ArmoryHandler : MonoBehaviour {
 
     [SerializeField]
-	private GameObject m_gameManager, m_prefabCell;
-	private GameController m_gameController;
+    protected GameObject m_gameManager, m_prefabCell;
+    protected GameController m_gameController;
 
-    [SerializeField] private ButtonHandler m_buttonHandler;
+    [SerializeField] protected ButtonHandler m_buttonHandler;
 
     [SerializeField]
-    private GameObject m_armoryContentAll,
+    protected GameObject m_armoryContentAll,
         m_armoryContentWeapons, 
         m_armoryContentArmor, 
         m_armoryContentAccessories, 

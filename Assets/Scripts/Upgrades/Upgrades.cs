@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Upgrades : MonoBehaviour
 {
-    [SerializeField] private GameController m_gameController;  
-    [SerializeField] private UnlockSystem m_unlockSystem;  
+    [SerializeField] protected GameController m_gameController;  
+    [SerializeField] protected UnlockSystem m_unlockSystem;  
 
     private List<Upgrade> m_upgrades; // List of all upgrades (maybe make this into an upgrade DB?)
     public List<Upgrade> boughtUpgrades;

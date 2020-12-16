@@ -3,15 +3,15 @@ using UnityEngine.UI;
 
 public class ButtonGraphic : MonoBehaviour
 {
-    [SerializeField] private Image m_background;
-    [SerializeField] private Button m_button;
+    [SerializeField] protected Image m_background;
+    [SerializeField] protected Button m_button;
     private ColorBlock m_buttonColors;
     // Store an initial copy of the colors
     private ColorBlock m_defaultColors;
     private Rarity m_rarity;
 
-    [SerializeField] private Text m_name;
-    [SerializeField] private Image m_image;
+    [SerializeField] protected Text m_name;
+    [SerializeField] protected Image m_image;
 
 
     void Awake()

@@ -10,13 +10,13 @@ public class Autosell : MonoBehaviour
 
     [Header("Autosell Rules")]
     [SerializeField, Tooltip("Every how many seconds a rule is executed.")]
-    private float m_tickrate = 2f;
+    protected float m_tickrate = 2f;
 
-    [SerializeField] private GameObject m_ruleSettingPref;
+    [SerializeField] protected GameObject m_ruleSettingPref;
 
     [SerializeField]
-    private bool m_enabled = false;
-    private bool m_running = false;
+    protected bool m_enabled = false;
+    protected bool m_running = false;
 
     private List<RuleSetting> m_ruleSettings;
     private List<AutosellRule> m_rules;

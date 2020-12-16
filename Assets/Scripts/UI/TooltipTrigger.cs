@@ -5,7 +5,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     private TooltipData m_tooltipData;
 
-    [SerializeField] private string m_header;
+    [SerializeField] protected string m_header;
 
     public void SetTooltipData(TooltipData tooltipData) => m_tooltipData = tooltipData;
     public void SetTooltipData(string header) => m_tooltipData = new TooltipData(header, null);

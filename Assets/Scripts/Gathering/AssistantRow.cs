@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class AssistantRow : MonoBehaviour
 {
-    [SerializeField] private TMP_Text m_name;
-    [SerializeField] private Image m_avatar;
-    [SerializeField] private GameObject m_dropdownObj;
+    [SerializeField] protected TMP_Text m_name;
+    [SerializeField] protected Image m_avatar;
+    [SerializeField] protected GameObject m_dropdownObj;
                      private TMP_Dropdown m_areaChoice;
-    [SerializeField] private Button m_sendButton;
-    [SerializeField] private TMP_Text m_buttonText;
+    [SerializeField] protected Button m_sendButton;
+    [SerializeField] protected TMP_Text m_buttonText;
 
-    [SerializeField] private Toggle m_isRepeat;
+    [SerializeField] protected Toggle m_isRepeat;
 
-    [SerializeField] private GameObject m_waitText;
+    [SerializeField] protected GameObject m_waitText;
 
     public Assistant assistant { get; private set; }
     private AssistantSystem m_assistantSystem;

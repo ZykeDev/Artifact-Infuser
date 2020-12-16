@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class UpgradeButton : MonoBehaviour
 {
-    [SerializeField] private Image m_image;
-    [SerializeField] private UpgradeData m_upgradeData;
+    [SerializeField] protected Image m_image;
+    [SerializeField] protected UpgradeData m_upgradeData;
 
     private Upgrade m_upgrade;
     private Button m_button;

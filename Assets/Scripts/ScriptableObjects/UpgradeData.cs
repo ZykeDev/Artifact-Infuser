@@ -10,16 +10,16 @@ public class UpgradeData : ScriptableObject {
     [SerializeField] public UpgradeData[] requirements;
     [Header("")]
     [SerializeField] [Min(0)] public int gold; // Gold is public
-    [SerializeField] [Min(0)] private int wood, metal, leather, crystals;
-    [SerializeField] [Min(0)] private int alpha, nova, prisma;
+    [SerializeField] [Min(0)] protected int wood, metal, leather, crystals;
+    [SerializeField] [Min(0)] protected int alpha, nova, prisma;
 
     [Header("Effects")]
     [TextArea] public string dex;
-    [SerializeField] private EffectType effectType;
-    [SerializeField] private EffectBonus effectBonus;
-    [SerializeField] private ResourceType effectResource;
-    [SerializeField] private float modifier;
-    [SerializeField] private UnlockFeature feature;
+    [SerializeField] protected EffectType effectType;
+    [SerializeField] protected EffectBonus effectBonus;
+    [SerializeField] protected ResourceType effectResource;
+    [SerializeField] protected float modifier;
+    [SerializeField] protected UnlockFeature feature;
 
 
     [Header("Already Unlocked")]

@@ -8,27 +8,27 @@ public class Infuser : MonoBehaviour {
     #region Vars
 
     [Header("Script References")]
-    [SerializeField] private GameController m_gameController;
-    [SerializeField] private UnlockSystem m_unlockSystem;
-	[SerializeField] private ButtonHandler m_buttonHandler;
+    [SerializeField] protected GameController m_gameController;
+    [SerializeField] protected UnlockSystem m_unlockSystem;
+	[SerializeField] protected ButtonHandler m_buttonHandler;
 
 	[Header("UI Components")]
-	[SerializeField] private GameObject m_artifactSelector;
-	[SerializeField] private GameObject m_cypherSelector;
+	[SerializeField] protected GameObject m_artifactSelector;
+	[SerializeField] protected GameObject m_cypherSelector;
 
-	[SerializeField] private GameObject m_artifactSelectorContent;
-	[SerializeField] private GameObject m_cypherSelectorContent;
+	[SerializeField] protected GameObject m_artifactSelectorContent;
+	[SerializeField] protected GameObject m_cypherSelectorContent;
 
 	[Header("Selection")]
-	[SerializeField] private TMP_Dropdown m_artifactDropdown;
+	[SerializeField] protected TMP_Dropdown m_artifactDropdown;
 
 	[Header("Progress")]
-	[SerializeField] private Slider m_progressbar;
-	[SerializeField] private Image m_artifactSprite;
+	[SerializeField] protected Slider m_progressbar;
+	[SerializeField] protected Image m_artifactSprite;
 
 	[Header("Prefabs")]
-	[SerializeField] private GameObject m_artifactBtnPrefab;
-	[SerializeField] private GameObject m_cypherBtnPref;
+	[SerializeField] protected GameObject m_artifactBtnPrefab;
+	[SerializeField] protected GameObject m_cypherBtnPref;
 	
 
     private List<GameObject> m_cypherBtns, m_artifactBtns;

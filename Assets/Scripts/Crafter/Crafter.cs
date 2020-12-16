@@ -7,21 +7,21 @@ public class Crafter : MonoBehaviour {
     #region Vars
 
 	[Header("Script References")]
-    [SerializeField] private GameController m_gameController;
-	[SerializeField] private UnlockSystem m_unlockSystem;
-	[SerializeField] private ButtonHandler m_buttonHandler;
+    [SerializeField] protected GameController m_gameController;
+	[SerializeField] protected UnlockSystem m_unlockSystem;
+	[SerializeField] protected ButtonHandler m_buttonHandler;
 
 	[Header("UI Elements")]
-	[SerializeField] private Slider m_progressbar;
-	[SerializeField] private Image m_artifact;
-	[SerializeField] private Image m_reverse;
-	[SerializeField] private Image m_backdrop;
-	[SerializeField] private GameObject m_notice;
+	[SerializeField] protected Slider m_progressbar;
+	[SerializeField] protected Image m_artifact;
+	[SerializeField] protected Image m_reverse;
+	[SerializeField] protected Image m_backdrop;
+	[SerializeField] protected GameObject m_notice;
 
-	[SerializeField] private GameObject m_blueprintSelectorContent;
+	[SerializeField] protected GameObject m_blueprintSelectorContent;
 
 	[Header("Prefabs")]
-	[SerializeField] private GameObject m_blueprintBtnPref;
+	[SerializeField] protected GameObject m_blueprintBtnPref;
 
     private List<GameObject> m_blueprintBtns;
     private float m_blueprintBtnHeight = 0f;

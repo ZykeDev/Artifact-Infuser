@@ -8,14 +8,14 @@ public class AssistantSystem : MonoBehaviour
     [SerializeField] protected GameController m_gameController;
 
     [Header("UI Components")]
-    [SerializeField] private GameObject m_button;
-    [SerializeField] private GameObject m_rowPrefab;
+    [SerializeField] protected GameObject m_button;
+    [SerializeField] protected GameObject m_rowPrefab;
 
     [Space(10)]
-    [SerializeField] private List<Sprite> m_sprites;
+    [SerializeField] protected List<Sprite> m_sprites;
 
     [Header("Assistant")]
-    [SerializeField] private List<GameObject> m_slots;
+    [SerializeField] protected List<GameObject> m_slots;
 
     private List<AssistantRow> m_rows;
     public List<Assistant> assistants;

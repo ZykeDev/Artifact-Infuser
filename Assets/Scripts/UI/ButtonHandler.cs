@@ -4,28 +4,28 @@ using UnityEngine.UI;
 public class ButtonHandler : MonoBehaviour
 {
     [Header("Script References")]
-    [SerializeField] private GameController m_gameController;
-    [SerializeField] private Gathering m_gathering;
-    [SerializeField] private Crafter m_crafter;
-    [SerializeField] private Infuser m_infuser;
-    [SerializeField] private Shop m_shop;
+    [SerializeField] protected GameController m_gameController;
+    [SerializeField] protected Gathering m_gathering;
+    [SerializeField] protected Crafter m_crafter;
+    [SerializeField] protected Infuser m_infuser;
+    [SerializeField] protected Shop m_shop;
 
     [Header("Buttons")]
-    [SerializeField] private GameObject m_gatherBtn;
-    [SerializeField] private GameObject m_stopGatherBtn;
+    [SerializeField] protected GameObject m_gatherBtn;
+    [SerializeField] protected GameObject m_stopGatherBtn;
     
-    [SerializeField] private GameObject m_craftBtn;
-    [SerializeField] private GameObject m_stopCraftBtn;
+    [SerializeField] protected GameObject m_craftBtn;
+    [SerializeField] protected GameObject m_stopCraftBtn;
 
-    [SerializeField] private GameObject m_infuseBtn;
-    [SerializeField] private GameObject m_stopInfuseBtn;
+    [SerializeField] protected GameObject m_infuseBtn;
+    [SerializeField] protected GameObject m_stopInfuseBtn;
 
-    [SerializeField] private GameObject m_autosellBtn;
-    [SerializeField] private GameObject m_stopAutosellBtn;
+    [SerializeField] protected GameObject m_autosellBtn;
+    [SerializeField] protected GameObject m_stopAutosellBtn;
 
 
     [Header("Prompt System Reference")]
-    [SerializeField] private PromptSystem m_promptSystem;
+    [SerializeField] protected PromptSystem m_promptSystem;
 
 
     private bool m_isWaitingForConfirm = false;

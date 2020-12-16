@@ -6,9 +6,9 @@ public class UnlockSystem : MonoBehaviour
     private GameController m_gameController;
     private RequestSystem m_requestSystem;
 
-    private bool m_isFirstPlaythrough = true;
+    //private bool m_isFirstPlaythrough = true;
 
-	[SerializeField] private List<Blueprint> blueprints;
+	[SerializeField] protected List<Blueprint> blueprints;
     public List<Cypher> cyphers;
 
     public bool[] activeBlueprints; // index = blueprint ID

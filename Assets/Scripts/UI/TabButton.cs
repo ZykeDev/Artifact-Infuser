@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public class TabButton : MonoBehaviour
 {
-    [SerializeField] private Text m_text;
-    [SerializeField] private GameObject m_lock;
-    [SerializeField] private Button m_button;
+    [SerializeField] protected Text m_text;
+    [SerializeField] protected GameObject m_lock;
+    [SerializeField] protected Button m_button;
 
     [Header("Tab String")]
-    [SerializeField] private string tabString = "";
+    [SerializeField] protected string tabString = "";
 
     private bool isLocked = false;
     private bool isSelected = false;

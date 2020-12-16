@@ -6,14 +6,14 @@ public class MapArea : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 {
     [Header("UI Options")]
     [SerializeField, Tooltip("Transparency of the map overlays")]
-    private float m_highlightAlpha = 0.5f;
+    protected float m_highlightAlpha = 0.5f;
 
     [SerializeField, Min(0)] public float m_gatherTime = 0f;
-    [SerializeField] private GameObject m_lock;
-    [SerializeField] private GameObject m_go;
+    [SerializeField] protected GameObject m_lock;
+    [SerializeField] protected GameObject m_go;
 
-    [SerializeField] private bool m_isUnlocked = false;
-    [SerializeField] private string m_name = "";
+    [SerializeField] protected bool m_isUnlocked = false;
+    [SerializeField] protected string m_name = "";
 
 
     public int index { get; private set; }

@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class ResourceUI : MonoBehaviour
 {
     [Header("Main Text")]
-    [SerializeField] private Text m_text;
+    [SerializeField] protected Text m_text;
 
     [Header("Gain Text")]
-    [SerializeField] private GameObject m_gainObj;
-    [SerializeField] private Transform m_gainDestination;
-    [SerializeField] private float m_animDuration = 0.75f;
+    [SerializeField] protected GameObject m_gainObj;
+    [SerializeField] protected Transform m_gainDestination;
+    [SerializeField] protected float m_animDuration = 0.75f;
 
     private Color m_gainColor;
     private Color m_lossColor;

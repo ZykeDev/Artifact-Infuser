@@ -3,23 +3,23 @@
 [CreateAssetMenu(fileName = "New Blueprint", menuName = "Blueprint")]
 public class Blueprint : ScriptableObject {
 
-	[SerializeField] private int m_ID;
-	[SerializeField] private string m_artifactName;
-	[SerializeField] private ArtifactType m_type;
-	[SerializeField] private Sprite m_blueprintSprite, m_artifactSprite, m_reverseSprite;
+	[SerializeField] protected int m_ID;
+	[SerializeField] protected string m_artifactName;
+	[SerializeField] protected ArtifactType m_type;
+	[SerializeField] protected Sprite m_blueprintSprite, m_artifactSprite, m_reverseSprite;
 
-	[SerializeField] [Min(0)] private float m_craftingTime;
-	[SerializeField] private Rarity m_rarity;
-	[SerializeField] private int m_price;
+	[SerializeField] [Min(0)] protected float m_craftingTime;
+	[SerializeField] protected Rarity m_rarity;
+	[SerializeField] protected int m_price;
 
 	[Header("Resources Required")]
-	[SerializeField] [Min(0)] private int m_wood;
-	[SerializeField] [Min(0)] private int m_metal;
-	[SerializeField] [Min(0)] private int m_leather;
-	[SerializeField] [Min(0)] private int m_crystals;
+	[SerializeField] [Min(0)] protected int m_wood;
+	[SerializeField] [Min(0)] protected int m_metal;
+	[SerializeField] [Min(0)] protected int m_leather;
+	[SerializeField] [Min(0)] protected int m_crystals;
 
 	[Header("Tooltip Description")]
-	[SerializeField, TextArea] private string m_tooltipDex;
+	[SerializeField, TextArea] protected string m_tooltipDex;
 	private TooltipData m_tooltipData;
 
 

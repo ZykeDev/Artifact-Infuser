@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RequestSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject m_requestPref;
+    [SerializeField] protected GameObject m_requestPref;
     private GameController m_gameController;
     private UnlockSystem m_unlockSystem;
 

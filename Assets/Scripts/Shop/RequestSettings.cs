@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class RequestSettings : MonoBehaviour
 {
-    [SerializeField] private TMP_Text m_client;
-    [SerializeField] private TMP_Text m_artifact;
-    [SerializeField] private Image m_image;
+    [SerializeField] protected TMP_Text m_client;
+    [SerializeField] protected TMP_Text m_artifact;
+    [SerializeField] protected Image m_image;
 
-    [SerializeField] private Button m_confirm;
-    [SerializeField] private Button m_cancel;
+    [SerializeField] protected Button m_confirm;
+    [SerializeField] protected Button m_cancel;
 
     private RequestSystem m_requestSystem;
     private Request m_request;
@@ -18,7 +18,7 @@ public class RequestSettings : MonoBehaviour
     private string m_artifactName;
     private Sprite m_sprite;
 
-    [SerializeField] private bool m_isFulfilled = false;
+    [SerializeField] protected bool m_isFulfilled = false;
 
 
     void Update()

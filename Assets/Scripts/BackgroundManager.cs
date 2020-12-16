@@ -8,24 +8,23 @@ public class BackgroundManager : MonoBehaviour
     #region Vars
 
     [SerializeField, Tooltip("Time between each process tick.")]
-    [Range(0.01f, 0.1f)] private float m_tickIncrement = 0.01f;
+    [Range(0.01f, 0.1f)] protected float m_tickIncrement = 0.01f;
 
     [SerializeField]
-    [Range(0.1f, 1f)] private float m_minGatheringTime = 0.25f;
+    [Range(0.1f, 1f)] protected float m_minGatheringTime = 0.25f;
     [SerializeField]
-    [Range(0.1f, 1f)] private float m_minCraftingTime = 0.25f;
+    [Range(0.1f, 1f)] protected float m_minCraftingTime = 0.25f;
     [SerializeField]
-    [Range(0.1f, 1f)] private float m_minInfusionTime = 0.25f;
+    [Range(0.1f, 1f)] protected float m_minInfusionTime = 0.25f;
 
     [SerializeField]
-	private GameController m_gameController;
+    protected GameController m_gameController;
     
     
     private Coroutine m_craftingCoroutine = null;
 	private Coroutine m_infusionCoroutine = null;
     private Coroutine m_gatheringCoroutine = null;
 
-    private int m_gatheringTier = 1;
     private int m_selectedBlueprintID = -1;
 	private int m_selectedCypherID = -1;
 

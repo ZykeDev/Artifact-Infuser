@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class RuleSetting : MonoBehaviour
 {
-    [SerializeField] private Toggle m_toggle;
-    [SerializeField] private TMP_Dropdown m_amountType;
-    [SerializeField] private TMP_Dropdown m_sellType;
-    [SerializeField] private TMP_Dropdown m_choiceType;
+    [SerializeField] protected Toggle m_toggle;
+    [SerializeField] protected TMP_Dropdown m_amountType;
+    [SerializeField] protected TMP_Dropdown m_sellType;
+    [SerializeField] protected TMP_Dropdown m_choiceType;
 
 
     private bool m_enabled;

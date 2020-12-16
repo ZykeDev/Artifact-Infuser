@@ -13,11 +13,11 @@ public class TabHandler : MonoBehaviour {
     [SerializeField] protected GameObject m_upgradesTab;
 
     [Header("Buttons")]
-    [SerializeField] private TabButton m_gatheringBtn;
-    [SerializeField] private TabButton m_crafterBtn;
-    [SerializeField] private TabButton m_infuserBtn;
-    [SerializeField] private TabButton m_armoryBtn;
-    [SerializeField] private TabButton m_upgradesBtn;
+    [SerializeField] protected TabButton m_gatheringBtn;
+    [SerializeField] protected TabButton m_crafterBtn;
+    [SerializeField] protected TabButton m_infuserBtn;
+    [SerializeField] protected TabButton m_armoryBtn;
+    [SerializeField] protected TabButton m_upgradesBtn;
 
     public bool isInfusionLocked = true;
     public bool isUpgradesLocked = true;

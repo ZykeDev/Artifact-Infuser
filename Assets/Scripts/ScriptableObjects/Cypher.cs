@@ -4,23 +4,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Cypher", menuName = "Cypher")]
 public class Cypher : ScriptableObject {
 	
-	[SerializeField] private int m_ID = 0;
-	[SerializeField] private string m_cypherName = "Cypher Name";
-	[SerializeField] private List<ArtifactType> m_allowedTypes;
+	[SerializeField] protected int m_ID = 0;
+	[SerializeField] protected string m_cypherName = "Cypher Name";
+	[SerializeField] protected List<ArtifactType> m_allowedTypes;
 	// TODO Make the artifact sprite procedural (hue/sprite overlays depending on resulting item)
-	[SerializeField] private Sprite m_cypherSprite, m_artifactSprite;
+	[SerializeField] protected Sprite m_cypherSprite, m_artifactSprite;
 
-	[SerializeField] private float m_infusionTime;
-	[SerializeField] private Rarity m_rarity;
-	[SerializeField] private int m_price;
+	[SerializeField] protected float m_infusionTime;
+	[SerializeField] protected Rarity m_rarity;
+	[SerializeField] protected int m_price;
 
 	[Header("Runes Required")]
-	[SerializeField] private int m_alphaRune;
-	[SerializeField] private int m_novaRune;
-	[SerializeField] private int m_prismaRune;
+	[SerializeField] protected int m_alphaRune;
+	[SerializeField] protected int m_novaRune;
+	[SerializeField] protected int m_prismaRune;
 
 	[Header("Tooltip Description")]
-	[SerializeField, TextArea] private string m_tooltipDex;
+	[SerializeField, TextArea] protected string m_tooltipDex;
 	private TooltipData m_tooltipData;
 
 

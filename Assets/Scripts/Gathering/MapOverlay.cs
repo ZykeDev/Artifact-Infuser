@@ -4,8 +4,8 @@ using UnityEngine;
 public class MapOverlay : MonoBehaviour
 {
     [Header("Script References")]
-    [SerializeField] private UnlockSystem m_unlockSystem;
-    [SerializeField] private Gathering m_gathering;
+    [SerializeField] protected UnlockSystem m_unlockSystem;
+    [SerializeField] protected Gathering m_gathering;
 
     [Header("Areas")]
     [SerializeField] protected GameObject m_areaWoodsObj;
