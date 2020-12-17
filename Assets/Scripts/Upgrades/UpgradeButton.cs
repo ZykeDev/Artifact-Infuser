@@ -14,6 +14,13 @@ public class UpgradeButton : MonoBehaviour
 
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
+        if (m_upgrade != null) return;
+
         m_upgrades = FindObjectOfType<Upgrades>();
 
 
@@ -35,6 +42,21 @@ public class UpgradeButton : MonoBehaviour
         m_button.onClick.AddListener(Buy);
     }
 
+    public void UpdateFromSave(SaveData saveData)
+    {
+        if (saveData == null) return;
+
+        if (m_upgrade == null) Init();
+
+        // If this upgrades had been bought, update it
+        if (saveData.boughtUpgrades[m_upgrade.GetID()])
+        {
+            m_upgrade.Unlock();
+            m_upgrade.Buy();
+
+            UpdateButton();
+        }
+    }
 
     public void Buy() => m_upgrades.Buy(m_upgrade);
 
@@ -57,11 +79,11 @@ public class UpgradeButton : MonoBehaviour
 
         // Check if all requirements have been bought
         List<UpgradeData> updatedRequirements = m_upgrade.GetRequirements();
+
         if (updatedRequirements.Count == 0)
         {
             m_upgrade.Unlock();
         }
-
 
         m_button.interactable = m_upgrade.GetUnlocked() && !m_upgrade.GetBought();
 
@@ -70,6 +92,39 @@ public class UpgradeButton : MonoBehaviour
             m_button.image.color = Color.red;
         }
 
+    }
+
+
+    public void UpdateRequirements(List<UpgradeButton> otherButtons)
+    {
+        if (m_upgrade == null) Init();
+
+        if (!m_upgrade.GetBought())
+        {
+            List<UpgradeData> requirements = m_upgrade.GetRequirements();
+            bool isUnlockable = true;
+
+            foreach (UpgradeData req in requirements)
+            {
+                foreach (UpgradeButton upBtn in otherButtons)
+                {
+                    bool isBought = upBtn.m_upgrade.GetBought();
+                    bool isReq = upBtn.m_upgrade.GetOriginal() == req;
+
+                    if (!isBought && isReq)
+                    {
+                        isUnlockable = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isUnlockable)
+            {
+                m_upgrade.Unlock();
+                m_button.interactable = m_upgrade.GetUnlocked() && !m_upgrade.GetBought();
+            }
+        }
     }
 
 }

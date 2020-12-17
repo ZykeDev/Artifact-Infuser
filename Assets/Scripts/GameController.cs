@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour {
         m_gathering.Init(saveData);
         m_infuserComp.Awake();
         m_armoryHandler.Awake();
-        m_upgradesHandler.Awake();
+        m_upgradesHandler.Init(saveData);
 
         m_saveData = saveData;
     }

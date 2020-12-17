@@ -63,6 +63,8 @@ public class UnlockSystem : MonoBehaviour
             activeCyphers[0] = true;
             activeCyphers[1] = true;
 
+            boughtUpgrades = new bool[7]; // TODO grab the number of upgrades
+
             m_progress = Progress.START;
         } 
         else // Read the data from the savefile

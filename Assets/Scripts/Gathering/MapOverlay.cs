@@ -41,6 +41,8 @@ public class MapOverlay : MonoBehaviour
         m_areas.Add(m_areaBeachObj.GetComponent<MapArea>());
         m_areas.Add(m_areaVillageObj.GetComponent<MapArea>());
         m_areas.Add(m_areaMineObj.GetComponent<MapArea>());
+
+        UpdateAreas();
     }
 
 
@@ -68,6 +70,8 @@ public class MapOverlay : MonoBehaviour
 
     public void Select(int index)
     {
+        if (m_areas == null) SetupAreas();
+
         // Deselect every other area
         for (int i = 0; i < m_areas.Count; i++)
         {

@@ -252,12 +252,14 @@
 	"buffers":
 	[
 		{
-			"file": "/C/Users/Maaarco/AppData/LocalLow/DefaultCompany/Artifact Infuser/data.save",
+			"contents": "",
+			"file": "/C/Users/Maaarco/AppData/LocalLow/Marco Vincenzi/Artifact Infuser/data.save",
+			"file_size": -1,
+			"file_write_time": -1,
 			"settings":
 			{
-				"buffer_size": 9655,
-				"encoding": "Hexadecimal",
-				"line_ending": "Unix"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -556,11 +558,11 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Maaarco/AppData/LocalLow/DefaultCompany/Artifact Infuser/data.save",
+					"file": "/C/Users/Maaarco/AppData/LocalLow/Marco Vincenzi/Artifact Infuser/data.save",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9655,
+						"buffer_size": 0,
 						"regions":
 						{
 						},

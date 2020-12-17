@@ -12,13 +12,30 @@ public class Upgrades : MonoBehaviour
 
     private List<UpgradeButton> m_upgradeButtons;
 
-    public void Awake()
+    public void Init(SaveData saveData)
     {
         m_upgrades = new List<Upgrade>();
         boughtUpgrades = new List<Upgrade>();
 
         m_upgradeButtons = FindObjectsOfType<UpgradeButton>().ToList();
+
+        foreach (UpgradeButton upBtn in m_upgradeButtons)
+        {
+            upBtn.Init();
+        }
+
+
+        foreach (UpgradeButton upBtn in m_upgradeButtons)
+        {
+            upBtn.UpdateFromSave(saveData);
+        }
+
+        foreach (UpgradeButton upBtn in m_upgradeButtons)
+        {
+            upBtn.UpdateRequirements(m_upgradeButtons);
+        }
     }
+
 
      
     /// <summary>
@@ -51,6 +68,7 @@ public class Upgrades : MonoBehaviour
                 m_unlockSystem.Notify(upgrade);
                 upgrade.Buy();
                 boughtUpgrades.Add(upgrade);
+                m_unlockSystem.boughtUpgrades[upgrade.GetID()] = true;
                 m_gameController.UpdateResourceUILoss(upgrade);
 
 
@@ -61,8 +79,6 @@ public class Upgrades : MonoBehaviour
             }
         }
     }
-
-
 
 
     public Inventory ApplyBonuses(Inventory inv)
@@ -97,5 +113,6 @@ public class Upgrades : MonoBehaviour
     }
 
 
+    public Upgrade GetUpgrade(int id) => m_upgrades[id]; // TODO add checks
 
 }
