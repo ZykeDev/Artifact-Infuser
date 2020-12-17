@@ -104,5 +104,6 @@ public enum UnlockFeature
 {
 	NONE,
 	AUTOSELL,
-	INFUSER
+	INFUSER,
+	BLUEPRINTS_1
 }

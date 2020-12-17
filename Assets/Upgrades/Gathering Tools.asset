@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7dab3de99c0c404889b61122bb199d0, type: 3}
   m_Name: Gathering Tools
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 8dedc013e0a23bc4b844335cff23140a, type: 3}
   ID: 4
   requirements:
   - {fileID: 11400000, guid: e9c136c5541f636458ca167f7b22f6cf, type: 2}
   gold: 0
-  wood: 0
-  metal: 0
-  leather: 0
+  wood: 20
+  metal: 20
+  leather: 20
   crystals: 0
   alpha: 0
   nova: 0

@@ -23,6 +23,8 @@ public class AssistantRow : MonoBehaviour
     void Awake()
     {
         m_map = FindObjectOfType<MapOverlay>(); // TODO dont use find
+        m_map.Init();
+        UpdateDropdown();
     }
 
     public void Set(AssistantSystem assistantSystem, Assistant assistant)
@@ -99,6 +101,13 @@ public class AssistantRow : MonoBehaviour
     /// </summary>
     public void UpdateDropdown()
     {
+        if (m_map == null) return;
+
+        if (m_areaChoice.options.Count == m_map.GetActiveAreas().Count)
+        {
+            return;
+        }
+
         List<string> options = new List<string>();
 
         foreach (MapArea area in m_map.GetActiveAreas())

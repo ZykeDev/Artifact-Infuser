@@ -201,6 +201,12 @@ public class UnlockSystem : MonoBehaviour
         m_gameController.UnlockAssitant();
     }
 
+    private void UnlockBlueprint(int id)
+    {
+        activeBlueprints[id] = true;
+        m_gameController.UpdateActiveBlueprints();
+    }
+
 
     #region Notifications
 
@@ -260,6 +266,15 @@ public class UnlockSystem : MonoBehaviour
     
     public void Notify(Upgrade upgrade)
     {
+        // Check if the upgrade unlocks new blueprints
+        if (upgrade.GetEffect().GetFeature() == UnlockFeature.BLUEPRINTS_1)
+        {
+            UnlockBlueprint(2);
+            UnlockBlueprint(3);
+            return;
+        }
+
+        // Otherwise unlock whatever else
         switch (upgrade.GetID())
         {
             case 0: // ID of the first upgrade

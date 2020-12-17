@@ -100,7 +100,7 @@ public class Gathering : MonoBehaviour
     }
 
     public List<MapArea> GetAreas() => m_mapHandler.GetAreas();
-
+    
     #endregion
 
 

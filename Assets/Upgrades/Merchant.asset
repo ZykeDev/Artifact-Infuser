@@ -16,10 +16,10 @@ MonoBehaviour:
   ID: 3
   requirements:
   - {fileID: 11400000, guid: 2ad87fbef9a37574cb9360a1fbe013b4, type: 2}
-  gold: 0
+  gold: 50
   wood: 0
-  metal: 0
-  leather: 0
+  metal: 40
+  leather: 15
   crystals: 0
   alpha: 0
   nova: 0

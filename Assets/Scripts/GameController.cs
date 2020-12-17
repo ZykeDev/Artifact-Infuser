@@ -320,6 +320,7 @@ public class GameController : MonoBehaviour {
     public void UnlockInfusion() => m_tabHandler.UnlockInfusion();
     public void UpdateAreas() => m_gathering.UpdateAreas();
     public void UnlockAssitant() => m_gathering.UnlockAssistant();
+    public void UpdateActiveBlueprints() => m_crafterComp.UpdateActiveBlueprints();
 
     #endregion
 

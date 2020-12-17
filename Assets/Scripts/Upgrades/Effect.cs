@@ -206,5 +206,7 @@ public class Effect
 
     public EffectType GetEffectType() => m_type;
 
+    public UnlockFeature GetFeature() => m_feature;
+
     #endregion
 }

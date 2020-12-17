@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7dab3de99c0c404889b61122bb199d0, type: 3}
-  m_Name: Miner
+  m_Name: New Blueprints
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 9ae10913eeb71d148a6f25c8d88d7f37, type: 3}
-  ID: 1
+  sprite: {fileID: 0}
+  ID: 6
   requirements:
-  - {fileID: 11400000, guid: dd66dc9636ba3e9499d72b2e955a8439, type: 2}
-  gold: 0
-  wood: 0
+  - {fileID: 11400000, guid: be4870d234d66ea4ab321b057d3bbd46, type: 2}
+  gold: 50
+  wood: 50
   metal: 50
-  leather: 0
+  leather: 50
   crystals: 0
   alpha: 0
   nova: 0
   prisma: 0
-  dex: +10 Metal on gather
-  effectType: 1
-  effectBonus: 1
-  effectResource: 1
-  modifier: 10
-  feature: 0
+  dex: Unlocks 2 new blueprints
+  effectType: 4
+  effectBonus: 0
+  effectResource: 0
+  modifier: 0
+  feature: 3
   unlocked: 0

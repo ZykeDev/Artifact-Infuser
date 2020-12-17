@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade")]
 public class UpgradeData : ScriptableObject {
@@ -27,8 +28,8 @@ public class UpgradeData : ScriptableObject {
 
 
     private Effect effect;
-    public RequiredResources requiredResources;
-    public RequiredRunes requiredRunes;
+    [NonSerialized] public RequiredResources requiredResources;
+    [NonSerialized] public RequiredRunes requiredRunes;
 
 
     public void Init()

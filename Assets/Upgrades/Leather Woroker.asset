@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9c136c5541f636458ca167f7b22f6cf, type: 2}
   - {fileID: 11400000, guid: 7da32b2b18aa55c49a6c6f246ea7ef22, type: 2}
   gold: 5
-  wood: 0
+  wood: 40
   metal: 0
   leather: 10
   crystals: 0
@@ -26,9 +26,9 @@ MonoBehaviour:
   nova: 0
   prisma: 0
   dex: +10 Leather on gather
-  effectType: 0
-  effectBonus: 0
-  effectResource: 0
-  modifier: 0
+  effectType: 1
+  effectBonus: 1
+  effectResource: 2
+  modifier: 10
   feature: 0
   unlocked: 0

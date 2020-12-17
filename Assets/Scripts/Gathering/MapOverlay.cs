@@ -15,8 +15,13 @@ public class MapOverlay : MonoBehaviour
     [SerializeField] protected GameObject m_areaMineObj;
 
     private List<MapArea> m_areas;
-  
+
     void Awake()
+    {
+
+    }
+
+    public void Init()
     {
         SetupAreas();
         UpdateAreas();
@@ -48,7 +53,7 @@ public class MapOverlay : MonoBehaviour
         if (m_areas == null || m_areas.Count == 0)
         {
             SetupAreas();
-        } 
+        }
 
         for (int i = 0; i < m_areas.Count; i++)
         {
@@ -58,7 +63,7 @@ public class MapOverlay : MonoBehaviour
             }
         }
     }
-    
+
 
 
     public void Select(int index)
@@ -91,6 +96,10 @@ public class MapOverlay : MonoBehaviour
         return activeAreas;
     }
 
-    public List<MapArea> GetAreas() => m_areas;
+    public List<MapArea> GetAreas()
+    {
+        if (m_areas == null) SetupAreas();
+        return m_areas;
+    }
 
 }
