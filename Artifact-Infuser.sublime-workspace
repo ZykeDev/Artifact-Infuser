@@ -252,13 +252,11 @@
 	"buffers":
 	[
 		{
-			"contents": "",
-			"file": "/C/Users/Maaarco/AppData/LocalLow/Marco Vincenzi/Artifact Infuser/data.save",
-			"file_size": -1,
-			"file_write_time": -1,
+			"file": "/C/Users/Maaarco/Desktop/SaveSystem.jslib",
 			"settings":
 			{
 				"buffer_size": 0,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
@@ -335,6 +333,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Maaarco/AppData/LocalLow/Marco Vincenzi/Artifact Infuser/data.save",
 		"/C/Users/Maaarco/AppData/LocalLow/DefaultCompany/Artifact Infuser/data.save",
 		"/C/UnityProject/Artifact Infuser/Assets/Scripts/GameController.cs",
 		"/C/UnityProject/Artifact Infuser/Assets/Scripts/Enums.cs",
@@ -558,7 +557,7 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Maaarco/AppData/LocalLow/Marco Vincenzi/Artifact Infuser/data.save",
+					"file": "/C/Users/Maaarco/Desktop/SaveSystem.jslib",
 					"semi_transient": false,
 					"settings":
 					{

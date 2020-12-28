@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
@@ -41,7 +42,7 @@ public class GameController : MonoBehaviour {
         m_upgradesHandler = m_upgrades.GetComponent<Upgrades>();
 
         // Load the save file
-        SaveData saveData = Load();
+        SaveData saveData = SaveSystem.Load();
 
         inventory = new Inventory();
         armory = new Armory();
@@ -78,6 +79,7 @@ public class GameController : MonoBehaviour {
     }
 
 
+    public void ClearSave() => SaveSystem.ClearSave();
     public void SaveGame() => Save();
     public SaveData Save()
     {
@@ -96,16 +98,6 @@ public class GameController : MonoBehaviour {
         SaveSystem.Save(saveData);
 
         return saveData;
-    }
-
-    /// <summary>
-    /// Loads the default savefile. Returns null if none are found.
-    /// </summary>
-    private SaveData Load()
-    { 
-        SaveData data = SaveSystem.Load();
-
-        return data;
     }
 
 
