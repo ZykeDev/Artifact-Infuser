@@ -8,12 +8,13 @@ public static class SaveSystem
 {
     private static string path;
     private static readonly string defaultSavefile = "/data.save";
-    
-    // Import JS functions to save the game through the browser
+
+#if UNITY_WEBGL
+    // Import JS functions to save the game on the WebGL build
     [DllImport("__Internal")] private static extern void SaveGame(string saveData);
     [DllImport("__Internal")] private static extern string LoadGame();
     [DllImport("__Internal")] private static extern void ClearGameSave();
-
+#endif
 
     public static void Save(SaveData saveData)
     {
