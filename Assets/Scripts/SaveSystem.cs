@@ -2,7 +2,6 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.InteropServices;
-using System;
 
 public static class SaveSystem
 {
@@ -11,9 +10,9 @@ public static class SaveSystem
 
 #if UNITY_WEBGL
     // Import JS functions to save the game on the WebGL build
-    [DllImport("__Internal")] private static extern void SaveGame(string saveData);
-    [DllImport("__Internal")] private static extern string LoadGame();
-    [DllImport("__Internal")] private static extern void ClearGameSave();
+    [DllImport("__Internal")] private static extern void SaveGameJS(string saveData);
+    [DllImport("__Internal")] private static extern string LoadGameJS();
+    [DllImport("__Internal")] private static extern void ClearSaveJS();
 #endif
 
     public static void Save(SaveData saveData)
@@ -63,7 +62,7 @@ public static class SaveSystem
 
     private static SaveData LoadWeb()
     {
-        string jsonSaveData = LoadGame();
+        string jsonSaveData = LoadGameJS();
 
         // Return null if no save was found
         if (jsonSaveData == null || jsonSaveData == "") return null;
@@ -109,7 +108,7 @@ public static class SaveSystem
     private static void SaveWeb(SaveData saveData)
     {
         string jsonSaveData = JsonUtility.ToJson(saveData);
-        SaveGame(jsonSaveData);
+        SaveGameJS(jsonSaveData);
 
         /* Deprecated
         MemoryStream stream = new MemoryStream();
@@ -136,5 +135,5 @@ public static class SaveSystem
     }
 
 
-    public static void ClearSave() => ClearGameSave();
+    public static void ClearSave() => ClearSaveJS();
 }

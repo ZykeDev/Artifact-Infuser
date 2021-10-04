@@ -1,23 +1,22 @@
 
 mergeInto(LibraryManager.library, {
 
-  SaveGame: function(saveString) {
-    saveString = Pointer_stringify(saveString);
-
-    console.log("Saving");
-    console.log(saveString);
-    console.log("------------------");
-
-    localStorage.setItem("artinfSave", saveString);
+  SaveGameJS: function(saveString) {
+    if (saveString != null) {
+        saveString = Pointer_stringify(saveString);
+        localStorage.setItem("artinfSave", saveString);
+    }
   },
 
-  LoadGame: function() {
-    console.log("Loading game from " + "artinfSave");
-
+  LoadGameJS: function() {
     var saveString = localStorage.getItem("artinfSave");
-    console.log("Loading");
-    console.log(saveString);
-    console.log("------------------");
+    
+    if (saveString == null) {
+        console.log("No savefile found.");
+        return ""; 
+    }
+
+    console.log("Loaded " + saveString);
 
     var bufferSize = lengthBytesUTF8(saveString) + 1;
     var buffer = _malloc(bufferSize);
@@ -30,5 +29,6 @@ mergeInto(LibraryManager.library, {
     localStorage.setItem("artinfSave", "");
     console.log("Save cleared.");
   }
+
 
 });
